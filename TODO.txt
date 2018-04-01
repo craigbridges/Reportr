@@ -1,0 +1,18 @@
+TODO:
+-----
+
+- Finish IReport
+	- Create default IReport implementation
+
+- Finish ReportSection
+
+- Design report filtering / sorting / generation mechanisms
+
+- Consider how report rendering could work (with different section templates etc)
+
+Low Priority:
+-------------
+
+- Integrate with Nettle
+
+- Create report builder with storage mechanism
