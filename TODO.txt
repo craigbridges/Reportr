@@ -8,7 +8,9 @@ TODO:
 
 - Design report filtering / sorting / generation mechanisms
 
-- Consider how report rendering could work (with different section templates etc)
+- Design report auto export mechanism (e.g. CSV, XML, JSON etc)
+
+- Consider how report rendering could work (with different report and section templates etc)
 
 Low Priority:
 -------------

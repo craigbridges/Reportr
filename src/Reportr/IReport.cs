@@ -1,4 +1,4 @@
-﻿namespace Reportr.Reporting
+﻿namespace Reportr
 {
     using System.Globalization;
 
@@ -27,6 +27,11 @@
         /// Gets the reports name
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// Gets the name of the template assigned to the report
+        /// </summary>
+        string TemplateName { get; }
 
         /// <summary>
         /// Gets the reports title

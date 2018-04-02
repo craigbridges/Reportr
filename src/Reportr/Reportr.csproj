@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filtering\IReportFilter.cs" />
     <Compile Include="IReportComponent.cs" />
     <Compile Include="Metrics\ChartDataPoint.cs" />
     <Compile Include="Metrics\ChartDataSet.cs" />
@@ -61,10 +62,19 @@
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Querying\QueryRow.cs" />
     <Compile Include="OutputResult.cs" />
-    <Compile Include="Reporting\IReport.cs" />
-    <Compile Include="Reporting\ReportSection.cs" />
+    <Compile Include="IReport.cs" />
+    <Compile Include="ReportSection.cs" />
+    <Compile Include="Templates\IReportSectionTemplateRepository.cs" />
+    <Compile Include="Templates\IReportTemplateRepository.cs" />
+    <Compile Include="Templates\ITemplateRepository.cs" />
+    <Compile Include="Templates\ReportSectionTemplate.cs" />
+    <Compile Include="Templates\Template.cs" />
+    <Compile Include="Templates\ReportTemplate.cs" />
+    <Compile Include="Templates\TemplateOutputType.cs" />
     <Compile Include="Validate.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Exporting\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
