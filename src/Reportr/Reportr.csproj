@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Filtering\IReportFilter.cs" />
+    <Compile Include="IReportFilter.cs" />
+    <Compile Include="IReportComponent.T1.cs" />
+    <Compile Include="IReportComponentOutput.cs" />
     <Compile Include="IReportComponent.cs" />
     <Compile Include="Metrics\ChartDataPoint.cs" />
     <Compile Include="Metrics\ChartDataSet.cs" />
@@ -61,9 +63,12 @@
     <Compile Include="Querying\QueryColumnInfo.cs" />
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Querying\QueryRow.cs" />
-    <Compile Include="OutputResult.cs" />
+    <Compile Include="ReportComponentOutput.cs" />
     <Compile Include="IReport.cs" />
+    <Compile Include="IReportOutput.cs" />
+    <Compile Include="ReportOutput.cs" />
     <Compile Include="ReportSection.cs" />
+    <Compile Include="IReportSection.cs" />
     <Compile Include="Templates\IReportSectionTemplateRepository.cs" />
     <Compile Include="Templates\IReportTemplateRepository.cs" />
     <Compile Include="Templates\ITemplateRepository.cs" />

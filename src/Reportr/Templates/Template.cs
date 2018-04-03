@@ -18,12 +18,14 @@
         /// Constructs the template with the details
         /// </summary>
         /// <param name="name">The template name</param>
-        /// <param name="content">The template content</param>
+        /// <param name="mainContent">The main content</param>
+        /// <param name="printableContent">The printable content</param>
         /// <param name="outputType">The output type (optional)</param>
         public Template
             (
                 string name,
-                string content,
+                string mainContent,
+                string printableContent,
                 TemplateOutputType outputType = TemplateOutputType.Html
             )
         {
@@ -34,7 +36,8 @@
 
             SetContent
             (
-                content,
+                mainContent,
+                printableContent,
                 outputType
             );
         }
@@ -45,9 +48,14 @@
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the template content
+        /// Gets the main template content
         /// </summary>
-        public string Content { get; private set; }
+        public string MainContent { get; private set; }
+
+        /// <summary>
+        /// Gets the printable template content
+        /// </summary>
+        public string PrintableContent { get; private set; }
 
         /// <summary>
         /// Gets the template output type
@@ -62,20 +70,23 @@
         /// <summary>
         /// Gets the date and time the template was modified
         /// </summary>
-        public DateTime DateModified { get; private set; }
+        public DateTime DateModified { get; protected set; }
 
         /// <summary>
         /// Sets the templates content
         /// </summary>
-        /// <param name="content">The content</param>
+        /// <param name="mainContent">The main content</param>
+        /// <param name="printableContent">The printable content</param>
         /// <param name="outputType">The output type (optional)</param>
         public void SetContent
             (
-                string content,
+                string mainContent,
+                string printableContent,
                 TemplateOutputType outputType = TemplateOutputType.Html
             )
         {
-            this.Content = content;
+            this.MainContent = mainContent;
+            this.PrintableContent = printableContent;
             this.OutputType = outputType;
             this.DateModified = DateTime.UtcNow;
         }

@@ -1,9 +1,9 @@
 ﻿namespace Reportr
 {
     /// <summary>
-    /// Represents a base class for the output result of an execution
+    /// Represents a base class for the report component output
     /// </summary>
-    public abstract class OutputResult : IReportComponent
+    public abstract class ReportComponentOutput : IReportComponentOutput
     {
         /// <summary>
         /// Constructs the result with the details
@@ -11,7 +11,7 @@
         /// <param name="executionTime">The execution time in milliseconds</param>
         /// <param name="success">True, if the query executed successfully</param>
         /// <param name="errorMessage">The error message, if there was one</param>
-        protected OutputResult
+        protected ReportComponentOutput
             (
                 int executionTime,
                 bool success = true,

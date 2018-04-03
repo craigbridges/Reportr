@@ -5,7 +5,7 @@
     /// <summary>
     /// Represents the result of a single statistic
     /// </summary>
-    public class StatisticResult : OutputResult
+    public class StatisticResult : ReportComponentOutput
     {
         /// <summary>
         /// Constructs the statistic result with the details

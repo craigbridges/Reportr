@@ -4,8 +4,6 @@ TODO:
 - Finish IReport
 	- Create default IReport implementation
 
-- Finish ReportSection
-
 - Design report filtering / sorting / generation mechanisms
 
 - Design report auto export mechanism (e.g. CSV, XML, JSON etc)

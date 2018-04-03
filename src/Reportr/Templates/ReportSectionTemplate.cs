@@ -9,16 +9,23 @@
         /// Constructs the template with the details
         /// </summary>
         /// <param name="name">The template name</param>
-        /// <param name="content">The template content</param>
+        /// <param name="mainContent">The main content</param>
+        /// <param name="printableContent">The printable content</param>
         /// <param name="outputType">The output type (optional)</param>
         public ReportSectionTemplate
             (
                 string name,
-                string content,
+                string mainContent,
+                string printableContent,
                 TemplateOutputType outputType = TemplateOutputType.Html
             )
-
-            : base(name, content, outputType)
+            : base
+            (
+                name,
+                mainContent,
+                printableContent,
+                outputType
+            )
         { }
     }
 }

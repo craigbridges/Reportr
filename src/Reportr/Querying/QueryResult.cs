@@ -8,7 +8,7 @@
     /// <summary>
     /// Represents the result of the execution of a query
     /// </summary>
-    public class QueryResult : OutputResult, IEnumerable<QueryRow>
+    public class QueryResult : ReportComponentOutput, IEnumerable<QueryRow>
     {
         /// <summary>
         /// Constructs the query result with the details

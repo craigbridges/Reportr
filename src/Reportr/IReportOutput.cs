@@ -1,19 +1,12 @@
 ﻿namespace Reportr
 {
+    using Reportr.Templates;
     using System.Globalization;
-
+    
     /// <summary>
-    /// Defines a contract for a report
+    /// Defines a contract for the output of a report
     /// </summary>
-    /// <remarks>
-    /// A report is built up of a collection of sections that fit
-    /// into a predefined number of columns.
-    /// 
-    /// Each section contains a single component 
-    /// (chart, statistic or query) and can have multiple templates 
-    /// for different types of output formats (e.g. HTML, CSV etc).
-    /// </remarks>
-    public interface IReport
+    public interface IReportOutput
     {
         /// <summary>
         /// Gets the reports name
@@ -31,10 +24,10 @@
         string Description { get; }
 
         /// <summary>
-        /// Gets or sets the current culture used by the report
+        /// Gets the culture used by the report
         /// </summary>
-        CultureInfo CurrentCulture { get; set; }
-        
+        CultureInfo Culture { get; }
+
         /// <summary>
         /// Gets the number of columns in the report
         /// </summary>
@@ -50,29 +43,23 @@
         int? ColumnCount { get; }
 
         /// <summary>
-        /// Gets the name of the template assigned to the report
+        /// Gets an array of the reports section outputs
         /// </summary>
-        string TemplateName { get; }
+        IReportComponentOutput[] SectionOutputs { get; }
 
         /// <summary>
-        /// Gets an array of sections in the report
+        /// Gets the reports rendered content
         /// </summary>
-        IReportSection[] Sections { get; }
+        string RenderedContent { get; }
 
         /// <summary>
-        /// Runs the report using the default filter
+        /// Gets the reports rendered content type
         /// </summary>
-        /// <returns>The report output</returns>
-        ReportOutput Run();
+        TemplateOutputType? RenderedContentType { get; }
 
         /// <summary>
-        /// Runs the report using the filter specified
+        /// Gets a flag indicating if then rendered content has been set
         /// </summary>
-        /// <param name="filter">The filter</param>
-        /// <returns>The report output</returns>
-        ReportOutput Run
-        (
-            IReportFilter filter
-        );
+        bool HasRenderedContent { get; }
     }
 }

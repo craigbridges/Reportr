@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents a single two-dimensional chart result
     /// </summary>
-    public class ChartResult : OutputResult
+    public class ChartResult : ReportComponentOutput
     {
         /// <summary>
         /// Constructs the chart with the chart configuration
