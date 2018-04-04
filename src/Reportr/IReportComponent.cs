@@ -1,7 +1,5 @@
 ﻿namespace Reportr
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Defines a contract for a single report component
     /// </summary>
@@ -11,6 +9,11 @@
         /// Gets the name of the component
         /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// Gets the report component type
+        /// </summary>
+        ReportComponentType ComponentType { get; }
 
         /// <summary>
         /// Gets an array of parameters accepted by the component
@@ -24,7 +27,7 @@
         /// <returns>The output generated</returns>
         IReportComponentOutput Execute
         (
-            Dictionary<string, object> parameterValues
+            params ParameterValue[] parameterValues
         );
     }
 }

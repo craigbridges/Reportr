@@ -1,13 +1,7 @@
 TODO:
 -----
 
-- Finish IReport
-	- Create default IReport implementation
-
-- IReportOutput
-	- Add execution results (time taken and any errors raised in collection)
-
-- Design report filtering / sorting / generation mechanisms
+- Create default IReport implementation
 
 - Design report auto export mechanism (e.g. CSV, XML, JSON etc)
 

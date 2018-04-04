@@ -55,6 +55,7 @@
     <Compile Include="Metrics\StatisticResult.cs" />
     <Compile Include="Metrics\StatisticType.cs" />
     <Compile Include="ParameterInfo.cs" />
+    <Compile Include="ParameterValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Querying\IQuery.cs" />
     <Compile Include="Querying\IQueryRepository.cs" />
@@ -63,12 +64,15 @@
     <Compile Include="Querying\QueryColumnInfo.cs" />
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Querying\QueryRow.cs" />
+    <Compile Include="Querying\QuerySortingRule.cs" />
     <Compile Include="ReportComponentOutput.cs" />
     <Compile Include="IReport.cs" />
     <Compile Include="IReportOutput.cs" />
+    <Compile Include="ReportComponentType.cs" />
     <Compile Include="ReportOutput.cs" />
     <Compile Include="ReportSection.cs" />
     <Compile Include="IReportSection.cs" />
+    <Compile Include="SortDirection.cs" />
     <Compile Include="Templates\IReportSectionTemplateRepository.cs" />
     <Compile Include="Templates\IReportTemplateRepository.cs" />
     <Compile Include="Templates\ITemplateRepository.cs" />

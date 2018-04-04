@@ -10,21 +10,31 @@
         /// <summary>
         /// Constructs the statistic result with the details
         /// </summary>
+        /// <param name="statistic">The statistic that generated the result</param>
         /// <param name="value">The value calculated</param>
         /// <param name="executionTime">The execution time in milliseconds</param>
         /// <param name="success">True, if the query executed successfully</param>
         /// <param name="errorMessage">The error message, if there was one</param>
         public StatisticResult
             (
+                IStatistic statistic,
                 double value,
                 int executionTime,
                 bool success = true,
                 string errorMessage = null
             )
-
-            : base(executionTime, success, errorMessage)
+            : base
+            (
+                statistic,
+                executionTime,
+                success,
+                errorMessage
+            )
         {
+            Validate.IsNotNull(statistic);
+
             this.Value = value;
+            this.HasRange = false;
         }
 
         /// <summary>

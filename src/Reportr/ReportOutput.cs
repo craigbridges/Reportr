@@ -1,8 +1,10 @@
 ﻿namespace Reportr
 {
     using Reportr.Templates;
+    using System.Collections.Generic;
     using System.Globalization;
-    
+    using System.Linq;
+
     /// <summary>
     /// Represents the default implementation for a report output
     /// </summary>
@@ -28,6 +30,8 @@
             this.Culture = report.CurrentCulture;
             this.ColumnCount = report.ColumnCount;
             this.SectionOutputs = sectionOutputs;
+
+            SetResults(sectionOutputs);
         }
 
         /// <summary>
@@ -101,6 +105,65 @@
             this.HasRenderedContent = true;
 
             return this;
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if the report ran successfully
+        /// </summary>
+        public bool Success { get; private set; }
+
+        /// <summary>
+        /// Gets the reports execution time
+        /// </summary>
+        public int ExecutionTime { get; private set; }
+
+        /// <summary>
+        /// Gets any error messages that were generated
+        /// </summary>
+        /// <remarks>
+        /// The error messages are grouped by component name.
+        /// </remarks>
+        public Dictionary<string, string> ErrorMessages
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Sets the report results from the section outputs
+        /// </summary>
+        /// <param name="sectionOutputs">The section outputs</param>
+        private void SetResults
+            (
+                params IReportComponentOutput[] sectionOutputs
+            )
+        {
+            Validate.IsNotNull(sectionOutputs);
+            
+            var success = sectionOutputs.All
+            (
+                output => output.Success
+            );
+
+            var executionTime = sectionOutputs.Sum
+            (
+                output => output.ExecutionTime
+            );
+
+            var errorMessages = new Dictionary<string, string>();
+
+            foreach (var output in sectionOutputs)
+            {
+                errorMessages.Add
+                (
+                    output.ComponentName,
+                    output.ErrorMessage
+                );
+            }
+
+            this.Success = success;
+            this.ExecutionTime = executionTime;
+            this.ErrorMessages = errorMessages;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Reportr
 {
     using Reportr.Templates;
+    using System.Collections.Generic;
     using System.Globalization;
     
     /// <summary>
@@ -61,5 +62,23 @@
         /// Gets a flag indicating if then rendered content has been set
         /// </summary>
         bool HasRenderedContent { get; }
+
+        /// <summary>
+        /// Gets a flag indicating if the report ran successfully
+        /// </summary>
+        bool Success { get; }
+
+        /// <summary>
+        /// Gets the reports execution time
+        /// </summary>
+        int ExecutionTime { get; }
+
+        /// <summary>
+        /// Gets any error messages that were generated
+        /// </summary>
+        /// <remarks>
+        /// The error messages are grouped by component name.
+        /// </remarks>
+        Dictionary<string, string> ErrorMessages { get; }
     }
 }

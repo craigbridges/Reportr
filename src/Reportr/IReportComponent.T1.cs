@@ -1,7 +1,5 @@
 ﻿namespace Reportr
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Defines a contract for a single report component
     /// </summary>
@@ -15,7 +13,7 @@
         /// <returns>The output generated</returns>
         new TOutput Execute
         (
-            Dictionary<string, object> parameterValues
+            params ParameterValue[] parameterValues
         );
     }
 }

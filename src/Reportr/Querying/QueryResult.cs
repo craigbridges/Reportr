@@ -13,18 +13,27 @@
         /// <summary>
         /// Constructs the query result with the details
         /// </summary>
+        /// <param name="query">The query that generated the result</param>
         /// <param name="executionTime">The execution time in milliseconds</param>
         /// <param name="success">True, if the query executed successfully</param>
         /// <param name="errorMessage">The error message, if there was one</param>
         public QueryResult
             (
+                IQuery query,
                 int executionTime,
                 bool success = true,
                 string errorMessage = null
             )
-
-            : base(executionTime, success, errorMessage)
+            : base
+            (
+                query,
+                executionTime,
+                success,
+                errorMessage
+            )
         {
+            Validate.IsNotNull(query);
+
             this.Columns = new QueryColumnInfo[] { };
             this.Rows = new QueryRow[] { };
         }

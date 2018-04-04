@@ -12,34 +12,42 @@
         /// <summary>
         /// Constructs the chart with the chart configuration
         /// </summary>
-        /// <param name="dataSets">The data sets</param>
+        /// <param name="chart">The chart that generated the result</param>
         /// <param name="executionTime">The execution time in milliseconds</param>
         /// <param name="success">True, if the query executed successfully</param>
         /// <param name="errorMessage">The error message, if there was one</param>
         public ChartResult
             (
-                IEnumerable<ChartDataSet> dataSets,
+                IChart chart,
                 int executionTime,
                 bool success = true,
                 string errorMessage = null
             )
-
-            : base(executionTime, success, errorMessage)
+            : base
+            (
+                chart,
+                executionTime,
+                success,
+                errorMessage
+            )
         {
-            Validate.IsNotNull(dataSets);
+            Validate.IsNotNull(chart);
 
-            AddDataSets(dataSets);
+            this.DataSets = new ChartDataSet[] { };
         }
 
         /// <summary>
         /// Adds the charts data sets against the result
         /// </summary>
         /// <param name="dataSets">The data sets</param>
-        private void AddDataSets
+        /// <returns>The updated chart</returns>
+        public ChartResult WithDataSets
             (
-                IEnumerable<ChartDataSet> dataSets
+                params ChartDataSet[] dataSets
             )
         {
+            Validate.IsNotNull(dataSets);
+
             if (false == dataSets.Any())
             {
                 throw new ArgumentException
@@ -48,7 +56,7 @@
                 );
             }
 
-            foreach (var set in dataSets.ToList())
+            foreach (var set in dataSets)
             {
                 var name = set.Name;
 
@@ -68,7 +76,9 @@
                 }
             }
 
-            this.DataSets = dataSets.ToArray();
+            this.DataSets = dataSets;
+
+            return this;
         }
         
         /// <summary>

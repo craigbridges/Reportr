@@ -60,6 +60,17 @@
         IReportSection[] Sections { get; }
 
         /// <summary>
+        /// Gets an array of filter parameters for the report
+        /// </summary>
+        ParameterInfo[] FilterParameters { get; }
+
+        /// <summary>
+        /// Generates a default filter for the report
+        /// </summary>
+        /// <returns>The filter generated</returns>
+        IReportFilter GenerateDefaultFilter();
+
+        /// <summary>
         /// Runs the report using the default filter
         /// </summary>
         /// <returns>The report output</returns>
