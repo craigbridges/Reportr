@@ -1,7 +1,7 @@
 ﻿namespace Reportr
 {
-    using Reportr.Templates;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
 
@@ -24,9 +24,9 @@
             Validate.IsNotNull(report);
             Validate.IsNotNull(sectionOutputs);
 
-            this.Name = report.Name;
-            this.Title = report.Title;
-            this.Description = report.Description;
+            this.ReportName = report.Name;
+            this.ReportTitle = report.Title;
+            this.ReportDescription = report.Description;
             this.Culture = report.CurrentCulture;
             this.SectionOutputs = sectionOutputs;
 
@@ -36,72 +36,50 @@
         /// <summary>
         /// Gets the reports name
         /// </summary>
-        public string Name { get; private set; }
+        public string ReportName { get; private set; }
 
         /// <summary>
         /// Gets the reports title
         /// </summary>
-        public string Title { get; private set; }
+        public string ReportTitle { get; private set; }
 
         /// <summary>
         /// Gets the reports description
         /// </summary>
-        public string Description { get; private set; }
+        public string ReportDescription { get; private set; }
 
         /// <summary>
         /// Gets the culture used by the report
         /// </summary>
         public CultureInfo Culture { get; private set; }
-        
-        /// <summary>
-        /// Gets an array of the reports section outputs
-        /// </summary>
-        public IReportComponentOutput[] SectionOutputs { get; private set; }
 
         /// <summary>
-        /// Gets the name of the template used to render the report
+        /// Gets the filter that was used to generate the report
         /// </summary>
-        public string TemplateName { get; private set; }
+        public IReportFilter FilterUsed { get; private set; }
 
         /// <summary>
-        /// Gets the reports rendered content
+        /// Adds the filter used to the report output
         /// </summary>
-        public string RenderedContent { get; private set; }
-
-        /// <summary>
-        /// Gets the reports rendered content type
-        /// </summary>
-        public TemplateOutputType? RenderedContentType { get; private set; }
-        
-        /// <summary>
-        /// Gets a flag indicating if then rendered content has been set
-        /// </summary>
-        public bool HasRenderedContent { get; private set; }
-
-        /// <summary>
-        /// Adds the rendered content to the report output
-        /// </summary>
-        /// <param name="templateName">The name of the template used</param>
-        /// <param name="renderedContent">The rendered content</param>
-        /// <param name="renderedContentType">The content type</param>
+        /// <param name="filter">The filter that was used</param>
         /// <returns>The updated report output</returns>
-        public ReportOutput WithContent
+        public ReportOutput WithFilter
             (
-                string templateName,
-                string renderedContent,
-                TemplateOutputType renderedContentType
+                IReportFilter filter
             )
         {
-            Validate.IsNotEmpty(templateName);
+            Validate.IsNotNull(filter);
 
-            this.TemplateName = templateName;
-            this.RenderedContent = renderedContent;
-            this.RenderedContentType = renderedContentType;
-            this.HasRenderedContent = true;
+            this.FilterUsed = filter;
 
             return this;
         }
 
+        /// <summary>
+        /// Gets an array of the reports section outputs
+        /// </summary>
+        public IReportComponentOutput[] SectionOutputs { get; private set; }
+        
         /// <summary>
         /// Gets a flag indicating if the report ran successfully
         /// </summary>
@@ -116,9 +94,9 @@
         /// Gets any error messages that were generated
         /// </summary>
         /// <remarks>
-        /// The error messages are grouped by component name.
+        /// The error messages are grouped by error code.
         /// </remarks>
-        public Dictionary<string, string> ErrorMessages
+        public IDictionary<string, string> ErrorMessages
         {
             get;
             private set;
@@ -147,18 +125,29 @@
 
             var errorMessages = new Dictionary<string, string>();
 
+            // Aggregate the error messages from all component outputs
             foreach (var output in sectionOutputs)
             {
-                errorMessages.Add
-                (
-                    output.ComponentName,
-                    output.ErrorMessage
-                );
+                if (output.ErrorMessages != null)
+                {
+                    foreach (var error in output.ErrorMessages)
+                    {
+                        errorMessages.Add
+                        (
+                            error.Key,
+                            error.Value
+                        );
+                    }
+                }
             }
 
             this.Success = success;
             this.ExecutionTime = executionTime;
-            this.ErrorMessages = errorMessages;
+
+            this.ErrorMessages = new ReadOnlyDictionary<string, string>
+            (
+                errorMessages
+            );
         }
     }
 }

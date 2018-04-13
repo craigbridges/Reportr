@@ -65,14 +65,14 @@
         /// Runs the report using the default filter
         /// </summary>
         /// <returns>The report output</returns>
-        ReportOutput Run();
+        IReportOutput Run();
 
         /// <summary>
         /// Runs the report using the filter specified
         /// </summary>
         /// <param name="filter">The filter</param>
         /// <returns>The report output</returns>
-        ReportOutput Run
+        IReportOutput Run
         (
             IReportFilter filter
         );

@@ -14,13 +14,11 @@
         /// <param name="component">The component that generated the output</param>
         /// <param name="executionTime">The execution time in milliseconds</param>
         /// <param name="success">True, if the query executed successfully</param>
-        /// <param name="errorMessage">The error message, if there was one</param>
         protected ReportComponentOutput
             (
                 IReportComponent component,
                 int executionTime,
-                bool success = true,
-                string errorMessage = null
+                bool success = true
             )
         {
             Validate.IsNotNull(component);
@@ -29,7 +27,6 @@
             this.ComponentType = component.ComponentType;
             this.ExecutionTime = executionTime;
             this.Success = success;
-            this.ErrorMessage = errorMessage;
         }
 
         /// <summary>
@@ -53,9 +50,32 @@
         public bool Success { get; private set; }
 
         /// <summary>
-        /// Gets the error message that was generated
+        /// Adds the error messages to the report component output
         /// </summary>
-        public string ErrorMessage { get; private set; }
+        /// <param name="errors">The error messages to add</param>
+        /// <returns>The updated component output</returns>
+        public ReportComponentOutput WithErrors
+            (
+                IDictionary<string, string> errors
+            )
+        {
+            Validate.IsNotNull(errors);
+
+            this.ErrorMessages = new ReadOnlyDictionary<string, string>
+            (
+                errors
+            );
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets any error messages that were generated
+        /// </summary>
+        /// <remarks>
+        /// The error messages are grouped by error code.
+        /// </remarks>
+        public IDictionary<string, string> ErrorMessages { get; private set; }
 
         /// <summary>
         /// Adds the fields to the report component output

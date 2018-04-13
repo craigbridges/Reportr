@@ -46,6 +46,7 @@
     <Compile Include="Graphics\GraphicOverlay.cs" />
     <Compile Include="Graphics\GraphicResult.cs" />
     <Compile Include="Graphics\IGraphic.cs" />
+    <Compile Include="IReportResult.cs" />
     <Compile Include="IReportFilter.cs" />
     <Compile Include="IReportComponent.T1.cs" />
     <Compile Include="IReportComponentOutput.cs" />
@@ -71,6 +72,9 @@
     <Compile Include="Querying\QueryResult.cs" />
     <Compile Include="Querying\QueryRow.cs" />
     <Compile Include="Querying\QuerySortingRule.cs" />
+    <Compile Include="Rendering\IRenderedReport.cs" />
+    <Compile Include="Rendering\IReportRenderer.cs" />
+    <Compile Include="Rendering\RenderedReport.cs" />
     <Compile Include="ReportComponentOutput.cs" />
     <Compile Include="IReport.cs" />
     <Compile Include="IReportOutput.cs" />

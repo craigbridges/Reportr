@@ -14,20 +14,17 @@
         /// <param name="graphic">The graphic that generated the result</param>
         /// <param name="executionTime">The execution time in milliseconds</param>
         /// <param name="success">True, if the query executed successfully</param>
-        /// <param name="errorMessage">The error message, if there was one</param>
         public GraphicResult
             (
                 IGraphic graphic,
                 int executionTime,
-                bool success = true,
-                string errorMessage = null
+                bool success = true
             )
             : base
             (
                 graphic,
                 executionTime,
-                success,
-                errorMessage
+                success
             )
         {
             Validate.IsNotNull(graphic);

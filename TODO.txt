@@ -7,6 +7,7 @@ TODO:
 	- Create new report section concept which is used to vertically split the report (into rows) and this becomes (optional header, footer etc) with mandatory detail section
 
 - Design report auto export mechanism (e.g. CSV, XML, JSON etc)
+	- See https://github.com/danielpalme/ReportGenerator
 
 - Consider how report rendering could work (with different report and section templates etc)
 	- Remove association between report/section and template
@@ -14,6 +15,7 @@ TODO:
 		- Then each template can specify an output type (e.g. HTML)
 		- Each template then has a nested collection of templates for sections and report items (of each type - i.e. one for each type of Chart, queries etc)
 		- So when you specify a template at render time, it knows what templates to use for every type of child component
+		- Refactor templates and abstract into interfaces
 
 - Consider data sources
 
