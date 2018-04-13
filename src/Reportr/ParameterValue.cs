@@ -52,7 +52,7 @@
         {
             if (value == null)
             {
-                if (parameterInfo.IsRequired)
+                if (parameterInfo.ValueRequired)
                 {
                     var message = "A value for the parameter '{0}' is required.";
 

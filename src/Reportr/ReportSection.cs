@@ -21,6 +21,7 @@
 
             this.Name = name;
             this.Component = component;
+            this.NestedSections = new IReportSection[] { };
         }
 
         /// <summary>
@@ -32,16 +33,6 @@
         /// Gets the component associated with the section
         /// </summary>
         public IReportComponent Component { get; private set; }
-
-        /// <summary>
-        /// Gets the sections title
-        /// </summary>
-        public string Title { get; private set; }
-
-        /// <summary>
-        /// Gets the sections description
-        /// </summary>
-        public string Description { get; private set; }
 
         /// <summary>
         /// Adds the descriptors to the report section
@@ -64,65 +55,35 @@
         }
 
         /// <summary>
-        /// Gets the sections column span
+        /// Gets the sections title
         /// </summary>
-        public int? ColumnSpan { get; private set; }
+        public string Title { get; private set; }
 
         /// <summary>
-        /// Gets the name of the template assigned to the section
+        /// Gets the sections description
         /// </summary>
-        public string TemplateName { get; private set; }
+        public string Description { get; private set; }
 
         /// <summary>
-        /// Adds the column span to the report section
+        /// Adds nested sections to the report section
         /// </summary>
-        /// <param name="columnSpan">The column span</param>
+        /// <param name="sections">The nested sections to add</param>
         /// <returns>The updated report section</returns>
-        public ReportSection WithLayout
+        public ReportSection WithNestedSections
             (
-                int columnSpan
+                params IReportSection[] sections
             )
         {
-            this.ColumnSpan = columnSpan;
+            Validate.IsNotNull(sections);
+
+            this.NestedSections = sections;
 
             return this;
         }
 
         /// <summary>
-        /// Adds the template name to the report section
+        /// Gets an array of nested report sections
         /// </summary>
-        /// <param name="templateName">The template name</param>
-        /// <returns>The updated report section</returns>
-        public ReportSection WithLayout
-            (
-                string templateName
-            )
-        {
-            Validate.IsNotEmpty(templateName);
-
-            this.TemplateName = templateName;
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds the layout details to the report section
-        /// </summary>
-        /// <param name="columnSpan">The column span</param>
-        /// <param name="templateName">The template name</param>
-        /// <returns>The updated report section</returns>
-        public ReportSection WithLayout
-            (
-                int columnSpan,
-                string templateName
-            )
-        {
-            Validate.IsNotEmpty(templateName);
-
-            this.ColumnSpan = columnSpan;
-            this.TemplateName = templateName;
-
-            return this;
-        }
+        public IReportSection[] NestedSections { get; private set; }
     }
 }

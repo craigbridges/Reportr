@@ -28,7 +28,6 @@
             this.Title = report.Title;
             this.Description = report.Description;
             this.Culture = report.CurrentCulture;
-            this.ColumnCount = report.ColumnCount;
             this.SectionOutputs = sectionOutputs;
 
             SetResults(sectionOutputs);
@@ -53,25 +52,16 @@
         /// Gets the culture used by the report
         /// </summary>
         public CultureInfo Culture { get; private set; }
-
-        /// <summary>
-        /// Gets the number of columns in the report
-        /// </summary>
-        /// <remarks>
-        /// The column count is used to determine how the report
-        /// is laid out. A column count of 1 indicates that each
-        /// section will appear on a separate row.
-        /// 
-        /// Reports with column counts greater than 1 will 
-        /// automatically push sections onto new rows once the
-        /// column count has been reached.
-        /// </remarks>
-        public int? ColumnCount { get; private set; }
-
+        
         /// <summary>
         /// Gets an array of the reports section outputs
         /// </summary>
         public IReportComponentOutput[] SectionOutputs { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the template used to render the report
+        /// </summary>
+        public string TemplateName { get; private set; }
 
         /// <summary>
         /// Gets the reports rendered content
@@ -91,15 +81,20 @@
         /// <summary>
         /// Adds the rendered content to the report output
         /// </summary>
+        /// <param name="templateName">The name of the template used</param>
         /// <param name="renderedContent">The rendered content</param>
         /// <param name="renderedContentType">The content type</param>
         /// <returns>The updated report output</returns>
         public ReportOutput WithContent
             (
+                string templateName,
                 string renderedContent,
                 TemplateOutputType renderedContentType
             )
         {
+            Validate.IsNotEmpty(templateName);
+
+            this.TemplateName = templateName;
             this.RenderedContent = renderedContent;
             this.RenderedContentType = renderedContentType;
             this.HasRenderedContent = true;

@@ -1,5 +1,6 @@
 ﻿namespace Reportr
 {
+    using System.Collections.Generic;
     using System.Globalization;
 
     /// <summary>
@@ -36,25 +37,6 @@
         CultureInfo CurrentCulture { get; set; }
         
         /// <summary>
-        /// Gets the number of columns in the report
-        /// </summary>
-        /// <remarks>
-        /// The column count is used to determine how the report
-        /// is laid out. A column count of 1 indicates that each
-        /// section will appear on a separate row.
-        /// 
-        /// Reports with column counts greater than 1 will 
-        /// automatically push sections onto new rows once the
-        /// column count has been reached.
-        /// </remarks>
-        int? ColumnCount { get; }
-
-        /// <summary>
-        /// Gets the name of the template assigned to the report
-        /// </summary>
-        string TemplateName { get; }
-
-        /// <summary>
         /// Gets an array of sections in the report
         /// </summary>
         IReportSection[] Sections { get; }
@@ -63,6 +45,15 @@
         /// Gets an array of filter parameters for the report
         /// </summary>
         ParameterInfo[] FilterParameters { get; }
+
+        /// <summary>
+        /// Gets a dictionary of report fields
+        /// </summary
+        /// <remarks>
+        /// The report fields are a top level collection of 
+        /// name-values, where the value can be of any type.
+        /// </remarks>
+        IDictionary<string, object> Fields { get; }
 
         /// <summary>
         /// Generates a default filter for the report

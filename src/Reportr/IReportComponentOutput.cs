@@ -1,5 +1,7 @@
 ﻿namespace Reportr
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Defines a contract for a report component output
     /// </summary>
@@ -29,5 +31,14 @@
         /// Gets the error message that was generated
         /// </summary>
         string ErrorMessage { get; }
+
+        /// <summary>
+        /// Gets a dictionary of report component fields
+        /// </summary
+        /// <remarks>
+        /// The component fields are a collection of name-values, 
+        /// where the value can be of any type.
+        /// </remarks>
+        IDictionary<string, object> Fields { get; }
     }
 }

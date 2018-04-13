@@ -10,7 +10,7 @@
     public class ChartResult : ReportComponentOutput
     {
         /// <summary>
-        /// Constructs the chart with the chart configuration
+        /// Constructs the result with the chart configuration
         /// </summary>
         /// <param name="chart">The chart that generated the result</param>
         /// <param name="executionTime">The execution time in milliseconds</param>

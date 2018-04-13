@@ -31,5 +31,8 @@
         /// Gets the cells value
         /// </summary>
         public object Value { get; private set; }
+
+
+        // TODO: add formatting rules
     }
 }

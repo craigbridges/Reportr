@@ -28,25 +28,16 @@
         /// Gets the culture used by the report
         /// </summary>
         CultureInfo Culture { get; }
-
-        /// <summary>
-        /// Gets the number of columns in the report
-        /// </summary>
-        /// <remarks>
-        /// The column count is used to determine how the report
-        /// is laid out. A column count of 1 indicates that each
-        /// section will appear on a separate row.
-        /// 
-        /// Reports with column counts greater than 1 will 
-        /// automatically push sections onto new rows once the
-        /// column count has been reached.
-        /// </remarks>
-        int? ColumnCount { get; }
-
+        
         /// <summary>
         /// Gets an array of the reports section outputs
         /// </summary>
         IReportComponentOutput[] SectionOutputs { get; }
+
+        /// <summary>
+        /// Gets the name of the template used to render the report
+        /// </summary>
+        string TemplateName { get; }
 
         /// <summary>
         /// Gets the reports rendered content

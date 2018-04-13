@@ -14,20 +14,15 @@
         /// Gets the sections title
         /// </summary>
         string Title { get; }
-
-        /// <summary>
-        /// Gets the sections column span
-        /// </summary>
-        int? ColumnSpan { get; }
-
-        /// <summary>
-        /// Gets the name of the template assigned to the section
-        /// </summary>
-        string TemplateName { get; }
-
+        
         /// <summary>
         /// Gets the component associated with the section
         /// </summary>
         IReportComponent Component { get; }
+
+        /// <summary>
+        /// Gets an array of nested report sections
+        /// </summary>
+        IReportSection[] NestedSections { get; }
     }
 }

@@ -11,24 +11,27 @@
         /// Constructs the parameter info with the details
         /// </summary>
         /// <param name="name">The name</param>
+        /// <param name="displayText">The display text</param>
         /// <param name="expectedType">The expected value type</param>
-        /// <param name="isRequired">True, if the parameter is required</param>
         /// <param name="description">The description</param>
         public ParameterInfo
             (
                 string name,
+                string displayText,
                 Type expectedType,
-                bool isRequired = false,
                 string description = null
             )
         {
             Validate.IsNotEmpty(name);
+            Validate.IsNotEmpty(displayText);
             Validate.IsNotNull(expectedType);
 
             this.Name = name;
+            this.DisplayText = displayText;
             this.ExpectedType = expectedType;
-            this.IsRequired = isRequired;
             this.Description = description;
+            this.Visible = true;
+            this.ValueRequired = false;
         }
 
         /// <summary>
@@ -37,14 +40,14 @@
         public string Name { get; private set; }
 
         /// <summary>
+        /// Gets the parameters display text
+        /// </summary>
+        public string DisplayText { get; private set; }
+
+        /// <summary>
         /// Gets a description of the parameter
         /// </summary>
         public string Description { get; private set; }
-
-        /// <summary>
-        /// Gets a flag indicating if the parameter is required
-        /// </summary>
-        public bool IsRequired { get; private set; }
 
         /// <summary>
         /// Gets the expected value type
@@ -52,9 +55,36 @@
         public Type ExpectedType { get; private set; }
 
         /// <summary>
-        /// Gets the parameters default value
+        /// Adds configuration details to the parameter info
         /// </summary>
-        public object DefaultValue { get; private set; }
+        /// <param name="valueRequired">True, if a value is required</param>
+        /// <param name="visible">True, if the parameter is visible</param>
+        /// <returns>The updated parameter info</returns>
+        public ParameterInfo WithConfiguration
+            (
+                bool valueRequired,
+                bool visible
+            )
+        {
+            this.ValueRequired = valueRequired;
+            this.Visible = visible;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if a value is required
+        /// </summary>
+        public bool ValueRequired { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the parameter should be visible in the UI
+        /// </summary>
+        /// <remarks>
+        /// If this property is set to false, the parameter must
+        /// be populated programmatically or at design time.
+        /// </remarks>
+        public bool Visible { get; private set; }
 
         /// <summary>
         /// Adds the default value to the parameter info
@@ -97,5 +127,10 @@
 
             return this;
         }
+
+        /// <summary>
+        /// Gets the parameters default value
+        /// </summary>
+        public object DefaultValue { get; private set; }
     }
 }
