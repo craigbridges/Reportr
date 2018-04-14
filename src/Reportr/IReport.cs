@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Defines a contract for a report
@@ -68,11 +69,27 @@
         IReportOutput Run();
 
         /// <summary>
+        /// Asynchronously runs the report using the default filter
+        /// </summary>
+        /// <returns>The report output</returns>
+        Task<IReportOutput> RunAsync();
+
+        /// <summary>
         /// Runs the report using the filter specified
         /// </summary>
         /// <param name="filter">The filter</param>
         /// <returns>The report output</returns>
         IReportOutput Run
+        (
+            IReportFilter filter
+        );
+
+        /// <summary>
+        /// Asynchronously runs the report using the filter specified
+        /// </summary>
+        /// <param name="filter">The filter</param>
+        /// <returns>The report output</returns>
+        Task<IReportOutput> RunAsync
         (
             IReportFilter filter
         );

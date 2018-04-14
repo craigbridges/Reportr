@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categorization\ReportCategory.cs" />
+    <Compile Include="Categorization\ReportCategoryAssignment.cs" />
     <Compile Include="Graphics\GraphicArea.cs" />
     <Compile Include="Graphics\GraphicOutputTypes.cs" />
     <Compile Include="Graphics\GraphicOverlay.cs" />

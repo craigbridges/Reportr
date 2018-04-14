@@ -1,4 +1,6 @@
-﻿namespace Reportr
+﻿using System.Threading.Tasks;
+
+namespace Reportr
 {
     /// <summary>
     /// Defines a contract for a single report component
@@ -26,6 +28,16 @@
         /// <param name="parameterValues">The parameter values</param>
         /// <returns>The output generated</returns>
         IReportComponentOutput Execute
+        (
+            params ParameterValue[] parameterValues
+        );
+
+        /// <summary>
+        /// Asynchronously executes the component using the parameter values supplied
+        /// </summary>
+        /// <param name="parameterValues">The parameter values</param>
+        /// <returns>The output generated</returns>
+        Task<IReportComponentOutput> ExecuteAsync
         (
             params ParameterValue[] parameterValues
         );
