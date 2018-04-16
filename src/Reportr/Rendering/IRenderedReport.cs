@@ -5,7 +5,7 @@
     /// <summary>
     /// Defines a contract for a rendered report
     /// </summary>
-    public interface IRenderedReport : IReportResult
+    public interface IRenderedReport : IReportExecutionResult
     {
         /// <summary>
         /// Gets the report output that was generated

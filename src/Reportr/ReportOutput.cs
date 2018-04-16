@@ -1,5 +1,6 @@
 ﻿namespace Reportr
 {
+    using Reportr.Components;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;

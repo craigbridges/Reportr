@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Defines a contract for a report
@@ -55,43 +54,5 @@
         /// name-values, where the value can be of any type.
         /// </remarks>
         IDictionary<string, object> Fields { get; }
-
-        /// <summary>
-        /// Generates a default filter for the report
-        /// </summary>
-        /// <returns>The filter generated</returns>
-        IReportFilter GenerateDefaultFilter();
-
-        /// <summary>
-        /// Runs the report using the default filter
-        /// </summary>
-        /// <returns>The report output</returns>
-        IReportOutput Run();
-
-        /// <summary>
-        /// Asynchronously runs the report using the default filter
-        /// </summary>
-        /// <returns>The report output</returns>
-        Task<IReportOutput> RunAsync();
-
-        /// <summary>
-        /// Runs the report using the filter specified
-        /// </summary>
-        /// <param name="filter">The filter</param>
-        /// <returns>The report output</returns>
-        IReportOutput Run
-        (
-            IReportFilter filter
-        );
-
-        /// <summary>
-        /// Asynchronously runs the report using the filter specified
-        /// </summary>
-        /// <param name="filter">The filter</param>
-        /// <returns>The report output</returns>
-        Task<IReportOutput> RunAsync
-        (
-            IReportFilter filter
-        );
     }
 }

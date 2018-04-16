@@ -1,5 +1,7 @@
 ﻿namespace Reportr
 {
+    using Reportr.Components;
+
     /// <summary>
     /// Defines a contract for a single report section
     /// </summary>

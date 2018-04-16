@@ -1,5 +1,7 @@
 ﻿namespace Reportr
 {
+    using Reportr.Components;
+
     /// <summary>
     /// Represents the default implementation for a report section
     /// </summary>

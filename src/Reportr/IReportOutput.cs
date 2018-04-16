@@ -1,11 +1,12 @@
 ﻿namespace Reportr
 {
+    using Reportr.Components;
     using System.Globalization;
     
     /// <summary>
     /// Defines a contract for the output of a report
     /// </summary>
-    public interface IReportOutput : IReportResult
+    public interface IReportOutput : IReportExecutionResult
     {
         /// <summary>
         /// Gets the reports name
