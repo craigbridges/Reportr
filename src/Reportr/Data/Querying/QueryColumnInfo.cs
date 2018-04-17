@@ -1,7 +1,5 @@
-﻿namespace Reportr.Components.Querying
+﻿namespace Reportr.Data.Querying
 {
-    using System;
-    
     /// <summary>
     /// Represents information about a single query column
     /// </summary>
@@ -10,34 +8,34 @@
         /// <summary>
         /// Constructs the column information with the details
         /// </summary>
-        /// <param name="name">The column name</param>
-        /// <param name="dataType">The data type</param>
+        /// <param name="table">The table schema</param>
+        /// <param name="column">The column schema</param>
         /// <param name="importance">The importance (optional)</param>
         public QueryColumnInfo
             (
-                string name,
-                Type dataType,
+                DataColumnSchema table,
+                DataColumnSchema column,
                 QueryColumnImportance importance = QueryColumnImportance.Low
             )
         {
-            Validate.IsNotEmpty(name);
-            Validate.IsNotNull(dataType);
+            Validate.IsNotNull(table);
+            Validate.IsNotNull(column);
 
-            this.Name = name;
-            this.DataType = dataType;
+            this.Table = table;
+            this.Column = column;
             this.Importance = importance;
         }
 
         /// <summary>
-        /// Gets the column name
+        /// Gets the table schema
         /// </summary>
-        public string Name { get; private set; }
+        public DataColumnSchema Table { get; private set; }
 
         /// <summary>
-        /// Gets the columns data type
+        /// Gets the column schema
         /// </summary>
-        public Type DataType { get; private set; }
-
+        public DataColumnSchema Column { get; private set; }
+        
         /// <summary>
         /// Gets the importance of the column
         /// </summary>

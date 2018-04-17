@@ -18,6 +18,7 @@ TODO:
 		- Refactor templates and abstract into interfaces
 
 - Consider data sources
+	- Schema, filtering, sorting and grouping
 
 - Consider different template outputs or views (e.g. web vs mobile)
 

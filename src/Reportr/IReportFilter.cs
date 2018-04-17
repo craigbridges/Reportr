@@ -1,6 +1,6 @@
 ﻿namespace Reportr
 {
-    using Reportr.Components.Querying;
+    using Reportr.Data.Querying;
     using System.Collections.Generic;
 
     /// <summary>

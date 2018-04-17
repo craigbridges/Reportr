@@ -1,4 +1,4 @@
-﻿namespace Reportr.Components.Querying
+﻿namespace Reportr.Data.Querying
 {
     using System;
     using System.Collections;
@@ -31,11 +31,11 @@
 
             foreach (var set in cells.ToList())
             {
-                var name = set.ColumnName;
+                var name = set.Column.Name;
 
                 var matchCount = cells.Count
                 (
-                    s => s.ColumnName.Trim().ToLower() == name.Trim().ToLower()
+                    s => s.Column.Name.Trim().ToLower() == name.Trim().ToLower()
                 );
 
                 if (matchCount > 1)
@@ -44,7 +44,11 @@
 
                     throw new ArgumentException
                     (
-                        String.Format(message, name)
+                        String.Format
+                        (
+                            message,
+                            name
+                        )
                     );
                 }
             }
@@ -79,16 +83,20 @@
             {
                 var cell = this.Cells.FirstOrDefault
                 (
-                    c => c.ColumnName == columnName
+                    c => c.Column.Name.ToLower() == columnName.ToLower()
                 );
 
                 if (cell == null)
                 {
-                    var message = "No column was found matching the name '{0}'.";
+                    var message = "No column was found with the name '{0}'.";
 
                     throw new KeyNotFoundException
                     (
-                        String.Format(message, columnName)
+                        String.Format
+                        (
+                            message,
+                            columnName
+                        )
                     );
                 }
 

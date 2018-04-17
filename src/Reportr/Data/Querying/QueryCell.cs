@@ -1,4 +1,4 @@
-﻿namespace Reportr.Components.Querying
+﻿namespace Reportr.Data.Querying
 {
     /// <summary>
     /// Represents the data for a single query cell
@@ -8,31 +8,28 @@
         /// <summary>
         /// Constructs the query cell with the data
         /// </summary>
-        /// <param name="columnName">The column name</param>
+        /// <param name="column">The column schema</param>
         /// <param name="value">The cell value</param>
         public QueryCell
             (
-                string columnName,
+                DataColumnSchema column,
                 object value
             )
         {
-            Validate.IsNotEmpty(columnName);
+            Validate.IsNotNull(column);
 
-            this.ColumnName = columnName;
+            this.Column = column;
             this.Value = value;
         }
 
         /// <summary>
-        /// Gets the associated column name
+        /// Gets the associated column schema
         /// </summary>
-        public string ColumnName { get; private set; }
+        public DataColumnSchema Column { get; private set; }
 
         /// <summary>
         /// Gets the cells value
         /// </summary>
         public object Value { get; private set; }
-
-
-        // TODO: add formatting rules
     }
 }

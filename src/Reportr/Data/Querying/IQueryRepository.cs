@@ -1,4 +1,4 @@
-﻿namespace Reportr.Components.Querying
+﻿namespace Reportr.Data.Querying
 {
     using System.Collections.Generic;
 

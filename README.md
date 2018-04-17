@@ -1,5 +1,5 @@
 # Reportr
-Reportr is a .NET reporting framework, designed from the ground up as a lightweight solution to solving various reporting problems faced in .NET applications. Typical problems Reportr can be used to solve include:
+Reportr is a .NET template orientated reporting framework, designed from the ground up as a lightweight solution to solving various reporting problems faced in .NET applications. Typical problems Reportr can be used to solve include:
 
 - Generating complex dashboards
 - Generating and exporting system integrated reports

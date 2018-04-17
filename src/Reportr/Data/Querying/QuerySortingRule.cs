@@ -1,4 +1,4 @@
-﻿namespace Reportr.Components.Querying
+﻿namespace Reportr.Data.Querying
 {
     using Reportr.Data;
 
@@ -10,24 +10,24 @@
         /// <summary>
         /// Constructs the sorting rule with the details
         /// </summary>
-        /// <param name="columnName">The column name</param>
+        /// <param name="column">The query column</param>
         /// <param name="direction">The sorting direction</param>
         public QuerySortingRule
             (
-                string columnName,
+                QueryColumnInfo column,
                 SortDirection direction
             )
         {
-            Validate.IsNotEmpty(columnName);
+            Validate.IsNotNull(column);
 
-            this.ColumnName = columnName;
+            this.Column = column;
             this.Direction = direction;
         }
 
         /// <summary>
-        /// Gets the column name
+        /// Gets the query column
         /// </summary>
-        public string ColumnName { get; private set; }
+        public QueryColumnInfo Column { get; private set; }
 
         /// <summary>
         /// Gets the sorting direction

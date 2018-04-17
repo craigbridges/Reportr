@@ -14,6 +14,9 @@
         Query = 1,
 
         [Description("Statistic")]
-        Statistic = 2
+        Statistic = 2,
+
+        [Description("Graphic")]
+        Graphic = 4
     }
 }
