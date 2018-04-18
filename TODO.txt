@@ -1,6 +1,18 @@
 TODO:
 -----
 
+*** Add GUID ID to all "entities"
+*** Query add optional limit (max rows)
+	- Also make sure column has table attached to it
+*** Component optional relative width and height (%)
+*** Report page optional size (units e.g. %, pixels cm etc) of width and height so we can auto paginate
+*** How do we calculate actual height of section so we can paginate?
+*** Binding of query result to component structure which allows template to auto generate
+	- For repeater, if no binding specified them entire result is the value given
+	- Can we add an IsDefined function to Nettle so we can see if property exists?
+*** Group query results by grouped rules (i.e have a collection of data per grouped item)
+
+
 - Create default IReport implementation
 	- Refactor sections as report items and put into a "Detail" collection in IReport
 		- See https://docs.telerik.com/reporting/designing-reports-understanding-report-structure

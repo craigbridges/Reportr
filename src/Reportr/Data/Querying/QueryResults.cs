@@ -178,7 +178,7 @@
                 {
                     var matchFound = row.Cells.Any
                     (
-                        c => c.Column == info.Column.Name
+                        c => c.Column.Name.ToLower() == info.Column.Name.ToLower()
                     );
 
                     if (false == matchFound)
