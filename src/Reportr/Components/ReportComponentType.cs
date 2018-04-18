@@ -7,16 +7,19 @@
     /// </summary>
     public enum ReportComponentType
     {
-        [Description("Chart")]
-        Chart = 0,
+        [Description("Table")]
+        Table = 0,
 
-        [Description("Query")]
-        Query = 1,
+        [Description("Repeater")]
+        Repeater = 1,
+
+        [Description("Chart")]
+        Chart = 2,
 
         [Description("Statistic")]
-        Statistic = 2,
+        Statistic = 4,
 
         [Description("Graphic")]
-        Graphic = 4
+        Graphic = 8
     }
 }

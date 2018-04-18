@@ -1,17 +1,17 @@
 TODO:
 -----
 
-*** Add GUID ID to all "entities"
-*** Query add optional limit (max rows)
-	- Also make sure column has table attached to it
+*** Add Guid ID to all report "entities"
 *** Component optional relative width and height (%)
+	- And margin (top/left/right/bottom width and unit)
 *** Report page optional size (units e.g. %, pixels cm etc) of width and height so we can auto paginate
+	- Also add margin details (for printing and screen padding)
 *** How do we calculate actual height of section so we can paginate?
 *** Binding of query result to component structure which allows template to auto generate
 	- For repeater, if no binding specified them entire result is the value given
 	- Can we add an IsDefined function to Nettle so we can see if property exists?
-*** Group query results by grouped rules (i.e have a collection of data per grouped item)
 
+- Create TemplateContent class and make sure ReportTemplate has fixed structure that mirrors a report (e.g. header/footer, detail etc sections)
 
 - Create default IReport implementation
 	- Refactor sections as report items and put into a "Detail" collection in IReport
@@ -32,11 +32,12 @@ TODO:
 - Consider data sources
 	- Schema, filtering, sorting and grouping
 
-- Consider different template outputs or views (e.g. web vs mobile)
 
 Low Priority:
 -------------
 
 - Integrate with Nettle
+
+- Create report component mocking (e.g. generate fake data for chart) for report building and testing
 
 - Create report builder with storage mechanism

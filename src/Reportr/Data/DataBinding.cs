@@ -6,22 +6,34 @@
     public sealed class DataBinding
     {
         /// <summary>
-        /// Constructs the data binding with the path
+        /// Constructs the data binding with the details
         /// </summary>
-        /// <param name="path">The path</param>
+        /// <param name="bindingType">The binding type</param>
+        /// <param name="expression">The expression</param>
         public DataBinding
             (
-                string path
+                DataBindingType bindingType,
+                string expression
             )
         {
-            Validate.IsNotEmpty(path);
+            Validate.IsNotEmpty(expression);
 
-            this.Path = path;
+            this.BindingType = bindingType;
+            this.Expression = expression;
         }
 
         /// <summary>
-        /// Gets the path of the bound property
+        /// Gets the data binding type
         /// </summary>
-        public string Path { get; private set; }
+        public DataBindingType BindingType { get; private set; }
+
+        /// <summary>
+        /// Gets the binding expression
+        /// </summary>
+        /// <remarks>
+        /// The expression syntax varies depending on the binding 
+        /// type, but the result is always returned as an object.
+        /// </remarks>
+        public string Expression { get; private set; }
     }
 }

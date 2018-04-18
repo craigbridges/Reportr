@@ -66,6 +66,7 @@
     <Compile Include="Components\ReportComponentOutput.cs" />
     <Compile Include="Components\ReportComponentType.cs" />
     <Compile Include="Data\DataBinding.cs" />
+    <Compile Include="Data\DataBindingType.cs" />
     <Compile Include="Data\DataColumnSchema.cs" />
     <Compile Include="Data\DataForeignKey.cs" />
     <Compile Include="Data\DataTableSchema.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Data\Querying\QueryCell.cs" />
     <Compile Include="Data\Querying\QueryColumnImportance.cs" />
     <Compile Include="Data\Querying\QueryColumnInfo.cs" />
+    <Compile Include="Data\Querying\QueryGrouping.cs" />
     <Compile Include="Data\Querying\QueryGroupingRule.cs" />
     <Compile Include="Data\Querying\QueryResults.cs" />
     <Compile Include="Data\Querying\QueryRow.cs" />
