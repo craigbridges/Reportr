@@ -35,11 +35,6 @@
         /// Gets or sets the current culture used by the report
         /// </summary>
         CultureInfo CurrentCulture { get; set; }
-        
-        /// <summary>
-        /// Gets an array of sections in the report
-        /// </summary>
-        IReportSection[] Sections { get; }
 
         /// <summary>
         /// Gets an array of filter parameters for the report
@@ -54,5 +49,30 @@
         /// name-values, where the value can be of any type.
         /// </remarks>
         IDictionary<string, object> Fields { get; }
+
+        /// <summary>
+        /// Gets the reports page header section
+        /// </summary>
+        IReportSection PageHeader { get; }
+
+        /// <summary>
+        /// Gets the report header section
+        /// </summary>
+        IReportSection ReportHeader { get; }
+
+        /// <summary>
+        /// Gets the reports detail section
+        /// </summary>
+        IReportSection Detail { get; }
+
+        /// <summary>
+        /// Gets the report footer section
+        /// </summary>
+        IReportSection ReportFooter { get; }
+
+        /// <summary>
+        /// Gets the reports page footer section
+        /// </summary>
+        IReportSection PageFooter { get; }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="Data\DataForeignKey.cs" />
     <Compile Include="Data\DataTableSchema.cs" />
     <Compile Include="Data\IDataSource.cs" />
+    <Compile Include="Data\IDataSourceRepository.cs" />
     <Compile Include="Data\Querying\IQuery.cs" />
     <Compile Include="Data\Querying\IQueryRepository.cs" />
     <Compile Include="Data\Querying\QueryCell.cs" />
@@ -97,12 +98,9 @@
     <Compile Include="ReportOutput.cs" />
     <Compile Include="ReportSection.cs" />
     <Compile Include="IReportSection.cs" />
-    <Compile Include="Templates\IReportSectionTemplateRepository.cs" />
     <Compile Include="Templates\IReportTemplateRepository.cs" />
-    <Compile Include="Templates\ITemplateRepository.cs" />
-    <Compile Include="Templates\ReportSectionTemplate.cs" />
-    <Compile Include="Templates\Template.cs" />
     <Compile Include="Templates\ReportTemplate.cs" />
+    <Compile Include="Templates\TemplateContent.cs" />
     <Compile Include="Templates\TemplateOutputType.cs" />
     <Compile Include="Validate.cs" />
   </ItemGroup>

@@ -1,62 +1,212 @@
 ﻿namespace Reportr.Templates
 {
     using System;
-
+    
     /// <summary>
     /// Represents a single report template
     /// </summary>
-    public class ReportTemplate : Template
+    /// <remarks>
+    /// A template contains the content layout for the data generated 
+    /// by a report or report component (chart, statistic or query).
+    /// 
+    /// The template content is used by a template rendering engine
+    /// to generate the output for a report.
+    /// </remarks>
+    public class ReportTemplate
     {
         /// <summary>
-        /// Constructs the report template with the details
+        /// Constructs the report template with a name
         /// </summary>
         /// <param name="name">The template name</param>
-        /// <param name="mainContent">The main content</param>
-        /// <param name="printableContent">The printable content</param>
-        /// <param name="outputType">The output type (optional)</param>
         public ReportTemplate
             (
-                string name,
-                string mainContent,
-                string printableContent,
-                TemplateOutputType outputType = TemplateOutputType.Html
+                string name
             )
-            : base
-            (
-                name,
-                mainContent,
-                printableContent,
-                outputType
-            )
-        { }
+        {
+            Validate.IsNotEmpty(name);
 
+            this.TemplateId = Guid.NewGuid();
+            this.DateCreated = DateTime.UtcNow;
+            this.DateModified = DateTime.UtcNow;
+            this.Name = name;
+        }
+
+        /// <summary>
+        /// Gets the templates unique ID
+        /// </summary>
+        public Guid TemplateId { get; private set; }
+
+        /// <summary>
+        /// Gets the date and time the template was created
+        /// </summary>
+        public DateTime DateCreated { get; private set; }
+
+        /// <summary>
+        /// Gets the date and time the template was modified
+        /// </summary>
+        public DateTime DateModified { get; protected set; }
+
+        /// <summary>
+        /// Gets the template name
+        /// </summary>
+        public string Name { get; protected set; }
+        
         /// <summary>
         /// Gets the page header content
         /// </summary>
-        public string PageHeaderContent { get; private set; }
-        
+        public TemplateContent PageHeaderContent { get; protected set; }
+
+        /// <summary>
+        /// Sets the page header template content
+        /// </summary>
+        /// <param name="content">The content</param>
+        public void SetPageHeaderContent
+            (
+                string content
+            )
+        {
+            if (this.PageHeaderContent == null)
+            {
+                this.PageHeaderContent = new TemplateContent
+                (
+                    this,
+                    content
+                );
+            }
+            else
+            {
+                this.PageHeaderContent.SetContent
+                (
+                    content
+                );
+            }
+        }
+
+        /// <summary>
+        /// Gets the report header content
+        /// </summary>
+        public TemplateContent ReportHeaderContent { get; protected set; }
+
+        /// <summary>
+        /// Sets the report header template content
+        /// </summary>
+        /// <param name="content">The content</param>
+        public void SetReportHeaderContent
+            (
+                string content
+            )
+        {
+            if (this.ReportHeaderContent == null)
+            {
+                this.ReportHeaderContent = new TemplateContent
+                (
+                    this,
+                    content
+                );
+            }
+            else
+            {
+                this.ReportHeaderContent.SetContent
+                (
+                    content
+                );
+            }
+        }
+
+        /// <summary>
+        /// Gets the report detail content
+        /// </summary>
+        public TemplateContent DetailContent { get; protected set; }
+
+        /// <summary>
+        /// Sets the report detail template content
+        /// </summary>
+        /// <param name="content">The content</param>
+        public void SetDetailContent
+            (
+                string content
+            )
+        {
+            if (this.DetailContent == null)
+            {
+                this.DetailContent = new TemplateContent
+                (
+                    this,
+                    content
+                );
+            }
+            else
+            {
+                this.DetailContent.SetContent
+                (
+                    content
+                );
+            }
+        }
+
+        /// <summary>
+        /// Gets the report footer content
+        /// </summary>
+        public TemplateContent ReportFooterContent { get; protected set; }
+
+        /// <summary>
+        /// Sets the report footer template content
+        /// </summary>
+        /// <param name="content">The content</param>
+        public void SetReportFooterContent
+            (
+                string content
+            )
+        {
+            if (this.ReportFooterContent == null)
+            {
+                this.ReportFooterContent = new TemplateContent
+                (
+                    this,
+                    content
+                );
+            }
+            else
+            {
+                this.ReportFooterContent.SetContent
+                (
+                    content
+                );
+            }
+        }
+
         /// <summary>
         /// Gets the page footer content
         /// </summary>
-        public string PageFooterContent { get; private set; }
+        public TemplateContent PageFooterContent { get; protected set; }
 
         /// <summary>
-        /// Adds the marginal content to the report template
+        /// Sets the page footer template content
         /// </summary>
-        /// <param name="pageHeaderContent">The page header content</param>
-        /// <param name="pageFooterContent">The page footer content</param>
-        /// <returns>The updated report template</returns>
-        public ReportTemplate WithMarginalContent
+        /// <param name="content">The content</param>
+        public void SetPageFooterContent
             (
-                string pageHeaderContent,
-                string pageFooterContent
+                string content
             )
         {
-            this.PageHeaderContent = pageHeaderContent;
-            this.PageFooterContent = pageFooterContent;
-            this.DateModified = DateTime.UtcNow;
-
-            return this;
+            if (this.PageFooterContent == null)
+            {
+                this.PageFooterContent = new TemplateContent
+                (
+                    this,
+                    content
+                );
+            }
+            else
+            {
+                this.PageFooterContent.SetContent
+                (
+                    content
+                );
+            }
         }
+
+
+        // TODO: manage content for each component type
     }
 }

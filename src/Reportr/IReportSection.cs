@@ -18,13 +18,8 @@
         string Title { get; }
         
         /// <summary>
-        /// Gets the component associated with the section
+        /// Gets the components in the section
         /// </summary>
-        IReportComponent Component { get; }
-
-        /// <summary>
-        /// Gets an array of nested report sections
-        /// </summary>
-        IReportSection[] NestedSections { get; }
+        IReportComponent[] Components { get; }
     }
 }

@@ -11,19 +11,18 @@
         /// Constructs the report section with the core details
         /// </summary>
         /// <param name="name">The section name</param>
-        /// <param name="component">The report component</param>
+        /// <param name="components">The report components</param>
         public ReportSection
             (
                 string name,
-                IReportComponent component
+                params IReportComponent[] components
             )
         {
             Validate.IsNotEmpty(name);
-            Validate.IsNotNull(component);
+            Validate.IsNotNull(components);
 
             this.Name = name;
-            this.Component = component;
-            this.NestedSections = new IReportSection[] { };
+            this.Components = components;
         }
 
         /// <summary>
@@ -32,9 +31,9 @@
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the component associated with the section
+        /// Gets the components in the section
         /// </summary>
-        public IReportComponent Component { get; private set; }
+        public IReportComponent[] Components { get; private set; }
 
         /// <summary>
         /// Adds the descriptors to the report section
@@ -65,27 +64,5 @@
         /// Gets the sections description
         /// </summary>
         public string Description { get; private set; }
-
-        /// <summary>
-        /// Adds nested sections to the report section
-        /// </summary>
-        /// <param name="sections">The nested sections to add</param>
-        /// <returns>The updated report section</returns>
-        public ReportSection WithNestedSections
-            (
-                params IReportSection[] sections
-            )
-        {
-            Validate.IsNotNull(sections);
-
-            this.NestedSections = sections;
-
-            return this;
-        }
-
-        /// <summary>
-        /// Gets an array of nested report sections
-        /// </summary>
-        public IReportSection[] NestedSections { get; private set; }
     }
 }
