@@ -17,6 +17,8 @@
         /// </summary>
         string Title { get; }
         
+        // TODO: optional height
+
         /// <summary>
         /// Gets the components in the section
         /// </summary>

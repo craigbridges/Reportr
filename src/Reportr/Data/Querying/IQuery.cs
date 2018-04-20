@@ -1,12 +1,18 @@
 ﻿namespace Reportr.Data.Querying
 {
     using Reportr.Data;
+    using System;
 
     /// <summary>
     /// Defines a contract for a single report query
     /// </summary>
     public interface IQuery
     {
+        /// <summary>
+        /// Gets the unique ID of the query
+        /// </summary>
+        Guid QueryId { get; }
+
         /// <summary>
         /// Gets the name of the query
         /// </summary>

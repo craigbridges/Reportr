@@ -147,12 +147,12 @@
         }
 
         /// <summary>
-        /// Gets a generic enumerator for the collection of rows
+        /// Gets a generic enumerator for the collection of groupings
         /// </summary>
         /// <returns>The generic enumerator</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

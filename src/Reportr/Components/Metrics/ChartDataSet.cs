@@ -1,7 +1,10 @@
 ﻿namespace Reportr.Components.Metrics
 {
     using System;
-    
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Represents a single chart data set
     /// </summary>
@@ -19,7 +22,7 @@
     /// month but both representing a different year. In a UI
     /// these would usually be rendered with different colours.
     /// </remarks>
-    public class ChartDataSet
+    public class ChartDataSet : IEnumerable<ChartDataPoint>
     {
         /// <summary>
         /// Constructs the data set with the set details
@@ -56,5 +59,36 @@
         /// Gets an array of chart data points
         /// </summary>
         public ChartDataPoint[] DataPoints { get; private set; }
+
+        /// <summary>
+        /// Gets the data point at the index specified
+        /// </summary>
+        /// <param name="index">The data point index (zero based)</param>
+        /// <returns>The matching data point</returns>
+        public ChartDataPoint this[int index]
+        {
+            get
+            {
+                return this.DataPoints[index];
+            }
+        }
+
+        /// <summary>
+        /// Gets an enumerator for the collection of data points
+        /// </summary>
+        /// <returns>The enumerator</returns>
+        public IEnumerator<ChartDataPoint> GetEnumerator()
+        {
+            return this.DataPoints.ToList().GetEnumerator();
+        }
+
+        /// <summary>
+        /// Gets a generic enumerator for the collection of data points
+        /// </summary>
+        /// <returns>The generic enumerator</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

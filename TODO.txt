@@ -1,9 +1,6 @@
 TODO:
 -----
 
-*** Add component templates collection for report template (i.e. manage by some specific enum or class type)
-
-*** Add Guid ID to all report "entities"
 *** Component optional relative width and height (%)
 	- And margin (top/left/right/bottom width and unit)
 *** Report template page optional size (units e.g. %, pixels cm etc) of width and height so we can auto paginate
@@ -28,9 +25,6 @@ TODO:
 		- Each template then has a nested collection of templates for sections and report items (of each type - i.e. one for each type of Chart, queries etc)
 		- So when you specify a template at render time, it knows what templates to use for every type of child component
 		- Refactor templates and abstract into interfaces
-
-- Consider data sources
-	- Schema, filtering, sorting and grouping
 
 
 Low Priority:

@@ -1,7 +1,11 @@
 ﻿namespace Reportr.Templates
 {
+    using Reportr.Components;
     using System;
-    
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+
     /// <summary>
     /// Represents a single report template
     /// </summary>
@@ -28,6 +32,7 @@
             this.TemplateId = Guid.NewGuid();
             this.DateCreated = DateTime.UtcNow;
             this.DateModified = DateTime.UtcNow;
+            this.ComponentContents = new Collection<ComponentTemplateContent>();
             this.Name = name;
         }
 
@@ -54,7 +59,7 @@
         /// <summary>
         /// Gets the page header content
         /// </summary>
-        public TemplateContent PageHeaderContent { get; protected set; }
+        public SectionTemplateContent PageHeaderContent { get; protected set; }
 
         /// <summary>
         /// Sets the page header template content
@@ -67,7 +72,7 @@
         {
             if (this.PageHeaderContent == null)
             {
-                this.PageHeaderContent = new TemplateContent
+                this.PageHeaderContent = new SectionTemplateContent
                 (
                     this,
                     content
@@ -85,7 +90,7 @@
         /// <summary>
         /// Gets the report header content
         /// </summary>
-        public TemplateContent ReportHeaderContent { get; protected set; }
+        public SectionTemplateContent ReportHeaderContent { get; protected set; }
 
         /// <summary>
         /// Sets the report header template content
@@ -98,7 +103,7 @@
         {
             if (this.ReportHeaderContent == null)
             {
-                this.ReportHeaderContent = new TemplateContent
+                this.ReportHeaderContent = new SectionTemplateContent
                 (
                     this,
                     content
@@ -116,7 +121,7 @@
         /// <summary>
         /// Gets the report detail content
         /// </summary>
-        public TemplateContent DetailContent { get; protected set; }
+        public SectionTemplateContent DetailContent { get; protected set; }
 
         /// <summary>
         /// Sets the report detail template content
@@ -129,7 +134,7 @@
         {
             if (this.DetailContent == null)
             {
-                this.DetailContent = new TemplateContent
+                this.DetailContent = new SectionTemplateContent
                 (
                     this,
                     content
@@ -147,7 +152,7 @@
         /// <summary>
         /// Gets the report footer content
         /// </summary>
-        public TemplateContent ReportFooterContent { get; protected set; }
+        public SectionTemplateContent ReportFooterContent { get; protected set; }
 
         /// <summary>
         /// Sets the report footer template content
@@ -160,7 +165,7 @@
         {
             if (this.ReportFooterContent == null)
             {
-                this.ReportFooterContent = new TemplateContent
+                this.ReportFooterContent = new SectionTemplateContent
                 (
                     this,
                     content
@@ -178,7 +183,7 @@
         /// <summary>
         /// Gets the page footer content
         /// </summary>
-        public TemplateContent PageFooterContent { get; protected set; }
+        public SectionTemplateContent PageFooterContent { get; protected set; }
 
         /// <summary>
         /// Sets the page footer template content
@@ -191,7 +196,7 @@
         {
             if (this.PageFooterContent == null)
             {
-                this.PageFooterContent = new TemplateContent
+                this.PageFooterContent = new SectionTemplateContent
                 (
                     this,
                     content
@@ -206,7 +211,90 @@
             }
         }
 
+        /// <summary>
+        /// Gets a collection of component template contents
+        /// </summary>
+        public ICollection<ComponentTemplateContent> ComponentContents
+        {
+            get;
+            protected set;
+        }
 
-        // TODO: manage content for each component type
+        /// <summary>
+        /// Sets the template content for a report component type
+        /// </summary>
+        /// <param name="componentType">The component type</param>
+        /// <param name="content">The content</param>
+        public void SetComponentContent
+            (
+                ReportComponentType componentType,
+                string content
+            )
+        {
+            var templateContent = this.ComponentContents.FirstOrDefault
+            (
+                c => c.ComponentType == componentType
+            );
+
+            if (templateContent == null)
+            {
+                templateContent = new ComponentTemplateContent
+                (
+                    this,
+                    content,
+                    componentType
+                );
+
+                this.ComponentContents.Add(templateContent);
+            }
+            else
+            {
+                templateContent.SetContent(content);
+            }
+        }
+
+        /// <summary>
+        /// Determines if the template has content for a component type
+        /// </summary>
+        /// <param name="componentType">The component type</param>
+        /// <returns>True, if content was found; otherwise false</returns>
+        public bool HasContentForComponent
+            (
+                ReportComponentType componentType
+            )
+        {
+            return this.ComponentContents.Any
+            (
+                c => c.ComponentType == componentType
+            );
+        }
+
+        /// <summary>
+        /// Gets the template content for a specific component type
+        /// </summary>
+        /// <param name="componentType">The component type</param>
+        /// <returns>The template content</returns>
+        public ComponentTemplateContent GetComponentContent
+            (
+                ReportComponentType componentType
+            )
+        {
+            var templateContent = this.ComponentContents.FirstOrDefault
+            (
+                c => c.ComponentType == componentType
+            );
+
+            if (templateContent == null)
+            {
+                var message = "The content for the component type {0} has not been set.";
+
+                throw new KeyNotFoundException
+                (
+                    String.Format(message, componentType)
+                );
+            }
+
+            return templateContent;
+        }
     }
 }

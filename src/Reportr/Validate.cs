@@ -27,6 +27,7 @@
 
                 throw new ArgumentNullException
                 (
+                    nameof(o),
                     String.Format
                     (
                         message,
@@ -57,6 +58,7 @@
 
                 throw new ArgumentNullException
                 (
+                    nameof(input),
                     String.Format
                     (
                         message,

@@ -56,7 +56,6 @@
     <Compile Include="Components\Metrics\ChartDataPoint.cs" />
     <Compile Include="Components\Metrics\ChartDataSet.cs" />
     <Compile Include="Components\Metrics\ChartResult.cs" />
-    <Compile Include="Components\Metrics\ChartType.cs" />
     <Compile Include="Components\Metrics\IChart.cs" />
     <Compile Include="Components\Metrics\IChartRepository.cs" />
     <Compile Include="Components\Metrics\IStatistic.cs" />
@@ -83,6 +82,8 @@
     <Compile Include="Data\Querying\QueryRow.cs" />
     <Compile Include="Data\Querying\QuerySortingRule.cs" />
     <Compile Include="Data\SortDirection.cs" />
+    <Compile Include="Drawing\Unit.cs" />
+    <Compile Include="Drawing\UnitType.cs" />
     <Compile Include="IReportExecutionResult.cs" />
     <Compile Include="IReportFilter.cs" />
     <Compile Include="IReportRunner.cs" />
@@ -98,14 +99,14 @@
     <Compile Include="ReportOutput.cs" />
     <Compile Include="ReportSection.cs" />
     <Compile Include="IReportSection.cs" />
+    <Compile Include="Templates\SectionTemplateContent.cs" />
+    <Compile Include="Templates\ComponentTemplateContent.cs" />
     <Compile Include="Templates\IReportTemplateRepository.cs" />
     <Compile Include="Templates\ReportTemplate.cs" />
     <Compile Include="Templates\TemplateContent.cs" />
     <Compile Include="Templates\TemplateOutputType.cs" />
     <Compile Include="Validate.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exporting\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

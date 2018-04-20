@@ -10,6 +10,11 @@
     public interface IDataSource : IDisposable
     {
         /// <summary>
+        /// Gets the unique ID of the data source
+        /// </summary>
+        Guid SourceId { get; }
+
+        /// <summary>
         /// Gets the name of the data source
         /// </summary>
         string Name { get; }

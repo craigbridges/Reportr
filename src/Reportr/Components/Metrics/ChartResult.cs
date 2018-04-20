@@ -1,13 +1,14 @@
 ﻿namespace Reportr.Components.Metrics
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
     /// Represents a single two-dimensional chart result
     /// </summary>
-    public class ChartResult : ReportComponentOutput
+    public class ChartResult : ReportComponentOutput, IEnumerable<ChartDataSet>
     {
         /// <summary>
         /// Constructs the result with the chart configuration
@@ -111,6 +112,37 @@
             }
 
             return set;
+        }
+
+        /// <summary>
+        /// Gets the data set at the index specified
+        /// </summary>
+        /// <param name="index">The data set index (zero based)</param>
+        /// <returns>The matching data set</returns>
+        public ChartDataSet this[int index]
+        {
+            get
+            {
+                return this.DataSets[index];
+            }
+        }
+
+        /// <summary>
+        /// Gets an enumerator for the collection of data sets
+        /// </summary>
+        /// <returns>The enumerator</returns>
+        public IEnumerator<ChartDataSet> GetEnumerator()
+        {
+            return this.DataSets.ToList().GetEnumerator();
+        }
+
+        /// <summary>
+        /// Gets a generic enumerator for the collection of data sets
+        /// </summary>
+        /// <returns>The generic enumerator</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
