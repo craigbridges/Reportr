@@ -38,6 +38,14 @@
                 double value
             )
         {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException
+                (
+                    "The unit value cannot be less than zero."
+                );
+            }
+
             this.UnitType = Unit.DefaultType;
             this.Value = Convert.ToSingle(value);
 
@@ -55,6 +63,14 @@
                 UnitType unitType
             )
         {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException
+                (
+                    "The unit value cannot be less than zero."
+                );
+            }
+
             this.Value = Convert.ToSingle(value);
             this.UnitType = unitType;
 
@@ -101,9 +117,22 @@
                 0,
                 value.Length - 4
             );
-            
+
+            var convertedValue = Convert.ToSingle
+            (
+                valueDescriptor
+            );
+
+            if (convertedValue < 0)
+            {
+                throw new ArgumentOutOfRangeException
+                (
+                    "The unit value cannot be less than zero."
+                );
+            }
+
             this.UnitType = GetTypeFromString(typeDescriptor);
-            this.Value = Convert.ToSingle(valueDescriptor);
+            this.Value = convertedValue;
 
             _initialized = true;
         }
@@ -321,32 +350,646 @@
             }
             else
             {
-                switch (type)
+                if (this.UnitType == UnitType.Percentage)
+                {
+                    throw new InvalidOperationException
+                    (
+                        "Units cannot be converted from percentages."
+                    );
+                }
+
+                if (type == UnitType.Percentage)
+                {
+                    throw new InvalidOperationException
+                    (
+                        "Units cannot be converted to percentages."
+                    );
+                }
+
+                var oldValue = this.Value;
+                var newValue = default(double);
+
+                switch (this.UnitType)
                 {
                     case UnitType.Pixel:
+                        switch (type)
+                        {
+                            case UnitType.Point:
+                                newValue = PixelToPoint(oldValue);
+                                break;
+
+                            case UnitType.Pica:
+                                newValue = PixelToPica(oldValue);
+                                break;
+
+                            case UnitType.Inch:
+                                newValue = PixelToInch(oldValue);
+                                break;
+
+                            case UnitType.Millimeter:
+                                newValue = PixelToMm(oldValue);
+                                break;
+
+                            case UnitType.Centimeter:
+                                newValue = PixelToCm(oldValue);
+                                break;
+                        }
+
                         break;
 
                     case UnitType.Point:
+                        switch (type)
+                        {
+                            case UnitType.Pixel:
+                                newValue = PointToPixel(oldValue);
+                                break;
+
+                            case UnitType.Pica:
+                                newValue = PointToPica(oldValue);
+                                break;
+
+                            case UnitType.Inch:
+                                newValue = PointToInch(oldValue);
+                                break;
+
+                            case UnitType.Millimeter:
+                                newValue = PointToMm(oldValue);
+                                break;
+
+                            case UnitType.Centimeter:
+                                newValue = PointToCm(oldValue);
+                                break;
+                        }
+
                         break;
 
                     case UnitType.Pica:
+                        switch (type)
+                        {
+                            case UnitType.Pixel:
+                                newValue = PicaToPixel(oldValue);
+                                break;
+
+                            case UnitType.Point:
+                                newValue = PicaToPoint(oldValue);
+                                break;
+
+                            case UnitType.Inch:
+                                newValue = PicaToInch(oldValue);
+                                break;
+
+                            case UnitType.Millimeter:
+                                newValue = PicaToMm(oldValue);
+                                break;
+
+                            case UnitType.Centimeter:
+                                newValue = PicaToCm(oldValue);
+                                break;
+                        }
+
                         break;
 
                     case UnitType.Inch:
+                        switch (type)
+                        {
+                            case UnitType.Pixel:
+                                newValue = InchToPixel(oldValue);
+                                break;
+
+                            case UnitType.Point:
+                                newValue = InchToPoint(oldValue);
+                                break;
+
+                            case UnitType.Pica:
+                                newValue = InchToPica(oldValue);
+                                break;
+
+                            case UnitType.Millimeter:
+                                newValue = InchToMm(oldValue);
+                                break;
+
+                            case UnitType.Centimeter:
+                                newValue = InchToCm(oldValue);
+                                break;
+                        }
+
                         break;
 
                     case UnitType.Millimeter:
+                        switch (type)
+                        {
+                            case UnitType.Pixel:
+                                newValue = MmToPixel(oldValue);
+                                break;
+
+                            case UnitType.Point:
+                                newValue = MmToPoint(oldValue);
+                                break;
+
+                            case UnitType.Pica:
+                                newValue = MmToPica(oldValue);
+                                break;
+
+                            case UnitType.Inch:
+                                newValue = MmToInch(oldValue);
+                                break;
+
+                            case UnitType.Centimeter:
+                                newValue = MmToCm(oldValue);
+                                break;
+                        }
+
                         break;
 
                     case UnitType.Centimeter:
-                        break;
+                        switch (type)
+                        {
+                            case UnitType.Pixel:
+                                newValue = CmToPixel(oldValue);
+                                break;
 
-                    case UnitType.Percentage:
+                            case UnitType.Point:
+                                newValue = CmToPoint(oldValue);
+                                break;
+
+                            case UnitType.Pica:
+                                newValue = CmToPica(oldValue);
+                                break;
+
+                            case UnitType.Inch:
+                                newValue = CmToInch(oldValue);
+                                break;
+
+                            case UnitType.Millimeter:
+                                newValue = CmToMm(oldValue);
+                                break;
+                        }
+
                         break;
                 }
-            }
 
-            throw new NotImplementedException();
+                return new Unit(newValue, type);
+            }
+        }
+
+        /// <summary>
+        /// Converts pixels to millimeters
+        /// </summary>
+        /// <param name="value">The pixels value</param>
+        /// <returns>The value in millimeters</returns>
+        /// <remarks>
+        /// There are 25.4mm to an inch.
+        /// </remarks>
+        private double PixelToMm
+            (
+                double value
+            )
+        {
+            return (value * 25.4) / Unit.DotsPerInch;
+        }
+
+        /// <summary>
+        /// Converts millimeters to pixels
+        /// </summary>
+        /// <param name="value">The millimeters value</param>
+        /// <returns>The value in pixels</returns>
+        /// <remarks>
+        /// There are 25.4mm to an inch.
+        /// </remarks>
+        private double MmToPixel
+            (
+                double value
+            )
+        {
+            return (value * Unit.DotsPerInch) / 25.4;
+        }
+
+        /// <summary>
+        /// Converts pixels to centimeters
+        /// </summary>
+        /// <param name="value">The pixels value</param>
+        /// <returns>The value in centimeters</returns>
+        private double PixelToCm
+            (
+                double value
+            )
+        {
+            var mm = PixelToMm(value);
+
+            return mm / 10;
+        }
+
+        /// <summary>
+        /// Converts centimeters to pixels
+        /// </summary>
+        /// <param name="value">The centimeters value</param>
+        /// <returns>The value in pixels</returns>
+        private double CmToPixel
+            (
+                double value
+            )
+        {
+            return MmToPixel(value * 10);
+        }
+
+        /// <summary>
+        /// Converts pixels to inches
+        /// </summary>
+        /// <param name="value">The pixels value</param>
+        /// <returns>The value in inches</returns>
+        private double PixelToInch
+            (
+                double value
+            )
+        {
+            return value / Unit.DotsPerInch;
+        }
+
+        /// <summary>
+        /// Converts inches to pixels
+        /// </summary>
+        /// <param name="value">The inches value</param>
+        /// <returns>The value in pixels</returns>
+        private double InchToPixel
+            (
+                double value
+            )
+        {
+            return value * Unit.DotsPerInch;
+        }
+
+        /// <summary>
+        /// Converts pixels to points
+        /// </summary>
+        /// <param name="value">The pixels value</param>
+        /// <returns>The value in points</returns>
+        /// <remarks>
+        /// There are 72 points to an inch.
+        /// </remarks>
+        private double PixelToPoint
+            (
+                double value
+            )
+        {
+            return (value * 72) / Unit.DotsPerInch;
+        }
+
+        /// <summary>
+        /// Converts points to pixels
+        /// </summary>
+        /// <param name="value">The points value</param>
+        /// <returns>The value in pixels</returns>
+        /// <remarks>
+        /// There are 72 points to an inch.
+        /// </remarks>
+        private double PointToPixel
+            (
+                double value
+            )
+        {
+            return (value * Unit.DotsPerInch) / 72;
+        }
+
+        /// <summary>
+        /// Converts pixels to picas
+        /// </summary>
+        /// <param name="value">The pixels value</param>
+        /// <returns>The value in picas</returns>
+        /// <remarks>
+        /// There are 12 points to a pica and 6 picas in an inch.
+        /// </remarks>
+        private double PixelToPica
+            (
+                double value
+            )
+        {
+            var points = PixelToPoint(value);
+            
+            return points / 12;
+        }
+
+        /// <summary>
+        /// Converts picas to pixels
+        /// </summary>
+        /// <param name="value">The picas value</param>
+        /// <returns>The value in pixels</returns>
+        /// <remarks>
+        /// There are 12 points to a pica and 6 picas in an inch.
+        /// </remarks>
+        private double PicaToPixel
+            (
+                double value
+            )
+        {
+            var points = value * 12;
+
+            return PointToPixel(points);
+        }
+
+        /// <summary>
+        /// Converts points to picas
+        /// </summary>
+        /// <param name="value">The points value</param>
+        /// <returns>The value in picas</returns>
+        /// <remarks>
+        /// There are 12 points to a pica.
+        /// </remarks>
+        private double PointToPica
+            (
+                double value
+            )
+        {
+            return value / 12;
+        }
+        
+        /// <summary>
+        /// Converts points to picas
+        /// </summary>
+        /// <param name="value">The points value</param>
+        /// <returns>The value in picas</returns>
+        /// <remarks>
+        /// There are 12 points to a pica.
+        /// </remarks>
+        private double PicaToPoint
+            (
+                double value
+            )
+        {
+            return value * 12;
+        }
+
+        /// <summary>
+        /// Converts points to inches
+        /// </summary>
+        /// <param name="value">The points value</param>
+        /// <returns>The value in inches</returns>
+        /// <remarks>
+        /// There are 72 points to an inch.
+        /// </remarks>
+        private double PointToInch
+            (
+                double value
+            )
+        {
+            return value * 72;
+        }
+
+        /// <summary>
+        /// Converts inches to points
+        /// </summary>
+        /// <param name="value">The inches value</param>
+        /// <returns>The value in points</returns>
+        /// <remarks>
+        /// There are 72 points to an inch.
+        /// </remarks>
+        private double InchToPoint
+            (
+                double value
+            )
+        {
+            return value / 72;
+        }
+
+        /// <summary>
+        /// Converts points to millimeters
+        /// </summary>
+        /// <param name="value">The points value</param>
+        /// <returns>The value in millimeters</returns>
+        /// <remarks>
+        /// There are 25.4mm to an inch.
+        /// </remarks>
+        private double PointToMm
+            (
+                double value
+            )
+        {
+            var inches = PointToInch(value);
+
+            return inches / 25.4;
+        }
+
+        /// <summary>
+        /// Converts millimeters to points
+        /// </summary>
+        /// <param name="value">The millimeters value</param>
+        /// <returns>The value in points</returns>
+        /// <remarks>
+        /// There are 25.4mm to an inch.
+        /// </remarks>
+        private double MmToPoint
+            (
+                double value
+            )
+        {
+            return InchToPoint(value * 25.4);
+        }
+
+        /// <summary>
+        /// Converts points to centimeters
+        /// </summary>
+        /// <param name="value">The points value</param>
+        /// <returns>The value in centimeters</returns>
+        private double PointToCm
+            (
+                double value
+            )
+        {
+            var mm = PointToMm(value);
+
+            return mm / 10;
+        }
+
+        /// <summary>
+        /// Converts centimeters to points
+        /// </summary>
+        /// <param name="value">The centimeters value</param>
+        /// <returns>The value in points</returns>
+        private double CmToPoint
+            (
+                double value
+            )
+        {
+            return MmToPoint(value * 10);
+        }
+
+        /// <summary>
+        /// Converts picas to inches
+        /// </summary>
+        /// <param name="value">The picas value</param>
+        /// <returns>The value in inches</returns>
+        /// <remarks>
+        /// There are 12 points to a pica and 72 points to an inch.
+        /// </remarks>
+        private double PicaToInch
+            (
+                double value
+            )
+        {
+            return (value * 12) / 72;
+        }
+
+        /// <summary>
+        /// Converts inches to picas
+        /// </summary>
+        /// <param name="value">The inches value</param>
+        /// <returns>The value in picas</returns>
+        /// <remarks>
+        /// There are 12 points to a pica and 72 points to an inch.
+        /// </remarks>
+        private double InchToPica
+            (
+                double value
+            )
+        {
+            return (value * 72) / 12;
+        }
+
+        /// <summary>
+        /// Converts picas to millimeters
+        /// </summary>
+        /// <param name="value">The picas value</param>
+        /// <returns>The value in millimeters</returns>
+        /// <remarks>
+        /// There are 12 points to a pica.
+        /// </remarks>
+        private double PicaToMm
+            (
+                double value
+            )
+        {
+            return PointToMm(value / 12);
+        }
+
+        /// <summary>
+        /// Converts millimeters to picas
+        /// </summary>
+        /// <param name="value">The millimeters value</param>
+        /// <returns>The value in picas</returns>
+        /// <remarks>
+        /// There are 12 points to a pica.
+        /// </remarks>
+        private double MmToPica
+            (
+                double value
+            )
+        {
+            var points = MmToPoint(value);
+
+            return points / 12;
+        }
+
+        /// <summary>
+        /// Converts picas to centimeters
+        /// </summary>
+        /// <param name="value">The picas value</param>
+        /// <returns>The value in centimeters</returns>
+        private double PicaToCm
+            (
+                double value
+            )
+        {
+            var mm = PicaToMm(value);
+
+            return mm / 10;
+        }
+
+        /// <summary>
+        /// Converts centimeters to picas
+        /// </summary>
+        /// <param name="value">The centimeters value</param>
+        /// <returns>The value in picas</returns>
+        private double CmToPica
+            (
+                double value
+            )
+        {
+            return MmToPica(value * 10);
+        }
+
+        /// <summary>
+        /// Converts inches to millimeters
+        /// </summary>
+        /// <param name="value">The inches value</param>
+        /// <returns>The value in millimeters</returns>
+        /// <remarks>
+        /// There are 25.4mm to an inch.
+        /// </remarks>
+        private double InchToMm
+            (
+                double value
+            )
+        {
+            return value * 25.4;
+        }
+
+        /// <summary>
+        /// Converts millimeters to inches
+        /// </summary>
+        /// <param name="value">The millimeters value</param>
+        /// <returns>The value in inches</returns>
+        /// <remarks>
+        /// There are 25.4mm to an inch.
+        /// </remarks>
+        private double MmToInch
+            (
+                double value
+            )
+        {
+            return value / 25.4;
+        }
+
+        /// <summary>
+        /// Converts inches to centimeters
+        /// </summary>
+        /// <param name="value">The inches value</param>
+        /// <returns>The value in centimeters</returns>
+        private double InchToCm
+            (
+                double value
+            )
+        {
+            var mm = InchToMm(value);
+
+            return value / 10;
+        }
+
+        /// <summary>
+        /// Converts centimeters to inches
+        /// </summary>
+        /// <param name="value">The centimeters value</param>
+        /// <returns>The value in inches</returns>
+        private double CmToInch
+            (
+                double value
+            )
+        {
+            return MmToInch(value * 10);
+        }
+
+        /// <summary>
+        /// Converts millimeters to centimeters
+        /// </summary>
+        /// <param name="value">The millimeters value</param>
+        /// <returns>The value in centimeters</returns>
+        private double MmToCm
+            (
+                double value
+            )
+        {
+            return value / 10;
+        }
+
+        /// <summary>
+        /// Converts centimeters to millimeters
+        /// </summary>
+        /// <param name="value">The centimeters value</param>
+        /// <returns>The value in millimeters</returns>
+        private double CmToMm
+            (
+                double value
+            )
+        {
+            return value * 10;
         }
     }
 }
