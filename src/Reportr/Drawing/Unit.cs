@@ -8,6 +8,8 @@
     /// </summary>
     public struct Unit : IComparable, IComparable<Unit>
     {
+        private bool _initialized;
+
         /// <summary>
         /// Gets or sets the default unit type for units of measure
         /// </summary>
@@ -38,7 +40,8 @@
         {
             this.UnitType = Unit.DefaultType;
             this.Value = Convert.ToSingle(value);
-            this.IsEmpty = false;
+
+            _initialized = true;
         }
 
         /// <summary>
@@ -54,7 +57,8 @@
         {
             this.Value = Convert.ToSingle(value);
             this.UnitType = unitType;
-            this.IsEmpty = false;
+
+            _initialized = true;
         }
 
         /// <summary>
@@ -97,53 +101,68 @@
                 0,
                 value.Length - 4
             );
-
-            var unitType = default(UnitType);
-
-            switch (typeDescriptor)
-            {
-                case "px":
-                    unitType = UnitType.Pixel;
-                    break;
-
-                case "pt":
-                    unitType = UnitType.Point;
-                    break;
-
-                case "pc":
-                    unitType = UnitType.Pica;
-                    break;
-
-                case "in":
-                    unitType = UnitType.Inch;
-                    break;
-
-                case "mm":
-                    unitType = UnitType.Millimeter;
-                    break;
-
-                case "cm":
-                    unitType = UnitType.Centimeter;
-                    break;
-
-                case "pe":
-                    unitType = UnitType.Percentage;
-                    break;
-
-                default:
-                    unitType = Unit.DefaultType;
-                    break;
-            }
-
-            this.UnitType = unitType;
+            
+            this.UnitType = GetTypeFromString(typeDescriptor);
             this.Value = Convert.ToSingle(valueDescriptor);
-            this.IsEmpty = false;
+
+            _initialized = true;
         }
 
         /// <summary>
+        /// Gets the unit type from a type descriptor
+        /// </summary>
+        /// <param name="typeDescriptor">The type descriptor</param>
+        /// <returns>The unit type</returns>
+        private static UnitType GetTypeFromString
+            (
+                string typeDescriptor
+            )
+        {
+            switch (typeDescriptor)
+            {
+                case "px":
+                    return UnitType.Pixel;
+                    
+                case "pt":
+                    return UnitType.Point;
+                    
+                case "pc":
+                    return UnitType.Pica;
+                    
+                case "in":
+                    return UnitType.Inch;
+                    
+                case "mm":
+                    return UnitType.Millimeter;
+                    
+                case "cm":
+                    return UnitType.Centimeter;
+                    
+                case "pe":
+                    return UnitType.Percentage;
+                    
+                default:
+                    throw new ArgumentOutOfRangeException
+                    (
+                        String.Format
+                        (
+                            "The unit type '{0}' is not supported.",
+                            typeDescriptor
+                        )
+                    );
+            }
+        }
+        
+        /// <summary>
         /// Gets a flag indicating if the unit is uninitialized
         /// </summary>
-        public bool IsEmpty { get; private set; }
+        public bool IsEmpty
+        {
+            get
+            {
+                return false == _initialized;
+            }
+        }
 
         /// <summary>
         /// Gets the unit type
@@ -168,7 +187,18 @@
                 object obj
             )
         {
-            throw new NotImplementedException();
+            if (obj == null)
+            {
+                return -1;
+            }
+            else if (obj.GetType() != typeof(Unit))
+            {
+                return -1;
+            }
+            else
+            {
+                return CompareTo((Unit)obj);
+            }
         }
 
         /// <summary>
@@ -184,7 +214,41 @@
                 Unit other
             )
         {
-            throw new NotImplementedException();
+            if (this.UnitType != other.UnitType)
+            {
+                other = other.ChangeType
+                (
+                    this.UnitType
+                );
+            }
+            
+            if (other.Value < this.Value)
+            {
+                return -1;
+            }
+            else if (other.Value == this.Value)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+
+        /// <summary>
+        /// Generates a custom hash code for the unit
+        /// </summary>
+        /// <returns>The hash code</returns>
+        public override int GetHashCode()
+        {
+            var tuple = Tuple.Create
+            (
+                this.Value,
+                this.UnitType
+            );
+
+            return tuple.GetHashCode();
         }
 
         /// <summary>
@@ -197,7 +261,7 @@
                 object obj
             )
         {
-            if (obj == null || !(obj is Unit))
+            if (obj == null || false == (obj is Unit))
             {
                 return false;
             }
@@ -239,6 +303,50 @@
             (
                 left.UnitType != right.UnitType || left.Value != right.Value
             );
+        }
+
+        /// <summary>
+        /// Changes the unit type to the type specified
+        /// </summary>
+        /// <param name="type">The new unit type</param>
+        /// <returns>The unit</returns>
+        public Unit ChangeType
+            (
+                UnitType type
+            )
+        {
+            if (type == this.UnitType)
+            {
+                return this;
+            }
+            else
+            {
+                switch (type)
+                {
+                    case UnitType.Pixel:
+                        break;
+
+                    case UnitType.Point:
+                        break;
+
+                    case UnitType.Pica:
+                        break;
+
+                    case UnitType.Inch:
+                        break;
+
+                    case UnitType.Millimeter:
+                        break;
+
+                    case UnitType.Centimeter:
+                        break;
+
+                    case UnitType.Percentage:
+                        break;
+                }
+            }
+
+            throw new NotImplementedException();
         }
     }
 }
