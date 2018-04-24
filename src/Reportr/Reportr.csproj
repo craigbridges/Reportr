@@ -83,6 +83,7 @@
     <Compile Include="Data\Querying\QuerySortingRule.cs" />
     <Compile Include="Data\SortDirection.cs" />
     <Compile Include="Drawing\Unit.cs" />
+    <Compile Include="Drawing\UnitExtensions.cs" />
     <Compile Include="Drawing\UnitType.cs" />
     <Compile Include="IReportExecutionResult.cs" />
     <Compile Include="IReportFilter.cs" />

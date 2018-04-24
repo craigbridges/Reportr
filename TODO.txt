@@ -1,6 +1,10 @@
 TODO:
 -----
 
+*** How do report template contents tell us their size? How about optional "promised" row height? table header and footer height? Chart height? Then we can calculate page sizes
+*** Unit extension methods: GetAs(UnitType type), Add, Subtract and Multiply
+
+
 *** Component optional relative width and height (%)
 	- And margin (top/left/right/bottom width and unit)
 *** Report template page optional size (units e.g. %, pixels cm etc) of width and height so we can auto paginate

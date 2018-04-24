@@ -181,7 +181,45 @@
                     );
             }
         }
-        
+
+        /// <summary>
+        /// Gets the string from a unit type
+        /// </summary>
+        /// <param name="type">The unit type</param>
+        /// <returns>The string representation</returns>
+        private static string GetStringFromType
+            (
+                UnitType type
+            )
+        {
+            switch (type)
+            {
+                case UnitType.Pixel:
+                    return "px";
+
+                case UnitType.Point:
+                    return "pt";
+
+                case UnitType.Pica:
+                    return "pc";
+
+                case UnitType.Inch:
+                    return "in";
+
+                case UnitType.Millimeter:
+                    return "mm";
+
+                case UnitType.Centimeter:
+                    return "cm";
+
+                case UnitType.Percentage:
+                    return "pe";
+
+                default:
+                    return String.Empty;
+            }
+        }
+
         /// <summary>
         /// Gets a flag indicating if the unit is uninitialized
         /// </summary>
@@ -990,6 +1028,36 @@
             )
         {
             return value * 10;
+        }
+
+        /// <summary>
+        /// Returns a human-readable representation of the unit
+        /// </summary>
+        /// <returns>A string representing the unit</returns>
+        public override string ToString()
+        {
+            if (this.UnitType == UnitType.Percentage)
+            {
+                return String.Format
+                (
+                    "{0}%",
+                    this.Value
+                );
+            }
+            else
+            {
+                var typeDescriptor = GetStringFromType
+                (
+                    this.UnitType
+                );
+
+                return String.Format
+                (
+                    "{0}{1}",
+                    this.Value,
+                    typeDescriptor
+                );
+            }
         }
     }
 }
