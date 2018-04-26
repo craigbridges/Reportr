@@ -30,6 +30,25 @@
         }
 
         /// <summary>
+        /// Constructs the unit with the full details
+        /// </summary>
+        /// <param name="value">The unit value</param>
+        /// <param name="unitType">The unit type</param>
+        /// <param name="initialized">The initialized flag</param>
+        private Unit
+            (
+                double value,
+                UnitType unitType,
+                bool initialized
+            )
+        {
+            this.UnitType = unitType;
+            this.Value = Convert.ToSingle(value);
+
+            _initialized = initialized;
+        }
+
+        /// <summary>
         /// Constructs the unit with the default unit type and a value
         /// </summary>
         /// <param name="value">The unit value</param>
@@ -37,20 +56,8 @@
             (
                 double value
             )
-        {
-            if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException
-                (
-                    "The unit value cannot be less than zero."
-                );
-            }
-
-            this.UnitType = Unit.DefaultType;
-            this.Value = Convert.ToSingle(value);
-
-            _initialized = true;
-        }
+            : this(value, Unit.DefaultType, true)
+        { }
 
         /// <summary>
         /// Constructs the unit with the a unit type and value
@@ -62,20 +69,8 @@
                 double value,
                 UnitType unitType
             )
-        {
-            if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException
-                (
-                    "The unit value cannot be less than zero."
-                );
-            }
-
-            this.Value = Convert.ToSingle(value);
-            this.UnitType = unitType;
-
-            _initialized = true;
-        }
+            : this(value, unitType, true)
+        { }
 
         /// <summary>
         /// Constructs the unit with the default unit type and a value
@@ -122,20 +117,17 @@
             (
                 valueDescriptor
             );
-
-            if (convertedValue < 0)
-            {
-                throw new ArgumentOutOfRangeException
-                (
-                    "The unit value cannot be less than zero."
-                );
-            }
-
+            
             this.UnitType = GetTypeFromString(typeDescriptor);
             this.Value = convertedValue;
 
             _initialized = true;
         }
+
+        /// <summary>
+        /// Represents an empty unit
+        /// </summary>
+        public static readonly Unit Empty = new Unit();
 
         /// <summary>
         /// Gets the unit type from a type descriptor
@@ -332,16 +324,8 @@
             {
                 return false;
             }
-
-            var u = (Unit)obj;
-
-            // Compare internal values to avoid "defaulting" in the case of "Empty" 
-            if (u.UnitType == this.UnitType && u.Value == this.Value)
-            {
-                return true;
-            }
-
-            return false;
+            
+            return (Unit)obj == this;
         }
 
         /// <summary>
@@ -349,13 +333,10 @@
         /// </summary>
         /// <param name="left">The left value</param>
         /// <param name="right">The right value</param>
-        /// <returns>true, if both objects are equal; otherwise false</returns>
+        /// <returns>True, if both objects are equal; otherwise false</returns>
         public static bool operator ==(Unit left, Unit right)
         {
-            return
-            (
-                left.UnitType == right.UnitType && left.Value == right.Value
-            );
+            return left.Equals(right);
         }
 
         /// <summary>
@@ -363,12 +344,143 @@
         /// </summary>
         /// <param name="left">The left value</param>
         /// <param name="right">The right value</param>
-        /// <returns>true, if both objects are not equal; otherwise false</returns>
+        /// <returns>True, if both objects are not equal; otherwise false</returns>
         public static bool operator !=(Unit left, Unit right)
         {
-            return
+            return left.DoesNotEqual(right);
+        }
+
+        /// <summary>
+        /// Compares two unit instances to determine if left is greater than right
+        /// </summary>
+        /// <param name="left">The left value</param>
+        /// <param name="right">The right value</param>
+        /// <returns>True, if left is greater; otherwise false</returns>
+        public static bool operator >(Unit left, Unit right)
+        {
+            return left.GreaterThan(right);
+        }
+
+        /// <summary>
+        /// Compares two unit instances to determine if left is greater or equal to right
+        /// </summary>
+        /// <param name="left">The left value</param>
+        /// <param name="right">The right value</param>
+        /// <returns>True, if left is greater or equal; otherwise false</returns>
+        public static bool operator >=(Unit left, Unit right)
+        {
+            return left.GreaterThanOrEqual(right);
+        }
+
+        /// <summary>
+        /// Compares two unit instances to determine if left is less than right
+        /// </summary>
+        /// <param name="left">The left value</param>
+        /// <param name="right">The right value</param>
+        /// <returns>True, if left is less; otherwise false</returns>
+        public static bool operator <(Unit left, Unit right)
+        {
+            return left.LessThan(right);
+        }
+
+        /// <summary>
+        /// Compares two unit instances to determine if left is less or equal to right
+        /// </summary>
+        /// <param name="left">The left value</param>
+        /// <param name="right">The right value</param>
+        /// <returns>True, if left is less or equal; otherwise false</returns>
+        public static bool operator <=(Unit left, Unit right)
+        {
+            return left.LessThanOrEqual(right);
+        }
+
+        /// <summary>
+        /// Adds one unit to another
+        /// </summary>
+        /// <param name="unit1">The first unit</param>
+        /// <param name="unit2">The second unit</param>
+        /// <returns>The sum of the two units</returns>
+        public static Unit operator +(Unit unit1, Unit unit2)
+        {
+            return unit1.Add(unit2);
+        }
+
+        /// <summary>
+        /// Divides a unit by a specified value
+        /// </summary>
+        /// <param name="unit">The unit</param>
+        /// <param name="value">The second unit</param>
+        /// <returns>A unit that is the quotient of unit and value</returns>
+        public static Unit operator /(Unit unit, double value)
+        {
+            return unit.Divide(value);
+        }
+
+        /// <summary>
+        /// Divides a unit by a specified value
+        /// </summary>
+        /// <param name="unit1">The first unit</param>
+        /// <param name="unit2">The second unit</param>
+        /// <returns>A unit that is the quotient of unit1 and value</returns>
+        public static Unit operator /(Unit unit1, Unit unit2)
+        {
+            return unit1.Divide(unit2);
+        }
+
+        /// <summary>
+        /// Multiplies a unit by a specified value
+        /// </summary>
+        /// <param name="unit">The unit</param>
+        /// <param name="value">The second unit</param>
+        /// <returns>
+        /// The product of multiplying this unit by the specified value
+        /// </returns>
+        public static Unit operator *(Unit unit, double value)
+        {
+            return unit.Multiply(value);
+        }
+
+        /// <summary>
+        /// Multiplies a unit by a specified value
+        /// </summary>
+        /// <param name="unit1">The first unit</param>
+        /// <param name="unit2">The second unit</param>
+        /// <returns>
+        /// The product of multiplying this unit by the specified value
+        /// </returns>
+        public static Unit operator *(Unit unit1, Unit unit2)
+        {
+            return unit1.Multiply(unit2);
+        }
+
+        /// <summary>
+        /// Subtracts two units using the unit type of the first unit
+        /// </summary>
+        /// <param name="unit1">The unit to subtract from</param>
+        /// <param name="unit2">The unit to subtract</param>
+        /// <returns>
+        /// The difference of the two units in the unit type of the first argument unit
+        /// </returns>
+        public static Unit operator -(Unit unit1, Unit unit2)
+        {
+            return unit1.Subtract(unit2);
+        }
+
+        /// <summary>
+        /// Unary minus. Reverses the sign of unit
+        /// </summary>
+        /// <param name="unit">The unit to negate</param>
+        /// <returns>
+        /// A unit of the same type as unit but with opposite sign
+        /// </returns>
+        public static Unit operator -(Unit unit)
+        {
+            var newValue = (unit.Value * -1);
+
+            return new Unit
             (
-                left.UnitType != right.UnitType || left.Value != right.Value
+                newValue,
+                unit.UnitType
             );
         }
 

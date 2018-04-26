@@ -82,6 +82,7 @@
     <Compile Include="Data\Querying\QueryRow.cs" />
     <Compile Include="Data\Querying\QuerySortingRule.cs" />
     <Compile Include="Data\SortDirection.cs" />
+    <Compile Include="Drawing\SizeU.cs" />
     <Compile Include="Drawing\Unit.cs" />
     <Compile Include="Drawing\UnitExtensions.cs" />
     <Compile Include="Drawing\UnitType.cs" />
