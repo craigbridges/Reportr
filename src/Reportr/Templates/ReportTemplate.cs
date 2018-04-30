@@ -290,7 +290,11 @@
 
                 throw new KeyNotFoundException
                 (
-                    String.Format(message, componentType)
+                    String.Format
+                    (
+                        message,
+                        componentType
+                    )
                 );
             }
 

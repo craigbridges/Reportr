@@ -50,6 +50,7 @@
     <Compile Include="Components\Graphics\GraphicOverlay.cs" />
     <Compile Include="Components\Graphics\GraphicResult.cs" />
     <Compile Include="Components\Graphics\IGraphic.cs" />
+    <Compile Include="Components\IReportAction.cs" />
     <Compile Include="Components\IReportComponent.cs" />
     <Compile Include="Components\IReportComponent.T1.cs" />
     <Compile Include="Components\IReportComponentOutput.cs" />
@@ -62,6 +63,8 @@
     <Compile Include="Components\Metrics\IStatisticRepository.cs" />
     <Compile Include="Components\Metrics\StatisticResult.cs" />
     <Compile Include="Components\Metrics\StatisticType.cs" />
+    <Compile Include="Components\ReportActionBase.cs" />
+    <Compile Include="Components\ReportActionType.cs" />
     <Compile Include="Components\ReportComponentOutput.cs" />
     <Compile Include="Components\ReportComponentType.cs" />
     <Compile Include="Data\DataBinding.cs" />

@@ -3,8 +3,8 @@
     using System;
 
     /// <summary>
-    /// Represents an ordered pair of unit-based point x- and y-coordinates 
-    /// that defines a point in a two-dimensional plane
+    /// Represents an ordered pair of unit-based point x and 
+    /// y-coordinates that defines a point in a two-dimensional plane
     /// </summary>
     public struct PointU
     {
