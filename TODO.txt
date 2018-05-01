@@ -1,6 +1,15 @@
 TODO:
 -----
 
+*** TableDefinition (that defines schema and which query to use etc)
+*** ITable (e.g. FlatTable etc)
+*** Same with ReportDefinition (that contains schema) and IReport which contains generated output
+	*** Also need ReportSectionDefinition and IReportSection or ReportSection
+
+
+*** IDateItem (can be used with ReportAction)
+
+
 *** How do report template contents tell us their size? How about optional "promised" row height? table header and footer height? Chart height? Then we can calculate page sizes
 
 

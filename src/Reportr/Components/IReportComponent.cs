@@ -16,7 +16,23 @@
         /// <summary>
         /// Gets the name of the component
         /// </summary>
+        /// <remarks>
+        /// A human readable way of identifying the component.
+        /// </remarks>
         string Name { get; }
+
+        /// <summary>
+        /// Gets the components title
+        /// </summary>
+        /// <remarks>
+        /// The components display text when rendering a report.
+        /// </remarks>
+        string Title { get; }
+
+        /// <summary>
+        /// Gets the report component type
+        /// </summary>
+        ReportComponentType ComponentType { get; }
 
         /// <summary>
         /// Gets the no data message
@@ -26,11 +42,6 @@
         /// a custom message when the associated query returns no data.
         /// </remarks>
         string NoDataMessage { get; }
-
-        /// <summary>
-        /// Gets the report component type
-        /// </summary>
-        ReportComponentType ComponentType { get; }
         
         /// <summary>
         /// Gets the components associated query

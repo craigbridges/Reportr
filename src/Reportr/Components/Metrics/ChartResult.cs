@@ -8,7 +8,7 @@
     /// <summary>
     /// Represents a single two-dimensional chart result
     /// </summary>
-    public class ChartResult : ReportComponentOutput, IEnumerable<ChartDataSet>
+    public class ChartResult : ReportComponentOutputBase, IEnumerable<ChartDataSet>
     {
         /// <summary>
         /// Constructs the result with the chart configuration

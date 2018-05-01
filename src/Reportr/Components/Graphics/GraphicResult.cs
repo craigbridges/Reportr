@@ -6,7 +6,7 @@
     /// <summary>
     /// Represents a single graphic result
     /// </summary>
-    public class GraphicResult : ReportComponentOutput
+    public class GraphicResult : ReportComponentOutputBase
     {
         /// <summary>
         /// Constructs the result with the graphic configuration
