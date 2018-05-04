@@ -59,6 +59,8 @@
     <Compile Include="Components\Metrics\ChartDataSet.cs" />
     <Compile Include="Components\Metrics\Chart.cs" />
     <Compile Include="Components\Metrics\ChartDataSetDefinition.cs" />
+    <Compile Include="Components\Metrics\ChartPlacement.cs" />
+    <Compile Include="Components\Metrics\ChartValueType.cs" />
     <Compile Include="Components\Metrics\IChart.cs" />
     <Compile Include="Components\Metrics\IStatistic.cs" />
     <Compile Include="Components\Metrics\Statistic.cs" />

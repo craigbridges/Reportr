@@ -6,6 +6,9 @@ TODO:
 	- Locked filter values based on role?
 
 
+*** Remove Query from IReportComponent?
+	
+
 *** TableDefinition (that defines schema and which query to use etc)
 *** ITable (e.g. FlatTable etc)
 *** Same with ReportDefinition (that contains schema) and IReport which contains generated output
