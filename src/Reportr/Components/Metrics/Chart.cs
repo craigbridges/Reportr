@@ -1,32 +1,30 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using Reportr.Data.Querying;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// Represents a single two-dimensional chart result
+    /// Represents a single two-dimensional chart
     /// </summary>
-    public class ChartResult : ReportComponentOutputBase, IEnumerable<ChartDataSet>
+    public class Chart : ReportComponentOutputBase, IEnumerable<ChartDataSet>
     {
         /// <summary>
-        /// Constructs the result with the chart configuration
+        /// Constructs the chart with the details
         /// </summary>
-        /// <param name="chart">The chart that generated the result</param>
-        /// <param name="executionTime">The execution time in milliseconds</param>
-        /// <param name="success">True, if the query executed successfully</param>
-        public ChartResult
+        /// <param name="chart">The chart definition</param>
+        /// <param name="results">The query results</param>
+        public Chart
             (
-                IChart chart,
-                int executionTime,
-                bool success = true
+                ChartDefinition chart,
+                QueryResults results
             )
             : base
             (
                 chart,
-                executionTime,
-                success
+                results
             )
         {
             Validate.IsNotNull(chart);
@@ -35,11 +33,16 @@
         }
 
         /// <summary>
-        /// Adds the charts data sets against the result
+        /// Gets an array of chart data sets
+        /// </summary>
+        public ChartDataSet[] DataSets { get; private set; }
+
+        /// <summary>
+        /// Adds the data sets to the chart
         /// </summary>
         /// <param name="dataSets">The data sets</param>
         /// <returns>The updated chart</returns>
-        public ChartResult WithDataSets
+        public Chart WithDataSets
             (
                 params ChartDataSet[] dataSets
             )
@@ -69,7 +72,11 @@
 
                     throw new ArgumentException
                     (
-                        String.Format(message, name)
+                        String.Format
+                        (
+                            message,
+                            name
+                        )
                     );
                 }
             }
@@ -78,11 +85,6 @@
 
             return this;
         }
-        
-        /// <summary>
-        /// Gets an array of chart data sets
-        /// </summary>
-        public ChartDataSet[] DataSets { get; private set; }
 
         /// <summary>
         /// Gets a single data set from the chart result
@@ -107,7 +109,11 @@
 
                 throw new KeyNotFoundException
                 (
-                    String.Format(message, name)
+                    String.Format
+                    (
+                        message,
+                        name
+                    )
                 );
             }
 

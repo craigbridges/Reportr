@@ -134,15 +134,5 @@
             this.RelativeWidth = width;
             this.RelativeHeight = height;
         }
-
-        /// <summary>
-        /// Generates the component output from the results of a query
-        /// </summary>
-        /// <param name="results">The query results</param>
-        /// <returns>The output generated</returns>
-        public abstract IReportComponentOutput GenerateOutput
-        (
-            QueryResults results
-        );
     }
 }

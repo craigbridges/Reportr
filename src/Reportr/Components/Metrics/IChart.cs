@@ -1,13 +1,15 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Defines a contract for a single two-dimensional chart
     /// </summary>
-    public interface IChart : IReportComponent<ChartResult>
+    public interface IChart : IReportComponent, IEnumerable<ChartDataSet>
     {
         /// <summary>
-        /// Gets a flag indicating if decimal places should be allowed
+        /// Gets an array of chart data sets
         /// </summary>
-        bool AllowDecimals { get; }
+        ChartDataSet[] DataSets { get; }
     }
 }

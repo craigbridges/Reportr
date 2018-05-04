@@ -116,12 +116,12 @@
             
             var success = sectionOutputs.All
             (
-                output => output.Success
+                output => output.Results.Success
             );
 
             var executionTime = sectionOutputs.Sum
             (
-                output => output.ExecutionTime
+                output => output.Results.ExecutionTime
             );
 
             var errorMessages = new Dictionary<string, string>();
@@ -129,9 +129,9 @@
             // Aggregate the error messages from all component outputs
             foreach (var output in sectionOutputs)
             {
-                if (output.ErrorMessages != null)
+                if (output.Results.ErrorMessages != null)
                 {
-                    foreach (var error in output.ErrorMessages)
+                    foreach (var error in output.Results.ErrorMessages)
                     {
                         errorMessages.Add
                         (
