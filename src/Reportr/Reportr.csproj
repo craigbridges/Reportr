@@ -82,6 +82,7 @@
     <Compile Include="Data\IDataSource.cs" />
     <Compile Include="Data\IDataSourceRepository.cs" />
     <Compile Include="Data\Querying\IQuery.cs" />
+    <Compile Include="Data\Querying\IQueryAggregator.cs" />
     <Compile Include="Data\Querying\IQueryRepository.cs" />
     <Compile Include="Data\Querying\QueryCell.cs" />
     <Compile Include="Data\Querying\QueryColumnImportance.cs" />
