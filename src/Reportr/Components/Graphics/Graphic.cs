@@ -1,33 +1,32 @@
 ﻿namespace Reportr.Components.Graphics
 {
+    using Reportr.Data.Querying;
     using System;
     using System.Drawing;
 
     /// <summary>
-    /// Represents a single graphic result
+    /// Represents a single graphic
     /// </summary>
-    public class GraphicResult : ReportComponentOutputBase
+    public class Graphic : ReportComponentOutputBase
     {
         /// <summary>
-        /// Constructs the result with the graphic configuration
+        /// Constructs the graphic with the details
         /// </summary>
-        /// <param name="graphic">The graphic that generated the result</param>
-        /// <param name="executionTime">The execution time in milliseconds</param>
-        /// <param name="success">True, if the query executed successfully</param>
-        public GraphicResult
+        /// <param name="definition">The graphic definition</param>
+        /// <param name="results">The query results</param>
+        public Graphic
             (
-                IGraphic graphic,
-                int executionTime,
-                bool success = true
+                IGraphic definition,
+                QueryResults results
             )
             : base
             (
-                graphic,
-                executionTime,
-                success
+                definition,
+                results
             )
         {
-            Validate.IsNotNull(graphic);
+            Validate.IsNotNull(definition);
+            Validate.IsNotNull(results);
 
             this.Overlays = new GraphicOverlay[] { };
         }
@@ -38,7 +37,7 @@
         /// <param name="image">The image</param>
         /// <param name="overlays">The overlays</param>
         /// <returns>The updated graphic result</returns>
-        public GraphicResult WithImage
+        public Graphic WithImage
             (
                 Image image,
                 params GraphicOverlay[] overlays
@@ -68,7 +67,7 @@
         /// </summary>
         /// <param name="areas">The areas to add</param>
         /// <returns>The updated graphic result</returns>
-        public GraphicResult WithAreas
+        public Graphic WithAreas
             (
                 GraphicArea[] areas
             )
@@ -91,7 +90,7 @@
         /// <param name="width">The width</param>
         /// <param name="height">The height</param>
         /// <returns>The updated graphic result</returns>
-        public GraphicResult WithDimensions
+        public Graphic WithDimensions
             (
                 double width,
                 double height

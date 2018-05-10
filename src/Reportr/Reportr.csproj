@@ -48,12 +48,12 @@
     <Compile Include="Components\Graphics\GraphicArea.cs" />
     <Compile Include="Components\Graphics\GraphicOutputTypes.cs" />
     <Compile Include="Components\Graphics\GraphicOverlay.cs" />
-    <Compile Include="Components\Graphics\GraphicResult.cs" />
+    <Compile Include="Components\Graphics\GraphicDefinition.cs" />
+    <Compile Include="Components\Graphics\Graphic.cs" />
     <Compile Include="Components\Graphics\IGraphic.cs" />
     <Compile Include="Components\IReportAction.cs" />
     <Compile Include="Components\IReportComponent.cs" />
     <Compile Include="Components\IReportComponentOutput.cs" />
-    <Compile Include="Components\Metrics\ChartAxisDefinition.cs" />
     <Compile Include="Components\Metrics\ChartAxisLabel.cs" />
     <Compile Include="Components\Metrics\ChartDataPoint.cs" />
     <Compile Include="Components\Metrics\ChartDataSet.cs" />

@@ -7,8 +7,7 @@
     /// Defines a contract for a query aggregator
     /// </summary>
     /// <remarks>
-    /// A query aggregator computes a single value 
-    /// from the results of a query.
+    /// A query aggregator computes a single value from the results of a query.
     /// </remarks>
     public interface IQueryAggregator
     {

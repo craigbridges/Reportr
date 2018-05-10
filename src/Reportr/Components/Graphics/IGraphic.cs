@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines a contract for a single report graphic
     /// </summary>
-    public interface IGraphic : IReportComponent<GraphicResult>
+    public interface IGraphic : IReportComponent
     {
         /// <summary>
         /// Gets a flag indicating if the graphic has any overlays

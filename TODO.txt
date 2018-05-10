@@ -5,21 +5,20 @@ TODO:
 	- Reports for certain type of user (roles)
 	- Locked filter values based on role?
 
-
-*** Remove Query from IReportComponent?
+** What about some sort of Report Definition Language (RDL)?
+	- Like "define report "Name" with components [x, y, z] in section n"
+	- https://docs.microsoft.com/en-us/sql/reporting-services/reports/report-definition-language-ssrs?view=sql-server-2017
+	- https://github.com/Microsoft/sql-server-samples/tree/master/samples/features/r-services/ssms-custom-reports
 	
-
+*** GraphicDefinition: define way of having a query that generates the overlays or areas with coordinates etc
 *** TableDefinition (that defines schema and which query to use etc)
 *** ITable (e.g. FlatTable etc)
 *** Same with ReportDefinition (that contains schema) and IReport which contains generated output
-	*** Also need ReportSectionDefinition and IReportSection or ReportSection
-
+	- Also need ReportSectionDefinition and IReportSection or ReportSection
 
 *** IDateItem (can be used with ReportAction)
 
-
 *** How do report template contents tell us their size? How about optional "promised" row height? table header and footer height? Chart height? Then we can calculate page sizes
-
 
 *** Component optional relative width and height (%)
 	- And margin (top/left/right/bottom width and unit)

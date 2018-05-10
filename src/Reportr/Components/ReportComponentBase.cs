@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Components
 {
-    using Reportr.Data.Querying;
     using System;
     
     /// <summary>
@@ -55,29 +54,7 @@
         /// a custom message when the associated query returns no data.
         /// </remarks>
         public string NoDataMessage { get; protected set; }
-
-        /// <summary>
-        /// Gets the components associated query
-        /// </summary>
-        public IQuery Query { get; protected set; }
-
-        /// <summary>
-        /// Sets the components data source
-        /// </summary>
-        /// <param name="query">The query</param>
-        /// <param name="noDataMessage">The no data message (optional)</param>
-        public void SetDataSource
-            (
-                IQuery query,
-                string noDataMessage = null
-            )
-        {
-            Validate.IsNotNull(query);
-
-            this.Query = query;
-            this.NoDataMessage = noDataMessage;
-        }
-
+        
         /// <summary>
         /// Gets the components desired relative width
         /// </summary>

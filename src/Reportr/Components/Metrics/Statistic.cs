@@ -20,11 +20,11 @@
                 QueryResults results,
                 double value
             )
-
             : base(definition, results)
         {
             Validate.IsNotNull(definition);
-            
+            Validate.IsNotNull(results);
+
             this.Value = value;
             this.HasRange = false;
         }

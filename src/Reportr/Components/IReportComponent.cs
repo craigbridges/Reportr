@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Components
 {
-    using Reportr.Data.Querying;
     using System;
 
     /// <summary>
@@ -43,11 +42,6 @@
         /// </remarks>
         string NoDataMessage { get; }
         
-        /// <summary>
-        /// Gets the components associated query
-        /// </summary>
-        IQuery Query { get; }
-
         /// <summary>
         /// Gets the components desired relative width
         /// </summary>

@@ -37,12 +37,7 @@
             get;
             protected set;
         }
-
-        public void DefineDataSet()
-        {
-
-        }
-
+        
         /// <summary>
         /// Gets the component type
         /// </summary>

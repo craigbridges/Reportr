@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Components.Metrics
 {
-    using Reportr.Data;
+    using Reportr.Data.Querying;
 
     /// <summary>
     /// Represents the definition of a single statistic
@@ -12,33 +12,25 @@
         /// </summary>
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
+        /// <param name="aggregator">The statistic aggregator</param>
         public StatisticDefinition
             (
                 string name,
-                string title
+                string title,
+                IQueryAggregator aggregator
             )
             : base(name, title)
-        { }
-
-        /// <summary>
-        /// Gets the data binding for the statistic
-        /// </summary>
-        public DataBinding Binding { get; private set; }
-
-        /// <summary>
-        /// Sets the statistics data binding
-        /// </summary>
-        /// <param name="binding">The data binding</param>
-        public void SetBinding
-            (
-                DataBinding binding
-            )
         {
-            Validate.IsNotNull(binding);
-
-            this.Binding = binding;
+            Validate.IsNotNull(aggregator);
+            
+            this.Aggregator = aggregator;
         }
 
+        /// <summary>
+        /// Gets the statistic aggregator
+        /// </summary>
+        public IQueryAggregator Aggregator { get; protected set; }
+        
         /// <summary>
         /// Gets the component type
         /// </summary>

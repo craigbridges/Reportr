@@ -14,20 +14,21 @@
         /// <summary>
         /// Constructs the chart with the details
         /// </summary>
-        /// <param name="chart">The chart definition</param>
+        /// <param name="definition">The chart definition</param>
         /// <param name="results">The query results</param>
         public Chart
             (
-                ChartDefinition chart,
+                ChartDefinition definition,
                 QueryResults results
             )
             : base
             (
-                chart,
+                definition,
                 results
             )
         {
-            Validate.IsNotNull(chart);
+            Validate.IsNotNull(definition);
+            Validate.IsNotNull(results);
 
             this.DataSets = new ChartDataSet[] { };
         }
