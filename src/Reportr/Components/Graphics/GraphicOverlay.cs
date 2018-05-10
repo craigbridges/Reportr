@@ -19,6 +19,7 @@
                 double y
             )
         {
+            this.OverlayId = Guid.NewGuid();
             this.PositionX = x;
             this.PositionY = y;
         }
@@ -44,19 +45,24 @@
         }
 
         /// <summary>
+        /// Gets the graphic overlay ID
+        /// </summary>
+        public Guid OverlayId { get; protected set; }
+
+        /// <summary>
         /// Gets the X display position
         /// </summary>
-        public double PositionX { get; private set; }
+        public double PositionX { get; protected set; }
 
         /// <summary>
         /// Gets the Y display position
         /// </summary>
-        public double PositionY { get; private set; }
+        public double PositionY { get; protected set; }
 
         /// <summary>
         /// Gets the image to display
         /// </summary>
-        public Image Image { get; private set; }
+        public Image Image { get; protected set; }
 
         /// <summary>
         /// Adds the image dimension values to the overlay
@@ -95,12 +101,12 @@
         /// <summary>
         /// Gets the image width
         /// </summary>
-        public double? Width { get; private set; }
+        public double? Width { get; protected set; }
 
         /// <summary>
         /// Gets the image height
         /// </summary>
-        public double? Height { get; private set; }
+        public double? Height { get; protected set; }
 
         /// <summary>
         /// Adds a label to the graphic overlay
@@ -128,16 +134,38 @@
         /// <summary>
         /// Gets the label text to display
         /// </summary>
-        public string Label { get; private set; }
+        public string Label { get; protected set; }
 
         /// <summary>
         /// Gets the background colour
         /// </summary>
-        public Color? BackgroundColor { get; private set; }
+        public Color? BackgroundColor { get; protected set; }
 
         /// <summary>
         /// Gets the foreground colour
         /// </summary>
-        public Color? ForegroundColor { get; private set; }
+        public Color? ForegroundColor { get; protected set; }
+
+        /// <summary>
+        /// Adds an action to the overlay
+        /// </summary>
+        /// <param name="action">The action</param>
+        /// <returns>The updated graphic overlay</returns>
+        public GraphicOverlay WithAction
+            (
+                IReportAction action
+            )
+        {
+            Validate.IsNotNull(action);
+
+            this.Action = action;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets the action for the overlay
+        /// </summary>
+        public IReportAction Action { get; protected set; }
     }
 }

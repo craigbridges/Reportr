@@ -4,9 +4,9 @@
     using System;
     
     /// <summary>
-    /// Represents the default implementation for a statistic
+    /// Represents a single report statistic
     /// </summary>
-    public class Statistic : ReportComponentOutputBase, IStatistic
+    public class Statistic : ReportComponentOutputBase
     {
         /// <summary>
         /// Constructs the statistic with the details

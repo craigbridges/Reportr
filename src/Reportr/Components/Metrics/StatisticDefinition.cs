@@ -3,7 +3,7 @@
     using Reportr.Data.Querying;
 
     /// <summary>
-    /// Represents the definition of a single statistic
+    /// Represents the definition of a single report statistic
     /// </summary>
     public class StatisticDefinition : ReportComponentBase
     {

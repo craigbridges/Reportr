@@ -7,7 +7,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Represents a single two-dimensional chart
+    /// Represents a single two-dimensional report chart
     /// </summary>
     public class Chart : ReportComponentOutputBase, IEnumerable<ChartDataSet>
     {

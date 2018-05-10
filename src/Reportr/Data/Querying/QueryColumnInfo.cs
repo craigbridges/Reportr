@@ -10,12 +10,10 @@
         /// </summary>
         /// <param name="table">The table schema</param>
         /// <param name="column">The column schema</param>
-        /// <param name="importance">The importance (optional)</param>
         public QueryColumnInfo
             (
                 DataColumnSchema table,
-                DataColumnSchema column,
-                QueryColumnImportance importance = QueryColumnImportance.Low
+                DataColumnSchema column
             )
         {
             Validate.IsNotNull(table);
@@ -23,7 +21,6 @@
 
             this.Table = table;
             this.Column = column;
-            this.Importance = importance;
         }
 
         /// <summary>
@@ -35,10 +32,5 @@
         /// Gets the column schema
         /// </summary>
         public DataColumnSchema Column { get; private set; }
-        
-        /// <summary>
-        /// Gets the importance of the column
-        /// </summary>
-        public QueryColumnImportance Importance { get; private set; }
     }
 }

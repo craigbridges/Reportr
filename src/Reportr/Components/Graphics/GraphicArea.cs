@@ -24,20 +24,26 @@
         {
             Validate.IsNotNull(path);
 
+            this.AreaId = Guid.NewGuid();
             this.Path = path;
             this.FillColor = fillColor;
             this.ToolTipText = toolTipText;
         }
 
         /// <summary>
+        /// Gets the graphic area ID
+        /// </summary>
+        public Guid AreaId { get; protected set; }
+
+        /// <summary>
         /// Gets the path describing the graphic area
         /// </summary>
-        public GraphicsPath Path { get; private set; }
+        public GraphicsPath Path { get; protected set; }
 
         /// <summary>
         /// Gets the areas fill color
         /// </summary>
-        public Color? FillColor { get; private set; }
+        public Color? FillColor { get; protected set; }
 
         /// <summary>
         /// Adds the border details to the area
@@ -68,16 +74,38 @@
         /// <summary>
         /// Gets the border color
         /// </summary>
-        public Color? BorderColor { get; private set; }
+        public Color? BorderColor { get; protected set; }
 
         /// <summary>
         /// Gets the border width
         /// </summary>
-        public double BorderWidth { get; private set; }
+        public double BorderWidth { get; protected set; }
 
         /// <summary>
         /// Gets the tool-tip text
         /// </summary>
-        public string ToolTipText { get; private set; }
+        public string ToolTipText { get; protected set; }
+
+        /// <summary>
+        /// Adds an action to the area
+        /// </summary>
+        /// <param name="action">The action</param>
+        /// <returns>The updated graphic area</returns>
+        public GraphicArea WithAction
+            (
+                IReportAction action
+            )
+        {
+            Validate.IsNotNull(action);
+
+            this.Action = action;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets the action for the area
+        /// </summary>
+        public IReportAction Action { get; protected set; }
     }
 }

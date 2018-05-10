@@ -1,11 +1,13 @@
 ﻿namespace Reportr.Components.Graphics
 {
+    using Reportr.Components.Metrics;
     using Reportr.Data.Querying;
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
 
     /// <summary>
-    /// Represents a single graphic
+    /// Represents a single report graphic
     /// </summary>
     public class Graphic : ReportComponentOutputBase
     {
@@ -16,7 +18,7 @@
         /// <param name="results">The query results</param>
         public Graphic
             (
-                IGraphic definition,
+                GraphicDefinition definition,
                 QueryResults results
             )
             : base
@@ -29,6 +31,7 @@
             Validate.IsNotNull(results);
 
             this.Overlays = new GraphicOverlay[] { };
+            this.OverlayStatistics = new Dictionary<Guid, List<Statistic>>();
         }
         
         /// <summary>
@@ -49,18 +52,56 @@
             this.Image = image;
             this.Overlays = overlays;
 
+            foreach (var overlay in overlays)
+            {
+                this.OverlayStatistics.Add
+                (
+                    overlay.OverlayId,
+                    new List<Statistic>()
+                );
+            }
+
             return this;
         }
 
         /// <summary>
         /// Gets the image to display
         /// </summary>
-        public Image Image { get; private set; }
+        public Image Image { get; protected set; }
 
         /// <summary>
         /// Gets an array of overlays to display over the graphic
         /// </summary>
-        public GraphicOverlay[] Overlays { get; private set; }
+        public GraphicOverlay[] Overlays { get; protected set; }
+
+        /// <summary>
+        /// Gets a dictionary of overlay statistics
+        /// </summary>
+        public Dictionary<Guid, List<Statistic>> OverlayStatistics
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Adds a statistic against an overlay
+        /// </summary>
+        /// <param name="overlay">The overlay</param>
+        /// <param name="statistic">The statistic</param>
+        internal void AddOverlayStatistic
+            (
+                GraphicOverlay overlay,
+                Statistic statistic
+            )
+        {
+            Validate.IsNotNull(overlay);
+            Validate.IsNotNull(statistic);
+
+            var overlayId = overlay.OverlayId;
+            var entry = this.OverlayStatistics[overlayId];
+
+            entry.Add(statistic);
+        }
 
         /// <summary>
         /// Adds a collection of areas to the result
@@ -82,7 +123,7 @@
         /// <summary>
         /// Gets an array of areas to render over the graphic
         /// </summary>
-        public GraphicArea[] Areas { get; private set; }
+        public GraphicArea[] Areas { get; protected set; }
 
         /// <summary>
         /// Adds the image dimension values to the result
@@ -121,11 +162,11 @@
         /// <summary>
         /// Gets the image width
         /// </summary>
-        public double? Width { get; private set; }
+        public double? Width { get; protected set; }
 
         /// <summary>
         /// Gets the image height
         /// </summary>
-        public double? Height { get; private set; }
+        public double? Height { get; protected set; }
     }
 }
