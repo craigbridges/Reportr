@@ -13,7 +13,7 @@
         /// <param name="definition">The report definition</param>
         /// <param name="filter">The filter (optional)</param>
         /// <returns>The report generated</returns>
-        ReportOutput Run
+        ReportOutput Generate
         (
             ReportDefinition definition,
             IReportFilter filter = null
@@ -25,7 +25,7 @@
         /// <param name="definition">The report definition</param>
         /// <param name="filter">The filter (optional)</param>
         /// <returns>The report generated</returns>
-        Task<ReportOutput> RunAsync
+        Task<ReportOutput> GenerateAsync
         (
             ReportDefinition definition,
             IReportFilter filter = null
