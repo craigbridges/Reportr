@@ -12,8 +12,8 @@
         /// </summary>
         /// <param name="definition">The report definition</param>
         /// <param name="filter">The filter (optional)</param>
-        /// <returns>The report generated</returns>
-        ReportOutput Generate
+        /// <returns>The generated result</returns>
+        ReportGenerationResult Generate
         (
             ReportDefinition definition,
             IReportFilter filter = null
@@ -24,8 +24,8 @@
         /// </summary>
         /// <param name="definition">The report definition</param>
         /// <param name="filter">The filter (optional)</param>
-        /// <returns>The report generated</returns>
-        Task<ReportOutput> GenerateAsync
+        /// <returns>The generation result</returns>
+        Task<ReportGenerationResult> GenerateAsync
         (
             ReportDefinition definition,
             IReportFilter filter = null

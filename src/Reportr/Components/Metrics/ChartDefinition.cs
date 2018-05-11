@@ -5,7 +5,7 @@
     /// <summary>
     /// Represents the definition of a single chart
     /// </summary>
-    public class ChartDefinition : ReportComponentBase
+    public class ChartDefinition : ReportComponentDefinitionBase
     {
         /// <summary>
         /// Constructs the chart definition with the details

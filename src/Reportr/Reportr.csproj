@@ -60,8 +60,8 @@
     <Compile Include="Components\Graphics\GraphicDefinition.cs" />
     <Compile Include="Components\Graphics\Graphic.cs" />
     <Compile Include="Components\IReportAction.cs" />
+    <Compile Include="Components\IReportComponentDefinition.cs" />
     <Compile Include="Components\IReportComponent.cs" />
-    <Compile Include="Components\IReportComponentOutput.cs" />
     <Compile Include="Components\Metrics\ChartAxisLabel.cs" />
     <Compile Include="Components\Metrics\ChartDataPoint.cs" />
     <Compile Include="Components\Metrics\ChartDataSet.cs" />
@@ -77,8 +77,8 @@
     <Compile Include="Components\ReportActionBase.cs" />
     <Compile Include="Components\ReportActionOutput.cs" />
     <Compile Include="Components\ReportActionType.cs" />
+    <Compile Include="Components\ReportComponentDefinitionBase.cs" />
     <Compile Include="Components\ReportComponentBase.cs" />
-    <Compile Include="Components\ReportComponentOutputBase.cs" />
     <Compile Include="Components\ReportComponentSeparatorType.cs" />
     <Compile Include="Components\ReportComponentType.cs" />
     <Compile Include="Data\DataBinding.cs" />
@@ -106,7 +106,7 @@
     <Compile Include="Drawing\Unit.cs" />
     <Compile Include="Drawing\UnitExtensions.cs" />
     <Compile Include="Drawing\UnitType.cs" />
-    <Compile Include="IReportExecutionResult.cs" />
+    <Compile Include="ReportGenerationResult.cs" />
     <Compile Include="IReportFilter.cs" />
     <Compile Include="IReportGenerator.cs" />
     <Compile Include="ParameterInfo.cs" />
@@ -115,11 +115,10 @@
     <Compile Include="Rendering\IRenderedReport.cs" />
     <Compile Include="Rendering\IReportRenderer.cs" />
     <Compile Include="Rendering\RenderedReport.cs" />
-    <Compile Include="IReportOutput.cs" />
     <Compile Include="ReportSectionDefinition.cs" />
     <Compile Include="ReportDefinition.cs" />
     <Compile Include="ReportDefinitionExtensions.cs" />
-    <Compile Include="ReportOutput.cs" />
+    <Compile Include="Report.cs" />
     <Compile Include="ReportSection.cs" />
     <Compile Include="Templates\SectionTemplateContent.cs" />
     <Compile Include="Templates\ComponentTemplateContent.cs" />

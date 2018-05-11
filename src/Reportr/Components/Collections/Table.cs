@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Components.Collections
 {
-    using Reportr.Data.Querying;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -8,34 +7,39 @@
     /// <summary>
     /// Represents a single report table
     /// </summary>
-    public class Table : ReportComponentOutputBase, IEnumerable<TableRow>
+    public class Table : ReportComponentBase, IEnumerable<TableRow>
     {
         /// <summary>
         /// Constructs the table with the details
         /// </summary>
         /// <param name="definition">The table definition</param>
-        /// <param name="results">The query results</param>
-        /// <param name="columns">The table columns</param>
         /// <param name="rows">The table rows</param>
         public Table
             (
                 TableDefinition definition,
-                QueryResults results,
-                TableColumn[] columns,
-                TableRow[] rows
+                params TableRow[] rows
             )
-            : base
-            (
-                definition,
-                results
-            )
+            : base(definition)
         {
-            Validate.IsNotNull(definition);
-            Validate.IsNotNull(results);
-            Validate.IsNotNull(columns);
             Validate.IsNotNull(rows);
+            
+            var columns = new List<TableColumn>();
 
-            this.Columns = columns;
+            foreach (var columnDefinition in definition.Columns)
+            {
+                columns.Add
+                (
+                    new TableColumn
+                    (
+                        columnDefinition.Name,
+                        columnDefinition.Title,
+                        columnDefinition.Alignment,
+                        columnDefinition.Importance
+                    )
+                );
+            }
+
+            this.Columns = columns.ToArray();
             this.Rows = rows;
         }
         

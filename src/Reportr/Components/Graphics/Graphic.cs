@@ -1,7 +1,6 @@
 ﻿namespace Reportr.Components.Graphics
 {
     using Reportr.Components.Metrics;
-    using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -9,27 +8,18 @@
     /// <summary>
     /// Represents a single report graphic
     /// </summary>
-    public class Graphic : ReportComponentOutputBase
+    public class Graphic : ReportComponentBase
     {
         /// <summary>
         /// Constructs the graphic with the details
         /// </summary>
         /// <param name="definition">The graphic definition</param>
-        /// <param name="results">The query results</param>
         public Graphic
             (
-                GraphicDefinition definition,
-                QueryResults results
+                GraphicDefinition definition
             )
-            : base
-            (
-                definition,
-                results
-            )
+            : base(definition)
         {
-            Validate.IsNotNull(definition);
-            Validate.IsNotNull(results);
-
             this.Overlays = new GraphicOverlay[] { };
             this.OverlayStatistics = new Dictionary<Guid, List<Statistic>>();
         }

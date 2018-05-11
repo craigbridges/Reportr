@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Components.Collections
 {
-    using Reportr.Data.Querying;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
@@ -8,30 +7,22 @@
     /// <summary>
     /// Represents a single report repeater
     /// </summary>
-    public class Repeater : ReportComponentOutputBase, IEnumerable<RepeaterItem>
+    public class Repeater : ReportComponentBase, IEnumerable<RepeaterItem>
     {
         /// <summary>
         /// Constructs the repeater with the details
         /// </summary>
         /// <param name="definition">The repeater definition</param>
-        /// <param name="results">The query results</param>
         /// <param name="type">The repeater type</param>
         /// <param name="items">The repeater items</param>
         public Repeater
             (
                 RepeaterDefinition definition,
-                QueryResults results,
                 RepeaterType type,
                 params RepeaterItem[] items
             )
-            : base
-            (
-                definition,
-                results
-            )
+            : base(definition)
         {
-            Validate.IsNotNull(definition);
-            Validate.IsNotNull(results);
             Validate.IsNotNull(items);
 
             this.RepeaterType = type;

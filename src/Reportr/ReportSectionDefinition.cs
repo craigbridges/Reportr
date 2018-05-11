@@ -17,13 +17,13 @@
         internal ReportSectionDefinition
             (
                 string title,
-                params IReportComponent[] components
+                params IReportComponentDefinition[] components
             )
         {
             Validate.IsNotEmpty(title);
 
             this.Title = title;
-            this.Components = new Collection<IReportComponent>();
+            this.Components = new Collection<IReportComponentDefinition>();
 
             if (components != null)
             {
@@ -38,11 +38,16 @@
         /// Gets the sections title
         /// </summary>
         public string Title { get; protected set; }
-        
+
+        /// <summary>
+        /// Gets or sets the sections description
+        /// </summary>
+        public string Description { get; set; }
+
         /// <summary>
         /// Gets the components in the section
         /// </summary>
-        public ICollection<IReportComponent> Components
+        public ICollection<IReportComponentDefinition> Components
         {
             get;
             protected set;

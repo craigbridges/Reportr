@@ -76,9 +76,18 @@
         public string Title { get; protected set; }
 
         /// <summary>
-        /// Gets the reports description
+        /// Gets or sets the reports description
         /// </summary>
-        public string Description { get; protected set; }
+        public string Description { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the number of columns in the report
+        /// </summary>
+        /// <remarks>
+        /// The number of columns can be used by the template
+        /// to layout the components in a specific way.
+        /// </remarks>
+        public int? ColumnCount { get; set; }
 
         /// <summary>
         /// Gets or sets the culture to be used by the report
@@ -122,7 +131,7 @@
         public void DefinePageHeader
             (
                 string title,
-                params IReportComponent[] components
+                params IReportComponentDefinition[] components
             )
         {
             this.PageHeader = new ReportSectionDefinition
@@ -158,7 +167,7 @@
         public void DefineReportHeader
             (
                 string title,
-                params IReportComponent[] components
+                params IReportComponentDefinition[] components
             )
         {
             this.ReportHeader = new ReportSectionDefinition
@@ -194,7 +203,7 @@
         public void DefineBody
             (
                 string title,
-                params IReportComponent[] components
+                params IReportComponentDefinition[] components
             )
         {
             this.Body = new ReportSectionDefinition
@@ -222,7 +231,7 @@
         public void DefineReportFooter
             (
                 string title,
-                params IReportComponent[] components
+                params IReportComponentDefinition[] components
             )
         {
             this.ReportFooter = new ReportSectionDefinition
@@ -257,7 +266,7 @@
         public void DefinePageFooter
             (
                 string title,
-                params IReportComponent[] components
+                params IReportComponentDefinition[] components
             )
         {
             this.PageFooter = new ReportSectionDefinition

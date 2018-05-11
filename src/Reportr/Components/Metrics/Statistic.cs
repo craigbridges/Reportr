@@ -1,30 +1,24 @@
 ﻿namespace Reportr.Components.Metrics
 {
-    using Reportr.Data.Querying;
     using System;
     
     /// <summary>
     /// Represents a single report statistic
     /// </summary>
-    public class Statistic : ReportComponentOutputBase
+    public class Statistic : ReportComponentBase
     {
         /// <summary>
         /// Constructs the statistic with the details
         /// </summary>
         /// <param name="definition">The statistic definition</param>
-        /// <param name="results">The query results</param>
         /// <param name="value">The value calculated</param>
         public Statistic
             (
                 StatisticDefinition definition,
-                QueryResults results,
                 double value
             )
-            : base(definition, results)
+            : base(definition)
         {
-            Validate.IsNotNull(definition);
-            Validate.IsNotNull(results);
-
             this.Value = value;
             this.HasRange = false;
         }

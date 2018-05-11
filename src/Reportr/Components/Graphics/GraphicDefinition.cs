@@ -8,7 +8,7 @@
     /// <summary>
     /// Represents a single report graphic definition
     /// </summary>
-    public class GraphicDefinition : ReportComponentBase
+    public class GraphicDefinition : ReportComponentDefinitionBase
     {
         /// <summary>
         /// Constructs the graphic definition with the core details

@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Components.Metrics
 {
-    using Reportr.Data.Querying;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -9,44 +8,18 @@
     /// <summary>
     /// Represents a single two-dimensional report chart
     /// </summary>
-    public class Chart : ReportComponentOutputBase, IEnumerable<ChartDataSet>
+    public class Chart : ReportComponentBase, IEnumerable<ChartDataSet>
     {
         /// <summary>
         /// Constructs the chart with the details
         /// </summary>
         /// <param name="definition">The chart definition</param>
-        /// <param name="results">The query results</param>
         public Chart
             (
                 ChartDefinition definition,
-                QueryResults results
-            )
-            : base
-            (
-                definition,
-                results
-            )
-        {
-            Validate.IsNotNull(definition);
-            Validate.IsNotNull(results);
-
-            this.DataSets = new ChartDataSet[] { };
-        }
-
-        /// <summary>
-        /// Gets an array of chart data sets
-        /// </summary>
-        public ChartDataSet[] DataSets { get; private set; }
-
-        /// <summary>
-        /// Adds the data sets to the chart
-        /// </summary>
-        /// <param name="dataSets">The data sets</param>
-        /// <returns>The updated chart</returns>
-        public Chart WithDataSets
-            (
                 params ChartDataSet[] dataSets
             )
+            : base(definition)
         {
             Validate.IsNotNull(dataSets);
 
@@ -83,10 +56,13 @@
             }
 
             this.DataSets = dataSets;
-
-            return this;
         }
 
+        /// <summary>
+        /// Gets an array of chart data sets
+        /// </summary>
+        public ChartDataSet[] DataSets { get; private set; }
+        
         /// <summary>
         /// Gets a single data set from the chart result
         /// </summary>

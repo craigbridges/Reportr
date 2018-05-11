@@ -3,58 +3,30 @@
     using Reportr.Components;
 
     /// <summary>
-    /// Represents the default implementation for a report section
+    /// Represents a single report section
     /// </summary>
     public class ReportSection
     {
         /// <summary>
         /// Constructs the report section with the core details
         /// </summary>
-        /// <param name="name">The section name</param>
+        /// <param name="title">The section title</param>
         /// <param name="components">The report components</param>
         public ReportSection
             (
-                string name,
+                string title,
+                string description,
                 params IReportComponent[] components
             )
         {
-            Validate.IsNotEmpty(name);
-            Validate.IsNotNull(components);
-
-            this.Name = name;
-            this.Components = components;
-        }
-
-        /// <summary>
-        /// Gets the sections name
-        /// </summary>
-        public string Name { get; private set; }
-
-        /// <summary>
-        /// Gets the components in the section
-        /// </summary>
-        public IReportComponent[] Components { get; private set; }
-
-        /// <summary>
-        /// Adds the descriptors to the report section
-        /// </summary>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description (optional)</param>
-        /// <returns>The updated report section</returns>
-        public ReportSection WithDescriptors
-            (
-                string title,
-                string description = null
-            )
-        {
             Validate.IsNotEmpty(title);
+            Validate.IsNotNull(components);
 
             this.Title = title;
             this.Description = description;
-
-            return this;
+            this.Components = components;
         }
-
+        
         /// <summary>
         /// Gets the sections title
         /// </summary>
@@ -64,5 +36,10 @@
         /// Gets the sections description
         /// </summary>
         public string Description { get; private set; }
+
+        /// <summary>
+        /// Gets the components in the section
+        /// </summary>
+        public IReportComponent[] Components { get; private set; }
     }
 }

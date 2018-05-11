@@ -8,7 +8,7 @@
     /// <summary>
     /// Represents a single report repeater definition
     /// </summary>
-    public class RepeaterDefinition : ReportComponentBase
+    public class RepeaterDefinition : ReportComponentDefinitionBase
     {
         /// <summary>
         /// Constructs the repeater definition with the details

@@ -5,12 +5,12 @@
     /// <summary>
     /// Defines a contract for a rendered report
     /// </summary>
-    public interface IRenderedReport : IReportExecutionResult
+    public interface IRenderedReport
     {
         /// <summary>
-        /// Gets the report output that was generated
+        /// Gets the report that was generated
         /// </summary>
-        IReportOutput ReportOutput { get; }
+        Report Report { get; }
 
         /// <summary>
         /// Gets the name of the template used to render the report

@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents the definition of a single report statistic
     /// </summary>
-    public class StatisticDefinition : ReportComponentBase
+    public class StatisticDefinition : ReportComponentDefinitionBase
     {
         /// <summary>
         /// Constructs the statistic definition with the details

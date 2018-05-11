@@ -12,31 +12,31 @@
         /// <summary>
         /// Constructs the rendered report with the details
         /// </summary>
-        /// <param name="output">The report output</param>
+        /// <param name="report">The report</param>
         /// <param name="templateName">The name of the template used</param>
         /// <param name="renderedContent">The rendered content</param>
         /// <param name="renderedContentType">The content type</param>
         public RenderedReport
             (
-                IReportOutput output,
+                Report report,
                 string templateName,
                 string renderedContent,
                 TemplateOutputType renderedContentType
             )
         {
-            Validate.IsNotNull(output);
+            Validate.IsNotNull(report);
             Validate.IsNotEmpty(templateName);
 
-            this.ReportOutput = output;
+            this.Report = report;
             this.TemplateName = templateName;
             this.RenderedContent = renderedContent;
             this.RenderedContentType = renderedContentType;
         }
 
         /// <summary>
-        /// Gets the report output that was generated
+        /// Gets the report that was generated
         /// </summary>
-        public IReportOutput ReportOutput { get; private set; }
+        public Report Report { get; private set; }
 
         /// <summary>
         /// Gets the name of the template used to render the report

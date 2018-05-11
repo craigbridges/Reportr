@@ -8,14 +8,14 @@
     public interface IReportRenderer
     {
         /// <summary>
-        /// Renders the report output using a template
+        /// Renders a report using the template specified
         /// </summary>
-        /// <param name="output">The report output</param>
+        /// <param name="report">The report</param>
         /// <param name="template">The report template</param>
         /// <returns>The rendered report</returns>
         IRenderedReport Render
         (
-            IReportOutput output,
+            Report report,
             ReportTemplate template
         );
     }

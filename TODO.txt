@@ -1,37 +1,37 @@
-TODO:
------
+High Priority
+-------------
 
-** Rename ReportOutput to Report and refactor to match what bit should be
+- Report component margin (top/left/right/bottom width and unit)
 
-*** Security:
-	- Reports for certain type of user (roles)
-	- Locked filter values based on role?
 
-** What about some sort of Report Definition Language (RDL)?
-	- Like "define report "Name" with components [x, y, z] in section n"
-	- Simular to JSON syntax?
-	- https://docs.microsoft.com/en-us/sql/reporting-services/reports/report-definition-language-ssrs?view=sql-server-2017
-	- https://github.com/Microsoft/sql-server-samples/tree/master/samples/features/r-services/ssms-custom-reports
+Security
+--------
 
-*** How do report template contents tell us their size? How about optional "promised" row height? table header and footer height? Chart height? Then we can calculate page sizes
+- Reports for certain types of user (roles)
 
-*** Component optional relative width and height (%)
-	- And margin (top/left/right/bottom width and unit)
-*** Report template page optional size (units e.g. %, pixels cm etc) of width and height so we can auto paginate
+- Locked/defaulted filter parameters/values based on role?
+
+
+Templates
+---------
+
+- How do report template contents tell us their size? How about optional "promised" row height? table header and footer height? Chart height? Then we can calculate page sizes
+
+- Template page optional size (units e.g. %, pixels cm etc) of width and height so we can auto paginate
 	- Also add margin details (for printing and screen padding)
-*** How do we calculate actual height of section so we can paginate?
-*** Binding of query result to component structure which allows template to auto generate
-	- For repeater, if no binding specified them entire result is the value given
-	- Can we add an IsDefined function to Nettle so we can see if property exists?
+
+- Integrate with Nettle
+	- Can we add an IsDefined(path) function to Nettle so we can see if path exists?
+
+Rendering
+---------
 
 - Design report auto export mechanism (e.g. CSV, XML, JSON etc)
 	- See https://github.com/danielpalme/ReportGenerator
 
 
-Low Priority:
--------------
-
-- Integrate with Nettle
+Low Priority
+------------
 
 - Create report component mocking (e.g. generate fake data for chart) for report building and testing
 
@@ -39,3 +39,5 @@ Low Priority:
 
 - Create Report Definition Language (RDL)
 	- See docs\Brainstorming\RDL Brainstorm Example.rdl
+	- https://docs.microsoft.com/en-us/sql/reporting-services/reports/report-definition-language-ssrs?view=sql-server-2017
+	- https://github.com/Microsoft/sql-server-samples/tree/master/samples/features/r-services/ssms-custom-reports

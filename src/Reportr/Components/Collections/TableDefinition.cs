@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents a single report table definition
     /// </summary>
-    public class TableDefinition : ReportComponentBase
+    public class TableDefinition : ReportComponentDefinitionBase
     {
         /// <summary>
         /// Constructs the table definition with the details

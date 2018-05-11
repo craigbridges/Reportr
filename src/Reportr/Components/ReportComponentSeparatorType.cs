@@ -7,8 +7,8 @@
     /// </summary>
     public enum ReportComponentSeparatorType
     {
-        [Description("None")]
-        None = 0,
+        [Description("Auto")]
+        Auto = 0,
 
         [Description("New Row")]
         NewRow = 1,
