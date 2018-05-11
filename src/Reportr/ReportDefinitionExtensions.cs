@@ -3,18 +3,18 @@
     using System;
     
     /// <summary>
-    /// Provides various extension methods for reports
+    /// Provides various extension methods for report definitions
     /// </summary>
-    public static class ReportExtensions
+    public static class ReportDefinitionExtensions
     {
         /// <summary>
-        /// Generates a default filter for the report
+        /// Generates a default filter for the report definition
         /// </summary>
-        /// <param name="report">The report</param>
+        /// <param name="report">The report definition</param>
         /// <returns>The filter generated</returns>
         public static IReportFilter GenerateDefaultFilter
             (
-                this IReport report
+                this ReportDefinition report
             )
         {
             Validate.IsNotNull(report);

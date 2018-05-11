@@ -5,7 +5,7 @@
     /// <summary>
     /// Represents the default implementation for a report section
     /// </summary>
-    public class ReportSection : IReportSection
+    public class ReportSection
     {
         /// <summary>
         /// Constructs the report section with the core details

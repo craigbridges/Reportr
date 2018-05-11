@@ -67,5 +67,27 @@
         /// Gets the color assigned to the data point
         /// </summary>
         public Color? Color { get; private set; }
+
+        /// <summary>
+        /// Gets the statistic action
+        /// </summary>
+        public ReportActionOutput Action { get; private set; }
+
+        /// <summary>
+        /// Adds the action to the data point
+        /// </summary>
+        /// <param name="action">The action</param>
+        /// <returns>The updated data point</returns>
+        public ChartDataPoint WithAction
+            (
+                ReportActionOutput action
+            )
+        {
+            Validate.IsNotNull(action);
+
+            this.Action = action;
+
+            return this;
+        }
     }
 }

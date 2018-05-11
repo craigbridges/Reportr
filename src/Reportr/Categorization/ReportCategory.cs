@@ -26,6 +26,7 @@
             this.CategoryId = Guid.NewGuid();
             this.Name = name;
             this.Description = description;
+
             this.SubCategories = new Collection<ReportCategory>();
             this.AssignedReports = new Collection<ReportCategoryAssignment>();
         }
@@ -163,7 +164,7 @@
         /// <param name="report">The report to assign</param>
         public void AssignReport
             (
-                IReport report
+                ReportDefinition report
             )
         {
             Validate.IsNotNull(report);
@@ -194,7 +195,10 @@
                 report.Title
             );
 
-            this.AssignedReports.Add(assignment);
+            this.AssignedReports.Add
+            (
+                assignment
+            );
         }
 
         /// <summary>
@@ -246,7 +250,10 @@
                 );
             }
 
-            this.AssignedReports.Remove(assignment);
+            this.AssignedReports.Remove
+            (
+                assignment
+            );
         }
     }
 }

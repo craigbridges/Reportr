@@ -75,5 +75,27 @@
 
             return this;
         }
+
+        /// <summary>
+        /// Gets the statistic action
+        /// </summary>
+        public ReportActionOutput Action { get; private set; }
+
+        /// <summary>
+        /// Adds the action to the statistic
+        /// </summary>
+        /// <param name="action">The statistic action</param>
+        /// <returns>The updated statistic</returns>
+        public Statistic WithAction
+            (
+                ReportActionOutput action
+            )
+        {
+            Validate.IsNotNull(action);
+
+            this.Action = action;
+
+            return this;
+        }
     }
 }

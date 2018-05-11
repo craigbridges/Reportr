@@ -145,27 +145,5 @@
         /// Gets the foreground colour
         /// </summary>
         public Color? ForegroundColor { get; protected set; }
-
-        /// <summary>
-        /// Adds an action to the overlay
-        /// </summary>
-        /// <param name="action">The action</param>
-        /// <returns>The updated graphic overlay</returns>
-        public GraphicOverlay WithAction
-            (
-                IReportAction action
-            )
-        {
-            Validate.IsNotNull(action);
-
-            this.Action = action;
-
-            return this;
-        }
-
-        /// <summary>
-        /// Gets the action for the overlay
-        /// </summary>
-        public IReportAction Action { get; protected set; }
     }
 }

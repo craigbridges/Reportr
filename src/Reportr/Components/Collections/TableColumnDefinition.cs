@@ -13,16 +13,10 @@
         /// </summary>
         /// <param name="name">The column name</param>
         /// <param name="binding">The data binding</param>
-        /// <param name="title">The title (optional)</param>
-        /// <param name="alignment">The alignment (optional)</param>
-        /// <param name="importance">The importance (optional)</param>
         public TableColumnDefinition
             (
                 string name,
-                DataBinding binding,
-                string title = null,
-                ColumnAlignment alignment = default(ColumnAlignment),
-                ColumnImportance importance = default(ColumnImportance)
+                DataBinding binding
             )
         {
             Validate.IsNotEmpty(name);
@@ -30,18 +24,8 @@
 
             this.ColumnId = Guid.NewGuid();
             this.Name = name;
+            this.Title = name;
             this.Binding = binding;
-            this.Alignment = alignment;
-            this.Importance = importance;
-
-            if (String.IsNullOrEmpty(title))
-            {
-                this.Title = name;
-            }
-            else
-            {
-                this.Title = title;
-            }
         }
 
         /// <summary>
@@ -53,6 +37,32 @@
         /// Gets the column name
         /// </summary>
         public string Name { get; protected set; }
+
+        /// <summary>
+        /// Gets the columns data binding
+        /// </summary>
+        public DataBinding Binding { get; protected set; }
+
+        /// <summary>
+        /// Adds style details to the column
+        /// </summary>
+        /// <param name="title">The title</param>
+        /// <param name="alignment">The text alignment</param>
+        /// <param name="importance">The importance</param>
+        /// <returns>The updated column</returns>
+        public TableColumnDefinition WithStyle
+            (
+                string title,
+                ColumnAlignment alignment,
+                ColumnImportance importance = default(ColumnImportance)
+            )
+        {
+            this.Title = title;
+            this.Alignment = alignment;
+            this.Importance = importance;
+
+            return this;
+        }
 
         /// <summary>
         /// Gets the column title
@@ -70,9 +80,33 @@
         public ColumnImportance Importance { get; private set; }
 
         /// <summary>
-        /// Gets the columns data binding
+        /// Adds the cell action to the column
         /// </summary>
-        public DataBinding Binding { get; protected set; }
+        /// <param name="action">The report action</param>
+        /// <returns>The updated column</returns>
+        public TableColumnDefinition WithAction
+            (
+                IReportAction action
+            )
+        {
+            Validate.IsNotNull(action);
+
+            this.CellAction = action;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets the action associated with each cell in the column
+        /// </summary>
+        /// <remarks>
+        /// The cell action can be used to make an entire table cell
+        /// click-able instead of just text.
+        /// 
+        /// The cell action can be null and only works when the row
+        /// action has not been set.
+        /// </remarks>
+        public IReportAction CellAction { get; protected set; }
 
         /// <summary>
         /// Provides a custom string description

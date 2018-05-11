@@ -1,0 +1,24 @@
+define report EndOfYearSales with
+[
+	title: "End OF Year Sales",
+	body:
+	[
+		title: "Sales By Employee",
+		components:
+		[
+			chart:
+			{
+				name: "Profit",
+				datasets:
+				[
+					query: "ProfitByYearQuery",
+					xaxisbinding:
+					{
+						bindingtype: QueryPath,
+						expression: "Profit"
+					}
+				]
+			}
+		]
+	]
+]

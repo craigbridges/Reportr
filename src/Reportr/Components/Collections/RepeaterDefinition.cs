@@ -1,36 +1,37 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Reportr.Data;
     using Reportr.Data.Querying;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
     /// <summary>
-    /// Represents a single report table definition
+    /// Represents a single report repeater definition
     /// </summary>
-    public class TableDefinition : ReportComponentBase
+    public class RepeaterDefinition : ReportComponentBase
     {
         /// <summary>
-        /// Constructs the table definition with the details
+        /// Constructs the repeater definition with the details
         /// </summary>
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
         /// <param name="query">The query</param>
-        /// <param name="rowAction">The row action (optional)</param>
-        public TableDefinition
+        /// <param name="binding">The data binding</param>
+        public RepeaterDefinition
             (
                 string name,
                 string title,
                 IQuery query,
-                IReportAction rowAction = null
+                DataBinding binding
             )
             : base(name, title)
         {
             Validate.IsNotNull(query);
-            
+            Validate.IsNotNull(binding);
+
             this.Query = query;
             this.DefaultParameterValues = new Collection<ParameterValue>();
-            this.Columns = new Collection<TableColumnDefinition>();
-            this.RowAction = rowAction;
+            this.Binding = binding;
 
             var defaultValues = query.CompileDefaultParameters();
 
@@ -39,7 +40,7 @@
                 this.DefaultParameterValues.Add(value);
             }
         }
-        
+
         /// <summary>
         /// Gets the query that will supply the tables data
         /// </summary>
@@ -55,25 +56,39 @@
         }
 
         /// <summary>
-        /// Gets the columns defined by the table
+        /// Gets the data binding for the repeater
         /// </summary>
-        public ICollection<TableColumnDefinition> Columns
-        {
-            get;
-            protected set;
-        }
-        
+        public DataBinding Binding { get; protected set; }
+
         /// <summary>
-        /// Gets the action associated with each table row
+        /// Adds the action and type to the repeater
         /// </summary>
-        /// <remarks>
-        /// The row action can be used to make an entire table row
-        /// a click-able action, instead of just a single table cell.
-        /// 
-        /// The row action can be null, but when set, it overrides
-        /// any column actions that have been set.
-        /// </remarks>
-        public IReportAction RowAction { get; protected set; }
+        /// <param name="action">The action</param>
+        /// <param name="type">The repeater type</param>
+        /// <returns></returns>
+        public RepeaterDefinition WithAction
+            (
+                IReportAction action,
+                RepeaterType type
+            )
+        {
+            Validate.IsNotNull(action);
+
+            this.Action = action;
+            this.RepeaterType = type;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets the action associated with the repeater
+        /// </summary>
+        public IReportAction Action { get; protected set; }
+
+        /// <summary>
+        /// Gets the repeater type
+        /// </summary>
+        public RepeaterType RepeaterType { get; protected set; }
 
         /// <summary>
         /// Gets the report component type
@@ -82,7 +97,7 @@
         {
             get
             {
-                return ReportComponentType.Table;
+                return ReportComponentType.Repeater;
             }
         }
     }

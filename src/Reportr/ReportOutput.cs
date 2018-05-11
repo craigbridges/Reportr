@@ -14,21 +14,21 @@
         /// <summary>
         /// Constructs the report output with the details
         /// </summary>
-        /// <param name="report">The report</param>
+        /// <param name="definition">The report definition</param>
         /// <param name="sectionOutputs">The section outputs</param>
         public ReportOutput
             (
-                IReport report,
+                ReportDefinition definition,
                 params IReportComponentOutput[] sectionOutputs
             )
         {
-            Validate.IsNotNull(report);
+            Validate.IsNotNull(definition);
             Validate.IsNotNull(sectionOutputs);
 
-            this.ReportName = report.Name;
-            this.ReportTitle = report.Title;
-            this.ReportDescription = report.Description;
-            this.Culture = report.CurrentCulture;
+            this.ReportName = definition.Name;
+            this.ReportTitle = definition.Title;
+            this.ReportDescription = definition.Description;
+            this.Culture = definition.Culture;
             this.SectionOutputs = sectionOutputs;
 
             SetResults(sectionOutputs);

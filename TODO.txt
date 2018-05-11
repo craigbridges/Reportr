@@ -1,6 +1,8 @@
 TODO:
 -----
 
+** Rename ReportOutput to Report and refactor to match what bit should be
+
 *** Security:
 	- Reports for certain type of user (roles)
 	- Locked filter values based on role?
@@ -10,11 +12,6 @@ TODO:
 	- Simular to JSON syntax?
 	- https://docs.microsoft.com/en-us/sql/reporting-services/reports/report-definition-language-ssrs?view=sql-server-2017
 	- https://github.com/Microsoft/sql-server-samples/tree/master/samples/features/r-services/ssms-custom-reports
-
-*** ReportDefinition (that contains schema) and IReport which contains generated output
-	- Also need ReportSectionDefinition and IReportSection or ReportSection
-
-*** IDateItem (can be used with ReportAction)
 
 *** How do report template contents tell us their size? How about optional "promised" row height? table header and footer height? Chart height? Then we can calculate page sizes
 
@@ -27,21 +24,8 @@ TODO:
 	- For repeater, if no binding specified them entire result is the value given
 	- Can we add an IsDefined function to Nettle so we can see if property exists?
 
-- Create default IReport implementation
-	- Refactor sections as report items and put into a "Detail" collection in IReport
-		- See https://docs.telerik.com/reporting/designing-reports-understanding-report-structure
-	- Create new report section concept which is used to vertically split the report (into rows) and this becomes (optional header, footer etc) with mandatory detail section
-
 - Design report auto export mechanism (e.g. CSV, XML, JSON etc)
 	- See https://github.com/danielpalme/ReportGenerator
-
-- Consider how report rendering could work (with different report and section templates etc)
-	- Remove association between report/section and template
-	- Create rendering engine that takes the report output and a template at the same time
-		- Then each template can specify an output type (e.g. HTML)
-		- Each template then has a nested collection of templates for sections and report items (of each type - i.e. one for each type of Chart, queries etc)
-		- So when you specify a template at render time, it knows what templates to use for every type of child component
-		- Refactor templates and abstract into interfaces
 
 
 Low Priority:
@@ -52,3 +36,6 @@ Low Priority:
 - Create report component mocking (e.g. generate fake data for chart) for report building and testing
 
 - Create report builder with storage mechanism
+
+- Create Report Definition Language (RDL)
+	- See docs\Brainstorming\RDL Brainstorm Example.rdl

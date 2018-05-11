@@ -60,6 +60,28 @@
         public TableCell[] Cells { get; private set; }
 
         /// <summary>
+        /// Adds the action to the table row
+        /// </summary>
+        /// <param name="action">The action</param>
+        /// <returns>The updated table row</returns>
+        public TableRow WithAction
+            (
+                ReportActionOutput action
+            )
+        {
+            Validate.IsNotNull(action);
+
+            this.Action = action;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets the rows action
+        /// </summary>
+        public ReportActionOutput Action { get; private set; }
+
+        /// <summary>
         /// Gets the cell at the index specified
         /// </summary>
         /// <param name="index">The row index (zero based)</param>
