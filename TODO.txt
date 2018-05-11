@@ -3,6 +3,18 @@ High Priority
 
 - Report component margin (top/left/right/bottom width and unit)
 
+- Implement IReportAction
+
+- Implement IReportFilter
+
+- Implement IReportGenerator
+
+- Create 'Infrastructure' project that manages storage and retrievel of definitions, categories etc
+
+- Create SQL 'Data' project to implement data interfaces with SQL implementations
+
+- Create way of 'registering' IQuery etc implementations so project can use with IoC containers
+
 
 Security
 --------
@@ -20,11 +32,12 @@ Templates
 - Template page optional size (units e.g. %, pixels cm etc) of width and height so we can auto paginate
 	- Also add margin details (for printing and screen padding)
 
-- Integrate with Nettle
-	- Can we add an IsDefined(path) function to Nettle so we can see if path exists?
 
 Rendering
 ---------
+
+- Integrate with Nettle
+	- Can we add an IsDefined(path) function to Nettle so we can see if path exists?
 
 - Design report auto export mechanism (e.g. CSV, XML, JSON etc)
 	- See https://github.com/danielpalme/ReportGenerator
