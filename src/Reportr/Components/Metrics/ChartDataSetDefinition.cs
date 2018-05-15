@@ -86,7 +86,7 @@
         /// <remarks>
         /// The action is applied to each data point generated
         /// </remarks>
-        public IReportAction Action { get; protected set; }
+        public ReportAction Action { get; protected set; }
 
         /// <summary>
         /// Adds the action to the data set definition
@@ -95,7 +95,7 @@
         /// <returns>The updated data set definition</returns>
         public ChartDataSetDefinition WithAction
             (
-                IReportAction action
+                ReportAction action
             )
         {
             Validate.IsNotNull(action);

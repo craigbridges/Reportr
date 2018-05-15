@@ -1,4 +1,4 @@
-﻿namespace Reportr.Templates
+﻿namespace Reportr.Templating
 {
     /// <summary>
     /// Represents a single section template content

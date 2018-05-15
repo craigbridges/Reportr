@@ -3,8 +3,6 @@ High Priority
 
 - Report component margin (top/left/right/bottom width and unit)
 
-- Implement IReportAction
-
 - Implement IReportFilter
 
 - Implement IReportGenerator

@@ -30,9 +30,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="NCalc, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NCalc-Edge.1.4.3\lib\NCalc.dll</HintPath>
+    </Reference>
+    <Reference Include="Nettle, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nettle.1.2.3\lib\net461\Nettle.dll</HintPath>
+    </Reference>
+    <Reference Include="Nettle.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nettle.Data.1.1.0\lib\net461\Nettle.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Nettle.NCalc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nettle.NCalc.1.0.0\lib\net461\Nettle.NCalc.dll</HintPath>
+    </Reference>
+    <Reference Include="Nettle.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nettle.Web.1.0.0\lib\net461\Nettle.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,7 +84,6 @@
     <Compile Include="Components\Graphics\GraphicOverlay.cs" />
     <Compile Include="Components\Graphics\GraphicDefinition.cs" />
     <Compile Include="Components\Graphics\Graphic.cs" />
-    <Compile Include="Components\IReportAction.cs" />
     <Compile Include="Components\IReportComponentDefinition.cs" />
     <Compile Include="Components\IReportComponent.cs" />
     <Compile Include="Components\Metrics\ChartAxisLabel.cs" />
@@ -70,11 +94,10 @@
     <Compile Include="Components\Metrics\ChartPlacement.cs" />
     <Compile Include="Components\Metrics\ChartValueType.cs" />
     <Compile Include="Components\Metrics\Statistic.cs" />
-    <Compile Include="Components\Metrics\StatisticAction.cs" />
     <Compile Include="Components\Metrics\ChartDefinition.cs" />
     <Compile Include="Components\Metrics\StatisticDefinition.cs" />
     <Compile Include="Components\Metrics\StatisticType.cs" />
-    <Compile Include="Components\ReportActionBase.cs" />
+    <Compile Include="Components\ReportAction.cs" />
     <Compile Include="Components\ReportActionOutput.cs" />
     <Compile Include="Components\ReportActionType.cs" />
     <Compile Include="Components\ReportComponentDefinitionBase.cs" />
@@ -97,6 +120,7 @@
     <Compile Include="Data\Querying\QueryExtensions.cs" />
     <Compile Include="Data\Querying\QueryGrouping.cs" />
     <Compile Include="Data\Querying\QueryGroupingRule.cs" />
+    <Compile Include="Data\Querying\QueryPathInfo.cs" />
     <Compile Include="Data\Querying\QueryResults.cs" />
     <Compile Include="Data\Querying\QueryRow.cs" />
     <Compile Include="Data\Querying\QuerySortingRule.cs" />
@@ -120,14 +144,17 @@
     <Compile Include="ReportDefinitionExtensions.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="ReportSection.cs" />
-    <Compile Include="Templates\SectionTemplateContent.cs" />
-    <Compile Include="Templates\ComponentTemplateContent.cs" />
-    <Compile Include="Templates\IReportTemplateRepository.cs" />
-    <Compile Include="Templates\ReportTemplate.cs" />
-    <Compile Include="Templates\TemplateContent.cs" />
-    <Compile Include="Templates\TemplateOutputType.cs" />
+    <Compile Include="Nettle\NettleCompilerGenerator.cs" />
+    <Compile Include="Templating\SectionTemplateContent.cs" />
+    <Compile Include="Templating\ComponentTemplateContent.cs" />
+    <Compile Include="Templating\IReportTemplateRepository.cs" />
+    <Compile Include="Templating\ReportTemplate.cs" />
+    <Compile Include="Templating\TemplateContent.cs" />
+    <Compile Include="Templating\TemplateOutputType.cs" />
     <Compile Include="Validate.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

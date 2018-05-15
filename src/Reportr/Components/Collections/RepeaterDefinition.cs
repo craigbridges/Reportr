@@ -68,7 +68,7 @@
         /// <returns></returns>
         public RepeaterDefinition WithAction
             (
-                IReportAction action,
+                ReportAction action,
                 RepeaterType type
             )
         {
@@ -83,7 +83,7 @@
         /// <summary>
         /// Gets the action associated with the repeater
         /// </summary>
-        public IReportAction Action { get; protected set; }
+        public ReportAction Action { get; protected set; }
 
         /// <summary>
         /// Gets the repeater type

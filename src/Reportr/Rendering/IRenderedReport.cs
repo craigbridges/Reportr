@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Rendering
 {
-    using Reportr.Templates;
+    using Reportr.Templating;
 
     /// <summary>
     /// Defines a contract for a rendered report

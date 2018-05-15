@@ -1,4 +1,4 @@
-﻿namespace Reportr.Templates
+﻿namespace Reportr.Templating
 {
     using Reportr.Components;
 

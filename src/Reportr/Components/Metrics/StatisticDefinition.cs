@@ -21,7 +21,7 @@
                 string name,
                 string title,
                 IQueryAggregator aggregator,
-                IReportAction action = null
+                ReportAction action = null
             )
             : base(name, title)
         {
@@ -56,7 +56,7 @@
         /// <summary>
         /// Gets the statistic action
         /// </summary>
-        public IReportAction Action { get; protected set; }
+        public ReportAction Action { get; protected set; }
 
         /// <summary>
         /// Gets the component type
