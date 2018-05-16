@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Graphics
 {
     using Reportr.Components.Metrics;
+    using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -245,6 +246,21 @@
         /// Gets the image height
         /// </summary>
         public double? Height { get; protected set; }
+
+        /// <summary>
+        /// Gets a collection of all queries being used by the component
+        /// </summary>
+        /// <returns>A collection of queries</returns>
+        public override IEnumerable<IQuery> GetQueriesUsed()
+        {
+            foreach (var item in this.OverlayStatistics)
+            {
+                foreach (var statistic in item.Value)
+                {
+                    yield return statistic.Aggregator.Query;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the report component type

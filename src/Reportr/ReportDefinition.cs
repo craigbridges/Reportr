@@ -1,6 +1,7 @@
 ﻿namespace Reportr
 {
     using Reportr.Components;
+    using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -50,7 +51,12 @@
             this.Culture = CultureInfo.CurrentCulture;
             this.FilterParameters = new Collection<ParameterInfo>();
             this.Fields = new Dictionary<string, object>();
-            this.Body = new ReportSectionDefinition(title);
+
+            this.Body = new ReportSectionDefinition
+            (
+                title,
+                ReportSectionType.ReportBody
+            );
         }
 
         /// <summary>
@@ -137,6 +143,7 @@
             this.PageHeader = new ReportSectionDefinition
             (
                 title,
+                ReportSectionType.PageHeader,
                 components
             );
         }
@@ -173,6 +180,7 @@
             this.ReportHeader = new ReportSectionDefinition
             (
                 title,
+                ReportSectionType.ReportHeader,
                 components
             );
         }
@@ -209,6 +217,7 @@
             this.Body = new ReportSectionDefinition
             (
                 title,
+                ReportSectionType.ReportBody,
                 components
             );
         }
@@ -237,6 +246,7 @@
             this.ReportFooter = new ReportSectionDefinition
             (
                 title,
+                ReportSectionType.ReportFooter,
                 components
             );
         }
@@ -272,6 +282,7 @@
             this.PageFooter = new ReportSectionDefinition
             (
                 title,
+                ReportSectionType.PageFooter,
                 components
             );
         }
@@ -282,6 +293,59 @@
         public void RemovePageFooter()
         {
             this.PageFooter = null;
+        }
+
+        /// <summary>
+        /// Aggregates queries from all components in all sections
+        /// </summary>
+        /// <returns>A dictionary of queries against section types</returns>
+        public Dictionary<ReportSectionType, IEnumerable<IQuery>> AggregateQueries()
+        {
+            var queries = new Dictionary<ReportSectionType, IEnumerable<IQuery>>
+            {
+                {
+                    ReportSectionType.ReportBody,
+                    this.Body.AggregateQueries()
+                }
+            };
+
+            if (this.PageHeader != null)
+            {
+                queries.Add
+                (
+                    ReportSectionType.PageHeader,
+                    this.PageHeader.AggregateQueries()
+                );
+            }
+
+            if (this.ReportHeader != null)
+            {
+                queries.Add
+                (
+                    ReportSectionType.ReportHeader,
+                    this.ReportHeader.AggregateQueries()
+                );
+            }
+
+            if (this.PageFooter != null)
+            {
+                queries.Add
+                (
+                    ReportSectionType.PageFooter,
+                    this.PageFooter.AggregateQueries()
+                );
+            }
+
+            if (this.ReportFooter != null)
+            {
+                queries.Add
+                (
+                    ReportSectionType.ReportFooter,
+                    this.ReportFooter.AggregateQueries()
+                );
+            }
+
+            return queries;
         }
     }
 }

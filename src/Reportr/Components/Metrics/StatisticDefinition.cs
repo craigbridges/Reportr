@@ -54,6 +54,18 @@
         }
 
         /// <summary>
+        /// Gets a collection of all queries being used by the component
+        /// </summary>
+        /// <returns>A collection of queries</returns>
+        public override IEnumerable<IQuery> GetQueriesUsed()
+        {
+            return new IQuery[]
+            {
+                this.Aggregator.Query
+            };
+        }
+
+        /// <summary>
         /// Gets the statistic action
         /// </summary>
         public ReportAction Action { get; protected set; }

@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components
 {
+    using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;
 
@@ -60,6 +61,12 @@
         /// conditionally render something based on a fields state.
         /// </remarks>
         public Dictionary<string, object> Fields { get; protected set; }
+
+        /// <summary>
+        /// Gets a collection of all queries being used by the component
+        /// </summary>
+        /// <returns>A collection of queries</returns>
+        public abstract IEnumerable<IQuery> GetQueriesUsed();
 
         /// <summary>
         /// Gets or sets the no data message

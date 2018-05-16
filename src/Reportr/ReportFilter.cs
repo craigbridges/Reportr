@@ -4,14 +4,14 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Defines a contract for a report filter
+    /// Represents a single report filter
     /// </summary>
     /// <remarks>
     /// A report filter is used to filter the data in one or more
     /// sections within the report. This includes sorting columns
     /// within queries that have been defined in sections.
     /// </remarks>
-    public interface IReportFilter
+    public class ReportFilter
     {
         /// <summary>
         /// Gets a dictionary of parameter values for each section
@@ -25,18 +25,25 @@
         /// one parameter value is specified against a parameter,
         /// the last value found will be used.
         /// </remarks>
-        Dictionary<string, ParameterValue[]> ParameterValues { get; }
+        public Dictionary<string, ParameterValue[]> ParameterValues
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Sets the parameter values against a report section
         /// </summary>
         /// <param name="sectionName">The section name</param>
         /// <param name="values">The parameter values</param>
-        void SetParameters
-        (
-            string sectionName,
-            params ParameterValue[] values
-        );
+        public void SetParameters
+            (
+                string sectionName,
+                params ParameterValue[] values
+            )
+        {
+
+        }
 
         /// <summary>
         /// Gets a dictionary of query sorting rules by query
@@ -47,17 +54,24 @@
         /// one at a time. If a sorting rule targets the same column
         /// twice, each new rule will override the previous.
         /// </remarks>
-        Dictionary<string, QuerySortingRule[]> QuerySortingRules { get; }
+        public Dictionary<string, QuerySortingRule[]> QuerySortingRules
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Sets the sorting rules for a specified query
         /// </summary>
         /// <param name="queryName">The query name</param>
         /// <param name="rules">The sorting rules</param>
-        void SetSortingRules
-        (
-            string queryName,
-            params QuerySortingRule[] rules
-        );
+        public void SetSortingRules
+            (
+                string queryName,
+                params QuerySortingRule[] rules
+            )
+        {
+
+        }
     }
 }

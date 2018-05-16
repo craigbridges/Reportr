@@ -61,6 +61,18 @@
         public DataBinding Binding { get; protected set; }
 
         /// <summary>
+        /// Gets a collection of all queries being used by the component
+        /// </summary>
+        /// <returns>A collection of queries</returns>
+        public override IEnumerable<IQuery> GetQueriesUsed()
+        {
+            return new IQuery[]
+            {
+                this.Query
+            };
+        }
+
+        /// <summary>
         /// Adds the action and type to the repeater
         /// </summary>
         /// <param name="action">The action</param>

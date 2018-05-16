@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="report">The report definition</param>
         /// <returns>The filter generated</returns>
-        public static IReportFilter GenerateDefaultFilter
+        public static ReportFilter GenerateDefaultFilter
             (
                 this ReportDefinition report
             )

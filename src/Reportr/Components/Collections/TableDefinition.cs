@@ -62,7 +62,19 @@
             get;
             protected set;
         }
-        
+
+        /// <summary>
+        /// Gets a collection of all queries being used by the component
+        /// </summary>
+        /// <returns>A collection of queries</returns>
+        public override IEnumerable<IQuery> GetQueriesUsed()
+        {
+            return new IQuery[]
+            {
+                this.Query
+            };
+        }
+
         /// <summary>
         /// Gets the action associated with each table row
         /// </summary>

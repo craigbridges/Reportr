@@ -11,11 +11,14 @@
         /// Constructs the report section with the core details
         /// </summary>
         /// <param name="title">The section title</param>
+        /// <param name="description">The description</param>
+        /// <param name="sectionType">The section type</param>
         /// <param name="components">The report components</param>
         public ReportSection
             (
                 string title,
                 string description,
+                ReportSectionType sectionType,
                 params IReportComponent[] components
             )
         {
@@ -24,6 +27,7 @@
 
             this.Title = title;
             this.Description = description;
+            this.SectionType = sectionType;
             this.Components = components;
         }
         
@@ -36,6 +40,11 @@
         /// Gets the sections description
         /// </summary>
         public string Description { get; private set; }
+
+        /// <summary>
+        /// Gets the section type
+        /// </summary>
+        public ReportSectionType SectionType { get; private set; }
 
         /// <summary>
         /// Gets the components in the section

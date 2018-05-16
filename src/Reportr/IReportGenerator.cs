@@ -16,7 +16,7 @@
         ReportGenerationResult Generate
         (
             ReportDefinition definition,
-            IReportFilter filter = null
+            ReportFilter filter = null
         );
 
         /// <summary>
@@ -28,7 +28,7 @@
         Task<ReportGenerationResult> GenerateAsync
         (
             ReportDefinition definition,
-            IReportFilter filter = null
+            ReportFilter filter = null
         );
     }
 }

@@ -131,7 +131,7 @@
     <Compile Include="Drawing\UnitExtensions.cs" />
     <Compile Include="Drawing\UnitType.cs" />
     <Compile Include="ReportGenerationResult.cs" />
-    <Compile Include="IReportFilter.cs" />
+    <Compile Include="ReportFilter.cs" />
     <Compile Include="IReportGenerator.cs" />
     <Compile Include="ParameterInfo.cs" />
     <Compile Include="ParameterValue.cs" />
@@ -145,6 +145,7 @@
     <Compile Include="Report.cs" />
     <Compile Include="ReportSection.cs" />
     <Compile Include="Nettle\NettleCompilerGenerator.cs" />
+    <Compile Include="ReportSectionType.cs" />
     <Compile Include="Templating\SectionTemplateContent.cs" />
     <Compile Include="Templating\ComponentTemplateContent.cs" />
     <Compile Include="Templating\IReportTemplateRepository.cs" />

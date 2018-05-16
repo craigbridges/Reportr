@@ -32,7 +32,7 @@
         public Report
             (
                 ReportDefinition definition,
-                IReportFilter filterUsed
+                ReportFilter filterUsed
             )
         {
             Validate.IsNotNull(definition);
@@ -96,7 +96,7 @@
         /// <summary>
         /// Gets the filter that was used to generate the report
         /// </summary>
-        public IReportFilter FilterUsed { get; private set; }
+        public ReportFilter FilterUsed { get; private set; }
 
         /// <summary>
         /// Gets a dictionary of report fields

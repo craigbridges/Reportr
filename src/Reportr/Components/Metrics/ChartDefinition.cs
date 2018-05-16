@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using Reportr.Data.Querying;
     using System.Collections.Generic;
 
     /// <summary>
@@ -37,7 +38,19 @@
             get;
             protected set;
         }
-        
+
+        /// <summary>
+        /// Gets a collection of all queries being used by the component
+        /// </summary>
+        /// <returns>A collection of queries</returns>
+        public override IEnumerable<IQuery> GetQueriesUsed()
+        {
+            foreach (var set in this.DataSets)
+            {
+                yield return set.Query;
+            }
+        }
+
         /// <summary>
         /// Gets the component type
         /// </summary>
