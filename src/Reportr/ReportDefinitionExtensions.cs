@@ -1,7 +1,8 @@
 ﻿namespace Reportr
 {
-    using System;
-    
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Provides various extension methods for report definitions
     /// </summary>
@@ -19,7 +20,44 @@
         {
             Validate.IsNotNull(report);
 
-            throw new NotImplementedException();
+            var filter = new ReportFilter();
+            var queryGroups = report.AggregateQueries();
+
+            foreach (var group in queryGroups)
+            {
+                var parameterValues = new List<ParameterValue>();
+
+                foreach (var query in group.Value)
+                {
+                    foreach (var parameter in query.Parameters)
+                    {
+                        var valueFound = parameterValues.Any
+                        (
+                            pv => pv.Name.ToLower() == parameter.Name.ToLower()
+                        );
+
+                        if (false == valueFound)
+                        {
+                            parameterValues.Add
+                            (
+                                new ParameterValue
+                                (
+                                    parameter,
+                                    parameter.DefaultValue
+                                )
+                            );
+                        }
+                    }
+                }
+
+                filter.ParameterValues.Add
+                (
+                    group.Key,
+                    parameterValues.ToArray()
+                );
+            }
+
+            return filter;
         }
     }
 }

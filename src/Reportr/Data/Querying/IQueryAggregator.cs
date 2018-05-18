@@ -1,7 +1,6 @@
 ﻿namespace Reportr.Data.Querying
 {
-    using System;
-    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Defines a contract for a query aggregator
@@ -27,6 +26,16 @@
         /// <param name="parameters">The parameter values</param>
         /// <returns>The result computed</returns>
         double Execute
+        (
+            params ParameterValue[] parameters
+        );
+
+        /// <summary>
+        /// Asynchronously executes the aggregate query and computes the result
+        /// </summary>
+        /// <param name="parameters">The parameter values</param>
+        /// <returns>The result computed</returns>
+        Task<double> ExecuteAsync
         (
             params ParameterValue[] parameters
         );

@@ -1,10 +1,11 @@
 High Priority
 -------------
 
+** Should we abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)?
+
 - Report component margin (top/left/right/bottom width and unit)
 
 - Complete ReportFilter
-	- Create methods to aggregate queries and their parameters into unique collections
 	- How do we handle sorting rules?
 
 - Implement IReportGenerator

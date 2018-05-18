@@ -14,10 +14,19 @@
     public class ReportFilter
     {
         /// <summary>
+        /// Constructs an empty report filter
+        /// </summary>
+        public ReportFilter()
+        {
+            this.ParameterValues = new Dictionary<ReportSectionType, ParameterValue[]>();
+            this.QuerySortingRules = new Dictionary<string, QuerySortingRule[]>();
+        }
+
+        /// <summary>
         /// Gets a dictionary of parameter values for each section
         /// </summary>
         /// <remarks>
-        /// The dictionary key is used to identify the name of the
+        /// The dictionary key is used to identify the type of
         /// report section. Each section can have one or more
         /// parameter values assigned to it.
         /// 
@@ -25,26 +34,12 @@
         /// one parameter value is specified against a parameter,
         /// the last value found will be used.
         /// </remarks>
-        public Dictionary<string, ParameterValue[]> ParameterValues
+        public Dictionary<ReportSectionType, ParameterValue[]> ParameterValues
         {
             get;
             private set;
         }
-
-        /// <summary>
-        /// Sets the parameter values against a report section
-        /// </summary>
-        /// <param name="sectionName">The section name</param>
-        /// <param name="values">The parameter values</param>
-        public void SetParameters
-            (
-                string sectionName,
-                params ParameterValue[] values
-            )
-        {
-
-        }
-
+        
         /// <summary>
         /// Gets a dictionary of query sorting rules by query
         /// </summary>
@@ -58,20 +53,6 @@
         {
             get;
             private set;
-        }
-
-        /// <summary>
-        /// Sets the sorting rules for a specified query
-        /// </summary>
-        /// <param name="queryName">The query name</param>
-        /// <param name="rules">The sorting rules</param>
-        public void SetSortingRules
-            (
-                string queryName,
-                params QuerySortingRule[] rules
-            )
-        {
-
         }
     }
 }

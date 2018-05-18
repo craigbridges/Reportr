@@ -2,6 +2,7 @@
 {
     using Reportr.Data;
     using System;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Defines a contract for a single report query
@@ -71,6 +72,26 @@
         (
             string columnName,
             SortDirection direction
+        );
+
+        /// <summary>
+        /// Executes the query using the parameter values supplied
+        /// </summary>
+        /// <param name="parameterValues">The parameter values</param>
+        /// <returns>The query results</returns>
+        QueryResults Execute
+        (
+            params ParameterValue[] parameterValues
+        );
+
+        /// <summary>
+        /// Asynchronously executes the query using the parameter values supplied
+        /// </summary>
+        /// <param name="parameterValues">The parameter values</param>
+        /// <returns>The query results</returns>
+        Task<QueryResults> ExecuteAsync
+        (
+            params ParameterValue[] parameterValues
         );
     }
 }
