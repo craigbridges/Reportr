@@ -4,6 +4,7 @@ High Priority
 ** Should we abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)?
 
 - Report component margin (top/left/right/bottom width and unit)
+	- Move relative size into Style class and assign optional style to component (and definition)
 
 - Complete ReportFilter
 	- How do we handle sorting rules?
