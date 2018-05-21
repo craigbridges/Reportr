@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components
 {
     using Reportr.Data.Querying;
+    using Reportr.Drawing;
     using System;
     using System.Collections.Generic;
 
@@ -64,45 +65,13 @@
         string NoDataMessage { get; set; }
         
         /// <summary>
-        /// Gets the components desired relative width
-        /// </summary>
-        /// <remarks>
-        /// The relative width value can be used by the report 
-        /// template to scale the components output relatively to
-        /// its container.
-        /// 
-        /// The relative width represents a percentage and must be
-        /// either null or a value between 1 and 100.
-        /// </remarks>
-        decimal? RelativeWidth { get; }
-
-        /// <summary>
-        /// Gets the components desired relative height
-        /// </summary>
-        /// <remarks>
-        /// The relative height value can be used by the report 
-        /// template to scale the components output relatively to
-        /// its container.
-        /// 
-        /// The relative height represents a percentage and must be
-        /// either null or a value between 1 and 100.
-        /// </remarks>
-        decimal? RelativeHeight { get; }
-
-        /// <summary>
-        /// Sets the components relative size values
-        /// </summary>
-        /// <param name="width">The relative width</param>
-        /// <param name="height">The relative height</param>
-        void SetRelativeSize
-        (
-            decimal width,
-            decimal? height
-        );
-
-        /// <summary>
         /// Gets or sets the component separator type
         /// </summary>
         ReportComponentSeparatorType SeparatorType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the style information
+        /// </summary>
+        Style Style { get; set; }
     }
 }

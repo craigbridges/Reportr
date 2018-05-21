@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components
 {
     using Reportr.Data.Querying;
+    using Reportr.Drawing;
     using System;
     using System.Collections.Generic;
 
@@ -78,65 +79,13 @@
         public string NoDataMessage { get; set; }
         
         /// <summary>
-        /// Gets the components desired relative width
-        /// </summary>
-        /// <remarks>
-        /// The relative width value can be used by the report 
-        /// template to scale the components output relatively to
-        /// its container.
-        /// 
-        /// The relative width represents a percentage and must be
-        /// either null or a value between 1 and 100.
-        /// </remarks>
-        public decimal? RelativeWidth { get; protected set; }
-
-        /// <summary>
-        /// Gets the components desired relative height
-        /// </summary>
-        /// <remarks>
-        /// The relative height value can be used by the report 
-        /// template to scale the components output relatively to
-        /// its container.
-        /// 
-        /// The relative height represents a percentage and must be
-        /// either null or a value between 1 and 100.
-        /// </remarks>
-        public decimal? RelativeHeight { get; protected set; }
-
-        /// <summary>
-        /// Sets the components relative size values
-        /// </summary>
-        /// <param name="width">The relative width</param>
-        /// <param name="height">The relative height</param>
-        public void SetRelativeSize
-            (
-                decimal width,
-                decimal? height
-            )
-        {
-            if (width < 0)
-            {
-                throw new ArgumentOutOfRangeException
-                (
-                    "The width cannot be less than zero."
-                );
-            }
-
-            if (height.HasValue && height < 0)
-            {
-                throw new ArgumentOutOfRangeException
-                (
-                    "The height cannot be less than zero."
-                );
-            }
-
-            this.RelativeWidth = width;
-            this.RelativeHeight = height;
-        }
-
-        /// <summary>
         /// Gets or sets the component separator type
         /// </summary>
         public ReportComponentSeparatorType SeparatorType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the style information
+        /// </summary>
+        public Style Style { get; set; }
     }
 }

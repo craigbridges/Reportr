@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components
 {
+    using Reportr.Drawing;
     using System.Collections.Generic;
 
     /// <summary>
@@ -25,5 +26,10 @@
         /// state of a field.
         /// </remarks>
         Dictionary<string, object> Fields { get; }
+
+        /// <summary>
+        /// Gets the style information
+        /// </summary>
+        Style Style { get; }
     }
 }

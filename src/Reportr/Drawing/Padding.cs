@@ -6,6 +6,17 @@
     public class Padding
     {
         /// <summary>
+        /// Constructs the padding with default values
+        /// </summary>
+        public Padding()
+        {
+            this.Bottom = new Unit(0, UnitType.Pixel);
+            this.Left = new Unit(0, UnitType.Pixel);
+            this.Right = new Unit(0, UnitType.Pixel);
+            this.Top = new Unit(0, UnitType.Pixel);
+        }
+
+        /// <summary>
         /// Gets or sets the padding value for the bottom edge
         /// </summary>
         public Unit Bottom { get; set; }

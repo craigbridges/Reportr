@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components
 {
+    using Reportr.Drawing;
     using System.Collections.Generic;
 
     /// <summary>
@@ -10,16 +11,17 @@
         /// <summary>
         /// Constructs the report component with the details
         /// </summary>
-        /// <param name="component">The component definition</param>
+        /// <param name="definition">The component definition</param>
         protected ReportComponentBase
             (
-                IReportComponentDefinition component
+                IReportComponentDefinition definition
             )
         {
-            Validate.IsNotNull(component);
+            Validate.IsNotNull(definition);
 
-            this.ComponentDefinition = component;
-            this.Fields = component.Fields;
+            this.ComponentDefinition = definition;
+            this.Fields = definition.Fields;
+            this.Style = definition.Style;
         }
 
         /// <summary>
@@ -48,5 +50,10 @@
             get;
             protected set;
         }
+
+        /// <summary>
+        /// Gets the style information
+        /// </summary>
+        public Style Style { get; protected set; }
     }
 }

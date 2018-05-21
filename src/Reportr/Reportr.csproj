@@ -128,6 +128,7 @@
     <Compile Include="Drawing\BorderSideStyle.cs" />
     <Compile Include="Drawing\BorderStyle.cs" />
     <Compile Include="Drawing\BorderType.cs" />
+    <Compile Include="Drawing\BoxSize.cs" />
     <Compile Include="Drawing\HorizontalAlign.cs" />
     <Compile Include="Drawing\LineStyle.cs" />
     <Compile Include="Drawing\Padding.cs" />

@@ -8,6 +8,14 @@
     public class Style
     {
         /// <summary>
+        /// Constructs the style with default values
+        /// </summary>
+        public Style()
+        {
+            this.LineWidth = new Unit(1, UnitType.Pixel);
+        }
+
+        /// <summary>
         /// Gets or sets the background color of the report item
         /// </summary>
         public Color BackgroundColor { get; set; }
@@ -49,6 +57,11 @@
         /// Gets or sets the padding of the report item
         /// </summary>
         public Padding Padding { get; set; }
+
+        /// <summary>
+        /// Gets or sets the box size
+        /// </summary>
+        public BoxSize Size { get; set; }
 
         /// <summary>
         /// Gets or sets the horizontal alignment of text in the report item
