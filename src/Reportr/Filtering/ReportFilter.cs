@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
 
     /// <summary>
     /// Represents a single report filter
@@ -32,12 +33,63 @@
         }
         
         /// <summary>
+        /// Gets parameter values for a section type
+        /// </summary>
+        /// <param name="sectionType">The report section type</param>
+        /// <returns>A collection of parameter values</returns>
+        public IEnumerable<ReportFilterParameterValue> GetParameters
+            (
+                ReportSectionType sectionType
+            )
+        {
+            return this.ParameterValues.Where
+            (
+                value => value.SectionType == sectionType
+            );
+        }
+
+        /// <summary>
         /// Gets a dictionary of query sorting rules by query
         /// </summary>
         public ICollection<ReportFilterSortingRule> SortingRules
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Gets sorting rules for a section type
+        /// </summary>
+        /// <param name="sectionType">The report section type</param>
+        /// <returns>A collection of sorting rules</returns>
+        public IEnumerable<ReportFilterSortingRule> GetSortingRules
+            (
+                ReportSectionType sectionType
+            )
+        {
+            return this.SortingRules.Where
+            (
+                rule => rule.SectionType == sectionType
+            );
+        }
+
+        /// <summary>
+        /// Gets sorting rules for a section type
+        /// </summary>
+        /// <param name="sectionType">The report section type</param>
+        /// <param name="componentName">The component name</param>
+        /// <returns>A collection of sorting rules</returns>
+        public IEnumerable<ReportFilterSortingRule> GetSortingRules
+            (
+                ReportSectionType sectionType,
+                string componentName
+            )
+        {
+            return this.SortingRules.Where
+            (
+                rule => rule.SectionType == sectionType
+                    && rule.ComponentName.ToLower() == componentName.ToLower()
+            );
         }
     }
 }

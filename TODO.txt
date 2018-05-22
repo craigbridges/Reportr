@@ -4,7 +4,7 @@ High Priority
 ** Should we abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)?
 
 - Complete ReportFilter
-	- Create report filter generator that takes a flag object(s)
+	- Create report filter generator that takes a flat object(s)
 
 - Implement IReportGenerator
 
