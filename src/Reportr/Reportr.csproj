@@ -86,6 +86,7 @@
     <Compile Include="Components\Graphics\Graphic.cs" />
     <Compile Include="Components\IReportComponentDefinition.cs" />
     <Compile Include="Components\IReportComponent.cs" />
+    <Compile Include="Components\IReportComponentGenerator.cs" />
     <Compile Include="Components\Metrics\ChartAxisLabel.cs" />
     <Compile Include="Components\Metrics\ChartDataPoint.cs" />
     <Compile Include="Components\Metrics\ChartDataSet.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Data\Querying\IQuery.cs" />
     <Compile Include="Data\Querying\IQueryAggregator.cs" />
     <Compile Include="Data\Querying\IQueryRepository.cs" />
+    <Compile Include="Data\Querying\ISortable.cs" />
     <Compile Include="Data\Querying\QueryCell.cs" />
     <Compile Include="Components\Collections\ColumnImportance.cs" />
     <Compile Include="Data\Querying\QueryColumnInfo.cs" />
@@ -139,11 +141,14 @@
     <Compile Include="Drawing\UnitExtensions.cs" />
     <Compile Include="Drawing\UnitType.cs" />
     <Compile Include="Drawing\VerticalAlign.cs" />
+    <Compile Include="Filtering\IReportFilterGenerator.cs" />
+    <Compile Include="Filtering\ReportFilterParameterValue.cs" />
+    <Compile Include="Filtering\ReportFilterSortingRule.cs" />
     <Compile Include="ReportGenerationResult.cs" />
-    <Compile Include="ReportFilter.cs" />
+    <Compile Include="Filtering\ReportFilter.cs" />
     <Compile Include="IReportGenerator.cs" />
-    <Compile Include="ParameterInfo.cs" />
-    <Compile Include="ParameterValue.cs" />
+    <Compile Include="Filtering\ParameterInfo.cs" />
+    <Compile Include="Filtering\ParameterValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\IRenderedReport.cs" />
     <Compile Include="Rendering\IReportRenderer.cs" />

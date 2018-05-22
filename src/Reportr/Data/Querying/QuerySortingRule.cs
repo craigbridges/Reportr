@@ -5,7 +5,7 @@
     /// <summary>
     /// Represents a single query sorting rule
     /// </summary>
-    public sealed class QuerySortingRule
+    public class QuerySortingRule
     {
         /// <summary>
         /// Constructs the sorting rule with the details

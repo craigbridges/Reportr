@@ -1,13 +1,14 @@
 ﻿namespace Reportr.Data.Querying
 {
     using Reportr.Data;
+    using Reportr.Filtering;
     using System;
     using System.Threading.Tasks;
 
     /// <summary>
     /// Defines a contract for a single report query
     /// </summary>
-    public interface IQuery
+    public interface IQuery : ISortable
     {
         /// <summary>
         /// Gets the unique ID of the query
@@ -41,22 +42,6 @@
         /// This is optional and, if null, all rows are returned.
         /// </remarks>
         int? MaximumRows { get; }
-
-        /// <summary>
-        /// Gets an array of sorting rules for the query
-        /// </summary>
-        QuerySortingRule[] SortingRules { get; }
-
-        /// <summary>
-        /// Specifies a sorting rule against a column in the query
-        /// </summary>
-        /// <param name="columnName">The column name</param>
-        /// <param name="direction">The sort direction</param>
-        void SortColumn
-        (
-            string columnName,
-            SortDirection direction
-        );
 
         /// <summary>
         /// Gets an array of grouping rules for the query

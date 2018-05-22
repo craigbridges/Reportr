@@ -4,11 +4,11 @@ High Priority
 ** Should we abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)?
 
 - Complete ReportFilter
-	- How do we handle sorting rules?
+	- Create report filter generator that takes a flag object(s)
 
 - Implement IReportGenerator
 
-- Create 'Infrastructure' project that manages storage and retrievel of definitions, categories etc
+- Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
 
 - Create SQL 'Data' project to implement data interfaces with SQL implementations
 

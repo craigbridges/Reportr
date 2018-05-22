@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Metrics
 {
     using Reportr.Data.Querying;
+    using Reportr.Filtering;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 

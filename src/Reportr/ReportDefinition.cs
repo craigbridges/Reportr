@@ -6,7 +6,8 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
-    
+    using System.Reflection;
+
     /// <summary>
     /// Represents the definition of a single report
     /// </summary>

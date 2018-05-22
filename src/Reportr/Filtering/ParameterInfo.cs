@@ -1,4 +1,4 @@
-﻿namespace Reportr
+﻿namespace Reportr.Filtering
 {
     using System;
     

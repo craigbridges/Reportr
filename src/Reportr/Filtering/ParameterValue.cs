@@ -1,11 +1,11 @@
-﻿namespace Reportr
+﻿namespace Reportr.Filtering
 {
     using System;
     
     /// <summary>
     /// Represents a single report parameter value
     /// </summary>
-    public sealed class ParameterValue
+    public class ParameterValue
     {
         /// <summary>
         /// Constructs the parameter value with the details

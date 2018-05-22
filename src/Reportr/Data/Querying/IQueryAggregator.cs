@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Data.Querying
 {
+    using Reportr.Filtering;
     using System.Threading.Tasks;
 
     /// <summary>

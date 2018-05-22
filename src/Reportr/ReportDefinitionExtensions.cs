@@ -1,6 +1,6 @@
 ﻿namespace Reportr
 {
-    using System.Collections.Generic;
+    using Reportr.Filtering;
     using System.Linq;
 
     /// <summary>
@@ -25,23 +25,22 @@
 
             foreach (var group in queryGroups)
             {
-                var parameterValues = new List<ParameterValue>();
-
                 foreach (var query in group.Value)
                 {
                     foreach (var parameter in query.Parameters)
                     {
-                        var valueFound = parameterValues.Any
+                        var valueFound = filter.ParameterValues.Any
                         (
                             pv => pv.Name.ToLower() == parameter.Name.ToLower()
                         );
 
                         if (false == valueFound)
                         {
-                            parameterValues.Add
+                            filter.ParameterValues.Add
                             (
-                                new ParameterValue
+                                new ReportFilterParameterValue
                                 (
+                                    group.Key,
                                     parameter,
                                     parameter.DefaultValue
                                 )
@@ -49,12 +48,6 @@
                         }
                     }
                 }
-
-                filter.ParameterValues.Add
-                (
-                    group.Key,
-                    parameterValues.ToArray()
-                );
             }
 
             return filter;

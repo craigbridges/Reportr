@@ -1,5 +1,6 @@
 ﻿namespace Reportr
 {
+    using Reportr.Filtering;
     using System.Threading.Tasks;
 
     /// <summary>
