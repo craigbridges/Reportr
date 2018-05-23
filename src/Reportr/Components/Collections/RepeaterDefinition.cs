@@ -81,7 +81,7 @@
         /// <returns></returns>
         public RepeaterDefinition WithAction
             (
-                ReportAction action,
+                ReportActionDefinition action,
                 RepeaterType type
             )
         {
@@ -96,7 +96,7 @@
         /// <summary>
         /// Gets the action associated with the repeater
         /// </summary>
-        public ReportAction Action { get; protected set; }
+        public ReportActionDefinition Action { get; protected set; }
 
         /// <summary>
         /// Gets the repeater type

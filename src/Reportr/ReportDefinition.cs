@@ -121,6 +121,35 @@
         public Dictionary<string, object> Fields { get; protected set; }
 
         /// <summary>
+        /// Gets the report section matching the section type specified
+        /// </summary>
+        /// <param name="sectionType">The section type</param>
+        /// <returns>The section definition</returns>
+        public ReportSectionDefinition GetSection
+            (
+                ReportSectionType sectionType
+            )
+        {
+            switch (sectionType)
+            {
+                case ReportSectionType.PageHeader:
+                    return this.PageHeader;
+
+                case ReportSectionType.ReportHeader:
+                    return this.ReportHeader;
+
+                case ReportSectionType.ReportFooter:
+                    return this.ReportFooter;
+
+                case ReportSectionType.PageFooter:
+                    return this.PageFooter;
+
+                default:
+                    return this.Body;
+            }
+        }
+
+        /// <summary>
         /// Gets the reports page header section
         /// </summary>
         /// <remarks>

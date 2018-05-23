@@ -68,6 +68,8 @@
   <ItemGroup>
     <Compile Include="Categorization\ReportCategory.cs" />
     <Compile Include="Categorization\ReportCategoryAssignment.cs" />
+    <Compile Include="Common\Extensions\TypeExtensions.cs" />
+    <Compile Include="Common\Validation\TypeConverterChecker.cs" />
     <Compile Include="Components\Collections\ColumnAlignment.cs" />
     <Compile Include="Components\Collections\RepeaterDefinition.cs" />
     <Compile Include="Components\Collections\RepeaterItem.cs" />
@@ -97,12 +99,16 @@
     <Compile Include="Components\Metrics\Statistic.cs" />
     <Compile Include="Components\Metrics\ChartDefinition.cs" />
     <Compile Include="Components\Metrics\StatisticDefinition.cs" />
+    <Compile Include="Components\Metrics\ChartGenerator.cs" />
+    <Compile Include="Components\Metrics\StatisticGenerator.cs" />
     <Compile Include="Components\Metrics\StatisticType.cs" />
+    <Compile Include="Components\ReportActionDefinition.cs" />
     <Compile Include="Components\ReportAction.cs" />
-    <Compile Include="Components\ReportActionOutput.cs" />
     <Compile Include="Components\ReportActionType.cs" />
     <Compile Include="Components\ReportComponentDefinitionBase.cs" />
     <Compile Include="Components\ReportComponentBase.cs" />
+    <Compile Include="Components\ReportComponentDefinitionExtensions.cs" />
+    <Compile Include="Components\ReportComponentGeneratorBase.cs" />
     <Compile Include="Components\ReportComponentSeparatorType.cs" />
     <Compile Include="Components\ReportComponentType.cs" />
     <Compile Include="Data\DataBinding.cs" />
@@ -144,6 +150,7 @@
     <Compile Include="Filtering\IReportFilterGenerator.cs" />
     <Compile Include="Filtering\ReportFilterParameterValue.cs" />
     <Compile Include="Filtering\ReportFilterSortingRule.cs" />
+    <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />
     <Compile Include="Filtering\ReportFilter.cs" />
     <Compile Include="IReportGenerator.cs" />
@@ -153,12 +160,14 @@
     <Compile Include="Rendering\IRenderedReport.cs" />
     <Compile Include="Rendering\IReportRenderer.cs" />
     <Compile Include="Rendering\RenderedReport.cs" />
+    <Compile Include="ReportGenerator.cs" />
     <Compile Include="ReportSectionDefinition.cs" />
     <Compile Include="ReportDefinition.cs" />
     <Compile Include="ReportDefinitionExtensions.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="ReportSection.cs" />
     <Compile Include="Nettle\NettleCompilerGenerator.cs" />
+    <Compile Include="ReportSectionGenerationResult.cs" />
     <Compile Include="ReportSectionType.cs" />
     <Compile Include="Templating\SectionTemplateContent.cs" />
     <Compile Include="Templating\ComponentTemplateContent.cs" />
@@ -166,7 +175,7 @@
     <Compile Include="Templating\ReportTemplate.cs" />
     <Compile Include="Templating\TemplateContent.cs" />
     <Compile Include="Templating\TemplateOutputType.cs" />
-    <Compile Include="Validate.cs" />
+    <Compile Include="Common\Validation\Validate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

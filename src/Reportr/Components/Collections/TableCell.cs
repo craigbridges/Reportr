@@ -15,7 +15,7 @@
             (
                 TableColumn column,
                 object value,
-                ReportActionOutput action = null
+                ReportAction action = null
             )
         {
             Validate.IsNotNull(column);
@@ -38,6 +38,6 @@
         /// <summary>
         /// Gets the cells action
         /// </summary>
-        public ReportActionOutput Action { get; private set; }
+        public ReportAction Action { get; private set; }
     }
 }

@@ -73,7 +73,7 @@
         /// <summary>
         /// Gets the statistic action
         /// </summary>
-        public ReportActionOutput Action { get; private set; }
+        public ReportAction Action { get; private set; }
 
         /// <summary>
         /// Adds the action to the statistic
@@ -82,7 +82,7 @@
         /// <returns>The updated statistic</returns>
         public Statistic WithAction
             (
-                ReportActionOutput action
+                ReportAction action
             )
         {
             Validate.IsNotNull(action);

@@ -15,12 +15,12 @@
         /// <param name="color">The associated color (optional)</param>
         public ChartDataPoint
             (
-                string label,
+                ChartAxisLabel label,
                 double y,
                 Color? color = null
             )
         {
-            Validate.IsNotEmpty(label);
+            Validate.IsNotNull(label);
 
             this.Label = label;
             this.Y = y;
@@ -38,7 +38,7 @@
             (
                 double x,
                 double y,
-                string label = null,
+                ChartAxisLabel label = null,
                 Color? color = null
             )
         {
@@ -61,7 +61,7 @@
         /// <summary>
         /// Gets the data points label
         /// </summary>
-        public string Label { get; private set; }
+        public ChartAxisLabel Label { get; private set; }
 
         /// <summary>
         /// Gets the color assigned to the data point
@@ -71,7 +71,7 @@
         /// <summary>
         /// Gets the statistic action
         /// </summary>
-        public ReportActionOutput Action { get; private set; }
+        public ReportAction Action { get; private set; }
 
         /// <summary>
         /// Adds the action to the data point
@@ -80,7 +80,7 @@
         /// <returns>The updated data point</returns>
         public ChartDataPoint WithAction
             (
-                ReportActionOutput action
+                ReportAction action
             )
         {
             Validate.IsNotNull(action);

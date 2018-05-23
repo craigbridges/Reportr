@@ -20,6 +20,7 @@
         {
             Validate.IsNotNull(parameterInfo);
 
+            this.ParameterInfo = parameterInfo;
             this.Name = parameterInfo.Name;
 
             SetValue
@@ -28,6 +29,11 @@
                 value
             );
         }
+
+        /// <summary>
+        /// Gets the parameter information
+        /// </summary>
+        public ParameterInfo ParameterInfo { get; private set; }
 
         /// <summary>
         /// Gets the parameter name

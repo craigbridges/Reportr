@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Filtering
 {
+    using Reportr.Data.Querying;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -46,6 +47,43 @@
             (
                 value => value.SectionType == sectionType
             );
+        }
+
+        /// <summary>
+        /// Gets parameter values for a section type and query
+        /// </summary>
+        /// <param name="sectionType">The report section type</param>
+        /// <param name="query">The query</param>
+        /// <returns>A collection of parameter values</returns>
+        public IEnumerable<ReportFilterParameterValue> GetParameters
+            (
+                ReportSectionType sectionType,
+                IQuery query
+            )
+        {
+            Validate.IsNotNull(query);
+
+            var sectionParameters = GetParameters
+            (
+                sectionType
+            );
+
+            var queryParameters = new List<ReportFilterParameterValue>();
+
+            foreach (var parameterInfo in query.Parameters)
+            {
+                var matchingParameter = sectionParameters.FirstOrDefault
+                (
+                    pv => pv.ParameterInfo == parameterInfo
+                );
+
+                if (matchingParameter != null)
+                {
+                    queryParameters.Add(matchingParameter);
+                }
+            }
+
+            return queryParameters;
         }
 
         /// <summary>

@@ -4,9 +4,9 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines a contract for a report component generator
+    /// Represents a base class for report component generators
     /// </summary>
-    public interface IReportComponentGenerator
+    public abstract class ReportComponentGeneratorBase : IReportComponentGenerator
     {
         /// <summary>
         /// Generates a component from a report definition and filter
@@ -15,12 +15,25 @@
         /// <param name="sectionType">The report section type</param>
         /// <param name="filter">The report filter</param>
         /// <returns>The report component generated</returns>
-        IReportComponent Generate
-        (
-            IReportComponentDefinition definition,
-            ReportSectionType sectionType,
-            ReportFilter filter
-        );
+        public virtual IReportComponent Generate
+            (
+                IReportComponentDefinition definition,
+                ReportSectionType sectionType,
+                ReportFilter filter
+            )
+        {
+            var task = Task.Run
+            (
+                async () => await GenerateAsync
+                (
+                    definition,
+                    sectionType,
+                    filter
+                )
+            );
+            
+            return task.Result;
+        }
 
         /// <summary>
         /// Asynchronously generates a component from a report definition and filter
@@ -29,7 +42,7 @@
         /// <param name="sectionType">The report section type</param>
         /// <param name="filter">The report filter</param>
         /// <returns>The report component generated</returns>
-        Task<IReportComponent> GenerateAsync
+        public abstract Task<IReportComponent> GenerateAsync
         (
             IReportComponentDefinition definition,
             ReportSectionType sectionType,

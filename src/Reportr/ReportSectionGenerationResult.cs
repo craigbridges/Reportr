@@ -3,26 +3,26 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents the result of a report generation
+    /// Represents the result of a report section generation
     /// </summary>
-    public sealed class ReportGenerationResult : ReportExecutionResult
+    internal sealed class ReportSectionGenerationResult : ReportExecutionResult
     {
         /// <summary>
         /// Constructs a successful result with the report
         /// </summary>
         /// <param name="executionTime">The execution time</param>
-        /// <param name="report">The report generated</param>
-        internal ReportGenerationResult
+        /// <param name="section">The report section generated</param>
+        internal ReportSectionGenerationResult
             (
                 long executionTime,
-                Report report
+                ReportSection section
             )
 
             : base(executionTime)
         {
-            Validate.IsNotNull(report);
-            
-            this.Report = report;
+            Validate.IsNotNull(section);
+
+            this.Section = section;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@
         /// </summary>
         /// <param name="executionTime">The execution time</param>
         /// <param name="errorMessages">The error messages</param>
-        internal ReportGenerationResult
+        internal ReportSectionGenerationResult
             (
                 long executionTime,
                 Dictionary<string, string> errorMessages
@@ -38,10 +38,10 @@
 
             : base(executionTime, errorMessages)
         { }
-        
+
         /// <summary>
-        /// Gets the report that was generated
+        /// Gets the report section that was generated
         /// </summary>
-        public Report Report { get; private set; }
+        public ReportSection Section { get; private set; }
     }
 }

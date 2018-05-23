@@ -93,7 +93,7 @@
         /// <returns>The updated graphic area</returns>
         public GraphicArea WithAction
             (
-                ReportAction action
+                ReportActionDefinition action
             )
         {
             Validate.IsNotNull(action);
@@ -106,6 +106,6 @@
         /// <summary>
         /// Gets the action for the area
         /// </summary>
-        public ReportAction Action { get; protected set; }
+        public ReportActionDefinition Action { get; protected set; }
     }
 }

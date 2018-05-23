@@ -1,152 +1,33 @@
 ﻿namespace Reportr.Components
 {
-    using Reportr.Data;
-    using Reportr.Data.Querying;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-
     /// <summary>
-    /// Represents the default implementation of a report action
+    /// Represents the output of a single report action
     /// </summary>
-    public sealed class ReportAction
+    public class ReportAction
     {
         /// <summary>
-        /// Constructs the report action with the details
+        /// Constructs the action output with the action details
         /// </summary>
         /// <param name="actionType">The action type</param>
-        /// <param name="actionTemplate">The action template</param>
+        /// <param name="actionValue">The action value</param>
         public ReportAction
             (
                 ReportActionType actionType,
-                string actionTemplate
+                string actionValue
             )
         {
             this.ActionType = actionType;
-            this.ActionTemplate = actionTemplate;
-            this.TemplateBindings = new Collection<DataBinding>();
+            this.ActionValue = actionValue;
         }
 
         /// <summary>
         /// Gets the action type
         /// </summary>
-        public ReportActionType ActionType { get; private set; }
+        public ReportActionType ActionType { get; protected set; }
 
         /// <summary>
-        /// Gets the action template
+        /// Gets the action value
         /// </summary>
-        /// <remarks>
-        /// The action template is used by the reporting engine to 
-        /// generate the action content for a specific query row.
-        /// 
-        /// The template syntax uses arguments in the same way as
-        /// the String.Format method.
-        /// 
-        /// E.g. The template "http://url/{0}" specifies a single 
-        /// argument and will be replaced with the first value in 
-        /// the parameter bindings collection.
-        /// </remarks>
-        public string ActionTemplate { get; private set; }
-
-        /// <summary>
-        /// Gets a collection of data bindings for the template
-        /// </summary>
-        /// <remarks>
-        /// The template bindings are used by the reporting engine
-        /// as the argument values.
-        /// </remarks>
-        public ICollection<DataBinding> TemplateBindings { get; private set; }
-
-        /// <summary>
-        /// Adds an action template binding
-        /// </summary>
-        /// <param name="binding">The data binding</param>
-        public void AddTemplateBinding
-            (
-                DataBinding binding
-            )
-        {
-            Validate.IsNotNull(binding);
-            
-            this.TemplateBindings.Add(binding);
-        }
-
-        /// <summary>
-        /// Removes an action template binding
-        /// </summary>
-        /// <param name="index">The index of the binding to remove</param>
-        /// <remarks>
-        /// The index numbers of zero-based.
-        /// </remarks>
-        public void RemoveTemplateBinding
-            (
-                int index
-            )
-        {
-            var binding = this.TemplateBindings.ElementAtOrDefault
-            (
-                index
-            );
-
-            if (binding == null)
-            {
-                throw new IndexOutOfRangeException
-                (
-                    "The binding index specified is out of range."
-                );
-            }
-
-            this.TemplateBindings.Remove
-            (
-                binding
-            );
-        }
-
-        /// <summary>
-        /// Resolves the report action using the query row specified
-        /// </summary>
-        /// <param name="row">The query row</param>
-        /// <returns>The action output</returns>
-        public ReportActionOutput Resolve
-            (
-                QueryRow row
-            )
-        {
-            Validate.IsNotNull(row);
-
-            if (this.TemplateBindings.Any())
-            {
-                var bindingValues = new List<object>();
-
-                foreach (var binding in this.TemplateBindings)
-                {
-                    bindingValues.Add
-                    (
-                        binding.Resolve(row)
-                    );
-                }
-
-                var formattedAction = String.Format
-                (
-                    this.ActionTemplate,
-                    bindingValues.ToArray()
-                );
-
-                return new ReportActionOutput
-                (
-                    this.ActionType,
-                    formattedAction
-                );
-            }
-            else
-            {
-                return new ReportActionOutput
-                (
-                    this.ActionType,
-                    this.ActionTemplate
-                );
-            }
-        }
+        public string ActionValue { get; protected set; }
     }
 }

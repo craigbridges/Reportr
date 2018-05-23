@@ -22,7 +22,7 @@
                 string name,
                 string title,
                 IQuery query,
-                ReportAction rowAction = null
+                ReportActionDefinition rowAction = null
             )
             : base(name, title)
         {
@@ -86,7 +86,7 @@
         /// The row action can be null, but when set, it overrides
         /// any column actions that have been set.
         /// </remarks>
-        public ReportAction RowAction { get; protected set; }
+        public ReportActionDefinition RowAction { get; protected set; }
 
         /// <summary>
         /// Gets the report component type

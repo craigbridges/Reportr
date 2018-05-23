@@ -86,7 +86,7 @@
         /// <returns>The updated column</returns>
         public TableColumnDefinition WithAction
             (
-                ReportAction action
+                ReportActionDefinition action
             )
         {
             Validate.IsNotNull(action);
@@ -106,7 +106,7 @@
         /// The cell action can be null and only works when the row
         /// action has not been set.
         /// </remarks>
-        public ReportAction CellAction { get; protected set; }
+        public ReportActionDefinition CellAction { get; protected set; }
 
         /// <summary>
         /// Provides a custom string description

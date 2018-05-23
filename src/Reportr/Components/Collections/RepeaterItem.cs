@@ -13,7 +13,7 @@
         public RepeaterItem
             (
                 object value,
-                ReportActionOutput action = null
+                ReportAction action = null
             )
         {
             this.Value = value;
@@ -28,6 +28,6 @@
         /// <summary>
         /// Gets the items action
         /// </summary>
-        public ReportActionOutput Action { get; protected set; }
+        public ReportAction Action { get; protected set; }
     }
 }

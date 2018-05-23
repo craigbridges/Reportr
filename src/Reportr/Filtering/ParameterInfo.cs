@@ -132,5 +132,99 @@
         /// Gets the parameters default value
         /// </summary>
         public object DefaultValue { get; private set; }
+
+        /// <summary>
+        /// Generates a custom hash code for the parameter info
+        /// </summary>
+        /// <returns>The hash code</returns>
+        public override int GetHashCode()
+        {
+            var tuple = Tuple.Create
+            (
+                this.Name,
+                this.DisplayText,
+                this.Description,
+                this.ExpectedType,
+                this.ValueRequired,
+                this.Visible,
+                this.DefaultValue
+            );
+
+            return tuple.GetHashCode();
+        }
+
+        /// <summary>
+        /// Determines if an object is equal to the current parameter info instance
+        /// </summary>
+        /// <param name="obj">The object to check</param>
+        /// <returns>True, if both objects are equal; otherwise false</returns>
+        public override bool Equals
+            (
+                object obj
+            )
+        {
+            if (obj == null || false == (obj is ParameterInfo))
+            {
+                return false;
+            }
+
+            return obj.GetHashCode() == this.GetHashCode();
+        }
+
+        /// <summary>
+        /// Compares two parameter info instances to determine if they are equal
+        /// </summary>
+        /// <param name="left">The left value</param>
+        /// <param name="right">The right value</param>
+        /// <returns>True, if both objects are equal; otherwise false</returns>
+        public static bool operator ==
+            (
+                ParameterInfo left,
+                ParameterInfo right
+            )
+        {
+            if (left == null && right != null)
+            {
+                return false;
+            }
+            else if (left != null && right == null)
+            {
+                return false;
+            }
+            else
+            {
+                return left.Equals(right);
+            }
+        }
+
+        /// <summary>
+        /// Compares two parameter info instances to determine if they are not equal
+        /// </summary>
+        /// <param name="left">The left value</param>
+        /// <param name="right">The right value</param>
+        /// <returns>True, if both objects are not equal; otherwise false</returns>
+        public static bool operator !=
+            (
+                ParameterInfo left,
+                ParameterInfo right
+            )
+        {
+            if (left == null && right != null)
+            {
+                return true;
+            }
+            else if (left != null && right == null)
+            {
+                return true;
+            }
+            else if (left == null && right == null)
+            {
+                return false;
+            }
+            else
+            {
+                return false == left.Equals(right);
+            }
+        }
     }
 }

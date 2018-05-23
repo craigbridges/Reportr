@@ -66,7 +66,7 @@
         /// <returns>The updated table row</returns>
         public TableRow WithAction
             (
-                ReportActionOutput action
+                ReportAction action
             )
         {
             Validate.IsNotNull(action);
@@ -79,7 +79,7 @@
         /// <summary>
         /// Gets the rows action
         /// </summary>
-        public ReportActionOutput Action { get; private set; }
+        public ReportAction Action { get; private set; }
 
         /// <summary>
         /// Gets the cell at the index specified
