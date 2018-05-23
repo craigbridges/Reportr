@@ -92,7 +92,7 @@
         /// <summary>
         /// Gets the color of the data set
         /// </summary>
-        public Color Color { get; protected set; }
+        public Color? Color { get; protected set; }
 
 
         // TODO: get label matching x-axis binding result
@@ -110,7 +110,7 @@
             (
                 string label,
                 string description,
-                Color color = default(Color),
+                Color? color = null,
                 params ChartAxisLabel[] xAxisLabels
             )
         {
