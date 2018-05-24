@@ -1,9 +1,7 @@
 ﻿namespace Reportr.Components.Metrics
 {
-    using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -28,12 +26,13 @@
             )
         {
             var chartDefinition = definition.As<ChartDefinition>();
+            var queryTasks = new Dictionary<ChartDataSetDefinition, Task<QueryResults>>();
             var dataSets = new List<ChartDataSet>();
 
+            // Build a dictionary of query tasks to execute
             foreach (var setDefinition in chartDefinition.DataSets)
             {
                 var query = setDefinition.Query;
-                var dataPoints = new List<ChartDataPoint>();
 
                 var parameterValues = filter.GetParameters
                 (
@@ -41,10 +40,25 @@
                     query
                 );
 
-                var queryResults = await query.ExecuteAsync
+                var task = query.ExecuteAsync
                 (
                     parameterValues.ToArray()
                 );
+
+                queryTasks.Add(setDefinition, task);
+            }
+
+            await Task.WhenAll
+            (
+                queryTasks.Select(pair => pair.Value)
+            );
+
+            // Compile and process the results of each query
+            foreach (var item in queryTasks)
+            {
+                var dataPoints = new List<ChartDataPoint>();
+                var queryResults = await item.Value;
+                var setDefinition = item.Key;
 
                 if (queryResults.AllRows.Any())
                 {
@@ -52,9 +66,8 @@
                     {
                         var point = default(ChartDataPoint);
 
-                        var y = ResolveAxisValue
+                        var y = setDefinition.YAxisBinding.Resolve<double>
                         (
-                            setDefinition.YAxisBinding,
                             row
                         );
 
@@ -74,9 +87,8 @@
                         }
                         else
                         {
-                            var x = ResolveAxisValue
+                            var x = setDefinition.XAxisBinding.Resolve<double>
                             (
-                                setDefinition.XAxisBinding,
                                 row
                             );
 
@@ -109,44 +121,6 @@
             );
 
             return chart;
-        }
-
-        /// <summary>
-        /// Resolves the value of a single axis using a binding and row
-        /// </summary>
-        /// <param name="binding">The data binding</param>
-        /// <param name="row">The query row</param>
-        /// <returns>The axis value resolved</returns>
-        private double ResolveAxisValue
-            (
-                DataBinding binding,
-                QueryRow row
-            )
-        {
-            var rawValue = binding.Resolve(row);
-
-            if (rawValue == null)
-            {
-                return 0;
-            }
-            else
-            {
-                if (false == rawValue.GetType().IsNumeric())
-                {
-                    var message = "The value '{0}' is not numeric.";
-
-                    throw new ArithmeticException
-                    (
-                        String.Format
-                        (
-                            message,
-                            rawValue
-                        )
-                    );
-                }
-
-                return Convert.ToDouble(rawValue);
-            }
         }
     }
 }

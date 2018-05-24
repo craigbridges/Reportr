@@ -7,6 +7,9 @@ High Priority
 	- Create report filter generator that takes a flat object(s)
 
 - Implement IReportGenerator
+	- Complete GetComponentGenerator method
+
+- How do we handle labels in charts? Should they be auto generated (for x-axis) usng data bindings?
 
 - Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
 

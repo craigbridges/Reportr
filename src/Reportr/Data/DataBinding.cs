@@ -68,6 +68,25 @@
         }
 
         /// <summary>
+        /// Resolves the data binding value using a query row
+        /// </summary>
+        /// <typeparam name="T">The value type to resolve</typeparam>
+        /// <param name="row">The query row</param>
+        /// <returns>The resolved value as the type specified</returns>
+        public T Resolve<T>
+            (
+                QueryRow row
+            )
+        {
+            var rawValue = Resolve(row);
+
+            return new GenericObjectToTypeConverter<T>().Convert
+            (
+                rawValue
+            );
+        }
+
+        /// <summary>
         /// Resolves the query path for a query row
         /// </summary>
         /// <param name="row">The query row</param>

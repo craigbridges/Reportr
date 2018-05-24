@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components
 {
+    using Nito.AsyncEx.Synchronous;
     using Reportr.Filtering;
     using System.Threading.Tasks;
 
@@ -22,17 +23,14 @@
                 ReportFilter filter
             )
         {
-            var task = Task.Run
+            var task = GenerateAsync
             (
-                async () => await GenerateAsync
-                (
-                    definition,
-                    sectionType,
-                    filter
-                )
+                definition,
+                sectionType,
+                filter
             );
-            
-            return task.Result;
+
+            return task.WaitAndUnwrapException();
         }
 
         /// <summary>

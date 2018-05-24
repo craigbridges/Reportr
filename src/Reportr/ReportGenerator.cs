@@ -1,5 +1,6 @@
 ﻿namespace Reportr
 {
+    using Nito.AsyncEx.Synchronous;
     using Reportr.Components;
     using Reportr.Components.Metrics;
     using Reportr.Filtering;
@@ -26,12 +27,9 @@
                 ReportFilter filter = null
             )
         {
-            var task = Task.Run
-            (
-                async () => await GenerateAsync(definition, filter)
-            );
+            var task = GenerateAsync(definition, filter);
 
-            return task.Result;
+            return task.WaitAndUnwrapException();
         }
 
         /// <summary>
@@ -55,40 +53,55 @@
                 filter = definition.GenerateDefaultFilter();
             }
 
-            var pageHeaderResult = await GenerateSectionAsync
+            var pageHeaderTask = GenerateSectionAsync
             (
                 definition,
                 filter,
                 ReportSectionType.PageHeader
             );
 
-            var reportHeaderResult = await GenerateSectionAsync
+            var reportHeaderTask = GenerateSectionAsync
             (
                 definition,
                 filter,
                 ReportSectionType.ReportHeader
             );
 
-            var reportBodyResult = await GenerateSectionAsync
+            var reportBodyTask = GenerateSectionAsync
             (
                 definition,
                 filter,
                 ReportSectionType.ReportBody
             );
 
-            var pageFooterResult = await GenerateSectionAsync
+            var pageFooterTask = GenerateSectionAsync
             (
                 definition,
                 filter,
                 ReportSectionType.PageFooter
             );
 
-            var reportFooterResult = await GenerateSectionAsync
+            var reportFooterTask = GenerateSectionAsync
             (
                 definition,
                 filter,
                 ReportSectionType.ReportFooter
             );
+
+            await Task.WhenAll
+            (
+                pageHeaderTask,
+                reportHeaderTask,
+                reportBodyTask,
+                reportFooterTask,
+                pageFooterTask
+            );
+            
+            var pageHeaderResult = await pageHeaderTask;
+            var reportHeaderResult = await reportHeaderTask;
+            var reportBodyResult = await reportBodyTask;
+            var pageFooterResult = await pageFooterTask;
+            var reportFooterResult = await reportFooterTask;
             
             watch.Stop();
 
@@ -190,32 +203,49 @@
             }
             else
             {
+                var generationTasks = new Dictionary<string, Task<IReportComponent>>();
                 var componentList = new List<IReportComponent>();
                 var errorMessages = new Dictionary<string, string>();
 
+                // Build a dictionary of component generation tasks
                 foreach (var componentDefinition in sectionDefinition.Components)
+                {
+                    var componentGenerator = GetComponentGenerator
+                    (
+                        componentDefinition.ComponentType
+                    );
+
+                    var task = componentGenerator.GenerateAsync
+                    (
+                        componentDefinition,
+                        sectionType,
+                        filter
+                    );
+
+                    generationTasks.Add
+                    (
+                        componentDefinition.Name,
+                        task
+                    );
+                }
+
+                await Task.WhenAll
+                (
+                    generationTasks.Select(pair => pair.Value)
+                );
+
+                // Compile the results of each task once they have completed
+                foreach (var item in generationTasks)
                 {
                     try
                     {
-                        var componentGenerator = GetComponentGenerator
-                        (
-                            componentDefinition.ComponentType
-                        );
-
-                        var component = await componentGenerator.GenerateAsync
-                        (
-                            componentDefinition,
-                            sectionType,
-                            filter
-                        );
-
-                        componentList.Add(component);
+                        componentList.Add(await item.Value);
                     }
                     catch (Exception ex)
                     {
                         errorMessages.Add
                         (
-                            componentDefinition.Name,
+                            item.Key,
                             ex.Message
                         );
                     }
