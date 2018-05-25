@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Metrics
 {
     using Reportr.Data.Querying;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
@@ -39,24 +40,34 @@
         public ChartAxisLabel XAxisLabelTemplate { get; protected set; }
 
         /// <summary>
-        /// Gets an array of y-axis label template
+        /// Gets the step interval for the y-axis labels
         /// </summary>
-        public ChartAxisLabel YAxisLabelTemplate { get; protected set; }
+        public double? YAxisInterval { get; protected set; }
 
         /// <summary>
         /// Adds the label templates to the chart definition
         /// </summary>
         /// <param name="xAxisLabelTemplate">The x-axis label template</param>
-        /// <param name="yAxisLabelTemplate">The y-axis label template</param>
+        /// <param name="yAxisInterval">The y-axis interval</param>
         /// <returns>The updated chart definition</returns>
         public ChartDefinition WithLabelTemplates
             (
                 ChartAxisLabel xAxisLabelTemplate,
-                ChartAxisLabel yAxisLabelTemplate
+                double? yAxisInterval = null
             )
         {
+            Validate.IsNotNull(xAxisLabelTemplate);
+
+            if (yAxisInterval < 1)
+            {
+                throw new ArgumentException
+                (
+                    "The y-axis interval must be greater than zero."
+                );
+            }
+
             this.XAxisLabelTemplate = xAxisLabelTemplate;
-            this.YAxisLabelTemplate = yAxisLabelTemplate;
+            this.YAxisInterval = yAxisInterval;
 
             return this;
         }

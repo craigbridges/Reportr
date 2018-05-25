@@ -54,8 +54,7 @@
                 queryTasks.Select(pair => pair.Value)
             );
 
-            var xLabelList = new List<ChartAxisLabel>();
-            var yLabelList = new List<ChartAxisLabel>();
+            var labelList = new List<ChartAxisLabel>();
 
             // Compile and process the results of each query
             foreach (var item in queryTasks)
@@ -70,14 +69,28 @@
 
                     foreach (var row in queryResults.AllRows)
                     {
+                        var xLabelValue = default(object);
+
                         var xValue = setDefinition.XAxisBinding.Resolve<double>
                         (
                             row
                         );
 
+                        if (setDefinition.XAxisLabelBinding == null)
+                        {
+                            xLabelValue = xValue;
+                        }
+                        else
+                        {
+                            xLabelValue = setDefinition.XAxisLabelBinding.Resolve
+                            (
+                                row
+                            );
+                        }
+
                         var xLabel = GenerateLabel
                         (
-                            xValue,
+                            xLabelValue,
                             rowNumber,
                             chartDefinition.XAxisLabelTemplate
                         );
@@ -86,14 +99,7 @@
                         (
                             row
                         );
-
-                        var yLabel = GenerateLabel
-                        (
-                            yValue,
-                            rowNumber,
-                            chartDefinition.YAxisLabelTemplate
-                        );
-
+                        
                         var point = new ChartDataPoint
                         (
                             xValue,
@@ -103,14 +109,9 @@
 
                         dataPoints.Add(point);
 
-                        if (false == xLabelList.Any(l => l.Text == xLabel.Text))
+                        if (false == labelList.Any(l => l.Text == xLabel.Text))
                         {
-                            xLabelList.Add(xLabel);
-                        }
-
-                        if (false == yLabelList.Any(l => l.Text == xLabel.Text))
-                        {
-                            yLabelList.Add(yLabel);
+                            labelList.Add(xLabel);
                         }
                     }
 
@@ -129,8 +130,7 @@
             var chart = new Chart
             (
                 chartDefinition,
-                xLabelList,
-                yLabelList,
+                labelList,
                 dataSets.ToArray()
             );
 

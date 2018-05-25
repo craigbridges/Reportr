@@ -103,6 +103,28 @@
         public DataBinding XAxisBinding { get; protected set; }
 
         /// <summary>
+        /// Gets the x-axis label value data binding
+        /// </summary>
+        public DataBinding XAxisLabelBinding { get; protected set; }
+
+        /// <summary>
+        /// Adds the label binding to the data set definition
+        /// </summary>
+        /// <param name="xAxisLabelBinding">The x-axis label binding</param>
+        /// <returns>The updated data set definition</returns>
+        public ChartDataSetDefinition WithLabelBinding
+            (
+                DataBinding xAxisLabelBinding
+            )
+        {
+            Validate.IsNotNull(xAxisLabelBinding);
+
+            this.XAxisLabelBinding = xAxisLabelBinding;
+
+            return this;
+        }
+
+        /// <summary>
         /// Gets the y-axis value data binding
         /// </summary>
         public DataBinding YAxisBinding { get; protected set; }

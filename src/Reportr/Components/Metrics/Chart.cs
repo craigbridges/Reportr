@@ -15,19 +15,16 @@
         /// </summary>
         /// <param name="definition">The chart definition</param>
         /// <param name="xAxisLabels">The x-axis labels</param>
-        /// <param name="yAxisLabels">The y-axis labels</param>
         /// <param name="dataSets">The data sets</param>
         public Chart
             (
                 ChartDefinition definition,
                 IEnumerable<ChartAxisLabel> xAxisLabels,
-                IEnumerable<ChartAxisLabel> yAxisLabels,
                 params ChartDataSet[] dataSets
             )
             : base(definition)
         {
             Validate.IsNotNull(xAxisLabels);
-            Validate.IsNotNull(yAxisLabels);
             Validate.IsNotNull(dataSets);
 
             if (false == dataSets.Any())
@@ -63,7 +60,7 @@
             }
 
             this.XAxisLabels = xAxisLabels.ToArray();
-            this.YAxisLabels = yAxisLabels.ToArray();
+            this.YAxisInterval = definition.YAxisInterval;
             this.DataSets = dataSets;
         }
         
@@ -73,9 +70,9 @@
         public ChartAxisLabel[] XAxisLabels { get; private set; }
 
         /// <summary>
-        /// Gets an array of y-axis labels
+        /// Gets the y-axis step interval
         /// </summary>
-        public ChartAxisLabel[] YAxisLabels { get; private set; }
+        public double? YAxisInterval { get; private set; }
 
         /// <summary>
         /// Gets an array of chart data sets
