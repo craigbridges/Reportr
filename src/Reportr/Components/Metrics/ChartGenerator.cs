@@ -2,6 +2,7 @@
 {
     using Reportr.Data.Querying;
     using Reportr.Filtering;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -53,6 +54,9 @@
                 queryTasks.Select(pair => pair.Value)
             );
 
+            var xLabelList = new List<ChartAxisLabel>();
+            var yLabelList = new List<ChartAxisLabel>();
+
             // Compile and process the results of each query
             foreach (var item in queryTasks)
             {
@@ -62,46 +66,52 @@
 
                 if (queryResults.AllRows.Any())
                 {
+                    var rowNumber = 1;
+
                     foreach (var row in queryResults.AllRows)
                     {
-                        var point = default(ChartDataPoint);
-
-                        var y = setDefinition.YAxisBinding.Resolve<double>
+                        var xValue = setDefinition.XAxisBinding.Resolve<double>
                         (
                             row
                         );
 
+                        var xLabel = GenerateLabel
+                        (
+                            xValue,
+                            rowNumber,
+                            chartDefinition.XAxisLabelTemplate
+                        );
 
-                        // TODO: resolve the label, if there is one
-                        var label = default(ChartAxisLabel);
+                        var yValue = setDefinition.YAxisBinding.Resolve<double>
+                        (
+                            row
+                        );
 
+                        var yLabel = GenerateLabel
+                        (
+                            yValue,
+                            rowNumber,
+                            chartDefinition.YAxisLabelTemplate
+                        );
 
-                        if (setDefinition.XAxisBinding == null)
-                        {
-                            point = new ChartDataPoint
-                            (
-                                label,
-                                y,
-                                setDefinition.Color
-                            );
-                        }
-                        else
-                        {
-                            var x = setDefinition.XAxisBinding.Resolve<double>
-                            (
-                                row
-                            );
-
-                            point = new ChartDataPoint
-                            (
-                                x,
-                                y,
-                                label,
-                                setDefinition.Color
-                            );
-                        }
+                        var point = new ChartDataPoint
+                        (
+                            xValue,
+                            yValue,
+                            setDefinition.Color
+                        );
 
                         dataPoints.Add(point);
+
+                        if (false == xLabelList.Any(l => l.Text == xLabel.Text))
+                        {
+                            xLabelList.Add(xLabel);
+                        }
+
+                        if (false == yLabelList.Any(l => l.Text == xLabel.Text))
+                        {
+                            yLabelList.Add(yLabel);
+                        }
                     }
 
                     var set = new ChartDataSet
@@ -111,16 +121,124 @@
                     );
 
                     dataSets.Add(set);
+
+                    rowNumber++;
                 }
             }
             
             var chart = new Chart
             (
                 chartDefinition,
+                xLabelList,
+                yLabelList,
                 dataSets.ToArray()
             );
 
             return chart;
+        }
+
+        /// <summary>
+        /// Generates a chart axis label using a value and template
+        /// </summary>
+        /// <param name="value">The axis value</param>
+        /// <param name="rowNumber">The query row number</param>
+        /// <param name="template">The label template (optional)</param>
+        /// <returns>The label generated</returns>
+        private ChartAxisLabel GenerateLabel
+            (
+                object value,
+                int rowNumber,
+                ChartAxisLabel template = null
+            )
+        {
+            if (template == null)
+            {
+                if (value == null)
+                {
+                    return new ChartAxisLabel(rowNumber);
+                }
+                else
+                {
+                    var valueType = value.GetType();
+
+                    if (valueType.IsNumeric())
+                    {
+                        return new ChartAxisLabel
+                        (
+                            Convert.ToDouble(value)
+                        );
+                    }
+                    else if (valueType == typeof(DateTime) || valueType == typeof(DateTime?))
+                    {
+                        return new ChartAxisLabel
+                        (
+                            (DateTime)value
+                        );
+                    }
+                    else
+                    {
+                        return new ChartAxisLabel
+                        (
+                            value.ToString()
+                        );
+                    }
+                }
+            }
+            else
+            {
+                if (value == null)
+                {
+                    return template;
+                }
+                else
+                {
+                    var valueType = value.GetType();
+                    var label = template.Clone();
+
+                    switch (template.ValueType)
+                    {
+                        case ChartValueType.Double:
+
+                            if (false == valueType.IsNumeric())
+                            {
+                                var message = "The value '{0}' is not numeric.";
+
+                                throw new InvalidCastException
+                                (
+                                    String.Format(message, value)
+                                );
+                            }
+                            
+                            label.DoubleValue = Convert.ToDouble
+                            (
+                                value
+                            );
+
+                            break;
+
+                        case ChartValueType.DateTime:
+
+                            if (valueType != typeof(DateTime) && valueType != typeof(DateTime?))
+                            {
+                                var message = "The value '{0}' is not a valid date.";
+
+                                throw new InvalidCastException
+                                (
+                                    String.Format(message, value)
+                                );
+                            }
+
+                            label.DateValue = (DateTime)value;
+                            break;
+
+                        default:
+                            label.CustomText = value.ToString();
+                            break;
+                    }
+
+                    return label;
+                }
+            }
         }
     }
 }

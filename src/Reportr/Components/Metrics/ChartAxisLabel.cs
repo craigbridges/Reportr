@@ -13,8 +13,69 @@
         /// </summary>
         public ChartAxisLabel()
         {
+            this.IsEmpty = true;
             this.ValueType = ChartValueType.Double;
         }
+
+        /// <summary>
+        /// Constructs the label with the default values
+        /// </summary>
+        /// <param name="valueType">The value type</param>
+        public ChartAxisLabel
+            (
+                ChartValueType valueType
+            )
+        {
+            this.IsEmpty = true;
+            this.ValueType = valueType;
+        }
+
+        /// <summary>
+        /// Constructs the label with a double value type
+        /// </summary>
+        /// <param name="value">The value</param>
+        public ChartAxisLabel
+            (
+                double value
+            )
+        {
+            this.IsEmpty = false;
+            this.ValueType = ChartValueType.Double;
+            this.DoubleValue = value;
+        }
+
+        /// <summary>
+        /// Constructs the label with a date time value type
+        /// </summary>
+        /// <param name="date">The date value</param>
+        public ChartAxisLabel
+            (
+                DateTime date
+            )
+        {
+            this.IsEmpty = false;
+            this.ValueType = ChartValueType.DateTime;
+            this.DateValue = date;
+        }
+
+        /// <summary>
+        /// Constructs the label with a custom value type
+        /// </summary>
+        /// <param name="text">The text</param>
+        public ChartAxisLabel
+            (
+                string text
+            )
+        {
+            this.IsEmpty = false;
+            this.ValueType = ChartValueType.Custom;
+            this.CustomText = text;
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if the label is empty
+        /// </summary>
+        public bool IsEmpty { get; private set; }
 
         /// <summary>
         /// Gets or sets the label placement
@@ -104,6 +165,7 @@
         {
             return new ChartAxisLabel()
             {
+                IsEmpty = this.IsEmpty,
                 Placement = this.Placement,
                 Color = this.Color,
                 CustomText = this.CustomText,

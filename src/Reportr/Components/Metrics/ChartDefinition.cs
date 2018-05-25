@@ -2,6 +2,7 @@
 {
     using Reportr.Data.Querying;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Represents the definition of a single chart
@@ -13,23 +14,16 @@
         /// </summary>
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
-        /// <param name="allowDecimals">True, to allow decimal places</param>
         public ChartDefinition
             (
                 string name,
-                string title,
-                bool allowDecimals = true
+                string title
             )
             : base(name, title)
         {
-            this.AllowDecimals = allowDecimals;
+            this.DataSets = new Collection<ChartDataSetDefinition>();
         }
-
-        /// <summary>
-        /// Gets a flag indicating if decimal places should be allowed
-        /// </summary>
-        public bool AllowDecimals { get; protected set; }
-
+        
         /// <summary>
         /// Gets a collection of chart data set definitions
         /// </summary>
@@ -37,6 +31,34 @@
         {
             get;
             protected set;
+        }
+
+        /// <summary>
+        /// Gets an array of x-axis label template
+        /// </summary>
+        public ChartAxisLabel XAxisLabelTemplate { get; protected set; }
+
+        /// <summary>
+        /// Gets an array of y-axis label template
+        /// </summary>
+        public ChartAxisLabel YAxisLabelTemplate { get; protected set; }
+
+        /// <summary>
+        /// Adds the label templates to the chart definition
+        /// </summary>
+        /// <param name="xAxisLabelTemplate">The x-axis label template</param>
+        /// <param name="yAxisLabelTemplate">The y-axis label template</param>
+        /// <returns>The updated chart definition</returns>
+        public ChartDefinition WithLabelTemplates
+            (
+                ChartAxisLabel xAxisLabelTemplate,
+                ChartAxisLabel yAxisLabelTemplate
+            )
+        {
+            this.XAxisLabelTemplate = xAxisLabelTemplate;
+            this.YAxisLabelTemplate = yAxisLabelTemplate;
+
+            return this;
         }
 
         /// <summary>

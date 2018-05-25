@@ -17,18 +17,19 @@
         /// </summary>
         /// <param name="name">The name of the set</param>
         /// <param name="query">The query</param>
+        /// <param name="xAxisBinding">The x-axis data binding</param>
         /// <param name="yAxisBinding">The y-axis data binding</param>
-        /// <param name="xAxisBinding">The x-axis data binding (optional)</param>
         public ChartDataSetDefinition
             (
                 string name,
                 IQuery query,
-                DataBinding yAxisBinding,
-                DataBinding xAxisBinding = null
+                DataBinding xAxisBinding,
+                DataBinding yAxisBinding
             )
         {
             Validate.IsNotEmpty(name);
             Validate.IsNotNull(query);
+            Validate.IsNotNull(xAxisBinding);
             Validate.IsNotNull(yAxisBinding);
 
             this.Name = name;
@@ -51,14 +52,32 @@
         public string Name { get; protected set; }
 
         /// <summary>
-        /// Gets the data sets label text
+        /// Gets the data sets title text
         /// </summary>
-        public string Label { get; protected set; }
+        public string Title { get; protected set; }
 
         /// <summary>
         /// Gets a description of the data set
         /// </summary>
         public string Description { get; protected set; }
+
+        /// <summary>
+        /// Adds the descriptors to the data set definition
+        /// </summary>
+        /// <param name="title">The title</param>
+        /// <param name="description">The description</param>
+        /// <returns>The updated data set definition</returns>
+        public ChartDataSetDefinition WithDescriptors
+            (
+                string title,
+                string description
+            )
+        {
+            this.Title = title;
+            this.Description = description;
+
+            return this;
+        }
 
         /// <summary>
         /// Gets the query associated with the data set
@@ -68,6 +87,10 @@
         /// <summary>
         /// Gets the default parameter values for the query
         /// </summary>
+        /// <remarks>
+        /// The default parameter values are used where no matching report 
+        /// filter parameter is found. The default value will be used instead.
+        /// </remarks>
         public ICollection<ParameterValue> DefaultParameterValues
         {
             get;
@@ -83,50 +106,24 @@
         /// Gets the y-axis value data binding
         /// </summary>
         public DataBinding YAxisBinding { get; protected set; }
-
-        /// <summary>
-        /// Gets an array of x-axis labels
-        /// </summary>
-        public ChartAxisLabel[] XAxisLabels { get; protected set; }
-
+        
         /// <summary>
         /// Gets the color of the data set
         /// </summary>
         public Color? Color { get; protected set; }
 
-
-        // TODO: get label matching x-axis binding result
-
-
         /// <summary>
-        /// Adds the descriptors to the data set definition
+        /// Adds the color to the data set definition
         /// </summary>
-        /// <param name="label">The label</param>
-        /// <param name="description">The description</param>
-        /// <param name="color">The color (optional)</param>
-        /// <param name="xAxisLabels">The x-axis labels</param>
+        /// <param name="color">The color</param>
         /// <returns>The updated data set definition</returns>
-        public ChartDataSetDefinition WithDescriptors
+        public ChartDataSetDefinition WithColor
             (
-                string label,
-                string description,
-                Color? color = null,
-                params ChartAxisLabel[] xAxisLabels
+                Color color
             )
         {
-            this.Label = label;
-            this.Description = description;
             this.Color = color;
-
-            if (xAxisLabels == null)
-            {
-                this.XAxisLabels = new ChartAxisLabel[] { };
-            }
-            else
-            {
-                this.XAxisLabels = xAxisLabels;
-            }
-
+            
             return this;
         }
 

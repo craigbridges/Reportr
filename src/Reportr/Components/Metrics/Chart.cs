@@ -14,13 +14,20 @@
         /// Constructs the chart with the details
         /// </summary>
         /// <param name="definition">The chart definition</param>
+        /// <param name="xAxisLabels">The x-axis labels</param>
+        /// <param name="yAxisLabels">The y-axis labels</param>
+        /// <param name="dataSets">The data sets</param>
         public Chart
             (
                 ChartDefinition definition,
+                IEnumerable<ChartAxisLabel> xAxisLabels,
+                IEnumerable<ChartAxisLabel> yAxisLabels,
                 params ChartDataSet[] dataSets
             )
             : base(definition)
         {
+            Validate.IsNotNull(xAxisLabels);
+            Validate.IsNotNull(yAxisLabels);
             Validate.IsNotNull(dataSets);
 
             if (false == dataSets.Any())
@@ -55,8 +62,20 @@
                 }
             }
 
+            this.XAxisLabels = xAxisLabels.ToArray();
+            this.YAxisLabels = yAxisLabels.ToArray();
             this.DataSets = dataSets;
         }
+        
+        /// <summary>
+        /// Gets an array of x-axis labels
+        /// </summary>
+        public ChartAxisLabel[] XAxisLabels { get; private set; }
+
+        /// <summary>
+        /// Gets an array of y-axis labels
+        /// </summary>
+        public ChartAxisLabel[] YAxisLabels { get; private set; }
 
         /// <summary>
         /// Gets an array of chart data sets
