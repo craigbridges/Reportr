@@ -44,11 +44,11 @@
         public bool HasRange { get; private set; }
 
         /// <summary>
-        /// Adds the range values to the statistic result
+        /// Adds the range values to the statistic
         /// </summary>
         /// <param name="lower">The lower range</param>
         /// <param name="upper">The upper range</param>
-        /// <returns>The updated statistic result</returns>
+        /// <returns>The updated statistic</returns>
         public Statistic WithRange
             (
                 double? lower,

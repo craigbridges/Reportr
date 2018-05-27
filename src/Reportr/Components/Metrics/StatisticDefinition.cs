@@ -2,6 +2,7 @@
 {
     using Reportr.Data.Querying;
     using Reportr.Filtering;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
@@ -22,7 +23,7 @@
                 string name,
                 string title,
                 IQueryAggregator aggregator,
-                ReportActionDefinition action = null
+                ReportAction action = null
             )
             : base(name, title)
         {
@@ -67,9 +68,51 @@
         }
 
         /// <summary>
+        /// Gets the lower range value
+        /// </summary>
+        public double? LowerRange { get; private set; }
+
+        /// <summary>
+        /// Gets the upper range value
+        /// </summary>
+        public double? UpperRange { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the value has a range that it fits into
+        /// </summary>
+        public bool HasRange { get; private set; }
+
+        /// <summary>
+        /// Adds the range values to the statistic definition
+        /// </summary>
+        /// <param name="lower">The lower range</param>
+        /// <param name="upper">The upper range</param>
+        /// <returns>The updated statistic definition</returns>
+        public StatisticDefinition WithRange
+            (
+                double? lower,
+                double? upper
+            )
+        {
+            if (lower == null && upper == null)
+            {
+                throw new InvalidOperationException
+                (
+                    "A lower or upper range value must be specified."
+                );
+            }
+
+            this.LowerRange = lower;
+            this.UpperRange = upper;
+            this.HasRange = true;
+
+            return this;
+        }
+
+        /// <summary>
         /// Gets the statistic action
         /// </summary>
-        public ReportActionDefinition Action { get; protected set; }
+        public ReportAction Action { get; protected set; }
 
         /// <summary>
         /// Gets the component type

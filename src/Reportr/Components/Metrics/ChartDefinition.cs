@@ -10,19 +10,33 @@
     /// </summary>
     public class ChartDefinition : ReportComponentDefinitionBase
     {
+        private ReportComponentType _chartType;
+
         /// <summary>
         /// Constructs the chart definition with the details
         /// </summary>
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
+        /// <param name="type">The chart type</param>
         public ChartDefinition
             (
                 string name,
-                string title
+                string title,
+                ReportComponentType type
             )
             : base(name, title)
         {
+            if (type != ReportComponentType.Chart)
+            {
+                throw new ArgumentException
+                (
+                    "The chart component type is invalid."
+                );
+            }
+
             this.DataSets = new Collection<ChartDataSetDefinition>();
+
+            _chartType = type;
         }
         
         /// <summary>
@@ -91,7 +105,7 @@
         {
             get
             {
-                return ReportComponentType.Chart;
+                return _chartType;
             }
         }
     }

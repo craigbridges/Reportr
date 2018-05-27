@@ -13,19 +13,17 @@
         /// Constructs the repeater with the details
         /// </summary>
         /// <param name="definition">The repeater definition</param>
-        /// <param name="type">The repeater type</param>
         /// <param name="items">The repeater items</param>
         public Repeater
             (
                 RepeaterDefinition definition,
-                RepeaterType type,
                 params RepeaterItem[] items
             )
             : base(definition)
         {
             Validate.IsNotNull(items);
 
-            this.RepeaterType = type;
+            this.RepeaterType = definition.RepeaterType;
             this.Items = items;
         }
 

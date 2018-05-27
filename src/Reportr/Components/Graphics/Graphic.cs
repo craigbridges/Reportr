@@ -20,8 +20,13 @@
             )
             : base(definition)
         {
-            this.Overlays = new GraphicOverlay[] { };
+            this.Image = definition.Image;
+            this.Overlays = definition.Overlays;
             this.OverlayStatistics = new Dictionary<Guid, List<Statistic>>();
+
+            this.Areas = definition.Areas;
+            this.Width = definition.Width;
+            this.Height = definition.Height;
         }
         
         /// <summary>

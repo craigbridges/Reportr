@@ -94,9 +94,11 @@
     <Compile Include="Common\Validation\TypeConverterChecker.cs" />
     <Compile Include="Components\Collections\ColumnAlignment.cs" />
     <Compile Include="Components\Collections\RepeaterDefinition.cs" />
+    <Compile Include="Components\Collections\TableGenerator.cs" />
     <Compile Include="Components\Collections\RepeaterItem.cs" />
     <Compile Include="Components\Collections\RepeaterType.cs" />
     <Compile Include="Components\Collections\Repeater.cs" />
+    <Compile Include="Components\Collections\RepeaterGenerator.cs" />
     <Compile Include="Components\Collections\TableCell.cs" />
     <Compile Include="Components\Collections\TableRow.cs" />
     <Compile Include="Components\Collections\TableColumn.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Components\Graphics\GraphicOverlay.cs" />
     <Compile Include="Components\Graphics\GraphicDefinition.cs" />
     <Compile Include="Components\Graphics\Graphic.cs" />
+    <Compile Include="Components\Graphics\GraphicGenerator.cs" />
     <Compile Include="Components\IReportComponentDefinition.cs" />
     <Compile Include="Components\IReportComponent.cs" />
     <Compile Include="Components\IReportComponentGenerator.cs" />

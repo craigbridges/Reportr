@@ -6,9 +6,6 @@ High Priority
 - Complete ReportFilter
 	- Create report filter generator that takes a flat object(s)
 
-- Implement IReportGenerator
-	- Complete GetComponentGenerator method
-
 - Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
 
 - Create SQL 'Data' project to implement data interfaces with SQL implementations

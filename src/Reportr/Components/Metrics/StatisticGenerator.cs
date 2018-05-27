@@ -43,6 +43,23 @@
                 value
             );
 
+            if (statisticDefinition.Action != null)
+            {
+                statistic = statistic.WithAction
+                (
+                    statisticDefinition.Action
+                );
+            }
+
+            if (statisticDefinition.HasRange)
+            {
+                statistic = statistic.WithRange
+                (
+                    statisticDefinition.LowerRange,
+                    statisticDefinition.UpperRange
+                );
+            }
+
             return statistic;
         }
     }

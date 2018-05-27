@@ -2,6 +2,8 @@
 {
     using Nito.AsyncEx.Synchronous;
     using Reportr.Components;
+    using Reportr.Components.Collections;
+    using Reportr.Components.Graphics;
     using Reportr.Components.Metrics;
     using Reportr.Filtering;
     using System;
@@ -328,16 +330,16 @@
                     return new ChartGenerator();
 
                 case ReportComponentType.Graphic:
-                    throw new NotSupportedException();
-                
+                    return new GraphicGenerator();
+
                 case ReportComponentType.Statistic:
                     return new StatisticGenerator();
 
                 case ReportComponentType.Repeater:
-                    throw new NotSupportedException();
+                    return new RepeaterGenerator();
 
                 case ReportComponentType.Table:
-                    throw new NotSupportedException();
+                    return new TableGenerator();
 
                 default:
                     var message = "The component type {0} is not supported.";
