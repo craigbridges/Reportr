@@ -20,7 +20,7 @@
         {
             Validate.IsNotNull(parameterInfo);
 
-            this.ParameterInfo = parameterInfo;
+            this.Parameter = parameterInfo;
             this.Name = parameterInfo.Name;
 
             SetValue
@@ -33,7 +33,7 @@
         /// <summary>
         /// Gets the parameter information
         /// </summary>
-        public ParameterInfo ParameterInfo { get; private set; }
+        public ParameterInfo Parameter { get; private set; }
 
         /// <summary>
         /// Gets the parameter name
@@ -48,17 +48,17 @@
         /// <summary>
         /// validates, then sets the parameter value
         /// </summary>
-        /// <param name="parameterInfo">The parameter info</param>
+        /// <param name="parameter">The parameter information</param>
         /// <param name="value">The value</param>
         private void SetValue
             (
-                ParameterInfo parameterInfo,
+                ParameterInfo parameter,
                 object value
             )
         {
             if (value == null)
             {
-                if (parameterInfo.ValueRequired)
+                if (parameter.ValueRequired)
                 {
                     var message = "A value for the parameter '{0}' is required.";
 
@@ -67,7 +67,7 @@
                         String.Format
                         (
                             message,
-                            parameterInfo.Name
+                            parameter.Name
                         )
                     );
                 }
@@ -79,7 +79,7 @@
             else
             {
                 var valueType = value.GetType();
-                var expectedType = parameterInfo.ExpectedType;
+                var expectedType = parameter.ExpectedType;
 
                 if (valueType != expectedType)
                 {

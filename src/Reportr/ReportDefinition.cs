@@ -1,12 +1,14 @@
 ﻿namespace Reportr
 {
     using Reportr.Components;
+    using Reportr.Data;
     using Reportr.Data.Querying;
+    using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
-    using System.Reflection;
+    using System.Linq;
 
     /// <summary>
     /// Represents the definition of a single report
@@ -50,7 +52,8 @@
             this.Description = description;
 
             this.Culture = CultureInfo.CurrentCulture;
-            this.FilterParameters = new Collection<ParameterInfo>();
+            this.Parameters = new Collection<ReportParameterDefinition>();
+            this.SortableColumns = new Collection<ReportSortableColumn>();
             this.Fields = new Dictionary<string, object>();
 
             this.Body = new ReportSectionDefinition
@@ -102,9 +105,162 @@
         public CultureInfo Culture { get; set; }
         
         /// <summary>
-        /// Gets the filter parameters for the report
+        /// Gets the parameters for the report
         /// </summary>
-        public ICollection<ParameterInfo> FilterParameters { get; protected set; }
+        public ICollection<ReportParameterDefinition> Parameters
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Adds a parameter to the report definition
+        /// </summary>
+        /// <param name="parameter">The parameter information</param>
+        /// <param name="targetType">The target type</param>
+        /// <param name="targetName">The target name</param>
+        public void AddParameter
+            (
+                ParameterInfo parameter,
+                ReportParameterTargetType targetType,
+                string targetName
+            )
+        {
+            Validate.IsNotNull(parameter);
+            Validate.IsNotEmpty(targetName);
+            
+            var parameterName = parameter.Name;
+
+            var nameUsed = this.Parameters.Any
+            (
+                p => p.Parameter.Name.ToLower() == parameterName.ToLower()
+            );
+
+            if (nameUsed)
+            {
+                var message = "The parameter name '{0}' has already been used.";
+
+                throw new InvalidOperationException
+                (
+                    String.Format(message, parameterName)
+                );
+            }
+            
+            // Make sure the target name is a valid query or component
+            if (targetType == ReportParameterTargetType.Filter)
+            {
+                var query = FindQuery(targetName);
+
+                if (query == null)
+                {
+                    var message = "The name '{0}' did not match any queries.";
+
+                    throw new KeyNotFoundException
+                    (
+                        String.Format(message, targetName)
+                    );
+                }
+            }
+            else if (targetType == ReportParameterTargetType.ExcludeComponent)
+            {
+                var component = FindComponent(targetName);
+
+                if (component == null)
+                {
+                    var message = "The name '{0}' did not match any components.";
+
+                    throw new KeyNotFoundException
+                    (
+                        String.Format(message, targetName)
+                    );
+                }
+            }
+            
+            var reportParameter = new ReportParameterDefinition
+            (
+                parameter,
+                targetType,
+                targetName
+            );
+
+            this.Parameters.Add(reportParameter);
+        }
+
+        /// <summary>
+        /// Gets a single parameter from the report definition
+        /// </summary>
+        /// <param name="name">The parameter name</param>
+        /// <returns>The matching parameter</returns>
+        public ReportParameterDefinition GetParameter
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            var parameter = this.Parameters.FirstOrDefault
+            (
+                p => p.Parameter.Name.ToLower() == name.ToLower()
+            );
+
+            if (parameter == null)
+            {
+                var message = "The name '{0}' did not match any parameters.";
+
+                throw new KeyNotFoundException
+                (
+                    String.Format(message, name)
+                );
+            }
+
+            return parameter;
+        }
+
+        /// <summary>
+        /// Removes a single parameter from the report definition
+        /// </summary>
+        /// <param name="name">The parameter name</param>
+        public void RemoveParameter
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            var parameter = GetParameter(name);
+
+            this.Parameters.Remove(parameter);
+        }
+
+        /// <summary>
+        /// Gets a collection of sortable columns
+        /// </summary>
+        public ICollection<ReportSortableColumn> SortableColumns
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Adds a sortable column to the report definition
+        /// </summary>
+        /// <param name="queryName">The query name</param>
+        /// <param name="columnName">The column name</param>
+        /// <param name="defaultDirection">The default sort direction</param>
+        public void AddSortableColumn
+            (
+                string queryName,
+                string columnName,
+                SortDirection defaultDirection = SortDirection.Ascending
+            )
+        {
+            Validate.IsNotEmpty(queryName);
+            Validate.IsNotEmpty(columnName);
+            
+            // TODO: implement
+        }
+
+        // TODO: add, get and remove sortable columns
 
         /// <summary>
         /// Gets a dictionary of report fields
@@ -326,6 +482,84 @@
         }
 
         /// <summary>
+        /// Aggregates report components in all sections
+        /// </summary>
+        /// <returns>A dictionary of components against section types</returns>
+        public Dictionary<ReportSectionType, IEnumerable<IReportComponentDefinition>> AggregateComponents()
+        {
+            var components = new Dictionary<ReportSectionType, IEnumerable<IReportComponentDefinition>>
+            {
+                {
+                    ReportSectionType.ReportBody,
+                    this.Body.Components
+                }
+            };
+
+            if (this.PageHeader != null)
+            {
+                components.Add
+                (
+                    ReportSectionType.PageHeader,
+                    this.PageHeader.Components
+                );
+            }
+
+            if (this.ReportHeader != null)
+            {
+                components.Add
+                (
+                    ReportSectionType.ReportHeader,
+                    this.ReportHeader.Components
+                );
+            }
+
+            if (this.PageFooter != null)
+            {
+                components.Add
+                (
+                    ReportSectionType.PageFooter,
+                    this.PageFooter.Components
+                );
+            }
+
+            if (this.ReportFooter != null)
+            {
+                components.Add
+                (
+                    ReportSectionType.ReportFooter,
+                    this.ReportFooter.Components
+                );
+            }
+
+            return components;
+        }
+
+        /// <summary>
+        /// Finds a single report component by name
+        /// </summary>
+        /// <param name="name">The component name</param>
+        /// <returns>The component, if found; otherwise null</returns>
+        public IReportComponentDefinition FindComponent
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            var allComponents = AggregateComponents().SelectMany
+            (
+                pair => pair.Value
+            );
+
+            var matchingComponent = allComponents.FirstOrDefault
+            (
+                q => q.Name.ToLower() == name.ToLower()
+            );
+
+            return matchingComponent;
+        }
+
+        /// <summary>
         /// Aggregates queries from all components in all sections
         /// </summary>
         /// <returns>A dictionary of queries against section types</returns>
@@ -376,6 +610,31 @@
             }
 
             return queries;
+        }
+
+        /// <summary>
+        /// Finds a single query by name
+        /// </summary>
+        /// <param name="name">The query name</param>
+        /// <returns>The query, if found; otherwise null</returns>
+        public IQuery FindQuery
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            var allQueries = AggregateQueries().SelectMany
+            (
+                pair => pair.Value
+            );
+
+            var matchingQuery = allQueries.FirstOrDefault
+            (
+                q => q.Name.ToLower() == name.ToLower()
+            );
+
+            return matchingQuery;
         }
     }
 }

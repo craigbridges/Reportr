@@ -1,10 +1,14 @@
 High Priority
 -------------
 
-** Should we abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)?
+- Abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)
 
 - Complete ReportFilter
-	- Create report filter generator that takes a flat object(s)
+	- Manage sortable fields/columns in a report definition that a report filter can reference (field name, query name, default sorting direction)
+	- Ensure generating default report filter uses the defined parameters (filtered by target type Filter)
+	- Ensure the ReportFilter can get parameter values for a query (excluding other target types)
+	- Implement IReportFilterGenerator
+	- Ensure SetField and ExcludeComponent target types are actioned in report generation
 
 - Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
 

@@ -175,6 +175,9 @@
     <Compile Include="Filtering\IReportFilterGenerator.cs" />
     <Compile Include="Filtering\ReportFilterParameterValue.cs" />
     <Compile Include="Filtering\ReportFilterSortingRule.cs" />
+    <Compile Include="Filtering\ReportParameterDefinition.cs" />
+    <Compile Include="Filtering\ReportParameterTargetType.cs" />
+    <Compile Include="Filtering\ReportSortableColumn.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />
     <Compile Include="Filtering\ReportFilter.cs" />

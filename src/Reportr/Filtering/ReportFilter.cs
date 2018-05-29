@@ -76,7 +76,7 @@
             {
                 var matchingParameter = sectionParameters.FirstOrDefault
                 (
-                    pv => pv.ParameterInfo == parameterInfo
+                    pv => pv.Parameter == parameterInfo
                 );
 
                 if (matchingParameter != null)
@@ -89,7 +89,7 @@
 
                     matchingParameter = sectionParameters.FirstOrDefault
                     (
-                        pv => pv.ParameterInfo == parameterInfo
+                        pv => pv.Parameter == parameterInfo
                     );
 
                     if (matchingParameter != null)
