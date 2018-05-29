@@ -54,15 +54,17 @@
         /// </summary>
         /// <param name="sectionType">The report section type</param>
         /// <param name="query">The query</param>
+        /// <param name="defaultValues">The default values</param>
         /// <returns>A collection of parameter values</returns>
         public IEnumerable<ReportFilterParameterValue> GetParameters
             (
                 ReportSectionType sectionType,
-                IQuery query
+                IQuery query,
+                params ParameterValue[] defaultValues
             )
         {
             Validate.IsNotNull(query);
-
+            
             var sectionParameters = GetParameters
             (
                 sectionType
@@ -80,6 +82,20 @@
                 if (matchingParameter != null)
                 {
                     queryParameters.Add(matchingParameter);
+                }
+                else if (defaultValues != null)
+                {
+                    // Try and find a matching parameter from the default values
+
+                    matchingParameter = sectionParameters.FirstOrDefault
+                    (
+                        pv => pv.ParameterInfo == parameterInfo
+                    );
+
+                    if (matchingParameter != null)
+                    {
+                        queryParameters.Add(matchingParameter);
+                    }
                 }
             }
 

@@ -26,11 +26,13 @@
         {
             var repeaterDefinition = definition.As<RepeaterDefinition>();
             var query = repeaterDefinition.Query;
-            
+            var defaultParameters = repeaterDefinition.DefaultParameterValues;
+
             var parameters = filter.GetParameters
             (
                 sectionType,
-                query
+                query,
+                defaultParameters.ToArray()
             );
 
             var results = await query.ExecuteAsync

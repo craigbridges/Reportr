@@ -26,15 +26,13 @@
         {
             var tableDefinition = definition.As<TableDefinition>();
             var query = tableDefinition.Query;
-            
-            
-            // TODO: take into account the default parameter values
-
+            var defaultParameters = tableDefinition.DefaultParameterValues;
 
             var parameters = filter.GetParameters
             (
                 sectionType,
-                query
+                query,
+                defaultParameters.ToArray()
             );
 
             var results = await query.ExecuteAsync

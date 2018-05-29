@@ -25,11 +25,13 @@
         {
             var statisticDefinition = definition.As<StatisticDefinition>();
             var aggregator = statisticDefinition.Aggregator;
+            var defaultParameters = statisticDefinition.DefaultParameterValues;
 
             var parameters = filter.GetParameters
             (
                 sectionType,
-                aggregator.Query
+                aggregator.Query,
+                defaultParameters.ToArray()
             );
 
             var value = await aggregator.ExecuteAsync

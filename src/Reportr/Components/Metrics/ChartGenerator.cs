@@ -34,11 +34,13 @@
             foreach (var setDefinition in chartDefinition.DataSets)
             {
                 var query = setDefinition.Query;
+                var defaultParameters = setDefinition.DefaultParameterValues;
 
                 var parameterValues = filter.GetParameters
                 (
                     sectionType,
-                    query
+                    query,
+                    defaultParameters.ToArray()
                 );
 
                 var task = query.ExecuteAsync
