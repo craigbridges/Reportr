@@ -25,6 +25,9 @@
                 ReportFilter filter
             )
         {
+            Validate.IsNotNull(definition);
+            Validate.IsNotNull(filter);
+
             var graphicDefinition = definition.As<GraphicDefinition>();
             
             var graphic = new Graphic

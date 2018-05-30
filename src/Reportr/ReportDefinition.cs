@@ -119,11 +119,13 @@
         /// <param name="parameter">The parameter information</param>
         /// <param name="targetType">The target type</param>
         /// <param name="targetName">The target name</param>
+        /// <param name="targetValue">The target value (optional)</param>
         public void AddParameter
             (
                 ParameterInfo parameter,
                 ReportParameterTargetType targetType,
-                string targetName
+                string targetName,
+                object targetValue = null
             )
         {
             Validate.IsNotNull(parameter);
@@ -180,7 +182,8 @@
             (
                 parameter,
                 targetType,
-                targetName
+                targetName,
+                targetValue
             );
 
             this.Parameters.Add(reportParameter);
@@ -229,7 +232,10 @@
 
             var parameter = GetParameter(name);
 
-            this.Parameters.Remove(parameter);
+            this.Parameters.Remove
+            (
+                parameter
+            );
         }
 
         /// <summary>
@@ -256,12 +262,72 @@
         {
             Validate.IsNotEmpty(queryName);
             Validate.IsNotEmpty(columnName);
-            
-            // TODO: implement
+
+            var columnDefined = this.SortableColumns.Any
+            (
+                c => c.QueryName.ToLower() == queryName.ToLower()
+                    && c.ColumnName.ToLower() == columnName.ToLower()
+            );
+
+            if (columnDefined)
+            {
+                var message = "The sortable column '{0}' has already been defined.";
+
+                throw new InvalidOperationException
+                (
+                    String.Format(message, columnName)
+                );
+            }
+
+            var sortableColumn = new ReportSortableColumn
+            (
+                queryName,
+                columnName,
+                defaultDirection
+            );
+
+            this.SortableColumns.Add
+            (
+                sortableColumn
+            );
         }
 
-        // TODO: add, get and remove sortable columns
+        /// <summary>
+        /// Removes a sortable column from the report definition
+        /// </summary>
+        /// <param name="queryName">The query name</param>
+        /// <param name="columnName">The column name</param>
+        public void RemoveSortableColumn
+            (
+                string queryName,
+                string columnName
+            )
+        {
+            Validate.IsNotEmpty(queryName);
+            Validate.IsNotEmpty(columnName);
 
+            var sortableColumn = this.SortableColumns.FirstOrDefault
+            (
+                c => c.QueryName.ToLower() == queryName.ToLower()
+                    && c.ColumnName.ToLower() == columnName.ToLower()
+            );
+
+            if (sortableColumn == null)
+            {
+                var message = "The name '{0}' did not match any sortable columns.";
+
+                throw new KeyNotFoundException
+                (
+                    String.Format(message, columnName)
+                );
+            }
+
+            this.SortableColumns.Remove
+            (
+                sortableColumn
+            );
+        }
+        
         /// <summary>
         /// Gets a dictionary of report fields
         /// </summary

@@ -89,6 +89,11 @@
         public ReportActionDefinition RowAction { get; protected set; }
 
         /// <summary>
+        /// Gets or sets a flag indicating if column sorting is enabled
+        /// </summary>
+        public bool EnableSorting { get; set; }
+
+        /// <summary>
         /// Gets the report component type
         /// </summary>
         public override ReportComponentType ComponentType

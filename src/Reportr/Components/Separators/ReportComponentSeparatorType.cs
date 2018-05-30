@@ -1,4 +1,4 @@
-﻿namespace Reportr.Components
+﻿namespace Reportr.Components.Separators
 {
     using System.ComponentModel;
 
@@ -14,6 +14,9 @@
         NewRow = 1,
 
         [Description("New Page")]
-        NewPage = 2
+        NewPage = 2,
+
+        [Description("Heading")]
+        Heading = 4
     }
 }

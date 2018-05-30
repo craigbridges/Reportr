@@ -23,6 +23,9 @@
                 ReportFilter filter
             )
         {
+            Validate.IsNotNull(definition);
+            Validate.IsNotNull(filter);
+
             var statisticDefinition = definition.As<StatisticDefinition>();
             var aggregator = statisticDefinition.Aggregator;
             var defaultParameters = statisticDefinition.DefaultParameterValues;

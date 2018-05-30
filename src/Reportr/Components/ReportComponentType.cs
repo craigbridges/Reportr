@@ -35,6 +35,9 @@
         Chart = LineGraph | BarGraph | Histogram | PieChart | CartesianGraph,
 
         [Description("Graphic")]
-        Graphic = 128
+        Graphic = 128,
+
+        [Description("Separator")]
+        Separator = 256
     }
 }

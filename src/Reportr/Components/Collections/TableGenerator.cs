@@ -24,6 +24,9 @@
                 ReportFilter filter
             )
         {
+            Validate.IsNotNull(definition);
+            Validate.IsNotNull(filter);
+
             var tableDefinition = definition.As<TableDefinition>();
             var query = tableDefinition.Query;
             var defaultParameters = tableDefinition.DefaultParameterValues;

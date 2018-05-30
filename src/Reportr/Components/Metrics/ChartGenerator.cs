@@ -26,6 +26,9 @@
                 ReportFilter filter
             )
         {
+            Validate.IsNotNull(definition);
+            Validate.IsNotNull(filter);
+
             var chartDefinition = definition.As<ChartDefinition>();
             var queryTasks = new Dictionary<ChartDataSetDefinition, Task<QueryResults>>();
             var dataSets = new List<ChartDataSet>();

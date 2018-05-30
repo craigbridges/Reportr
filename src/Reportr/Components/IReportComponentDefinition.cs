@@ -65,11 +65,6 @@
         string NoDataMessage { get; set; }
         
         /// <summary>
-        /// Gets or sets the component separator type
-        /// </summary>
-        ReportComponentSeparatorType SeparatorType { get; set; }
-
-        /// <summary>
         /// Gets or sets the style information
         /// </summary>
         Style Style { get; set; }

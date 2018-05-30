@@ -134,8 +134,11 @@
     <Compile Include="Components\ReportComponentBase.cs" />
     <Compile Include="Components\ReportComponentDefinitionExtensions.cs" />
     <Compile Include="Components\ReportComponentGeneratorBase.cs" />
-    <Compile Include="Components\ReportComponentSeparatorType.cs" />
+    <Compile Include="Components\Separators\SeparatorGenerator.cs" />
+    <Compile Include="Components\Separators\ReportComponentSeparatorType.cs" />
     <Compile Include="Components\ReportComponentType.cs" />
+    <Compile Include="Components\Separators\Separator.cs" />
+    <Compile Include="Components\Separators\SeparatorDefinition.cs" />
     <Compile Include="Data\DataBinding.cs" />
     <Compile Include="Data\DataBindingType.cs" />
     <Compile Include="Data\DataColumnSchema.cs" />

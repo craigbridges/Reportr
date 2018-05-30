@@ -11,11 +11,13 @@
         /// <param name="parameter">The parameter information</param>
         /// <param name="targetType">The target type</param>
         /// <param name="targetName">The target name</param>
+        /// <param name="targetValue">The target value (optional)</param>
         internal ReportParameterDefinition
             (
                 ParameterInfo parameter,
                 ReportParameterTargetType targetType,
-                string targetName
+                string targetName,
+                object targetValue = null
             )
         {
             Validate.IsNotNull(parameter);
@@ -24,6 +26,7 @@
             this.Parameter = parameter;
             this.TargetType = targetType;
             this.TargetName = targetName;
+            this.TargetValue = targetValue;
         }
 
         /// <summary>
@@ -40,5 +43,10 @@
         /// Gets the name of the target
         /// </summary>
         public string TargetName { get; protected set; }
+
+        /// <summary>
+        /// Gets the target value
+        /// </summary>
+        public object TargetValue { get; protected set; }
     }
 }

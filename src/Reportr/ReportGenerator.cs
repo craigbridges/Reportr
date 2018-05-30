@@ -5,6 +5,7 @@
     using Reportr.Components.Collections;
     using Reportr.Components.Graphics;
     using Reportr.Components.Metrics;
+    using Reportr.Components.Separators;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
@@ -340,6 +341,9 @@
 
                 case ReportComponentType.Table:
                     return new TableGenerator();
+
+                case ReportComponentType.Separator:
+                    return new SeparatorGenerator();
 
                 default:
                     var message = "The component type {0} is not supported.";

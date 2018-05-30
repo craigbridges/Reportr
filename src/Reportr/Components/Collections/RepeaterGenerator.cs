@@ -24,6 +24,9 @@
                 ReportFilter filter
             )
         {
+            Validate.IsNotNull(definition);
+            Validate.IsNotNull(filter);
+
             var repeaterDefinition = definition.As<RepeaterDefinition>();
             var query = repeaterDefinition.Query;
             var defaultParameters = repeaterDefinition.DefaultParameterValues;
