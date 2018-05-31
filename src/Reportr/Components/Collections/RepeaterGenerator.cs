@@ -61,6 +61,8 @@
                 (
                     new RepeaterItem(value, action)
                 );
+
+                // TODO: generate all nested components (if there are any) using row data in addition to the report filter
             }
 
             var repeater = new Repeater

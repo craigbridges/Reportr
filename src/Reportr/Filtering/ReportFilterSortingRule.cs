@@ -13,17 +13,17 @@
         /// </summary>
         /// <param name="sectionType">The section type</param>
         /// <param name="componentName">The component name</param>
-        /// <param name="column">The query column</param>
+        /// <param name="columnName">The column name</param>
         /// <param name="direction">The sorting direction</param>
         public ReportFilterSortingRule
             (
                 ReportSectionType sectionType,
                 string componentName,
-                QueryColumnInfo column,
+                string columnName,
                 SortDirection direction
             )
 
-            : base(column, direction)
+            : base(columnName, direction)
         {
             Validate.IsNotEmpty(componentName);
 

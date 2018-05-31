@@ -32,6 +32,7 @@
 
             this.Query = query;
             this.DefaultParameterValues = new Collection<ParameterValue>();
+            this.NestedComponents = new Collection<IReportComponentDefinition>();
             this.Binding = binding;
 
             var defaultValues = query.CompileDefaultParameters();
@@ -102,6 +103,43 @@
         /// Gets the repeater type
         /// </summary>
         public RepeaterType RepeaterType { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets a flag indicating if column sorting is enabled
+        /// </summary>
+        public bool EnableSorting { get; set; }
+
+        /// <summary>
+        /// Gets an array of sortable columns
+        /// </summary>
+        public string[] SortableColumns
+        {
+            get
+            {
+                return new string[] { "Item" };
+            }
+        }
+
+        /// <summary>
+        /// Gets a collection of nested report component definitions
+        /// </summary>
+        /// <remarks>
+        /// Nested components are generated for each row in the query results.
+        /// 
+        /// The component, in addition to the report filter gets given the
+        /// current row. This way the component can filter it's own query
+        /// based on data contained in the row.
+        /// 
+        /// An example of where this could be used would be a repeater that
+        /// generates a list of employees, but for each employee we want to
+        /// generate a table of their sales for the month along with a pie 
+        /// chart showing a breakdown of which product they sold.
+        /// </remarks>
+        public ICollection<IReportComponentDefinition> NestedComponents
+        {
+            get;
+            protected set;
+        }
 
         /// <summary>
         /// Gets the report component type

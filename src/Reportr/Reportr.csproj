@@ -93,6 +93,7 @@
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Common\Validation\TypeConverterChecker.cs" />
     <Compile Include="Components\Collections\ColumnAlignment.cs" />
+    <Compile Include="Components\Collections\ISortableComponent.cs" />
     <Compile Include="Components\Collections\RepeaterDefinition.cs" />
     <Compile Include="Components\Collections\TableGenerator.cs" />
     <Compile Include="Components\Collections\RepeaterItem.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Components\ReportComponentBase.cs" />
     <Compile Include="Components\ReportComponentDefinitionExtensions.cs" />
     <Compile Include="Components\ReportComponentGeneratorBase.cs" />
+    <Compile Include="Components\ReportComponentTypeExtensions.cs" />
     <Compile Include="Components\Separators\SeparatorGenerator.cs" />
     <Compile Include="Components\Separators\ReportComponentSeparatorType.cs" />
     <Compile Include="Components\ReportComponentType.cs" />
@@ -180,7 +182,6 @@
     <Compile Include="Filtering\ReportFilterSortingRule.cs" />
     <Compile Include="Filtering\ReportParameterDefinition.cs" />
     <Compile Include="Filtering\ReportParameterTargetType.cs" />
-    <Compile Include="Filtering\ReportSortableColumn.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />
     <Compile Include="Filtering\ReportFilter.cs" />

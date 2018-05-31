@@ -213,10 +213,8 @@
                 // Build a dictionary of component generation tasks
                 foreach (var componentDefinition in sectionDefinition.Components)
                 {
-                    var componentGenerator = GetComponentGenerator
-                    (
-                        componentDefinition.ComponentType
-                    );
+                    var componentType = componentDefinition.ComponentType;
+                    var componentGenerator = componentType.GetGenerator();
 
                     var task = componentGenerator.GenerateAsync
                     (
@@ -313,50 +311,6 @@
             }
 
             return errorMessages;
-        }
-
-        /// <summary>
-        /// Gets a component generator for a specified component type
-        /// </summary>
-        /// <param name="componentType">The component type</param>
-        /// <returns>The component generator</returns>
-        private IReportComponentGenerator GetComponentGenerator
-            (
-                ReportComponentType componentType
-            )
-        {
-            switch (componentType)
-            {
-                case ReportComponentType.Chart:
-                    return new ChartGenerator();
-
-                case ReportComponentType.Graphic:
-                    return new GraphicGenerator();
-
-                case ReportComponentType.Statistic:
-                    return new StatisticGenerator();
-
-                case ReportComponentType.Repeater:
-                    return new RepeaterGenerator();
-
-                case ReportComponentType.Table:
-                    return new TableGenerator();
-
-                case ReportComponentType.Separator:
-                    return new SeparatorGenerator();
-
-                default:
-                    var message = "The component type {0} is not supported.";
-
-                    throw new InvalidOperationException
-                    (
-                        String.Format
-                        (
-                            message,
-                            componentType
-                        )
-                    );
-            }
         }
     }
 }

@@ -4,11 +4,12 @@
     using Reportr.Filtering;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
 
     /// <summary>
     /// Represents a single report table definition
     /// </summary>
-    public class TableDefinition : ReportComponentDefinitionBase
+    public class TableDefinition : ReportComponentDefinitionBase, ISortableComponent
     {
         /// <summary>
         /// Constructs the table definition with the details
@@ -87,11 +88,22 @@
         /// any column actions that have been set.
         /// </remarks>
         public ReportActionDefinition RowAction { get; protected set; }
-
+        
         /// <summary>
         /// Gets or sets a flag indicating if column sorting is enabled
         /// </summary>
         public bool EnableSorting { get; set; }
+
+        /// <summary>
+        /// Gets an array of sortable columns
+        /// </summary>
+        public string[] SortableColumns
+        {
+            get
+            {
+                return this.Columns.Select(c => c.Name).ToArray();
+            }
+        }
 
         /// <summary>
         /// Gets the report component type

@@ -110,23 +110,7 @@
             get;
             private set;
         }
-
-        /// <summary>
-        /// Gets sorting rules for a section type
-        /// </summary>
-        /// <param name="sectionType">The report section type</param>
-        /// <returns>A collection of sorting rules</returns>
-        public IEnumerable<ReportFilterSortingRule> GetSortingRules
-            (
-                ReportSectionType sectionType
-            )
-        {
-            return this.SortingRules.Where
-            (
-                rule => rule.SectionType == sectionType
-            );
-        }
-
+        
         /// <summary>
         /// Gets sorting rules for a section type
         /// </summary>

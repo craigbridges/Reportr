@@ -1,7 +1,6 @@
 ﻿namespace Reportr
 {
     using Reportr.Components;
-    using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
     using System;
@@ -53,7 +52,6 @@
 
             this.Culture = CultureInfo.CurrentCulture;
             this.Parameters = new Collection<ReportParameterDefinition>();
-            this.SortableColumns = new Collection<ReportSortableColumn>();
             this.Fields = new Dictionary<string, object>();
 
             this.Body = new ReportSectionDefinition
@@ -238,96 +236,6 @@
             );
         }
 
-        /// <summary>
-        /// Gets a collection of sortable columns
-        /// </summary>
-        public ICollection<ReportSortableColumn> SortableColumns
-        {
-            get;
-            protected set;
-        }
-
-        /// <summary>
-        /// Adds a sortable column to the report definition
-        /// </summary>
-        /// <param name="queryName">The query name</param>
-        /// <param name="columnName">The column name</param>
-        /// <param name="defaultDirection">The default sort direction</param>
-        public void AddSortableColumn
-            (
-                string queryName,
-                string columnName,
-                SortDirection defaultDirection = SortDirection.Ascending
-            )
-        {
-            Validate.IsNotEmpty(queryName);
-            Validate.IsNotEmpty(columnName);
-
-            var columnDefined = this.SortableColumns.Any
-            (
-                c => c.QueryName.ToLower() == queryName.ToLower()
-                    && c.ColumnName.ToLower() == columnName.ToLower()
-            );
-
-            if (columnDefined)
-            {
-                var message = "The sortable column '{0}' has already been defined.";
-
-                throw new InvalidOperationException
-                (
-                    String.Format(message, columnName)
-                );
-            }
-
-            var sortableColumn = new ReportSortableColumn
-            (
-                queryName,
-                columnName,
-                defaultDirection
-            );
-
-            this.SortableColumns.Add
-            (
-                sortableColumn
-            );
-        }
-
-        /// <summary>
-        /// Removes a sortable column from the report definition
-        /// </summary>
-        /// <param name="queryName">The query name</param>
-        /// <param name="columnName">The column name</param>
-        public void RemoveSortableColumn
-            (
-                string queryName,
-                string columnName
-            )
-        {
-            Validate.IsNotEmpty(queryName);
-            Validate.IsNotEmpty(columnName);
-
-            var sortableColumn = this.SortableColumns.FirstOrDefault
-            (
-                c => c.QueryName.ToLower() == queryName.ToLower()
-                    && c.ColumnName.ToLower() == columnName.ToLower()
-            );
-
-            if (sortableColumn == null)
-            {
-                var message = "The name '{0}' did not match any sortable columns.";
-
-                throw new KeyNotFoundException
-                (
-                    String.Format(message, columnName)
-                );
-            }
-
-            this.SortableColumns.Remove
-            (
-                sortableColumn
-            );
-        }
-        
         /// <summary>
         /// Gets a dictionary of report fields
         /// </summary

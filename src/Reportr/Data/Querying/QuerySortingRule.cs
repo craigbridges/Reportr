@@ -10,24 +10,24 @@
         /// <summary>
         /// Constructs the sorting rule with the details
         /// </summary>
-        /// <param name="column">The query column</param>
+        /// <param name="columnName">The column name</param>
         /// <param name="direction">The sorting direction</param>
         public QuerySortingRule
             (
-                QueryColumnInfo column,
+                string columnName,
                 SortDirection direction
             )
         {
-            Validate.IsNotNull(column);
+            Validate.IsNotEmpty(columnName);
 
-            this.Column = column;
+            this.ColumnName = columnName;
             this.Direction = direction;
         }
 
         /// <summary>
-        /// Gets the query column
+        /// Gets the name of the query column
         /// </summary>
-        public QueryColumnInfo Column { get; private set; }
+        public string ColumnName { get; private set; }
 
         /// <summary>
         /// Gets the sorting direction
