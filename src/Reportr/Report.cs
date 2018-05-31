@@ -2,6 +2,7 @@
 {
     using Reportr.Filtering;
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
 
@@ -47,9 +48,21 @@
             this.Culture = definition.Culture;
             this.FilterUsed = filterUsed;
 
-            this.Fields = new ReadOnlyDictionary<string, object>
+            var fieldValues = new Dictionary<string, object>
             (
                 definition.Fields
+            );
+
+            var fieldParameters = filterUsed.GetFieldParameters();
+
+            foreach (var parameter in fieldParameters)
+            {
+                fieldValues[parameter.Name] = parameter.Value;
+            }
+
+            this.Fields = new ReadOnlyDictionary<string, object>
+            (
+                fieldValues
             );
         }
 

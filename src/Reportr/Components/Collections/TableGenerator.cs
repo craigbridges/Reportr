@@ -31,9 +31,8 @@
             var query = tableDefinition.Query;
             var defaultParameters = tableDefinition.DefaultParameterValues;
 
-            var parameters = filter.GetParameters
+            var parameters = filter.GetQueryParameters
             (
-                sectionType,
                 query,
                 defaultParameters.ToArray()
             );

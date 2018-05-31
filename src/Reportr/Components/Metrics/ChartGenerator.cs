@@ -39,9 +39,8 @@
                 var query = setDefinition.Query;
                 var defaultParameters = setDefinition.DefaultParameterValues;
 
-                var parameterValues = filter.GetParameters
+                var parameterValues = filter.GetQueryParameters
                 (
-                    sectionType,
                     query,
                     defaultParameters.ToArray()
                 );

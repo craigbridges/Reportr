@@ -8,24 +8,22 @@
         /// <summary>
         /// Constructs the parameter value with the details
         /// </summary>
-        /// <param name="sectionType">The section type</param>
-        /// <param name="parameterInfo">The parameter info</param>
+        /// <param name="definition">The parameter definition</param>
         /// <param name="value">The value</param>
         public ReportFilterParameterValue
             (
-                ReportSectionType sectionType,
-                ParameterInfo parameterInfo,
+                ReportParameterDefinition definition,
                 object value
             )
 
-            : base(parameterInfo, value)
+            : base(definition.Parameter, value)
         {
-            this.SectionType = sectionType;
+            this.Definition = definition;
         }
 
         /// <summary>
-        /// Gets the report section type
+        /// Gets the report parameter definition
         /// </summary>
-        public ReportSectionType SectionType { get; private set; }
+        public ReportParameterDefinition Definition { get; private set; }
     }
 }

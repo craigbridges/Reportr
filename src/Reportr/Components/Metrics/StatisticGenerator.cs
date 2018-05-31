@@ -30,9 +30,8 @@
             var aggregator = statisticDefinition.Aggregator;
             var defaultParameters = statisticDefinition.DefaultParameterValues;
 
-            var parameters = filter.GetParameters
+            var parameters = filter.GetQueryParameters
             (
-                sectionType,
                 aggregator.Query,
                 defaultParameters.ToArray()
             );

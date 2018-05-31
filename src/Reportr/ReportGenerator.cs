@@ -2,10 +2,6 @@
 {
     using Nito.AsyncEx.Synchronous;
     using Reportr.Components;
-    using Reportr.Components.Collections;
-    using Reportr.Components.Graphics;
-    using Reportr.Components.Metrics;
-    using Reportr.Components.Separators;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
@@ -16,8 +12,24 @@
     /// <summary>
     /// Represents the default implementation of the report generator 
     /// </summary>
-    public class ReportGenerator : IReportGenerator
+    public sealed class ReportGenerator : IReportGenerator
     {
+        private readonly IReportFilterGenerator _filterGenerator;
+
+        /// <summary>
+        /// Constructs the report generator with required dependencies
+        /// </summary>
+        /// <param name="filterGenerator">The filter generator</param>
+        public ReportGenerator
+            (
+                IReportFilterGenerator filterGenerator
+            )
+        {
+            Validate.IsNotNull(filterGenerator);
+
+            _filterGenerator = filterGenerator;
+        }
+
         /// <summary>
         /// Generates a report using a report definition
         /// </summary>
@@ -53,7 +65,10 @@
 
             if (filter == null)
             {
-                filter = definition.GenerateDefaultFilter();
+                filter = _filterGenerator.Generate
+                (
+                    definition
+                );
             }
 
             var pageHeaderTask = GenerateSectionAsync
@@ -130,7 +145,7 @@
             else
             {
                 var report = new Report(definition, filter);
-                
+
                 if (pageHeaderResult != null)
                 {
                     report = report.WithPageHeader
@@ -194,6 +209,7 @@
             )
         {
             var watch = Stopwatch.StartNew();
+            var exclusionParameters = filter.GetComponentExclusionParameters();
 
             var sectionDefinition = report.GetSection
             (
@@ -213,21 +229,54 @@
                 // Build a dictionary of component generation tasks
                 foreach (var componentDefinition in sectionDefinition.Components)
                 {
-                    var componentType = componentDefinition.ComponentType;
-                    var componentGenerator = componentType.GetGenerator();
+                    var isExcluded = false;
+                    var componentName = componentDefinition.Name;
 
-                    var task = componentGenerator.GenerateAsync
-                    (
-                        componentDefinition,
-                        sectionType,
-                        filter
-                    );
+                    foreach (var parameter in exclusionParameters)
+                    {
+                        var defined = filter.IsDefined
+                        (
+                            parameter.Name
+                        );
 
-                    generationTasks.Add
-                    (
-                        componentDefinition.Name,
-                        task
-                    );
+                        if (defined)
+                        {
+                            var definition = filter.GetDefinition
+                            (
+                                parameter.Name
+                            );
+
+                            isExcluded = 
+                            (
+                                definition.TargetName.ToLower() == componentName.ToLower() 
+                                    && definition.TargetValue == parameter.Value
+                            );
+
+                            if (isExcluded)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (false == isExcluded)
+                    {
+                        var componentType = componentDefinition.ComponentType;
+                        var componentGenerator = componentType.GetGenerator();
+
+                        var task = componentGenerator.GenerateAsync
+                        (
+                            componentDefinition,
+                            sectionType,
+                            filter
+                        );
+
+                        generationTasks.Add
+                        (
+                            componentName,
+                            task
+                        );
+                    }
                 }
 
                 await Task.WhenAll

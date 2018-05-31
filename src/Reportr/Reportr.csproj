@@ -195,7 +195,6 @@
     <Compile Include="ReportGenerator.cs" />
     <Compile Include="ReportSectionDefinition.cs" />
     <Compile Include="ReportDefinition.cs" />
-    <Compile Include="ReportDefinitionExtensions.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="ReportSection.cs" />
     <Compile Include="Nettle\NettleCompilerGenerator.cs" />

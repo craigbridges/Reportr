@@ -23,11 +23,7 @@
             this.Parameter = parameterInfo;
             this.Name = parameterInfo.Name;
 
-            SetValue
-            (
-                parameterInfo,
-                value
-            );
+            SetValue(value);
         }
 
         /// <summary>
@@ -46,16 +42,16 @@
         public object Value { get; private set; }
 
         /// <summary>
-        /// validates, then sets the parameter value
+        /// Sets the parameter value
         /// </summary>
-        /// <param name="parameter">The parameter information</param>
         /// <param name="value">The value</param>
-        private void SetValue
+        protected internal void SetValue
             (
-                ParameterInfo parameter,
                 object value
             )
         {
+            var parameter = this.Parameter;
+
             if (value == null)
             {
                 if (parameter.ValueRequired)

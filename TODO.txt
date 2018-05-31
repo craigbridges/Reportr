@@ -8,13 +8,9 @@ High Priority
 
 - Complete ReportFilter
 	- Allow tables to be sortable but nothing else (yet)
-		- Update component generation to extract only filter parameters
 		- Make sure table and repeater adhere to the sorting rules specified in the report filter
 		- Filter takes dictionary of table component name with dictionary of column name as key and sort direction as value
-	- Ensure generating default report filter uses the defined parameters (filtered by target type Filter)
-	- Ensure the ReportFilter can get parameter values for a query (excluding other target types)
 	- Implement IReportFilterGenerator
-	- Ensure SetField and ExcludeComponent target types are actioned in report generation
 
 - Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
 

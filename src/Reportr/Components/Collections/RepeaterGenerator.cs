@@ -31,9 +31,8 @@
             var query = repeaterDefinition.Query;
             var defaultParameters = repeaterDefinition.DefaultParameterValues;
 
-            var parameters = filter.GetParameters
+            var parameters = filter.GetQueryParameters
             (
-                sectionType,
                 query,
                 defaultParameters.ToArray()
             );
