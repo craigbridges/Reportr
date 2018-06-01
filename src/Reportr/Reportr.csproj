@@ -128,6 +128,7 @@
     <Compile Include="Components\Metrics\ChartGenerator.cs" />
     <Compile Include="Components\Metrics\StatisticGenerator.cs" />
     <Compile Include="Components\Metrics\StatisticType.cs" />
+    <Compile Include="Components\NestedReportComponentDefinition.cs" />
     <Compile Include="Components\ReportActionDefinition.cs" />
     <Compile Include="Components\ReportAction.cs" />
     <Compile Include="Components\ReportActionType.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Filtering\IReportFilterGenerator.cs" />
     <Compile Include="Filtering\ReportFilterParameterValue.cs" />
     <Compile Include="Filtering\ReportFilterSortingRule.cs" />
+    <Compile Include="Filtering\ReportParameterBinding.cs" />
     <Compile Include="Filtering\ReportParameterDefinition.cs" />
     <Compile Include="Filtering\ReportParameterTargetType.cs" />
     <Compile Include="ReportExecutionResult.cs" />
