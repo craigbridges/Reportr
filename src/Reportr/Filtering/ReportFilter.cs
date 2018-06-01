@@ -289,6 +289,51 @@
         }
 
         /// <summary>
+        /// Determines if a report component has been excluded
+        /// </summary>
+        /// <param name="componentName">The component name</param>
+        /// <returns>True, if the component has been excluded; otherwise false</returns>
+        public bool IsExcluded
+            (
+                string componentName
+            )
+        {
+            Validate.IsNotEmpty(componentName);
+
+            var exclusionParameters = GetComponentExclusionParameters();
+            var excluded = false;
+            
+            foreach (var parameter in exclusionParameters)
+            {
+                var defined = IsDefined
+                (
+                    parameter.Name
+                );
+
+                if (defined)
+                {
+                    var definition = GetDefinition
+                    (
+                        parameter.Name
+                    );
+
+                    excluded =
+                    (
+                        definition.TargetName.ToLower() == componentName.ToLower()
+                            && definition.TargetValue == parameter.Value
+                    );
+
+                    if (excluded)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return excluded;
+        }
+
+        /// <summary>
         /// Gets parameter values for the a specific target type
         /// </summary>
         /// <param name="targetType">The target type</param>
@@ -362,6 +407,42 @@
                 rule => rule.SectionType == sectionType
                     && rule.ComponentName.ToLower() == componentName.ToLower()
             );
+        }
+
+        /// <summary>
+        /// Generates a new report filter which is a clone of the current
+        /// </summary>
+        /// <returns>The report filter that was generated</returns>
+        public ReportFilter Clone()
+        {
+            var filter = new ReportFilter()
+            {
+                ParameterDefinitions = this.ParameterDefinitions
+            };
+
+            // Clone and add the parameter values
+            foreach (var value in this.ParameterValues)
+            {
+                var valueClone = value.Clone();
+
+                filter.ParameterValues.Add
+                (
+                    valueClone
+                );
+            }
+
+            // Clone and add the sorting rules
+            foreach (var rule in this.SortingRules)
+            {
+                var ruleClone = rule.Clone();
+
+                filter.SortingRules.Add
+                (
+                    ruleClone
+                );
+            }
+
+            return filter;
         }
     }
 }

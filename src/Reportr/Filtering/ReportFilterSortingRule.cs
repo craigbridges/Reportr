@@ -40,5 +40,20 @@
         /// Gets the component name
         /// </summary>
         public string ComponentName { get; private set; }
+
+        /// <summary>
+        /// Generates a new sorting rule which is a clone of the current
+        /// </summary>
+        /// <returns>The sorting rule that was generated</returns>
+        public ReportFilterSortingRule Clone()
+        {
+            return new ReportFilterSortingRule
+            (
+                this.SectionType,
+                this.ComponentName,
+                this.ColumnName,
+                this.Direction
+            );
+        }
     }
 }

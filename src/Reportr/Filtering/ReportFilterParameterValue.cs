@@ -25,5 +25,18 @@
         /// Gets the report parameter definition
         /// </summary>
         public ReportParameterDefinition Definition { get; private set; }
+
+        /// <summary>
+        /// Generates a new parameter value which is a clone of the current
+        /// </summary>
+        /// <returns>The parameter value that was generated</returns>
+        public ReportFilterParameterValue Clone()
+        {
+            return new ReportFilterParameterValue
+            (
+                this.Definition,
+                this.Value
+            );
+        }
     }
 }

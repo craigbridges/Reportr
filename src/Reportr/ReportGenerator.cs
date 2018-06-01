@@ -209,8 +209,7 @@
             )
         {
             var watch = Stopwatch.StartNew();
-            var exclusionParameters = filter.GetComponentExclusionParameters();
-
+            
             var sectionDefinition = report.GetSection
             (
                 sectionType
@@ -229,36 +228,13 @@
                 // Build a dictionary of component generation tasks
                 foreach (var componentDefinition in sectionDefinition.Components)
                 {
-                    var isExcluded = false;
                     var componentName = componentDefinition.Name;
 
-                    foreach (var parameter in exclusionParameters)
-                    {
-                        var defined = filter.IsDefined
-                        (
-                            parameter.Name
-                        );
+                    var isExcluded = filter.IsExcluded
+                    (
+                        componentName
+                    );
 
-                        if (defined)
-                        {
-                            var definition = filter.GetDefinition
-                            (
-                                parameter.Name
-                            );
-
-                            isExcluded = 
-                            (
-                                definition.TargetName.ToLower() == componentName.ToLower() 
-                                    && definition.TargetValue == parameter.Value
-                            );
-
-                            if (isExcluded)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                    
                     if (false == isExcluded)
                     {
                         var componentType = componentDefinition.ComponentType;

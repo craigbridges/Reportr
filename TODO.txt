@@ -3,11 +3,8 @@ High Priority
 
 - Abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)
 
-- Repeaters
-	- Handle child components in component generation (including the query row data added to the filter)
-
 - Complete ReportFilter
-	- Allow tables to be sortable but nothing else (yet)
+	- Allow tables and repeaters to be sortable but nothing else (yet)
 		- Make sure table and repeater adhere to the sorting rules specified in the report filter
 		- Filter takes dictionary of table component name with dictionary of column name as key and sort direction as value
 	- Implement IReportFilterGenerator

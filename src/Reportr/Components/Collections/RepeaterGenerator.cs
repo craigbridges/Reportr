@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Reportr.Data.Querying;
     using Reportr.Filtering;
     using System.Collections.Generic;
     using System.Linq;
@@ -42,35 +43,144 @@
                 parameters.ToArray()
             );
 
-            var items = new List<RepeaterItem>();
-            var binding = repeaterDefinition.Binding;
-            var actionDefinition = repeaterDefinition.Action;
-
+            var generatedItems = new List<RepeaterItem>();
+            var itemTasks = new List<Task<RepeaterItem>>();
+            
             foreach (var row in results.AllRows)
             {
-                var value = binding.Resolve(row);
-                var action = default(ReportAction);
-
-                if (repeaterDefinition.Action != null)
-                {
-                    action = actionDefinition.Resolve(row);
-                }
-
-                items.Add
+                itemTasks.Add
                 (
-                    new RepeaterItem(value, action)
+                    GenerateItemAsync
+                    (
+                        repeaterDefinition,
+                        sectionType,
+                        filter,
+                        row
+                    )
                 );
+            }
 
-                // TODO: generate all nested components (if there are any) using row data in addition to the report filter
+            await Task.WhenAll
+            (
+                itemTasks.ToArray()
+            );
+            
+            foreach (var task in itemTasks)
+            {
+                generatedItems.Add(await task);
             }
 
             var repeater = new Repeater
             (
                 repeaterDefinition,
-                items.ToArray()
+                generatedItems.ToArray()
             );
 
             return repeater;
+        }
+
+        /// <summary>
+        /// Asynchronously generates a single repeater item for a query row
+        /// </summary>
+        /// <param name="definition">The repeater definition</param>
+        /// <param name="sectionType">The section type</param>
+        /// <param name="filter">The report filter</param>
+        /// <param name="row">The query row</param>
+        /// <returns>The repeater item generated</returns>
+        private async Task<RepeaterItem> GenerateItemAsync
+            (
+                RepeaterDefinition definition,
+                ReportSectionType sectionType,
+                ReportFilter filter,
+                QueryRow row
+            )
+        {
+            var value = definition.Binding.Resolve(row);
+            var action = default(ReportAction);
+
+            if (definition.Action != null)
+            {
+                action = definition.Action.Resolve(row);
+            }
+
+            var nestedComponents = await GenerateNestedComponentsAsync
+            (
+                definition,
+                sectionType,
+                filter,
+                row
+            );
+
+            return new RepeaterItem
+            (
+                value,
+                action,
+                nestedComponents
+            );
+        }
+
+        /// <summary>
+        /// Asynchronously generates a nested components for a query row
+        /// </summary>
+        /// <param name="repeaterDefinition">The repeater definition</param>
+        /// <param name="sectionType">The section type</param>
+        /// <param name="parentFilter">The parent report filter</param>
+        /// <param name="row">The query row</param>
+        /// <returns>The nested components generated</returns>
+        private async Task<IReportComponent[]> GenerateNestedComponentsAsync
+            (
+                RepeaterDefinition repeaterDefinition,
+                ReportSectionType sectionType,
+                ReportFilter parentFilter,
+                QueryRow row
+            )
+        {
+            var generationTasks = new List<Task<IReportComponent>>();
+            var componentList = new List<IReportComponent>();
+            
+            foreach (var nestedComponent in repeaterDefinition.NestedComponents)
+            {
+                var componentDefinition = nestedComponent.Definition;
+                var componentName = componentDefinition.Name;
+
+                var isExcluded = parentFilter.IsExcluded
+                (
+                    componentName
+                );
+
+                if (false == isExcluded)
+                {
+                    var componentType = componentDefinition.ComponentType;
+                    var componentGenerator = componentType.GetGenerator();
+                    
+                    var nestedFilter = nestedComponent.GenerateNestedFilter
+                    (
+                        parentFilter,
+                        row
+                    );
+
+                    var task = componentGenerator.GenerateAsync
+                    (
+                        componentDefinition,
+                        sectionType,
+                        nestedFilter
+                    );
+
+                    generationTasks.Add(task);
+                }
+            }
+
+            await Task.WhenAll
+            (
+                generationTasks.ToArray()
+            );
+            
+            foreach (var task in generationTasks)
+            {
+                componentList.Add(await task);
+            }
+
+            return componentList.ToArray();
         }
     }
 }

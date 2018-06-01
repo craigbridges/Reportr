@@ -32,7 +32,7 @@
 
             this.Query = query;
             this.DefaultParameterValues = new Collection<ParameterValue>();
-            this.NestedComponents = new Collection<IReportComponentDefinition>();
+            this.NestedComponents = new Collection<NestedReportComponentDefinition>();
             this.Binding = binding;
 
             var defaultValues = query.CompileDefaultParameters();
@@ -135,7 +135,7 @@
         /// generate a table of their sales for the month along with a pie 
         /// chart showing a breakdown of which product they sold.
         /// </remarks>
-        public ICollection<IReportComponentDefinition> NestedComponents
+        public ICollection<NestedReportComponentDefinition> NestedComponents
         {
             get;
             protected set;
