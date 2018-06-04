@@ -1,13 +1,13 @@
 High Priority
 -------------
 
-- Abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)
+** Create way of registering current template engine/expression evaluator in ReportrEngine
+	- Abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)
+	- Abstract NCal into Report.Integrations.NCalc
 
 - Complete ReportFilter
-	- Allow tables and repeaters to be sortable but nothing else (yet)
-		- Make sure table and repeater adhere to the sorting rules specified in the report filter
-		- Filter takes dictionary of table component name with dictionary of column name as key and sort direction as value
 	- Implement IReportFilterGenerator
+		- internal add/remove methods for filter and also make collections ienumerable so they cannot be edited once generated
 
 - Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
 

@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Filtering
 {
+    using Reportr.Data;
     using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;
@@ -402,11 +403,47 @@
                 string componentName
             )
         {
+            Validate.IsNotEmpty(componentName);
+
             return this.SortingRules.Where
             (
                 rule => rule.SectionType == sectionType
                     && rule.ComponentName.ToLower() == componentName.ToLower()
             );
+        }
+
+        /// <summary>
+        /// Finds a sort direction for a section, component and column
+        /// </summary>
+        /// <param name="sectionType">The section type</param>
+        /// <param name="componentName">The component name</param>
+        /// <param name="columnName">The column name</param>
+        /// <returns>The sort direction, if found; otherwise null</returns>
+        public SortDirection? FindSortDirection
+            (
+                ReportSectionType sectionType,
+                string componentName,
+                string columnName
+            )
+        {
+            Validate.IsNotEmpty(componentName);
+            Validate.IsNotEmpty(columnName);
+
+            var rule = this.SortingRules.FirstOrDefault
+            (
+                r => r.SectionType == sectionType
+                    && r.ComponentName.ToLower() == componentName.ToLower()
+                    && r.ColumnName.ToLower() == columnName.ToLower()
+            );
+
+            if (rule == null)
+            {
+                return null;
+            }
+            else
+            {
+                return rule.Direction;
+            }
         }
 
         /// <summary>

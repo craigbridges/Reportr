@@ -1,6 +1,8 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Reportr.Data;
     using Reportr.Filtering;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -105,6 +107,14 @@
                 tableRows.Add(tableRow);
             }
 
+            var sortingRules = filter.GetSortingRules
+            (
+                sectionType,
+                definition.Name
+            );
+
+            tableRows = SortRows(tableRows, sortingRules).ToList();
+
             var repeater = new Table
             (
                 tableDefinition,
@@ -112,6 +122,80 @@
             );
 
             return repeater;
+        }
+
+        /// <summary>
+        /// Sorts a collection of table rows by the sorting rules specified
+        /// </summary>
+        /// <param name="rows">The table rows</param>
+        /// <param name="sortingRules">The sorting rules</param>
+        /// <returns>The sorted rows</returns>
+        private IEnumerable<TableRow> SortRows
+            (
+                IEnumerable<TableRow> rows,
+                IEnumerable<ReportFilterSortingRule> sortingRules
+            )
+        {
+            Validate.IsNotNull(rows);
+            Validate.IsNotNull(sortingRules);
+
+            if (false == sortingRules.Any())
+            {
+                return rows;
+            }
+            else
+            {
+                var ruleNumber = 1;
+                var sortedRows = (IOrderedEnumerable<TableRow>)rows;
+
+                foreach (var rule in sortingRules)
+                {
+                    object keySelector(TableRow row) => row.First
+                    (
+                        cell => cell.Column.Name.ToLower() == rule.ColumnName.ToLower()
+                    )
+                    .Value;
+
+                    if (rule.Direction == SortDirection.Ascending)
+                    {
+                        if (ruleNumber == 1)
+                        {
+                            sortedRows = sortedRows.OrderBy
+                            (
+                                keySelector
+                            );
+                        }
+                        else
+                        {
+                            sortedRows = sortedRows.ThenBy
+                            (
+                                keySelector
+                            );
+                        }
+                    }
+                    else
+                    {
+                        if (ruleNumber == 1)
+                        {
+                            sortedRows = sortedRows.OrderByDescending
+                            (
+                                keySelector
+                            );
+                        }
+                        else
+                        {
+                            sortedRows = sortedRows.ThenByDescending
+                            (
+                                keySelector
+                            );
+                        }
+                    }
+
+                    ruleNumber++;
+                }
+
+                return rows;
+            }
         }
     }
 }

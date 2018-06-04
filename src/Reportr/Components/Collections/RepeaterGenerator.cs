@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
     using System.Collections.Generic;
@@ -68,6 +69,34 @@
             foreach (var task in itemTasks)
             {
                 generatedItems.Add(await task);
+            }
+
+            var sortDirection = filter.FindSortDirection
+            (
+                sectionType,
+                definition.Name,
+                "Item"
+            );
+
+            // Apply the sorting direction, if it has been specified
+            if (sortDirection != null)
+            {
+                if (sortDirection.Value == SortDirection.Ascending)
+                {
+                    generatedItems = generatedItems.OrderBy
+                    (
+                        a => a.Value
+                    )
+                    .ToList();
+                }
+                else
+                {
+                    generatedItems = generatedItems.OrderByDescending
+                    (
+                        a => a.Value
+                    )
+                    .ToList();
+                }
             }
 
             var repeater = new Repeater
