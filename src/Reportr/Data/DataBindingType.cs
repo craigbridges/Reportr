@@ -31,25 +31,16 @@
         QueryPath = 0,
 
         /// <summary>
-        /// Nettle expressions use the power of the Nettle 
-        /// templating language to evaluate the binding value.
+        /// Template content uses the power of a templating
+        /// engine to evaluate the binding value.
         /// </summary>
-        /// <remarks>
-        /// See the Nettle documentation for more details:
-        /// https://github.com/craigbridges/Nettle/wiki
-        /// </remarks>
-        [Description("Nettle Expression")]
-        NettleExpression = 1,
+        [Description("Report Template Content")]
+        TemplateContent = 1,
 
         /// <summary>
         /// Math expressions can be used to calculate a double
         /// value from a string based expression.
         /// </summary>
-        /// <remarks>
-        /// Reportr uses NCalc to evaluate math expressions.
-        /// See the NCalc documentation for more details:
-        /// https://github.com/sheetsync/NCalc/wiki
-        /// </remarks>
         [Description("Math Expression")]
         MathExpression = 2
     }

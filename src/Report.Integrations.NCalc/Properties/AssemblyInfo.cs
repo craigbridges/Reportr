@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Reportr")]
+[assembly: AssemblyTitle("Reportr NCalc Integration")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Reportr")]
+[assembly: AssemblyProduct("Reportr.Integrations.NCalc")]
 [assembly: AssemblyCopyright("Copyright © Craig Bridges 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5108c1b8-79a5-41e2-8aa1-d2c1383ae322")]
+[assembly: Guid("cab0fa67-cd48-414b-8384-fcd4bd340906")]
 
 // Version information for an assembly consists of the following four values:
 //

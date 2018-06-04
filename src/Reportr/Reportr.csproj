@@ -179,6 +179,7 @@
     <Compile Include="Drawing\UnitType.cs" />
     <Compile Include="Drawing\VerticalAlign.cs" />
     <Compile Include="Filtering\IReportFilterGenerator.cs" />
+    <Compile Include="Filtering\ReportFilterGenerator.cs" />
     <Compile Include="Filtering\ReportFilterParameterValue.cs" />
     <Compile Include="Filtering\ReportFilterSortingRule.cs" />
     <Compile Include="Filtering\ReportParameterBinding.cs" />

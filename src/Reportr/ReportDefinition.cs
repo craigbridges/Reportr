@@ -534,6 +534,37 @@
         }
 
         /// <summary>
+        /// Finds a single report component by section and name
+        /// </summary>
+        /// <param name="sectionType">The section type</param>
+        /// <param name="name">The component name</param>
+        /// <returns>The component, if found; otherwise null</returns>
+        public IReportComponentDefinition FindComponent
+            (
+                ReportSectionType sectionType,
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            var section = GetSection(sectionType);
+
+            if (section == null)
+            {
+                return null;
+            }
+            else
+            {
+                var component = section.Components.FirstOrDefault
+                (
+                    q => q.Name.ToLower() == name.ToLower()
+                );
+
+                return component;
+            }
+        }
+
+        /// <summary>
         /// Aggregates queries from all components in all sections
         /// </summary>
         /// <returns>A dictionary of queries against section types</returns>

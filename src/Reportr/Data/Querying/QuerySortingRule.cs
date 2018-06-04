@@ -32,6 +32,6 @@
         /// <summary>
         /// Gets the sorting direction
         /// </summary>
-        public SortDirection Direction { get; private set; }
+        public SortDirection Direction { get; internal set; }
     }
 }

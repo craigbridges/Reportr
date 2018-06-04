@@ -3,11 +3,7 @@ High Priority
 
 ** Create way of registering current template engine/expression evaluator in ReportrEngine
 	- Abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)
-	- Abstract NCal into Report.Integrations.NCalc
-
-- Complete ReportFilter
-	- Implement IReportFilterGenerator
-		- internal add/remove methods for filter and also make collections ienumerable so they cannot be edited once generated
+	- Abstract NCalc into Report.Integrations.NCalc
 
 - Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
 
@@ -37,7 +33,7 @@ Rendering
 ---------
 
 - Integrate with Nettle
-	- Can we add an IsDefined(path) function to Nettle so we can see if path exists?
+- Integrate with NCalc
 
 - Design report auto export mechanism (e.g. CSV, XML, JSON etc)
 	- See https://github.com/danielpalme/ReportGenerator

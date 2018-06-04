@@ -56,8 +56,8 @@
 
             switch (this.BindingType)
             {
-                case DataBindingType.NettleExpression:
-                    return ResolveNettleExpression(row);
+                case DataBindingType.TemplateContent:
+                    return ResolveTemplateContent(row);
 
                 case DataBindingType.MathExpression:
                     return ResolveMathExpression(row);
@@ -155,15 +155,17 @@
         }
 
         /// <summary>
-        /// Resolves the Nettle expression for a query row
+        /// Resolves the template content for a query row
         /// </summary>
         /// <param name="row">The query row</param>
         /// <returns>The resolved value</returns>
-        private string ResolveNettleExpression
+        private string ResolveTemplateContent
             (
                 QueryRow row
             )
         {
+            // TODO: abstract away NettleCompilerGenerator and register in static ReportrEngine class
+
             var generator = new NettleCompilerGenerator();
             var compiler = generator.GenerateCompiler();
 
@@ -185,7 +187,7 @@
                 QueryRow row
             )
         {
-            var resolvedExpression = ResolveNettleExpression
+            var resolvedExpression = ResolveTemplateContent
             (
                 row
             );

@@ -4,7 +4,6 @@
     using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
 
     /// <summary>
@@ -17,23 +16,52 @@
     /// </remarks>
     public class ReportFilter
     {
+        private List<ReportParameterDefinition> _parameterDefinitions;
+        private List<ReportFilterParameterValue> _parameterValues;
+        private List<ReportFilterSortingRule> _sortingRules;
+
         /// <summary>
-        /// Constructs an empty report filter
+        /// Constructs the report filter with parameter definitions
         /// </summary>
-        public ReportFilter()
+        /// <param name="definitions">The parameter definitions</param>
+        public ReportFilter
+            (
+                params ReportParameterDefinition[] definitions
+            )
         {
-            this.ParameterDefinitions = new Collection<ReportParameterDefinition>();
-            this.ParameterValues = new Collection<ReportFilterParameterValue>();
-            this.SortingRules = new Collection<ReportFilterSortingRule>();
+            _parameterDefinitions = new List<ReportParameterDefinition>();
+            _parameterValues = new List<ReportFilterParameterValue>();
+            _sortingRules = new List<ReportFilterSortingRule>();
+
+            if (definitions != null && definitions.Any())
+            {
+                _parameterDefinitions.AddRange
+                (
+                    definitions
+                );
+
+                foreach (var definition in definitions)
+                {
+                    var parameter = definition.Parameter;
+
+                    SetParameterValue
+                    (
+                        parameter.Name,
+                        parameter.DefaultValue
+                    );
+                }
+            }
         }
 
         /// <summary>
         /// Gets the parameter definitions for the report
         /// </summary>
-        public ICollection<ReportParameterDefinition> ParameterDefinitions
+        public IEnumerable<ReportParameterDefinition> ParameterDefinitions
         {
-            get;
-            protected set;
+            get
+            {
+                return _parameterDefinitions;
+            }
         }
 
         /// <summary>
@@ -46,7 +74,7 @@
                 ReportParameterTargetType targetType
             )
         {
-            return this.ParameterDefinitions.Where
+            return _parameterDefinitions.Where
             (
                 p => p.TargetType == targetType
             );
@@ -64,7 +92,7 @@
         {
             Validate.IsNotEmpty(parameterName);
 
-            return this.ParameterDefinitions.Any
+            return _parameterDefinitions.Any
             (
                 d => d.Parameter.Name.ToLower() == parameterName.ToLower()
             );
@@ -82,7 +110,7 @@
         {
             Validate.IsNotEmpty(parameterName);
 
-            var definition = this.ParameterDefinitions.FirstOrDefault
+            var definition = _parameterDefinitions.FirstOrDefault
             (
                 d => d.Parameter.Name.ToLower() == parameterName.ToLower()
             );
@@ -93,7 +121,11 @@
 
                 throw new KeyNotFoundException
                 (
-                    String.Format(message, parameterName)
+                    String.Format
+                    (
+                        message,
+                        parameterName
+                    )
                 );
             }
 
@@ -103,10 +135,12 @@
         /// <summary>
         /// Gets a collection of parameter values for the filter
         /// </summary>
-        public ICollection<ReportFilterParameterValue> ParameterValues
+        public IEnumerable<ReportFilterParameterValue> ParameterValues
         {
-            get;
-            private set;
+            get
+            {
+                return _parameterValues;
+            }
         }
 
         /// <summary>
@@ -122,7 +156,7 @@
         {
             Validate.IsNotEmpty(parameterName);
 
-            var parameterValue = this.ParameterValues.FirstOrDefault
+            var parameterValue = _parameterValues.FirstOrDefault
             (
                 p => p.Name.ToLower() == parameterName.ToLower()
             );
@@ -144,7 +178,7 @@
                     value
                 );
 
-                this.ParameterValues.Add
+                _parameterValues.Add
                 (
                     parameterValue
                 );
@@ -152,7 +186,7 @@
         }
 
         /// <summary>
-        /// Sets a collection of report filter parameter values
+        /// Sets a series of report filter parameter values
         /// </summary>
         /// <param name="parameterValues">The parameter values</param>
         public void SetParameterValues
@@ -184,7 +218,7 @@
         {
             Validate.IsNotEmpty(parameterName);
 
-            var value = this.ParameterValues.FirstOrDefault
+            var value = _parameterValues.FirstOrDefault
             (
                 p => p.Name.ToLower() == parameterName.ToLower()
             );
@@ -217,7 +251,7 @@
         {
             Validate.IsNotNull(query);
             
-            var filterValues = this.ParameterValues.Where
+            var filterValues = _parameterValues.Where
             (
                 p => p.Definition.TargetType == ReportParameterTargetType.Filter
             );
@@ -353,7 +387,7 @@
                 targetType
             );
             
-            var matchingValues = this.ParameterValues.Where
+            var matchingValues = _parameterValues.Where
             (
                 p => p.Definition.TargetType == targetType
             );
@@ -383,16 +417,88 @@
         }
 
         /// <summary>
-        /// Gets a dictionary of query sorting rules by query
+        /// Gets a collection of sorting rules by component and column
         /// </summary>
-        public ICollection<ReportFilterSortingRule> SortingRules
+        public IEnumerable<ReportFilterSortingRule> SortingRules
         {
-            get;
-            private set;
+            get
+            {
+                return _sortingRules;
+            }
+        }
+
+        /// <summary>
+        /// Sets a single report filter parameter value
+        /// </summary>
+        /// <param name="sectionType">The section type</param>
+        /// <param name="componentName">The component name</param>
+        /// <param name="columnName">The column name</param>
+        /// <param name="direction">The sorting direction</param>
+        public void SetSortingRule
+            (
+                ReportSectionType sectionType,
+                string componentName,
+                string columnName,
+                SortDirection direction
+            )
+        {
+            Validate.IsNotEmpty(componentName);
+            Validate.IsNotEmpty(columnName);
+
+            var matchingRule = _sortingRules.FirstOrDefault
+            (
+                p => p.SectionType == sectionType
+                    && p.ComponentName.ToLower() == componentName.ToLower()
+                    && p.ColumnName.ToLower() == columnName.ToLower()
+            );
+
+            if (matchingRule != null)
+            {
+                matchingRule.Direction = direction;
+            }
+            else
+            {
+                matchingRule = new ReportFilterSortingRule
+                (
+                    sectionType,
+                    componentName,
+                    columnName,
+                    direction
+                );
+
+                _sortingRules.Add
+                (
+                    matchingRule
+                );
+            }
+        }
+
+        /// <summary>
+        /// Sets a series of report sorting rules
+        /// </summary>
+        /// <param name="sortingRules">The sorting rules</param>
+        /// <remarks>
+        public void SetSortingRules
+            (
+                params ReportFilterSortingRule[] sortingRules
+            )
+        {
+            Validate.IsNotNull(sortingRules);
+
+            foreach (var rule in sortingRules)
+            {
+                SetSortingRule
+                (
+                    rule.SectionType,
+                    rule.ComponentName,
+                    rule.ColumnName,
+                    rule.Direction
+                );
+            }
         }
         
         /// <summary>
-        /// Gets sorting rules for a section type
+        /// Gets sorting rules for a section and component
         /// </summary>
         /// <param name="sectionType">The report section type</param>
         /// <param name="componentName">The component name</param>
@@ -405,7 +511,7 @@
         {
             Validate.IsNotEmpty(componentName);
 
-            return this.SortingRules.Where
+            return _sortingRules.Where
             (
                 rule => rule.SectionType == sectionType
                     && rule.ComponentName.ToLower() == componentName.ToLower()
@@ -429,7 +535,7 @@
             Validate.IsNotEmpty(componentName);
             Validate.IsNotEmpty(columnName);
 
-            var rule = this.SortingRules.FirstOrDefault
+            var rule = _sortingRules.FirstOrDefault
             (
                 r => r.SectionType == sectionType
                     && r.ComponentName.ToLower() == componentName.ToLower()
@@ -454,26 +560,26 @@
         {
             var filter = new ReportFilter()
             {
-                ParameterDefinitions = this.ParameterDefinitions
+                _parameterDefinitions = _parameterDefinitions
             };
 
             // Clone and add the parameter values
-            foreach (var value in this.ParameterValues)
+            foreach (var value in _parameterValues)
             {
                 var valueClone = value.Clone();
 
-                filter.ParameterValues.Add
+                filter._parameterValues.Add
                 (
                     valueClone
                 );
             }
 
             // Clone and add the sorting rules
-            foreach (var rule in this.SortingRules)
+            foreach (var rule in _sortingRules)
             {
                 var ruleClone = rule.Clone();
 
-                filter.SortingRules.Add
+                filter._sortingRules.Add
                 (
                     ruleClone
                 );
