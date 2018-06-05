@@ -107,13 +107,16 @@
                 tableRows.Add(tableRow);
             }
 
-            var sortingRules = filter.GetSortingRules
-            (
-                sectionType,
-                definition.Name
-            );
+            if (false == tableDefinition.DisableSorting)
+            {
+                var sortingRules = filter.GetSortingRules
+                (
+                    sectionType,
+                    definition.Name
+                );
 
-            tableRows = SortRows(tableRows, sortingRules).ToList();
+                tableRows = SortRows(tableRows, sortingRules).ToList();
+            }
 
             var repeater = new Table
             (

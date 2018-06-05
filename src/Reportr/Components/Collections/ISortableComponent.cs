@@ -6,9 +6,9 @@
     public interface ISortableComponent
     {
         /// <summary>
-        /// Gets or sets a flag indicating if column sorting is enabled
+        /// Gets or sets a flag indicating if column sorting is disabled
         /// </summary>
-        bool EnableSorting { get; set; }
+        bool DisableSorting { get; set; }
 
         /// <summary>
         /// Gets an array of sortable columns

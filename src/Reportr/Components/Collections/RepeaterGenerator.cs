@@ -71,31 +71,34 @@
                 generatedItems.Add(await task);
             }
 
-            var sortDirection = filter.FindSortDirection
-            (
-                sectionType,
-                definition.Name,
-                "Item"
-            );
-
-            // Apply the sorting direction, if it has been specified
-            if (sortDirection != null)
+            if (false == repeaterDefinition.DisableSorting)
             {
-                if (sortDirection.Value == SortDirection.Ascending)
+                var sortDirection = filter.FindSortDirection
+                (
+                    sectionType,
+                    definition.Name,
+                    "Item"
+                );
+
+                // Apply the sorting direction, if it has been specified
+                if (sortDirection != null)
                 {
-                    generatedItems = generatedItems.OrderBy
-                    (
-                        a => a.Value
-                    )
-                    .ToList();
-                }
-                else
-                {
-                    generatedItems = generatedItems.OrderByDescending
-                    (
-                        a => a.Value
-                    )
-                    .ToList();
+                    if (sortDirection.Value == SortDirection.Ascending)
+                    {
+                        generatedItems = generatedItems.OrderBy
+                        (
+                            a => a.Value
+                        )
+                        .ToList();
+                    }
+                    else
+                    {
+                        generatedItems = generatedItems.OrderByDescending
+                        (
+                            a => a.Value
+                        )
+                        .ToList();
+                    }
                 }
             }
 

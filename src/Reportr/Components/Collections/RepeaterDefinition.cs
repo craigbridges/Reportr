@@ -105,9 +105,9 @@
         public RepeaterType RepeaterType { get; protected set; }
 
         /// <summary>
-        /// Gets or sets a flag indicating if column sorting is enabled
+        /// Gets or sets a flag indicating if column sorting is disabled
         /// </summary>
-        public bool EnableSorting { get; set; }
+        public bool DisableSorting { get; set; }
 
         /// <summary>
         /// Gets an array of sortable columns
