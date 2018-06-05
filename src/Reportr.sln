@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr", "Reportr\Reportr.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Tests", "Reportr.Tests\Reportr.Tests.csproj", "{09F4C86D-3DC1-40C5-B0EB-DD1EAC641B53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.NCalc", "Report.Integrations.NCalc\Reportr.Integrations.NCalc.csproj", "{CAB0FA67-CD48-414B-8384-FCD4BD340906}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.NCalc", "Reportr.Integrations.NCalc\Reportr.Integrations.NCalc.csproj", "{CAB0FA67-CD48-414B-8384-FCD4BD340906}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.Nettle", "Reportr.Integrations.Nettle\Reportr.Integrations.Nettle.csproj", "{B6B26291-3759-486D-B554-544E65C2CE10}"
 EndProject
