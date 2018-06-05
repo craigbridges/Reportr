@@ -1,10 +1,9 @@
-﻿namespace Reportr.Nettle
+﻿namespace Reportr.Integrations.Nettle
 {
     using global::Nettle;
     using global::Nettle.Compiler;
     using global::Nettle.Data;
     using global::Nettle.Functions;
-    using global::Nettle.NCalc;
     using global::Nettle.Web;
     using System;
     using System.Web.Configuration;
@@ -19,23 +18,21 @@
         /// </summary>
         /// <param name="customFunctions">The customer functions</param>
         /// <returns>The Nettle compiler</returns>
-        public INettleCompiler GenerateCompiler
+        public INettleCompiler Generate
             (
                 params IFunction[] customFunctions
             )
         {
             var dataResolver = new NettleDataResolver();
             var webResolver = new NettleWebResolver();
-            var ncalcResolver = new NettleNCalcResolver();
 
             var appSettings = WebConfigurationManager.AppSettings;
             var defaultTimeZoneId = appSettings["DefaultTimeZoneId"];
-            
+
             NettleEngine.RegisterResolvers
             (
                 dataResolver,
-                webResolver,
-                ncalcResolver
+                webResolver
             );
 
             if (false == String.IsNullOrEmpty(defaultTimeZoneId))

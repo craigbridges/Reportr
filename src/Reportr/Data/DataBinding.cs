@@ -1,8 +1,6 @@
 ﻿namespace Reportr.Data
 {
-    using NCalc;
     using Reportr.Data.Querying;
-    using Reportr.Nettle;
     using System;
     using System.Linq;
 
@@ -87,7 +85,7 @@
         }
 
         /// <summary>
-        /// Resolves the query path for a query row
+        /// Resolves the query path for a query row specified
         /// </summary>
         /// <param name="row">The query row</param>
         /// <returns>The resolved value</returns>
@@ -101,8 +99,10 @@
                 this.Expression
             );
 
-            var currentValue = (object)row[pathInfo.ColumnName];
-            var currentPath = pathInfo.ColumnName;
+            var columnName = pathInfo.ColumnName;
+            var currentValue = (object)row[columnName];
+            var currentPath = columnName;
+            var currentType = currentValue.GetType();
 
             foreach (var propertyName in pathInfo.NestedProperties)
             {
@@ -117,8 +117,6 @@
                         )
                     );
                 }
-
-                var currentType = currentValue.GetType();
 
                 var nextPropertyFound = currentType.GetProperties().Any
                 (
@@ -158,23 +156,28 @@
         /// Resolves the template content for a query row
         /// </summary>
         /// <param name="row">The query row</param>
-        /// <returns>The resolved value</returns>
+        /// <returns>The resolved content</returns>
         private string ResolveTemplateContent
             (
                 QueryRow row
             )
         {
-            // TODO: abstract away NettleCompilerGenerator and register in static ReportrEngine class
+            var template = this.Expression;
+            var renderer = ReportrEngine.TemplateRenderer;
 
-            var generator = new NettleCompilerGenerator();
-            var compiler = generator.GenerateCompiler();
+            if (renderer == null)
+            {
+                throw new InvalidOperationException
+                (
+                    "The template renderer has not been configured."
+                );
+            }
 
-            var template = compiler.Compile
+            return renderer.Render
             (
-                this.Expression
+                template,
+                row
             );
-
-            return template(row);
         }
 
         /// <summary>
@@ -187,17 +190,25 @@
                 QueryRow row
             )
         {
-            var resolvedExpression = ResolveTemplateContent
+            var expression = ResolveTemplateContent
             (
                 row
             );
-            
-            var ncalcExpression = new Expression
-            (
-                resolvedExpression
-            );
 
-            return ncalcExpression.Evaluate();
+            var evaluator = ReportrEngine.MathEvaluator;
+
+            if (evaluator == null)
+            {
+                throw new InvalidOperationException
+                (
+                    "The math expression evaluator has not been configured."
+                );
+            }
+
+            return evaluator.Evaluate
+            (
+                expression
+            );
         }
     }
 }

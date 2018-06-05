@@ -1,10 +1,6 @@
 High Priority
 -------------
 
-** Create way of registering current template engine/expression evaluator in ReportrEngine
-	- Abstract Nettle away and make the template/binding more generic so we can use alternative templating engines (e.g. Razor)
-	- Abstract NCalc into Report.Integrations.NCalc
-
 - Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
 
 - Create SQL 'Data' project to implement data interfaces with SQL implementations

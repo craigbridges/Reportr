@@ -47,21 +47,6 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
-    <Reference Include="NCalc, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NCalc-Edge.1.4.3\lib\NCalc.dll</HintPath>
-    </Reference>
-    <Reference Include="Nettle, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nettle.1.2.3\lib\net461\Nettle.dll</HintPath>
-    </Reference>
-    <Reference Include="Nettle.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nettle.Data.1.1.0\lib\net461\Nettle.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Nettle.NCalc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nettle.NCalc.1.0.0\lib\net461\Nettle.NCalc.dll</HintPath>
-    </Reference>
-    <Reference Include="Nettle.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nettle.Web.1.0.0\lib\net461\Nettle.Web.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -185,6 +170,7 @@
     <Compile Include="Filtering\ReportParameterBinding.cs" />
     <Compile Include="Filtering\ReportParameterDefinition.cs" />
     <Compile Include="Filtering\ReportParameterTargetType.cs" />
+    <Compile Include="IMathExpressionEvaluator.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />
     <Compile Include="Filtering\ReportFilter.cs" />
@@ -196,13 +182,14 @@
     <Compile Include="Rendering\IReportRenderer.cs" />
     <Compile Include="Rendering\RenderedReport.cs" />
     <Compile Include="ReportGenerator.cs" />
+    <Compile Include="ReportrEngine.cs" />
     <Compile Include="ReportSectionDefinition.cs" />
     <Compile Include="ReportDefinition.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="ReportSection.cs" />
-    <Compile Include="Nettle\NettleCompilerGenerator.cs" />
     <Compile Include="ReportSectionGenerationResult.cs" />
     <Compile Include="ReportSectionType.cs" />
+    <Compile Include="Templating\ITemplateRenderer.cs" />
     <Compile Include="Templating\SectionTemplateContent.cs" />
     <Compile Include="Templating\ComponentTemplateContent.cs" />
     <Compile Include="Templating\IReportTemplateRepository.cs" />
