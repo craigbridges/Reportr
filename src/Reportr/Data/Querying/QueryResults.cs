@@ -19,7 +19,7 @@
         public QueryResults
             (
                 IQuery query,
-                int executionTime,
+                long executionTime,
                 bool success = true
             )
         {
@@ -37,9 +37,9 @@
         public string QueryName { get; private set; }
 
         /// <summary>
-        /// Gets the queries execution time
+        /// Gets the queries execution time (in milliseconds)
         /// </summary>
-        public int ExecutionTime { get; private set; }
+        public long ExecutionTime { get; private set; }
 
         /// <summary>
         /// Gets a flag indicating if the queries ran successfully
@@ -62,6 +62,8 @@
             (
                 errors
             );
+
+            this.Success = false;
 
             return this;
         }
@@ -120,6 +122,7 @@
 
             this.AllRows = allRows.ToArray();
             this.RowCount = allRows.Count;
+            this.Success = true;
 
             return this;
         }

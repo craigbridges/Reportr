@@ -138,6 +138,7 @@
     <Compile Include="Data\Querying\IQueryAggregator.cs" />
     <Compile Include="Data\Querying\IQueryRepository.cs" />
     <Compile Include="Data\Querying\ISortable.cs" />
+    <Compile Include="Data\Querying\QueryBase.cs" />
     <Compile Include="Data\Querying\QueryCell.cs" />
     <Compile Include="Components\Collections\ColumnImportance.cs" />
     <Compile Include="Data\Querying\QueryColumnInfo.cs" />
