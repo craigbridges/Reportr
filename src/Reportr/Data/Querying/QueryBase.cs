@@ -14,7 +14,7 @@
     public abstract class QueryBase : IQuery
     {
         private Dictionary<string, QuerySortingRule> _sortingRules;
-        private Dictionary<string, QueryGroupingRule> _groupingRules;
+        private List<string> _groupingColumns;
 
         /// <summary>
         /// Constructs the query with a data source
@@ -34,10 +34,7 @@
                 StringComparer.OrdinalIgnoreCase
             );
 
-            _groupingRules = new Dictionary<string, QueryGroupingRule>
-            (
-                StringComparer.OrdinalIgnoreCase
-            );
+            _groupingColumns = new List<string>();
 
             this.QueryId = Guid.NewGuid();
             this.DataSource = dataSource;
@@ -145,30 +142,23 @@
         }
 
         /// <summary>
-        /// Gets an array of grouping rules for the query
+        /// Gets an array of grouping columns for the query
         /// </summary>
-        public QueryGroupingRule[] GroupingRules
+        public string[] GroupingColumns
         {
             get
             {
-                var rules = _groupingRules.Select
-                (
-                    pair => pair.Value
-                );
-
-                return rules.ToArray();
+                return _groupingColumns.ToArray();
             }
         }
 
         /// <summary>
-        /// Adds a grouping rule to the query
+        /// Adds a grouping column to the query
         /// </summary>
         /// <param name="columnName">The column name</param>
-        /// <param name="direction">The sort direction</param>
         public void AddGrouping
             (
-                string columnName,
-                SortDirection direction
+                string columnName
             )
         {
             Validate.IsNotEmpty(columnName);
@@ -192,13 +182,7 @@
                 );
             }
             
-            var rule = new QueryGroupingRule
-            (
-                columnName,
-                direction
-            );
-
-            _groupingRules[columnName] = rule;
+            _groupingColumns.Add(columnName);
         }
 
         /// <summary>
@@ -302,7 +286,63 @@
         {
             Validate.IsNotNull(rows);
 
-            throw new NotImplementedException();
+            if (false == this.SortingRules.Any())
+            {
+                return rows;
+            }
+            else
+            {
+                var ruleNumber = 1;
+                var sortedRows = (IOrderedEnumerable<QueryRow>)rows;
+
+                foreach (var rule in this.SortingRules)
+                {
+                    object keySelector(QueryRow row) => row.First
+                    (
+                        cell => cell.Column.Name.ToLower() == rule.ColumnName.ToLower()
+                    )
+                    .Value;
+
+                    if (rule.Direction == SortDirection.Ascending)
+                    {
+                        if (ruleNumber == 1)
+                        {
+                            sortedRows = sortedRows.OrderBy
+                            (
+                                keySelector
+                            );
+                        }
+                        else
+                        {
+                            sortedRows = sortedRows.ThenBy
+                            (
+                                keySelector
+                            );
+                        }
+                    }
+                    else
+                    {
+                        if (ruleNumber == 1)
+                        {
+                            sortedRows = sortedRows.OrderByDescending
+                            (
+                                keySelector
+                            );
+                        }
+                        else
+                        {
+                            sortedRows = sortedRows.ThenByDescending
+                            (
+                                keySelector
+                            );
+                        }
+                    }
+
+                    ruleNumber++;
+                }
+
+                return rows;
+            }
         }
 
         /// <summary>
@@ -317,7 +357,78 @@
         {
             Validate.IsNotNull(rows);
 
-            throw new NotImplementedException();
+            if (false == _groupingColumns.Any())
+            {
+                return new QueryGrouping[]
+                {
+                    new QueryGrouping
+                    (
+                        this.Columns,
+                        rows.ToArray()
+                    )
+                };
+            }
+            else
+            {
+                var groupings = new List<QueryGrouping>();
+                var groupedRows = new Dictionary<string, List<QueryRow>>();
+
+                foreach (var row in rows)
+                {
+                    var groupingValue = String.Empty;
+
+                    foreach (var columnName in _groupingColumns)
+                    {
+                        groupingValue += row[columnName].Value;
+                    }
+
+                    if (groupedRows.ContainsKey(groupingValue))
+                    {
+                        groupedRows[groupingValue].Add
+                        (
+                            row
+                        );
+                    }
+                    else
+                    {
+                        groupedRows.Add
+                        (
+                            groupingValue,
+                            new List<QueryRow> { row }
+                        );
+                    }
+                }
+
+                foreach (var item in groupedRows)
+                {
+                    var firstRow = item.Value.First();
+                    var groupingValues = new Dictionary<QueryColumnInfo, object>();
+
+                    foreach (var columnName in _groupingColumns)
+                    {
+                        var column = this.Columns.First
+                        (
+                            info => info.Column.Name.ToLower() == columnName.ToLower()
+                        );
+
+                        groupingValues.Add
+                        (
+                            column,
+                            firstRow[columnName].Value
+                        );
+                    }
+
+                    var grouping = new QueryGrouping
+                    (
+                        groupingValues,
+                        item.Value.ToArray()
+                    );
+
+                    groupings.Add(grouping);
+                }
+
+                return groupings.ToArray();
+            }
         }
 
         /// <summary>

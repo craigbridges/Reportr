@@ -13,37 +13,52 @@
         /// <summary>
         /// Constructs the query grouping with the details
         /// </summary>
-        /// <param name="groupingColumn">The grouping column</param>
-        /// <param name="groupingValue">The grouping value</param>
         /// <param name="columns">The columns</param>
         /// <param name="rows">The rows</param>
         public QueryGrouping
             (
-                QueryColumnInfo groupingColumn,
-                object groupingValue,
-                IEnumerable<QueryColumnInfo> columns,
+                QueryColumnInfo[] columns,
                 params QueryRow[] rows
             )
         {
-            Validate.IsNotNull(groupingColumn);
             Validate.IsNotNull(columns);
             Validate.IsNotNull(rows);
+            
+            SetData(columns, rows);
+        }
 
-            this.GroupingColumn = groupingColumn;
-            this.GroupingValue = groupingValue;
+        /// <summary>
+        /// Constructs the query grouping with the details
+        /// </summary>
+        /// <param name="groupingValues">The grouping values</param>
+        /// <param name="rows">The rows</param>
+        public QueryGrouping
+            (
+                Dictionary<QueryColumnInfo, object> groupingValues,
+                params QueryRow[] rows
+            )
+        {
+            Validate.IsNotNull(groupingValues);
+            Validate.IsNotNull(rows);
+            
+            this.GroupingValues = groupingValues;
+
+            var columns = groupingValues.Select
+            (
+                pair => pair.Key
+            );
 
             SetData(columns, rows);
         }
         
         /// <summary>
-        /// Gets the grouping column
+        /// Gets the grouping values by column
         /// </summary>
-        public QueryColumnInfo GroupingColumn { get; private set; }
-
-        /// <summary>
-        /// Gets the grouping value
-        /// </summary>
-        public object GroupingValue { get; private set; }
+        public Dictionary<QueryColumnInfo, object> GroupingValues
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Gets an array of the rows in the result

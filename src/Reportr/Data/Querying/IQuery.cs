@@ -44,19 +44,17 @@
         int? MaximumRows { get; }
 
         /// <summary>
-        /// Gets an array of grouping rules for the query
+        /// Gets an array of grouping columns for the query
         /// </summary>
-        QueryGroupingRule[] GroupingRules { get; }
+        string[] GroupingColumns { get; }
 
         /// <summary>
-        /// Adds a grouping rule to the query
+        /// Adds a grouping column to the query
         /// </summary>
         /// <param name="columnName">The column name</param>
-        /// <param name="direction">The sort direction</param>
         void AddGrouping
         (
-            string columnName,
-            SortDirection direction
+            string columnName
         );
 
         /// <summary>
