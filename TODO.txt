@@ -1,9 +1,14 @@
 High Priority
 -------------
 
-- Create 'Infrastructure' project that manages storage and retrieval of definitions, categories etc
+- Implement IQueryAggregator
 
-- Create SQL 'Data' project to implement data interfaces with SQL implementations
+- Create DataSource adn Query implementations in:
+	- Data.Entity
+	- Data.Sql
+	- Data.Csv
+	- Data.Json
+	- Data.Xml
 
 - Create way of 'registering' IQuery etc implementations so project can use with IoC containers
 
@@ -28,9 +33,6 @@ Templates
 Rendering
 ---------
 
-- Integrate with Nettle
-- Integrate with NCalc
-
 - Design report auto export mechanism (e.g. CSV, XML, JSON etc)
 	- See https://github.com/danielpalme/ReportGenerator
 
@@ -38,9 +40,9 @@ Rendering
 Low Priority
 ------------
 
-- Create report component mocking (e.g. generate fake data for chart) for report building and testing
+- Create 'Infrastructure' project that manages storage and retrieval of categories
 
-- Create report builder with storage mechanism
+- Create report component mocking (e.g. generate fake data for chart) for report building and testing
 
 - Create Report Definition Language (RDL)
 	- See docs\Brainstorming\RDL Brainstorm Example.rdl

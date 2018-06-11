@@ -6,7 +6,7 @@
     /// <summary>
     /// Provides various static parameter validation methods
     /// </summary>
-    internal static class Validate
+    public static class Validate
     {
         /// <summary>
         /// Checks that an object value is not null
