@@ -12,7 +12,7 @@
         /// <param name="column">The column schema</param>
         public QueryColumnInfo
             (
-                DataColumnSchema table,
+                DataTableSchema table,
                 DataColumnSchema column
             )
         {
@@ -26,7 +26,7 @@
         /// <summary>
         /// Gets the table schema
         /// </summary>
-        public DataColumnSchema Table { get; private set; }
+        public DataTableSchema Table { get; private set; }
 
         /// <summary>
         /// Gets the column schema
