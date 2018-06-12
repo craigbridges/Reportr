@@ -10,18 +10,11 @@
         private bool _disposeCalled = false;
 
         /// <summary>
-        /// Constructs the data source with a connection
+        /// Constructs the data source with default values
         /// </summary>
-        /// <param name="connection">The data connection</param>
-        public DataSourceBase
-            (
-                IDataConnection connection
-            )
+        public DataSourceBase()
         {
-            Validate.IsNotNull(connection);
-
             this.SourceId = Guid.NewGuid();
-            this.Connection = connection;
         }
 
         /// <summary>
@@ -47,12 +40,7 @@
                 return this.GetType().Name;
             }
         }
-
-        /// <summary>
-        /// Gets the connection used by the data source
-        /// </summary>
-        public IDataConnection Connection { get; private set; }
-
+        
         /// <summary>
         /// Gets an array of the tables held by the data source
         /// </summary>
@@ -71,8 +59,6 @@
             {
                 if (disposing)
                 {
-                    this.Connection.Dispose();
-
                     DisposeManagedObjects();
                 }
 

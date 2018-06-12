@@ -16,12 +16,7 @@
         /// Gets the name of the data source
         /// </summary>
         string Name { get; }
-
-        /// <summary>
-        /// Gets the connection used by the data source
-        /// </summary>
-        IDataConnection Connection { get; }
-
+        
         /// <summary>
         /// Gets an array of the tables held by the data source
         /// </summary>

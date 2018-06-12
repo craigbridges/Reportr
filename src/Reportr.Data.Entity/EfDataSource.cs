@@ -13,23 +13,29 @@
         private DataTableSchema[] _schema;
 
         /// <summary>
-        /// Constructs the data source with a connection
+        /// Constructs the data source with a database context
         /// </summary>
-        /// <param name="connection">The data connection</param>
+        /// <param name="context">The database context</param>
         public EfDataSource
             (
-                EfDataConnection connection
+                DbContext context
             )
-
-            : base(connection)
+            : base()
         {
-            Validate.IsNotNull(connection);
+            Validate.IsNotNull(context);
+
+            this.Context = context;
 
             PopulateSchema
             (
-                connection.Context
+                context
             );
         }
+
+        /// <summary>
+        /// Gets the database context assigned to the data source
+        /// </summary>
+        public DbContext Context { get; private set; }
 
         /// <summary>
         /// Gets an array of the tables held by the data source
@@ -168,7 +174,7 @@
         /// </summary>
         protected override void DisposeManagedObjects()
         {
-            this.Connection.Dispose();
+            this.Context.Dispose();
         }
     }
 }
