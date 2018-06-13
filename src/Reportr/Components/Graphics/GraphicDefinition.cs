@@ -257,7 +257,7 @@
             {
                 foreach (var statistic in item.Value)
                 {
-                    yield return statistic.Aggregator.Query;
+                    yield return statistic.Function.Query;
                 }
             }
         }

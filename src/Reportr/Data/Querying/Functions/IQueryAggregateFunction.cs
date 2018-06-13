@@ -1,18 +1,22 @@
-﻿namespace Reportr.Data.Querying
+﻿namespace Reportr.Data.Querying.Functions
 {
     using Reportr.Filtering;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines a contract for a query aggregator
+    /// Defines a contract for a query aggregate function
     /// </summary>
     /// <remarks>
-    /// A query aggregator computes a single value from the results of a query.
+    /// An aggregate function is a mathematical computation involving a 
+    /// set of values rather than a single value.
+    /// 
+    /// The calculation performed by a query aggregate function returns 
+    /// a single value from multiple values returned in the query results.
     /// </remarks>
-    public interface IQueryAggregator
+    public interface IQueryAggregateFunction
     {
         /// <summary>
-        /// Gets the query to aggregate
+        /// Gets the query to execute
         /// </summary>
         IQuery Query { get; }
 

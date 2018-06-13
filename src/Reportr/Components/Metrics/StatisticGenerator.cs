@@ -27,16 +27,16 @@
             Validate.IsNotNull(filter);
 
             var statisticDefinition = definition.As<StatisticDefinition>();
-            var aggregator = statisticDefinition.Aggregator;
+            var function = statisticDefinition.Function;
             var defaultParameters = statisticDefinition.DefaultParameterValues;
 
             var parameters = filter.GetQueryParameters
             (
-                aggregator.Query,
+                function.Query,
                 defaultParameters.ToArray()
             );
 
-            var value = await aggregator.ExecuteAsync
+            var value = await function.ExecuteAsync
             (
                 parameters.ToArray()
             );

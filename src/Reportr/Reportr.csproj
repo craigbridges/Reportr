@@ -135,8 +135,16 @@
     <Compile Include="Data\DataTableSchema.cs" />
     <Compile Include="Data\IDataSource.cs" />
     <Compile Include="Data\IDataSourceRepository.cs" />
+    <Compile Include="Data\Querying\Functions\ModeFunction.cs" />
+    <Compile Include="Data\Querying\Functions\SumFunction.cs" />
+    <Compile Include="Data\Querying\Functions\MedianFunction.cs" />
+    <Compile Include="Data\Querying\Functions\MinimumFunction.cs" />
+    <Compile Include="Data\Querying\Functions\MaximumFunction.cs" />
+    <Compile Include="Data\Querying\Functions\CountFunction.cs" />
+    <Compile Include="Data\Querying\Functions\AverageFunction.cs" />
+    <Compile Include="Data\Querying\Functions\QueryAggregateFunctionBase.cs" />
     <Compile Include="Data\Querying\IQuery.cs" />
-    <Compile Include="Data\Querying\IQueryAggregator.cs" />
+    <Compile Include="Data\Querying\Functions\IQueryAggregateFunction.cs" />
     <Compile Include="Data\Querying\IQueryRepository.cs" />
     <Compile Include="Data\Querying\ISortable.cs" />
     <Compile Include="Data\Querying\QueryBase.cs" />

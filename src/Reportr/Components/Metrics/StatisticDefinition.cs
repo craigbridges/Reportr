@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Metrics
 {
     using Reportr.Data.Querying;
+    using Reportr.Data.Querying.Functions;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
@@ -16,24 +17,24 @@
         /// </summary>
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
-        /// <param name="aggregator">The statistic aggregator</param>
+        /// <param name="function">The aggregate function</param>
         /// <param name="action">The action (optional)</param>
         public StatisticDefinition
             (
                 string name,
                 string title,
-                IQueryAggregator aggregator,
+                IQueryAggregateFunction function,
                 ReportAction action = null
             )
             : base(name, title)
         {
-            Validate.IsNotNull(aggregator);
+            Validate.IsNotNull(function);
             
-            this.Aggregator = aggregator;
+            this.Function = function;
             this.DefaultParameterValues = new Collection<ParameterValue>();
             this.Action = action;
 
-            var defaultValues = aggregator.Query.CompileDefaultParameters();
+            var defaultValues = function.Query.CompileDefaultParameters();
 
             foreach (var value in defaultValues)
             {
@@ -42,9 +43,9 @@
         }
 
         /// <summary>
-        /// Gets the statistic aggregator
+        /// Gets the statistic aggregate function
         /// </summary>
-        public IQueryAggregator Aggregator { get; protected set; }
+        public IQueryAggregateFunction Function { get; protected set; }
         
         /// <summary>
         /// Gets the default parameter values for the aggregator
@@ -63,7 +64,7 @@
         {
             return new IQuery[]
             {
-                this.Aggregator.Query
+                this.Function.Query
             };
         }
 

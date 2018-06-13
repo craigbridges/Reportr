@@ -1,16 +1,13 @@
 High Priority
 -------------
 
-- Implement IQueryAggregator
-
-- Create DataSource adn Query implementations in:
-	- Data.Entity
+- Create DataSource and Query implementations in:
 	- Data.Sql
 	- Data.Csv
 	- Data.Json
 	- Data.Xml
 
-- Create way of 'registering' IQuery etc implementations so project can use with IoC containers
+- Create way of 'registering' and managing IQuery etc implementations so project can use with IoC containers
 
 
 Security
