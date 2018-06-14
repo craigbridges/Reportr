@@ -641,5 +641,14 @@
 
             return matchingQuery;
         }
+
+        /// <summary>
+        /// Gets a description of the report
+        /// </summary>
+        /// <returns>The name of the report</returns>
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }
