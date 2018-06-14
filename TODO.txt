@@ -9,6 +9,9 @@ High Priority
 
 - Create way of 'registering' and managing IQuery etc implementations so project can use with IoC containers
 
+- Put report categories and "registered" reports (with name, description and definition generator/source (e.g. RDL language or customer class that generates repot defintion bny loading all data sources, querise etc and compiling the componets together)) into seperate project such as Reportr.Registration
+	- With the above, we could have a customer EF version such as Reportr.Registration.Entity that has a custom DbContext with saveable entities, so there is no need to code this into the project that uses Reportr
+	- This could also contain security such as registered roles and assigning reports to roles and also assinging report parameters to roles with default values
 
 Security
 --------

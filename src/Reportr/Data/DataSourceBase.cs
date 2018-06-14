@@ -12,9 +12,16 @@
         /// <summary>
         /// Constructs the data source with default values
         /// </summary>
-        public DataSourceBase()
+        /// <param name="name">The name of the data source</param>
+        public DataSourceBase
+            (
+                string name
+            )
         {
+            Validate.IsNotEmpty(name);
+
             this.SourceId = Guid.NewGuid();
+            this.Name = name;
         }
 
         /// <summary>
@@ -33,13 +40,7 @@
         /// <summary>
         /// Gets the name of the data source
         /// </summary>
-        public virtual string Name
-        {
-            get
-            {
-                return this.GetType().Name;
-            }
-        }
+        public string Name { get; private set; }
         
         /// <summary>
         /// Gets an array of the tables held by the data source

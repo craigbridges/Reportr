@@ -15,12 +15,14 @@
         /// <summary>
         /// Constructs the data source with a database context
         /// </summary>
+        /// <param name="name">The name of the data source</param>
         /// <param name="context">The database context</param>
         public EfDataSource
             (
+                string name,
                 DbContext context
             )
-            : base()
+            : base(name)
         {
             Validate.IsNotNull(context);
 
