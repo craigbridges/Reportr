@@ -10,7 +10,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Represents a base class for generic Entity Framework queries
+    /// Represents a base class for generic Entity Framework report queries
     /// </summary>
     /// <typeparam name="T">The query output type</typeparam>
     public abstract class EfQuery<T> : QueryBase

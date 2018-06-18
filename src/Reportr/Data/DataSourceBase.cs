@@ -1,7 +1,9 @@
 ﻿namespace Reportr.Data
 {
     using System;
-    
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// Represents a base class for data source implementations
     /// </summary>
@@ -46,6 +48,36 @@
         /// Gets an array of the tables held by the data source
         /// </summary>
         public abstract DataTableSchema[] Schema { get; }
+
+        /// <summary>
+        /// Gets a table from the database schema
+        /// </summary>
+        /// <param name="name">The table name</param>
+        /// <returns>The table schema</returns>
+        public DataTableSchema GetSchemaTable
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            var table = this.Schema.FirstOrDefault
+            (
+                dts => dts.Name.ToLower() == name.ToLower()
+            );
+
+            if (table == null)
+            {
+                var message = "The data source does not contain a table named '{0}'.";
+
+                throw new KeyNotFoundException
+                (
+                    String.Format(message, name)
+                );
+            }
+
+            return table;
+        }
 
         /// <summary>
         /// Disposes the data source by freeing up managed and unmanaged objects

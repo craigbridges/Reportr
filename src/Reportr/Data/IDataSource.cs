@@ -21,5 +21,15 @@
         /// Gets an array of the tables held by the data source
         /// </summary>
         DataTableSchema[] Schema { get; }
+
+        /// <summary>
+        /// Gets a schema table from the data source
+        /// </summary>
+        /// <param name="name">The table name</param>
+        /// <returns>The table schema</returns>
+        DataTableSchema GetSchemaTable
+        (
+            string name
+        );
     }
 }
