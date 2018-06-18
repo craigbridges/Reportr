@@ -168,7 +168,7 @@
 
             if (sql.ParameterValues != null)
             {
-                foreach (var pv in parameterValues)
+                foreach (var pv in sql.ParameterValues)
                 {
                     command.Parameters.Add(pv.Name);
                     command.Parameters[pv.Name].Value = pv.Value;
@@ -204,56 +204,10 @@
 
                 using (var reader = await command.ExecuteReaderAsync())
                 {
-                    var rows = new List<QueryRow>();
-
-                    if (reader.HasRows)
-                    {
-                        var columnSchemas = _columns.Select
-                        (
-                            info => info.Column
-                        );
-
-                        while (reader.Read())
-                        {
-                            var cells = new List<QueryCell>();
-
-                            for (var i = 0; i < reader.FieldCount; i++)
-                            {
-                                var fieldName = reader.GetName(i);
-                                var fieldValue = reader.GetValue(i);
-
-                                var columnSchema = columnSchemas.FirstOrDefault
-                                (
-                                    c => c.Name.ToLower() == fieldName.ToLower()
-                                );
-
-                                if (columnSchema == null)
-                                {
-                                    var message = "The field name '{0}' was not expected.";
-
-                                    throw new InvalidOperationException
-                                    (
-                                        String.Format
-                                        (
-                                            message,
-                                            fieldName
-                                        )
-                                    );
-                                }
-
-                                cells.Add
-                                (
-                                    new QueryCell
-                                    (
-                                        columnSchema,
-                                        fieldValue
-                                    )
-                                );
-                            }
-                        }
-                    }
-
-                    return rows;
+                    return reader.ToQueryRows
+                    (
+                        _columns.ToArray()
+                    );
                 }
             }
         }

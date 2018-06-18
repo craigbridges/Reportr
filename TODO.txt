@@ -2,7 +2,6 @@ High Priority
 -------------
 
 - Create DataSource and Query implementations in:
-	- Data.Sql
 	- Data.Csv
 	- Data.Json
 	- Data.Xml
