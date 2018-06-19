@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Csv", "Reportr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Json", "Reportr.Data.Json\Reportr.Data.Json.csproj", "{2FFE2DAD-8BC5-4D9E-AA26-5EAC963D7F27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.Autofac", "Reportr.Integrations.Autofac\Reportr.Integrations.Autofac.csproj", "{4EF09639-4F46-40E8-AFBD-10889A73714D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{2FFE2DAD-8BC5-4D9E-AA26-5EAC963D7F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FFE2DAD-8BC5-4D9E-AA26-5EAC963D7F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FFE2DAD-8BC5-4D9E-AA26-5EAC963D7F27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EF09639-4F46-40E8-AFBD-10889A73714D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EF09639-4F46-40E8-AFBD-10889A73714D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EF09639-4F46-40E8-AFBD-10889A73714D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EF09639-4F46-40E8-AFBD-10889A73714D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
