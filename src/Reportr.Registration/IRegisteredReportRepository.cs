@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Registration
 {
-    using System;
     using System.Collections.Generic;
     
     /// <summary>
@@ -12,32 +11,42 @@
         /// Adds a single registered report to the repository
         /// </summary>
         /// <param name="report">The registered report</param>
-        void AddRegisteredReport
+        void AddReport
         (
             RegisteredReport report
         );
 
         /// <summary>
+        /// Determines if a report has been registered
+        /// </summary>
+        /// <param name="name">The name of the report</param>
+        /// <returns>True, if a match was found; otherwise false</returns>
+        bool IsRegistered
+        (
+            string name
+        );
+
+        /// <summary>
         /// Gets a single registered report from the repository
         /// </summary>
-        /// <param name="id">The ID of the registered report</param>
+        /// <param name="name">The name of the report</param>
         /// <returns>The matching registered report</returns>
-        RegisteredReport GetRegisteredReport
+        RegisteredReport GetReport
         (
-            Guid id
+            string name
         );
 
         /// <summary>
         /// Gets all registered reports in the repository
         /// </summary>
         /// <returns>A collection of registered reports</returns>
-        IEnumerable<RegisteredReport> GetAllRegisteredReports();
+        IEnumerable<RegisteredReport> GetAllReports();
 
         /// <summary>
         /// Updates a single registered report in the repository
         /// </summary>
         /// <param name="report">The registered report to update</param>
-        void UpdateRegisteredReport
+        void UpdateReport
         (
             RegisteredReport report
         );
@@ -45,10 +54,10 @@
         /// <summary>
         /// Removes a single registered report from the repository
         /// </summary>
-        /// <param name="id">The ID of the registered report</param>
-        void RemoveRegisteredReport
+        /// <param name="name">The name of the report</param>
+        void RemoveReport
         (
-            Guid id
+            string name
         );
     }
 }

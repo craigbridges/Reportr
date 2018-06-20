@@ -20,19 +20,24 @@
         /// Constructs the registered report with basic details
         /// </summary>
         /// <param name="name">The name</param>
+        /// <param name="title">The title</param>
         /// <param name="description">The description</param>
         protected RegisteredReport
             (
                 string name,
+                string title,
                 string description
             )
         {
             Validate.IsNotNull(name);
+            Validate.IsNotNull(title);
 
             this.Id = Guid.NewGuid();
             this.DateCreated = DateTime.UtcNow;
             this.DateModified = DateTime.UtcNow;
+
             this.Name = name;
+            this.Title = title;
             this.Description = description;
         }
 
@@ -40,40 +45,40 @@
         /// Constructs the registered report with a builder
         /// </summary>
         /// <param name="name">The name</param>
+        /// <param name="title">The title</param>
         /// <param name="description">The description</param>
         /// <param name="builder">The definition builder</param>
         public RegisteredReport
             (
                 string name,
+                string title,
                 string description,
                 IReportDefinitionBuilder builder
             )
 
-            : this(name, description)
+            : this(name, title, description)
         {
-            Validate.IsNotNull(builder);
-
-            this.SourceType = ReportDefinitionSourceType.Builder;
-            this.BuilderTypeName = builder.GetType().Name;
+            SpecifySource(builder);
         }
 
         /// <summary>
         /// Constructs the registered report with the script source code
         /// </summary>
         /// <param name="name">The name</param>
+        /// <param name="title">The title</param>
         /// <param name="description">The description</param>
         /// <param name="scriptSourceCode">The script source code</param>
         public RegisteredReport
             (
                 string name,
+                string title,
                 string description,
                 string scriptSourceCode
             )
 
-            : this(name, description)
+            : this(name, title, description)
         {
-            this.SourceType = ReportDefinitionSourceType.Script;
-            this.ScriptSourceCode = scriptSourceCode;
+            SpecifySource(scriptSourceCode);
         }
 
         /// <summary>
@@ -97,6 +102,11 @@
         public string Name { get; protected set; }
 
         /// <summary>
+        /// Gets the title for the registered report
+        /// </summary>
+        public string Title { get; protected set; }
+
+        /// <summary>
         /// Gets a description of the report
         /// </summary>
         public string Description { get; protected set; }
@@ -115,5 +125,35 @@
         /// Gets the source code of the report definition script
         /// </summary>
         public string ScriptSourceCode { get; protected set; }
+
+        /// <summary>
+        /// Specifies the report definition source as a builder
+        /// </summary>
+        /// <param name="builder">The definition builder</param>
+        public void SpecifySource
+            (
+                IReportDefinitionBuilder builder
+            )
+        {
+            Validate.IsNotNull(builder);
+
+            this.SourceType = ReportDefinitionSourceType.Builder;
+            this.BuilderTypeName = builder.GetType().Name;
+            this.ScriptSourceCode = null;
+        }
+
+        /// <summary>
+        /// Specifies the report definition source as a script
+        /// </summary>
+        /// <param name="scriptSourceCode">The script source code</param>
+        public void SpecifySource
+            (
+                string scriptSourceCode
+            )
+        {
+            this.SourceType = ReportDefinitionSourceType.Script;
+            this.ScriptSourceCode = scriptSourceCode;
+            this.BuilderTypeName = null;
+        }
     }
 }

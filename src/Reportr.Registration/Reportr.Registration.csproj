@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categorization\IReportCategoryRepository.cs" />
     <Compile Include="Categorization\ReportCategory.cs" />
     <Compile Include="Categorization\ReportCategoryAssignment.cs" />
     <Compile Include="IRegisteredReportRepository.cs" />
+    <Compile Include="IReportRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisteredReport.cs" />
     <Compile Include="ReportDefinitionSourceType.cs" />

@@ -1,4 +1,4 @@
-﻿namespace Reportr.Categorization
+﻿namespace Reportr.Registration.Categorization
 {
     using System;
     using System.Collections.Generic;
