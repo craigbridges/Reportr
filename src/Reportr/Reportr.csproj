@@ -72,8 +72,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Categorization\ReportCategory.cs" />
-    <Compile Include="Categorization\ReportCategoryAssignment.cs" />
     <Compile Include="Common\Conversion\GenericObjectToTypeConverter.cs" />
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Common\Validation\TypeConverterChecker.cs" />
@@ -180,6 +178,7 @@
     <Compile Include="Filtering\ReportParameterDefinition.cs" />
     <Compile Include="Filtering\ReportParameterTargetType.cs" />
     <Compile Include="IMathExpressionEvaluator.cs" />
+    <Compile Include="IReportDefinitionBuilder.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />
     <Compile Include="Filtering\ReportFilter.cs" />
