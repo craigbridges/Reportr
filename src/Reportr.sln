@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Csv", "Reportr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Json", "Reportr.Data.Json\Reportr.Data.Json.csproj", "{2FFE2DAD-8BC5-4D9E-AA26-5EAC963D7F27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.IoC.Autofac", "Reportr.Integrations.Autofac\Reportr.IoC.Autofac.csproj", "{4EF09639-4F46-40E8-AFBD-10889A73714D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.IoC.Autofac", "Reportr.IoC.Autofac\Reportr.IoC.Autofac.csproj", "{4EF09639-4F46-40E8-AFBD-10889A73714D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Registration", "Reportr.Registration\Reportr.Registration.csproj", "{B8604028-E123-4C2F-A217-342E65149B17}"
 EndProject
