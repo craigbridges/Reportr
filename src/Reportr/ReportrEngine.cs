@@ -1,5 +1,6 @@
 ﻿namespace Reportr
 {
+    using Reportr.IoC;
     using Reportr.Templating;
     using System;
     
@@ -20,7 +21,12 @@
         /// Gets or sets the math expression evaluator instance
         /// </summary>
         public static IMathExpressionEvaluator MathEvaluator { get; set; }
-                
+        
+        /// <summary>
+        /// Gets or sets the activator service
+        /// </summary>
+        public static IActivator Activator { get; set; }
+
         /// <summary>
         /// Gets the default time zone to use for dates
         /// </summary>

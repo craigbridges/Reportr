@@ -178,6 +178,7 @@
     <Compile Include="Filtering\ReportParameterDefinition.cs" />
     <Compile Include="Filtering\ReportParameterTargetType.cs" />
     <Compile Include="IMathExpressionEvaluator.cs" />
+    <Compile Include="IoC\IActivator.cs" />
     <Compile Include="IReportDefinitionBuilder.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />
@@ -209,6 +210,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -7,10 +7,11 @@ High Priority
 	- Data.Xml
 
 - Create way of 'registering' and managing IQuery etc implementations so project can use with IoC containers
+	- Create container interface in Reportr core that inherits IContainer (see Autofac for example) and add to ReportrEngine
 
-- Put report categories and "registered" reports (with name, description and definition generator/source (e.g. RDL language or customer class that generates repot defintion bny loading all data sources, querise etc and compiling the componets together)) into seperate project such as Reportr.Registration
-	- With the above, we could have a customer EF version such as Reportr.Registration.Entity that has a custom DbContext with saveable entities, so there is no need to code this into the project that uses Reportr
-	- This could also contain security such as registered roles and assigning reports to roles and also assinging report parameters to roles with default values
+- Put report categories and "registered" reports (with name, description and definition generator/source (e.g. RDL language or customer class that generates report definition by loading all data sources, queries etc and compiling the components together)) into separate project such as Reportr.Registration
+	- With the above, we could have a customer EF version such as Reportr.Registration.Entity that has a custom DbContext with savable entities, so there is no need to code this into the project that uses Reportr
+	- This could also contain security such as registered roles and assigning reports to roles and also assigning report parameters to roles with default values
 
 Security
 --------

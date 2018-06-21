@@ -29,6 +29,11 @@
             this.Description = description;
             this.SectionType = sectionType;
             this.Components = components;
+
+            if (components.Length > 0)
+            {
+                this.HasData = true;
+            }
         }
         
         /// <summary>
@@ -50,5 +55,10 @@
         /// Gets the components in the section
         /// </summary>
         public IReportComponent[] Components { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the report section has any data
+        /// </summary>
+        public bool HasData { get; private set; }
     }
 }

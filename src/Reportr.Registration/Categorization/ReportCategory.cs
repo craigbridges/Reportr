@@ -161,17 +161,17 @@
         /// <summary>
         /// Assigns a single report to the category
         /// </summary>
-        /// <param name="report">The report to assign</param>
+        /// <param name="reportName">The report name</param>
         public void AssignReport
             (
-                ReportDefinition report
+                string reportName
             )
         {
-            Validate.IsNotNull(report);
+            Validate.IsNotEmpty(reportName);
 
             var isAssigned = IsReportAssigned
             (
-                report.Name
+                reportName
             );
 
             if (isAssigned)
@@ -183,7 +183,7 @@
                     String.Format
                     (
                         message,
-                        report.Name,
+                        reportName,
                         this.Name
                     )
                 );
@@ -191,8 +191,7 @@
 
             var assignment = new ReportCategoryAssignment
             (
-                report.Name,
-                report.Title
+                reportName
             );
 
             this.AssignedReports.Add

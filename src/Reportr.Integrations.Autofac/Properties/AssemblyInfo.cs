@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Reportr Autofac Integration")]
+[assembly: AssemblyTitle("Reportr Autofac Inversion of Control Integration")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Reportr.Integrations.Autofac")]
+[assembly: AssemblyProduct("Reportr.IoC.Autofac")]
 [assembly: AssemblyCopyright("Copyright © Craig Bridges 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

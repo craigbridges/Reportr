@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration
 {
+    using System;
     using System.Collections.Generic;
     
     /// <summary>
@@ -66,11 +67,11 @@
         /// <summary>
         /// Gets all registered reports
         /// </summary>
-        /// <param name="categoryName">The category name</param>
+        /// <param name="categoryId">The category ID</param>
         /// <returns>A collection of registered reports</returns>
         IEnumerable<RegisteredReport> GetReportsByCategory
         (
-            string categoryName
+            Guid categoryId
         );
 
         /// <summary>

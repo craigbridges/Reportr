@@ -44,6 +44,7 @@
             this.Name = definition.Name;
             this.Title = definition.Title;
             this.Description = definition.Description;
+            this.HasData = false;
             this.ColumnCount = definition.ColumnCount;
             this.Culture = definition.Culture;
             this.FilterUsed = filterUsed;
@@ -92,6 +93,11 @@
         /// Gets the reports description
         /// </summary>
         public string Description { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the report has any data in it
+        /// </summary>
+        public bool HasData { get; private set; }
 
         /// <summary>
         /// Gets the number of columns in the report
@@ -154,6 +160,11 @@
 
             this.PageHeader = section;
 
+            if (section.HasData)
+            {
+                this.HasData = true;
+            }
+
             return this;
         }
 
@@ -180,6 +191,11 @@
             Validate.IsNotNull(section);
 
             this.ReportHeader = section;
+
+            if (section.HasData)
+            {
+                this.HasData = true;
+            }
 
             return this;
         }
@@ -208,6 +224,11 @@
 
             this.Body = section;
 
+            if (section.HasData)
+            {
+                this.HasData = true;
+            }
+
             return this;
         }
 
@@ -235,6 +256,11 @@
 
             this.ReportFooter = section;
 
+            if (section.HasData)
+            {
+                this.HasData = true;
+            }
+
             return this;
         }
 
@@ -260,6 +286,11 @@
             Validate.IsNotNull(section);
 
             this.PageFooter = section;
+
+            if (section.HasData)
+            {
+                this.HasData = true;
+            }
 
             return this;
         }

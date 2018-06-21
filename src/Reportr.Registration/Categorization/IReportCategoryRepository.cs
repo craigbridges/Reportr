@@ -9,7 +9,7 @@
     public interface IReportCategoryRepository
     {
         /// <summary>
-        /// Adds a category to the repository
+        /// Adds a single report category to the repository
         /// </summary>
         /// <param name="category">The category to add</param>
         void AddCategory
@@ -18,7 +18,7 @@
         );
 
         /// <summary>
-        /// Gets a category from the repository
+        /// Gets a single report category from the repository
         /// </summary>
         /// <param name="id">The ID of the category to get</param>
         /// <returns>The matching category</returns>
@@ -28,13 +28,32 @@
         );
 
         /// <summary>
-        /// Gets all categories in the repository
+        /// Gets all report categories in the repository
         /// </summary>
         /// <returns>A collection of categories</returns>
         IEnumerable<ReportCategory> GetAllCategories();
 
         /// <summary>
-        /// Removes a category from the repository
+        /// Gets sub report categories from a parent category
+        /// </summary>
+        /// <param name="parentCategoryId">The parent category ID</param>
+        /// <returns>A collection of report categories</returns>
+        IEnumerable<ReportCategory> GetSubCategories
+        (
+            Guid parentCategoryId
+        );
+
+        /// <summary>
+        /// Updates a single report category to the repository
+        /// </summary>
+        /// <param name="category">The category to update</param>
+        void UpdateCategory
+        (
+            ReportCategory category
+        );
+
+        /// <summary>
+        /// Removes a single report category from the repository
         /// </summary>
         /// <param name="id">The ID of the category to remove</param>
         void RemoveCategory

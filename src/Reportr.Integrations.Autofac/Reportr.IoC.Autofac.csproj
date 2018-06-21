@@ -7,8 +7,8 @@
     <ProjectGuid>{4EF09639-4F46-40E8-AFBD-10889A73714D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Reportr.Integrations.Autofac</RootNamespace>
-    <AssemblyName>Reportr.Integrations.Autofac</AssemblyName>
+    <RootNamespace>Reportr.IoC.Autofac</RootNamespace>
+    <AssemblyName>Reportr.IoC.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
