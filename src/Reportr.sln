@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.IoC.Autofac", "Repo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Registration", "Reportr.Registration\Reportr.Registration.csproj", "{B8604028-E123-4C2F-A217-342E65149B17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Registration.Entity", "Reportr.Registration.Entity\Reportr.Registration.Entity.csproj", "{5EBD3D81-B224-4870-83D2-30413B8DC0AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{B8604028-E123-4C2F-A217-342E65149B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8604028-E123-4C2F-A217-342E65149B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8604028-E123-4C2F-A217-342E65149B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EBD3D81-B224-4870-83D2-30413B8DC0AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EBD3D81-B224-4870-83D2-30413B8DC0AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EBD3D81-B224-4870-83D2-30413B8DC0AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EBD3D81-B224-4870-83D2-30413B8DC0AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

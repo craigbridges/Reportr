@@ -1,7 +1,9 @@
 ﻿namespace Reportr.Registration
 {
     using System;
-    
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+
     /// <summary>
     /// Represents a single registered report
     /// </summary>
@@ -35,6 +37,7 @@
             this.Id = Guid.NewGuid();
             this.DateCreated = DateTime.UtcNow;
             this.DateModified = DateTime.UtcNow;
+            this.SourceRevisions = new Collection<RegisteredReportSourceRevision>();
 
             this.Name = name;
             this.Title = title;
@@ -112,6 +115,15 @@
         public string Description { get; protected set; }
 
         /// <summary>
+        /// Gets a collection of report source revisions
+        /// </summary>
+        public virtual ICollection<RegisteredReportSourceRevision> SourceRevisions
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
         /// Gets the report definition source type
         /// </summary>
         public ReportDefinitionSourceType SourceType { get; protected set; }
@@ -127,6 +139,11 @@
         public string ScriptSourceCode { get; protected set; }
 
         /// <summary>
+        /// Gets the date and time the definition source was specified
+        /// </summary>
+        public DateTime DateSourceSpecified { get; protected set; }
+
+        /// <summary>
         /// Specifies the report definition source as a builder
         /// </summary>
         /// <param name="builder">The definition builder</param>
@@ -137,9 +154,15 @@
         {
             Validate.IsNotNull(builder);
 
+            this.SourceRevisions.Add
+            (
+                new RegisteredReportSourceRevision(this)
+            );
+
             this.SourceType = ReportDefinitionSourceType.Builder;
             this.BuilderTypeName = builder.GetType().Name;
             this.ScriptSourceCode = null;
+            this.DateSourceSpecified = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -151,9 +174,15 @@
                 string scriptSourceCode
             )
         {
+            this.SourceRevisions.Add
+            (
+                new RegisteredReportSourceRevision(this)
+            );
+
             this.SourceType = ReportDefinitionSourceType.Script;
             this.ScriptSourceCode = scriptSourceCode;
             this.BuilderTypeName = null;
+            this.DateSourceSpecified = DateTime.UtcNow;
         }
     }
 }

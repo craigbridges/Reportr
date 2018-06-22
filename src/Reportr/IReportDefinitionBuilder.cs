@@ -1,5 +1,7 @@
 ﻿namespace Reportr
 {
+    using Reportr.Data.Querying;
+
     /// <summary>
     /// Defines a contract for a service that builds report definitions
     /// </summary>
@@ -8,7 +10,11 @@
         /// <summary>
         /// Builds the report definition
         /// </summary>
+        /// <param name="queryRepository">The query repository</param>
         /// <returns>The report definition generated</returns>
-        ReportDefinition Build();
+        ReportDefinition Build
+        (
+            IQueryRepository queryRepository
+        );
     }
 }
