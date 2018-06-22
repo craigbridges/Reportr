@@ -25,7 +25,7 @@
         /// <summary>
         /// Gets or sets the activator service
         /// </summary>
-        public static IActivator Activator { get; set; }
+        public static IDependencyResolver Activator { get; set; }
 
         /// <summary>
         /// Gets the default time zone to use for dates

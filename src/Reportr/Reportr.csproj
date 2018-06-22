@@ -178,7 +178,8 @@
     <Compile Include="Filtering\ReportParameterDefinition.cs" />
     <Compile Include="Filtering\ReportParameterTargetType.cs" />
     <Compile Include="IMathExpressionEvaluator.cs" />
-    <Compile Include="IoC\IActivator.cs" />
+    <Compile Include="IoC\IDependencyResolver.cs" />
+    <Compile Include="IoC\IDependencyRegistrar.cs" />
     <Compile Include="IReportDefinitionBuilder.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />

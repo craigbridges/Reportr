@@ -62,6 +62,11 @@
         public virtual ReportCategory ParentCategory { get; protected set; }
 
         /// <summary>
+        /// Gets the parent report category ID
+        /// </summary>
+        public Guid? ParentCategoryId { get; protected set; }
+
+        /// <summary>
         /// Gets the category name
         /// </summary>
         public string Name { get; protected set; }

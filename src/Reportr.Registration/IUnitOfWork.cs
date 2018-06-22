@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Registration
 {
     using System;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents a Unit of Work contract that can be used with repositories
@@ -17,5 +18,11 @@
         /// </summary>
         /// <returns>The number of objects written to the database</returns>
         int SaveChanges();
+
+        /// <summary>
+        /// Asynchronously saves all changes made to the underlying database
+        /// </summary>
+        /// <returns>The number of objects written to the database</returns>
+        Task<int> SaveChangesAsync();
     }
 }

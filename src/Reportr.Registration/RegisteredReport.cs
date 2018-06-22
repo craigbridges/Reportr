@@ -163,6 +163,7 @@
             this.BuilderTypeName = builder.GetType().Name;
             this.ScriptSourceCode = null;
             this.DateSourceSpecified = DateTime.UtcNow;
+            this.DateModified = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -183,6 +184,7 @@
             this.ScriptSourceCode = scriptSourceCode;
             this.BuilderTypeName = null;
             this.DateSourceSpecified = DateTime.UtcNow;
+            this.DateModified = DateTime.UtcNow;
         }
     }
 }

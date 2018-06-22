@@ -35,7 +35,11 @@
                 RegisteredReport report
             )
         {
-            var nameUsed = _context.Set<RegisteredReport>().Any
+            Validate.IsNotNull(report);
+
+            var set = _context.Set<RegisteredReport>();
+
+            var nameUsed = set.Any
             (
                 r => r.Name.ToLower() == report.Name.ToLower()
             );
@@ -54,10 +58,7 @@
                 );
             }
 
-            _context.Set<RegisteredReport>().Add
-            (
-                report
-            );
+            set.Add(report);
         }
 
         /// <summary>
@@ -72,7 +73,9 @@
         {
             Validate.IsNotEmpty(name);
 
-            return _context.Set<RegisteredReport>().Any
+            var set = _context.Set<RegisteredReport>();
+
+            return set.Any
             (
                 r => r.Name.ToLower() == name.ToLower()
             );
@@ -88,7 +91,30 @@
                 string name
             )
         {
-            throw new NotImplementedException();
+            Validate.IsNotEmpty(name);
+
+            var set = _context.Set<RegisteredReport>();
+
+            var report = set.FirstOrDefault
+            (
+                r => r.Name.ToLower() == name.ToLower()
+            );
+
+            if (report == null)
+            {
+                var message = "No report was found with the name '{0}'.";
+
+                throw new KeyNotFoundException
+                (
+                    String.Format
+                    (
+                        message,
+                        name
+                    )
+                );
+            }
+
+            return report;
         }
 
         /// <summary>
@@ -97,7 +123,12 @@
         /// <returns>A collection of registered reports</returns>
         public IEnumerable<RegisteredReport> GetAllReports()
         {
-            throw new NotImplementedException();
+            var reports = _context.Set<RegisteredReport>();
+
+            return reports.OrderBy
+            (
+                a => a.Name
+            );
         }
 
         /// <summary>
@@ -109,7 +140,14 @@
                 RegisteredReport report
             )
         {
-            throw new NotImplementedException();
+            Validate.IsNotNull(report);
+
+            var entry = _context.Entry<RegisteredReport>
+            (
+                report
+            );
+
+            entry.State = EntityState.Modified;
         }
 
         /// <summary>
@@ -121,7 +159,28 @@
                 string name
             )
         {
-            throw new NotImplementedException();
+            Validate.IsNotEmpty(name);
+
+            var report = GetReport(name);
+
+            var entry = _context.Entry<RegisteredReport>
+            (
+                report
+            );
+
+            // Ensure the entity has been attached to the object state manager
+            if (entry.State == EntityState.Detached)
+            {
+                _context.Set<RegisteredReport>().Attach
+                (
+                    report
+                );
+            }
+
+            _context.Set<RegisteredReport>().Remove
+            (
+                report
+            );
         }
     }
 }
