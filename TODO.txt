@@ -6,6 +6,11 @@ High Priority
 	- Data.Json
 	- Data.Xml
 
+- IoC
+	- Autofac etc has hard coded registrations for all queries etc
+	- Any project that has custom interface implementations should create custom IDependencyRegistrar and register in ReportrEngine
+		- Autofac etc implementation then picks these up and registers them
+	
 - Create way of 'registering' and managing IQuery etc implementations so project can use with IoC containers
 	- Create container interface in Reportr core that inherits IContainer (see Autofac for example) and add to ReportrEngine
 
