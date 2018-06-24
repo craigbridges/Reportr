@@ -17,6 +17,16 @@
         );
 
         /// <summary>
+        /// Determines if a query exists with the name specified
+        /// </summary>
+        /// <param name="name">The name of the query</param>
+        /// <returns>True, if the query exists; otherwise false</returns>
+        bool QueryExists
+        (
+            string name
+        );
+
+        /// <summary>
         /// Gets all queries in the repository
         /// </summary>
         /// <returns>A collection of queries</returns>
@@ -28,6 +38,15 @@
         /// <param name="name">The query name</param>
         /// <returns>The matching query</returns>
         IQuery GetQuery
+        (
+            string name
+        );
+
+        /// <summary>
+        /// Removes a single query by name from the repository
+        /// </summary>
+        /// <param name="name">The query name</param>
+        void RemoveQuery
         (
             string name
         );

@@ -17,6 +17,16 @@
         );
 
         /// <summary>
+        /// Determines if a data source exists with the name specified
+        /// </summary>
+        /// <param name="name">The name of the data source</param>
+        /// <returns>True, if the source exists; otherwise false</returns>
+        bool DataSourceExists
+        (
+            string name
+        );
+
+        /// <summary>
         /// Gets a single data source by name
         /// </summary>
         /// <param name="name">The data source name</param>

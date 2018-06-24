@@ -533,5 +533,14 @@
 
             return errors;
         }
+
+        /// <summary>
+        /// Provides a custom description of the query
+        /// </summary>
+        /// <returns>The query name</returns>
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

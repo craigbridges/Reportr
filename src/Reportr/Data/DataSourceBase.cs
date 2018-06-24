@@ -80,6 +80,15 @@
         }
 
         /// <summary>
+        /// Provides a custom description of the data source
+        /// </summary>
+        /// <returns>The data source name</returns>
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
+        /// <summary>
         /// Disposes the data source by freeing up managed and unmanaged objects
         /// </summary>
         /// <param name="disposing">True, if the data source is disposing</param>

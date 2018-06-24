@@ -5,6 +5,7 @@
     using Reportr.Data.Querying;
     using Reportr.Data.Querying.Functions;
     using Reportr.Filtering;
+    using Reportr.IoC.Autofac.Repositories;
     using System;
     using System.Linq;
 
@@ -23,7 +24,6 @@
             )
         {
             // TODO: register rendering and templating services
-            // TODO: Core repositories (e.g. data sources etc, create Autofac implementations - see plugins example)
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
@@ -33,10 +33,18 @@
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
 
+            builder.RegisterType<AutofacDataSourceRepository>()
+                   .As<IDataSourceRepository>()
+                   .InstancePerLifetimeScope();
+
             builder.RegisterAssemblyTypes(assemblies)
                    .Where(t => typeof(IQuery)
                    .IsAssignableFrom(t))
                    .AsImplementedInterfaces()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<AutofacQueryRepository>()
+                   .As<IQueryRepository>()
                    .InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(assemblies)
