@@ -6,7 +6,6 @@
     using Reportr.Data.Querying.Functions;
     using Reportr.Filtering;
     using Reportr.IoC.Autofac.Repositories;
-    using System;
     using System.Linq;
 
     /// <summary>
@@ -25,7 +24,7 @@
         {
             // TODO: register rendering and templating services
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = builder.GetAssemblies();
 
             builder.RegisterAssemblyTypes(assemblies)
                    .Where(t => typeof(IDataSource)

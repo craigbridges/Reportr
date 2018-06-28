@@ -282,5 +282,22 @@
 
             return method.DeclaringType == type;
         }
+
+        /// <summary>
+        /// Determines if the type as a default constructor
+        /// </summary>
+        /// <param name="type">The type</param>
+        /// <returns>True, if a default constructor was found; otherwise false</returns>
+        public static bool HasDefaultConstructor
+            (
+                this Type type
+            )
+        {
+            return
+            (
+                type.IsValueType
+                    || type.GetConstructor(Type.EmptyTypes) != null
+            );
+        }
     }
 }

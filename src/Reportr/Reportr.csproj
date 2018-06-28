@@ -180,6 +180,9 @@
     <Compile Include="IMathExpressionEvaluator.cs" />
     <Compile Include="IoC\IDependencyResolver.cs" />
     <Compile Include="IoC\IDependencyRegistrar.cs" />
+    <Compile Include="IoC\ITypeRegister.cs" />
+    <Compile Include="IoC\RegisteredType.cs" />
+    <Compile Include="IoC\TypeResolver.cs" />
     <Compile Include="IReportDefinitionBuilder.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />

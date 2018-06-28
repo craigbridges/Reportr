@@ -1,3 +1,32 @@
+Unsorted
+--------
+
+- Can we use an "activator" mechanism for the two below? so we don't have a singleton:
+
+	/// <summary>
+	/// Gets or sets the template renderer instance
+	/// </summary>
+	public static ITemplateRenderer TemplateRenderer { get; set; }
+
+	/// <summary>
+	/// Gets or sets the math expression evaluator instance
+	/// </summary>
+	public static IMathExpressionEvaluator MathEvaluator { get; set; }
+
+- Need some sort of optional user info structure to check if they have permission.
+
+- Need to be able to default and disable report filter parameters based on user role (and associated meta data? E.g. user organisation key etc).
+
+- A report generator facade that hides the idea of report definition and auto authenticates user.
+
+- Report definition builder Build method should take query repository.
+
+- How do we instantiate report builder from type name? Dependency injection?
+
+- Do we need to log every report generation request and result?
+
+- How do we have a seperate dbcontext with migrations in the same database?
+
 High Priority
 -------------
 
@@ -8,8 +37,7 @@ High Priority
 
 - IoC
 	- Autofac etc has hard coded registrations for all queries etc
-	- Any project that has custom interface implementations should create custom IDependencyRegistrar and register in ReportrEngine
-		- Autofac etc implementation then picks these up and registers them
+	- Register DbContex
 	
 - Create way of 'registering' and managing IQuery etc implementations so project can use with IoC containers
 	- Create container interface in Reportr core that inherits IContainer (see Autofac for example) and add to ReportrEngine

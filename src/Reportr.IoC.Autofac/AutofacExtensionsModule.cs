@@ -1,8 +1,6 @@
 ﻿namespace Reportr.IoC.Autofac
 {
     using global::Autofac;
-    using System;
-    using System.Linq;
 
     /// <summary>
     /// Represents a custom extensions module for an Autofac container builder
@@ -18,10 +16,23 @@
                 ContainerBuilder builder
             )
         {
-            // TODO: find all dependency registrations by scanning assemblies and register them here
+            var assemblies = builder.GetAssemblies();
+            var resolver = new TypeResolver();
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            
+            var resolvedTypes = resolver.FindRegisteredTypes
+            (
+                assemblies
+            );
+
+            foreach (var registeredType in resolvedTypes)
+            {
+                var sourceType = registeredType.SourceType;
+                var asType = registeredType.ImplementationType;
+
+                builder.RegisterType(sourceType)
+                       .As(asType)
+                       .InstancePerLifetimeScope();
+            }
         }
     }
 }
