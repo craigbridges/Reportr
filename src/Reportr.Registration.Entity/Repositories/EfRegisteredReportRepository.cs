@@ -10,7 +10,7 @@
     /// </summary>
     public sealed class EfRegisteredReportRepository : IRegisteredReportRepository
     {
-        private readonly DbContext _context;
+        private readonly ReportrDbContext _context;
 
         /// <summary>
         /// Constructs the repository with a database context
@@ -18,7 +18,7 @@
         /// <param name="context">The database context</param>
         public EfRegisteredReportRepository
             (
-                DbContext context
+                ReportrDbContext context
             )
         {
             Validate.IsNotNull(context);

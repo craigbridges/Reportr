@@ -11,7 +11,7 @@
     /// </summary>
     public sealed class EfReportCategoryRepository : IReportCategoryRepository
     {
-        private readonly DbContext _context;
+        private readonly ReportrDbContext _context;
 
         /// <summary>
         /// Constructs the repository with a database context
@@ -19,7 +19,7 @@
         /// <param name="context">The database context</param>
         public EfReportCategoryRepository
             (
-                DbContext context
+                ReportrDbContext context
             )
         {
             Validate.IsNotNull(context);

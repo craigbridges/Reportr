@@ -3,7 +3,6 @@
     using Nito.AsyncEx.Synchronous;
     using System;
     using System.Data;
-    using System.Data.Entity;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -11,7 +10,7 @@
     /// </summary>
     public sealed class EfUnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _context;
+        private readonly ReportrDbContext _context;
 
         /// <summary>
         /// Constructs the unit of work with a database context
@@ -19,7 +18,7 @@
         /// <param name="context">The database context</param>
         public EfUnitOfWork
             (
-                DbContext context
+                ReportrDbContext context
             )
         {
             Validate.IsNotNull(context);
