@@ -8,6 +8,11 @@
     public class RegisteredReportSourceRevision
     {
         /// <summary>
+        /// Constructs the source revision with its default configuration
+        /// </summary>
+        protected RegisteredReportSourceRevision() { }
+
+        /// <summary>
         /// Constructs the source revision with the report definition
         /// </summary>
         /// <param name="report">The report definition</param>
@@ -18,6 +23,7 @@
         {
             Validate.IsNotNull(report);
 
+            this.RevisionId = Guid.NewGuid();
             this.Report = report;
             this.Number = report.SourceRevisions.Count + 1;
             this.DateOriginallySpecified = report.DateSourceSpecified;

@@ -4,8 +4,7 @@
     using Reportr.Registration.Categorization;
     using Reportr.Registration.Entity.Repositories;
     using System.Collections.Generic;
-    using System.Data.Entity;
-
+    
     /// <summary>
     /// Represents an entity type register implementation
     /// </summary>
@@ -17,14 +16,12 @@
         /// <returns>A collection of registered types</returns>
         public IEnumerable<RegisteredType> GetRegisteredTypes()
         {
-            // TODO: correct DbContext
-
             return new List<RegisteredType>()
             {
                 new RegisteredType
                 (
-                    typeof(DbContext),
-                    typeof(DbContext)
+                    typeof(ReportrDbContext),
+                    typeof(ReportrDbContext)
                 ),
                 new RegisteredType
                 (

@@ -58,7 +58,7 @@
 
             var category = set.FirstOrDefault
             (
-                r => r.CategoryId == id
+                r => r.Id == id
             );
 
             if (category == null)

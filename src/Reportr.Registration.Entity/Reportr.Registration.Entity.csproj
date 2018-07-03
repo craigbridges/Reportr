@@ -68,6 +68,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ReportCategoryAssignmentConfiguration.cs" />
+    <Compile Include="Configurations\ReportCategoryConfiguration.cs" />
+    <Compile Include="Configurations\RegisteredReportSourceRevisionConfiguration.cs" />
+    <Compile Include="Configurations\RegisteredReportConfiguration.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="EfUnitOfWork.cs" />
     <Compile Include="EntityTypeRegister.cs" />
@@ -91,9 +95,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configurations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

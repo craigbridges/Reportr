@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Registration.Entity
 {
     using Reportr.Registration.Categorization;
+    using Reportr.Registration.Entity.Configurations;
     using Reportr.Registration.Entity.Migrations;
     using System.Data.Entity;
 
@@ -9,6 +10,13 @@
     /// </summary>
     public class ReportrDbContext : DbContext
     {
+        /// <summary>
+        /// Constructs the context with migrations enabled
+        /// </summary>
+        public ReportrDbContext()
+            : this(typeof(ReportrDbContext).Name)
+        { }
+
         /// <summary>
         /// Constructs the context with migrations enabled
         /// </summary>
@@ -51,8 +59,14 @@
         {
             base.OnModelCreating(modelBuilder);
 
+            var registrar = modelBuilder.Configurations;
+
             modelBuilder.HasDefaultSchema("reportr");
-            //modelBuilder.ConfigureReportEntities();
+            
+            registrar.Add(new RegisteredReportConfiguration());
+            registrar.Add(new RegisteredReportSourceRevisionConfiguration());
+            registrar.Add(new ReportCategoryConfiguration());
+            registrar.Add(new ReportCategoryAssignmentConfiguration());
         }
     }
 }

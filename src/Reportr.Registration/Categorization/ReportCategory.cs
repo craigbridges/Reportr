@@ -11,6 +11,11 @@
     public class ReportCategory
     {
         /// <summary>
+        /// Constructs the report category with its default configuration
+        /// </summary>
+        protected ReportCategory() { }
+
+        /// <summary>
         /// Constructs the category with a name and description
         /// </summary>
         /// <param name="name">The name</param>
@@ -23,7 +28,7 @@
         {
             Validate.IsNotEmpty(name);
 
-            this.CategoryId = Guid.NewGuid();
+            this.Id = Guid.NewGuid();
             this.Name = name;
             this.Description = description;
 
@@ -54,7 +59,7 @@
         /// <summary>
         /// Gets the category ID
         /// </summary>
-        public Guid CategoryId { get; protected set; }
+        public Guid Id { get; protected set; }
 
         /// <summary>
         /// Gets the parent report category
@@ -123,7 +128,7 @@
         {
             var subCategory = this.SubCategories.FirstOrDefault
             (
-                c => c.CategoryId == id
+                c => c.Id == id
             );
 
             if (subCategory == null)
@@ -196,6 +201,7 @@
 
             var assignment = new ReportCategoryAssignment
             (
+                this,
                 reportName
             );
 
