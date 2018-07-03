@@ -13,19 +13,49 @@
         private static TimeZoneInfo _defaultTimeZone = TimeZoneInfo.Local;
 
         /// <summary>
-        /// Gets or sets the template renderer instance
+        /// Gets the template renderer instance
         /// </summary>
-        public static ITemplateRenderer TemplateRenderer { get; set; }
+        public static ITemplateRenderer TemplateRenderer
+        {
+            get
+            {
+                return ResolveService<ITemplateRenderer>();
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the math expression evaluator instance
+        /// Gets the math expression evaluator instance
         /// </summary>
-        public static IMathExpressionEvaluator MathEvaluator { get; set; }
-        
+        public static IMathExpressionEvaluator MathEvaluator
+        {
+            get
+            {
+                return ResolveService<IMathExpressionEvaluator>();
+            }
+        }
+
         /// <summary>
         /// Gets or sets the activator service
         /// </summary>
         public static IDependencyResolver Activator { get; set; }
+
+        /// <summary>
+        /// Resolves a service of the type specified
+        /// </summary>
+        /// <typeparam name="T">The service type</typeparam>
+        /// <returns>The service instance</returns>
+        private static T ResolveService<T>() where T : class
+        {
+            if (ReportrEngine.Activator == null)
+            {
+                throw new InvalidOperationException
+                (
+                    "ReportrEngine.Activator has not been configured."
+                );
+            }
+
+            return ReportrEngine.Activator.Resolve<T>();
+        }
 
         /// <summary>
         /// Gets the default time zone to use for dates

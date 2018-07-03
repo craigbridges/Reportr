@@ -32,6 +32,10 @@
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
 
+            builder.RegisterType<AutofacDependencyResolver>()
+                   .As<IDependencyResolver>()
+                   .InstancePerLifetimeScope();
+
             builder.RegisterType<AutofacDataSourceRepository>()
                    .As<IDataSourceRepository>()
                    .InstancePerLifetimeScope();
