@@ -18,7 +18,7 @@
                 m => new { m.AssignmentId }
             );
 
-            // Configure the primary key contraints
+            // Configure the primary key constraints
             Property(m => m.AssignmentId)
                 .HasDatabaseGeneratedOption
                 (

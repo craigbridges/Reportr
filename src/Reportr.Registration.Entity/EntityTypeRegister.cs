@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Registration.Entity
 {
     using Reportr.IoC;
+    using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using Reportr.Registration.Entity.Repositories;
     using System.Collections.Generic;
@@ -37,6 +38,11 @@
                 (
                     typeof(IReportCategoryRepository),
                     typeof(EfReportCategoryRepository)
+                ),
+                new RegisteredType
+                (
+                    typeof(IReportRoleRepository),
+                    typeof(EfReportRoleRepository)
                 )
             };
         }

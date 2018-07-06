@@ -1,15 +1,16 @@
 ﻿namespace Reportr.Registration.Entity.Configurations
 {
+    using Reportr.Registration.Authorization;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.ModelConfiguration;
 
     /// <summary>
-    /// Represents an entity type configuration for a registered report
+    /// Represents an entity type configuration for a report role
     /// </summary>
-    public class RegisteredReportConfiguration : EntityTypeConfiguration<RegisteredReport>
+    public class ReportRoleConfiguration : EntityTypeConfiguration<ReportRole>
     {
-        public RegisteredReportConfiguration()
+        public ReportRoleConfiguration()
             : base()
         {
             var indexAttribute = new IndexAttribute()
@@ -38,7 +39,7 @@
             (
                 m =>
                 {
-                    m.ToTable("RegisteredReports");
+                    m.ToTable("ReportRoles");
                 }
             );
         }

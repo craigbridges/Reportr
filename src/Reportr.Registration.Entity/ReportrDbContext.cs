@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration.Entity
 {
+    using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using Reportr.Registration.Entity.Configurations;
     using Reportr.Registration.Entity.Migrations;
@@ -48,7 +49,12 @@
         /// Gets or sets the registered report categories set
         /// </summary>
         public DbSet<ReportCategory> ReportCategories { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the registered report roles set
+        /// </summary>
+        public DbSet<ReportRole> ReportRoles { get; set; }
+
         /// <summary>
         /// Handles the model creation process by injecting entity configurations into the model builder
         /// </summary>
@@ -67,6 +73,7 @@
             registrar.Add(new RegisteredReportSourceRevisionConfiguration());
             registrar.Add(new ReportCategoryConfiguration());
             registrar.Add(new ReportCategoryAssignmentConfiguration());
+            registrar.Add(new ReportRoleConfiguration());
         }
     }
 }

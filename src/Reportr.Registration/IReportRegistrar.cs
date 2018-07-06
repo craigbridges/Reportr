@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration
 {
+    using Reportr.Registration.Authorization;
     using System;
     using System.Collections.Generic;
     
@@ -65,7 +66,7 @@
         IEnumerable<RegisteredReport> GetAllReports();
 
         /// <summary>
-        /// Gets all registered reports
+        /// Gets all registered reports in a category
         /// </summary>
         /// <param name="categoryId">The category ID</param>
         /// <returns>A collection of registered reports</returns>
@@ -74,6 +75,28 @@
             Guid categoryId
         );
 
+        /// <summary>
+        /// Gets all registered reports for a single user
+        /// </summary>
+        /// <param name="userInfo">The user information</param>
+        /// <returns>A collection of registered reports</returns>
+        IEnumerable<RegisteredReport> GetReportsForUser
+        (
+            ReportUserInfo userInfo
+        );
+
+        /// <summary>
+        /// Gets all registered reports for a user and category
+        /// </summary>
+        /// <param name="userInfo">The user information</param>
+        /// <param name="categoryId">The category ID</param>
+        /// <returns>A collection of registered reports</returns>
+        IEnumerable<RegisteredReport> GetReportsForUser
+        (
+            ReportUserInfo userInfo,
+            Guid categoryId
+        );
+        
         /// <summary>
         /// Specifies the report definition source as a builder
         /// </summary>

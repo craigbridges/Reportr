@@ -17,7 +17,7 @@
                 m => new { m.RevisionId }
             );
 
-            // Configure the primary key contraints
+            // Configure the primary key constraints
             Property(m => m.RevisionId)
                 .HasDatabaseGeneratedOption
                 (
