@@ -56,6 +56,11 @@
         public DbSet<ReportRole> ReportRoles { get; set; }
 
         /// <summary>
+        /// Gets or sets the registered report role assignments set
+        /// </summary>
+        public DbSet<ReportRoleAssignment> ReportRoleAssignments { get; set; }
+
+        /// <summary>
         /// Handles the model creation process by injecting entity configurations into the model builder
         /// </summary>
         protected override void OnModelCreating
@@ -74,6 +79,7 @@
             registrar.Add(new ReportCategoryConfiguration());
             registrar.Add(new ReportCategoryAssignmentConfiguration());
             registrar.Add(new ReportRoleConfiguration());
+            registrar.Add(new ReportRoleAssignmentConfiguration());
         }
     }
 }

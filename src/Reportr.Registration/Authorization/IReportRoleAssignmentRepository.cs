@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration.Authorization
 {
+    using System;
     using System.Collections.Generic;
     
     /// <summary>
@@ -17,13 +18,25 @@
         );
 
         /// <summary>
+        /// Determines if a role has been assigned to a report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        /// <returns>True, if the role has been assigned; otherwise false</returns>
+        bool IsRoleAssigned
+        (
+            string reportName,
+            string roleName
+        );
+
+        /// <summary>
         /// Gets a single report role assignment from the repository
         /// </summary>
-        /// <param name="name">The key of the assignment to get</param>
+        /// <param name="id">The ID of the assignment to get</param>
         /// <returns>The matching role</returns>
         ReportRoleAssignment GetAssignment
         (
-            string key
+            Guid id
         );
 
         /// <summary>
@@ -44,10 +57,21 @@
         /// <summary>
         /// Removes a single report role assignment from the repository
         /// </summary>
-        /// <param name="key">The key of the assignment to remove</param>
+        /// <param name="ID">The ID of the assignment to remove</param>
         void RemoveAssignment
         (
-            string key
+            Guid id
+        );
+
+        /// <summary>
+        /// Removes a single report role assignment from the repository
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        void RemoveAssignment
+        (
+            string reportName,
+            string roleName
         );
     }
 }

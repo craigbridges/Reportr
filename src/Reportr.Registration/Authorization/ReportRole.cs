@@ -25,16 +25,15 @@
                 string description
             )
         {
-            Validate.IsNotNull(name);
-            Validate.IsNotNull(title);
-
             this.Id = Guid.NewGuid();
             this.DateCreated = DateTime.UtcNow;
-            this.DateModified = DateTime.UtcNow;
 
-            this.Name = name;
-            this.Title = title;
-            this.Description = description;
+            Configure
+            (
+                name,
+                title,
+                description
+            );
         }
         
         /// <summary>
@@ -66,5 +65,28 @@
         /// Gets a description of the report
         /// </summary>
         public string Description { get; protected set; }
+
+        /// <summary>
+        /// Configures the report role
+        /// </summary>
+        /// <param name="name">The name</param>
+        /// <param name="title">The title</param>
+        /// <param name="description">The description</param>
+        internal void Configure
+            (
+                string name,
+                string title,
+                string description
+            )
+        {
+            Validate.IsNotNull(name);
+            Validate.IsNotNull(title);
+
+            this.DateModified = DateTime.UtcNow;
+
+            this.Name = name;
+            this.Title = title;
+            this.Description = description;
+        }
     }
 }

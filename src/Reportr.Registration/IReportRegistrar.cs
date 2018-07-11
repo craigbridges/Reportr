@@ -1,7 +1,6 @@
 ﻿namespace Reportr.Registration
 {
     using Reportr.Registration.Authorization;
-    using System;
     using System.Collections.Generic;
     
     /// <summary>
@@ -68,11 +67,11 @@
         /// <summary>
         /// Gets all registered reports in a category
         /// </summary>
-        /// <param name="categoryId">The category ID</param>
+        /// <param name="categoryName">The category name</param>
         /// <returns>A collection of registered reports</returns>
         IEnumerable<RegisteredReport> GetReportsByCategory
         (
-            Guid categoryId
+            string categoryName
         );
 
         /// <summary>
@@ -89,12 +88,12 @@
         /// Gets all registered reports for a user and category
         /// </summary>
         /// <param name="userInfo">The user information</param>
-        /// <param name="categoryId">The category ID</param>
+        /// <param name="categoryName">The category string</param>
         /// <returns>A collection of registered reports</returns>
         IEnumerable<RegisteredReport> GetReportsForUser
         (
             ReportUserInfo userInfo,
-            Guid categoryId
+            string categoryName
         );
         
         /// <summary>

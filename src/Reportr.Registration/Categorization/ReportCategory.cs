@@ -19,17 +19,21 @@
         /// Constructs the category with a name and description
         /// </summary>
         /// <param name="name">The name</param>
+        /// <param name="title">The title</param>
         /// <param name="description">The description</param>
         public ReportCategory
             (
                 string name,
+                string title,
                 string description = null
             )
         {
             Validate.IsNotEmpty(name);
+            Validate.IsNotEmpty(title);
 
             this.Id = Guid.NewGuid();
             this.Name = name;
+            this.Title = title;
             this.Description = description;
 
             this.SubCategories = new Collection<ReportCategory>();
@@ -41,15 +45,17 @@
         /// </summary>
         /// <param name="parentCategory">The parent category</param>
         /// <param name="name">The name</param>
+        /// <param name="title">The title</param>
         /// <param name="description">The description</param>
         protected ReportCategory
             (
                 ReportCategory parentCategory,
                 string name,
+                string title,
                 string description = null
             )
 
-            : this(name, description)
+            : this(name, title, description)
         {
             Validate.IsNotNull(parentCategory);
 
@@ -75,6 +81,11 @@
         /// Gets the category name
         /// </summary>
         public string Name { get; protected set; }
+
+        /// <summary>
+        /// Gets the category title
+        /// </summary>
+        public string Title { get; protected set; }
 
         /// <summary>
         /// Gets the category description

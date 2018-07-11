@@ -45,12 +45,14 @@
     <Compile Include="Authorization\IReportRoleRepository.cs" />
     <Compile Include="Authorization\ReportRoleAssignment.cs" />
     <Compile Include="Authorization\ReportRole.cs" />
+    <Compile Include="Authorization\ReportRoleManager.cs" />
     <Compile Include="Authorization\ReportUserInfo.cs" />
     <Compile Include="Categorization\IReportCategorizer.cs" />
     <Compile Include="Categorization\IReportCategoryRepository.cs" />
     <Compile Include="Categorization\ReportCategorizer.cs" />
     <Compile Include="Categorization\ReportCategory.cs" />
     <Compile Include="Categorization\ReportCategoryAssignment.cs" />
+    <Compile Include="RegistrationTypeRegister.cs" />
     <Compile Include="IRegisteredReportRepository.cs" />
     <Compile Include="IReportRegistrar.cs" />
     <Compile Include="IUnitOfWork.cs" />

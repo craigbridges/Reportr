@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration
 {
+    using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using System;
     using System.Collections.Generic;
@@ -12,6 +13,7 @@
     {
         private readonly IRegisteredReportRepository _reportRepository;
         private readonly IReportCategoryRepository _categoryRepository;
+        private readonly IReportRoleAssignmentRepository _roleAssignmentRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
@@ -19,20 +21,24 @@
         /// </summary>
         /// <param name="reportRepository">The report repository</param>
         /// <param name="categoryRepository">The category repository</param>
+        /// <param name="roleAssignmentRepository">The role assignment repository</param>
         /// <param name="unitOfWork">The unit of work</param>
         public ReportRegistrar
             (
                 IRegisteredReportRepository reportRepository,
                 IReportCategoryRepository categoryRepository,
+                IReportRoleAssignmentRepository roleAssignmentRepository,
                 IUnitOfWork unitOfWork
             )
         {
             Validate.IsNotNull(reportRepository);
             Validate.IsNotNull(categoryRepository);
+            Validate.IsNotNull(roleAssignmentRepository);
             Validate.IsNotNull(unitOfWork);
 
             _reportRepository = reportRepository;
             _categoryRepository = categoryRepository;
+            _roleAssignmentRepository = roleAssignmentRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -168,16 +174,16 @@
         /// <summary>
         /// Gets all registered reports
         /// </summary>
-        /// <param name="categoryId">The category ID</param>
+        /// <param name="categoryName">The category name</param>
         /// <returns>A collection of registered reports</returns>
         public IEnumerable<RegisteredReport> GetReportsByCategory
             (
-                Guid categoryId
+                string categoryName
             )
         {
             var category = _categoryRepository.GetCategory
             (
-                categoryId
+                categoryName
             );
 
             var reportNames = category.AssignedReports.Select
@@ -197,6 +203,39 @@
             );
 
             return matchingReports;
+        }
+
+        /// <summary>
+        /// Gets all registered reports for a single user
+        /// </summary>
+        /// <param name="userInfo">The user information</param>
+        /// <returns>A collection of registered reports</returns>
+        public IEnumerable<RegisteredReport> GetReportsForUser
+            (
+                ReportUserInfo userInfo
+            )
+        {
+            Validate.IsNotNull(userInfo);
+
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets all registered reports for a user and category
+        /// </summary>
+        /// <param name="userInfo">The user information</param>
+        /// <param name="categoryName">The category string</param>
+        /// <returns>A collection of registered reports</returns>
+        public IEnumerable<RegisteredReport> GetReportsForUser
+            (
+                ReportUserInfo userInfo,
+                string categoryName
+            )
+        {
+            Validate.IsNotNull(userInfo);
+            Validate.IsNotEmpty(categoryName);
+
+            throw new NotImplementedException();
         }
 
         /// <summary>

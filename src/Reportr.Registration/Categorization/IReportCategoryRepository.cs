@@ -18,6 +18,16 @@
         );
 
         /// <summary>
+        /// Determines if a category name is available
+        /// </summary>
+        /// <param name="categoryName">The category name</param>
+        /// <returns>True, if the name is available; otherwise false</returns>
+        bool IsNameAvailable
+        (
+            string categoryName
+        );
+
+        /// <summary>
         /// Gets a single report category from the repository
         /// </summary>
         /// <param name="id">The ID of the category to get</param>
@@ -25,6 +35,16 @@
         ReportCategory GetCategory
         (
             Guid id
+        );
+
+        /// <summary>
+        /// Gets a single report category from the repository
+        /// </summary>
+        /// <param name="name">The category name</param>
+        /// <returns>The matching category</returns>
+        ReportCategory GetCategory
+        (
+            string name
         );
 
         /// <summary>
@@ -44,6 +64,16 @@
         );
 
         /// <summary>
+        /// Gets sub report categories from a parent category
+        /// </summary>
+        /// <param name="parentCategoryName">The parent category name</param>
+        /// <returns>A collection of report categories</returns>
+        IEnumerable<ReportCategory> GetSubCategories
+        (
+            string parentCategoryName
+        );
+
+        /// <summary>
         /// Updates a single report category to the repository
         /// </summary>
         /// <param name="category">The category to update</param>
@@ -59,6 +89,15 @@
         void RemoveCategory
         (
             Guid id
+        );
+
+        /// <summary>
+        /// Removes a single report category from the repository
+        /// </summary>
+        /// <param name="name">The name of the category to remove</param>
+        void RemoveCategory
+        (
+            string name
         );
     }
 }

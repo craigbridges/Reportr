@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ReportRoleAssignmentConfiguration.cs" />
     <Compile Include="Configurations\ReportRoleConfiguration.cs" />
     <Compile Include="Configurations\ReportCategoryAssignmentConfiguration.cs" />
     <Compile Include="Configurations\ReportCategoryConfiguration.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportrDbContext.cs" />
+    <Compile Include="Repositories\EfReportRoleAssignmentRepository.cs" />
     <Compile Include="Repositories\EfReportRoleRepository.cs" />
     <Compile Include="Repositories\EfReportCategoryRepository.cs" />
     <Compile Include="Repositories\EfRegisteredReportRepository.cs" />

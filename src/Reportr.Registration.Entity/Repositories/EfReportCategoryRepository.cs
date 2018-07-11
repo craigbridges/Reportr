@@ -37,10 +37,30 @@
             )
         {
             Validate.IsNotNull(category);
-
+            
             _context.Set<ReportCategory>().Add
             (
                 category
+            );
+        }
+
+        /// <summary>
+        /// Determines if a category name is available
+        /// </summary>
+        /// <param name="categoryName">The category name</param>
+        /// <returns>True, if the name is available; otherwise false</returns>
+        public bool IsNameAvailable
+            (
+                string categoryName
+            )
+        {
+            Validate.IsNotEmpty(categoryName);
+
+            var set = _context.Set<ReportCategory>();
+
+            return set.Any
+            (
+                category => category.Name.ToLower() == categoryName.ToLower()
             );
         }
 
@@ -54,24 +74,52 @@
                 Guid id
             )
         {
+            return GetCategory
+            (
+                category => category.Id == id
+            );
+        }
+
+        /// <summary>
+        /// Gets a single report category from the repository
+        /// </summary>
+        /// <param name="name">The category name</param>
+        /// <returns>The matching category</returns>
+        public ReportCategory GetCategory
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            return GetCategory
+            (
+                category => category.Name.ToLower() == name.ToLower()
+            );
+        }
+
+        /// <summary>
+        /// Gets a report category using the predicate specified
+        /// </summary>
+        /// <param name="predicate">The predicate</param>
+        /// <returns>The matching category</returns>
+        private ReportCategory GetCategory
+            (
+                Func<ReportCategory, bool> predicate
+            )
+        {
             var set = _context.Set<ReportCategory>();
 
             var category = set.FirstOrDefault
             (
-                r => r.Id == id
+                predicate
             );
 
             if (category == null)
             {
-                var message = "No category was found matching the ID '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        id.ToString()
-                    )
+                    "No category was found matching the key specified."
                 );
             }
 
@@ -116,6 +164,31 @@
         }
 
         /// <summary>
+        /// Gets sub report categories from a parent category
+        /// </summary>
+        /// <param name="parentCategoryName">The parent category name</param>
+        /// <returns>A collection of report categories</returns>
+        public IEnumerable<ReportCategory> GetSubCategories
+            (
+                string parentCategoryName
+            )
+        {
+            Validate.IsNotEmpty(parentCategoryName);
+
+            var set = _context.Set<ReportCategory>();
+
+            var categories = set.Where
+            (
+                c => c.ParentCategory.Name.ToLower() == parentCategoryName.ToLower()
+            );
+
+            return categories.OrderBy
+            (
+                a => a.Name
+            );
+        }
+
+        /// <summary>
         /// Updates a single report category to the repository
         /// </summary>
         /// <param name="category">The category to update</param>
@@ -125,7 +198,7 @@
             )
         {
             Validate.IsNotNull(category);
-
+            
             var entry = _context.Entry<ReportCategory>
             (
                 category
@@ -145,6 +218,32 @@
         {
             var category = GetCategory(id);
 
+            RemoveCategory(category);
+        }
+
+        /// <summary>
+        /// Removes a single report category from the repository
+        /// </summary>
+        /// <param name="name">The category name</param>
+        public void RemoveCategory
+            (
+                string name
+            )
+        {
+            var category = GetCategory(name);
+
+            RemoveCategory(category);
+        }
+
+        /// <summary>
+        /// Removes a single report category from the repository
+        /// </summary>
+        /// <param name="category">The category to remove</param>
+        public void RemoveCategory
+            (
+                ReportCategory category
+            )
+        {
             var entry = _context.Entry<ReportCategory>
             (
                 category

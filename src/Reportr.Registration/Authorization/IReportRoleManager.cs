@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Registration.Authorization
 {
-    using System;
     using System.Collections.Generic;
     
     /// <summary>
@@ -8,9 +7,6 @@
     /// </summary>
     public interface IReportRoleManager
     {
-        // TODO: CRUD assignments
-
-        
         /// <summary>
         /// Creates a new report role
         /// </summary>
@@ -65,6 +61,38 @@
             string name
         );
 
+        /// <summary>
+        /// Determines if a role has been assigned to a report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        /// <returns>True, if the role has been assigned; otherwise false</returns>
+        bool IsRoleAssigned
+        (
+            string reportName,
+            string roleName
+        );
 
+        /// <summary>
+        /// Assigns a role to a report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        void AssignRoleToReport
+        (
+            string reportName,
+            string roleName
+        );
+
+        /// <summary>
+        /// Unassigns a role from a report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        void UnassignRoleFromReport
+        (
+            string reportName,
+            string roleName
+        );
     }
 }

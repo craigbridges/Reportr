@@ -43,6 +43,11 @@
                 (
                     typeof(IReportRoleRepository),
                     typeof(EfReportRoleRepository)
+                ),
+                new RegisteredType
+                (
+                    typeof(IReportRoleAssignmentRepository),
+                    typeof(EfReportRoleAssignmentRepository)
                 )
             };
         }
