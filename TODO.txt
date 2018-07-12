@@ -1,13 +1,8 @@
 Unsorted
 --------
 
-*** Roles
-	- Implement both GetReportsForUser methods
-	- Assign role(s) to registered report
-		- Each assignment can have filter parameter restrictions
-			- Each restriction can specify if it's visible/hidden, what the default value is or what meta data item it binds to
-
-- A report generator facade that hides the idea of report definition and auto authenticates user.
+- A report generator facade that hides the idea of report definition and auto authenticates user
+	- Also need a facade for report filters so that we can generate filter with defaulted values (based on role assignment constraints) and set a flag to disable/hide them - then enforce these rules upon report generation
 
 - How do we instantiate report builder from type name? Dependency injection?
 

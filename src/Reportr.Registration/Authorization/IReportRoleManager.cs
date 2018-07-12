@@ -78,10 +78,25 @@
         /// </summary>
         /// <param name="reportName">The report name</param>
         /// <param name="roleName">The role name</param>
+        /// <param name="constraints">The parameter constraints</param>
         void AssignRoleToReport
         (
             string reportName,
-            string roleName
+            string roleName,
+            params ReportParameterConstraintConfiguration[] constraints
+        );
+
+        /// <summary>
+        /// Sets the report parameter constraints for a role assignment
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        /// <param name="constraints">The parameter constraints</param>
+        void SetAssignedRoleConstraints
+        (
+            string reportName,
+            string roleName,
+            params ReportParameterConstraintConfiguration[] constraints
         );
 
         /// <summary>

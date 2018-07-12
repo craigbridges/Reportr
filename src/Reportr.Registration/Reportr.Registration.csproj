@@ -43,6 +43,9 @@
     <Compile Include="Authorization\IReportRoleAssignmentRepository.cs" />
     <Compile Include="Authorization\IReportRoleManager.cs" />
     <Compile Include="Authorization\IReportRoleRepository.cs" />
+    <Compile Include="Authorization\ReportParameterConstraintConfiguration.cs" />
+    <Compile Include="Authorization\ReportParameterConstraint.cs" />
+    <Compile Include="Authorization\ReportParameterMappingType.cs" />
     <Compile Include="Authorization\ReportRoleAssignment.cs" />
     <Compile Include="Authorization\ReportRole.cs" />
     <Compile Include="Authorization\ReportRoleManager.cs" />

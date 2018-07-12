@@ -78,28 +78,138 @@
                 Guid id
             )
         {
+            return GetAssignment
+            (
+                assignment => assignment.Id == id
+            );
+        }
+
+        /// <summary>
+        /// Gets a single report role assignment from the repository
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        /// <returns>The matching role</returns>
+        public ReportRoleAssignment GetAssignment
+            (
+                string reportName,
+                string roleName
+            )
+        {
+            Validate.IsNotEmpty(reportName);
+            Validate.IsNotEmpty(roleName);
+
+            return GetAssignment
+            (
+                assignment => assignment.ReportName.ToLower() == reportName.ToLower()
+                    && assignment.RoleName.ToLower() == roleName.ToLower()
+            );
+        }
+
+        /// <summary>
+        /// Gets a single report role assignment from the repository
+        /// </summary>
+        /// <param name="predicate">The predicate</param>
+        /// <returns>The matching role</returns>
+        private ReportRoleAssignment GetAssignment
+            (
+                Func<ReportRoleAssignment, bool> predicate
+            )
+        {
             var set = _context.Set<ReportRoleAssignment>();
 
             var assignment = set.FirstOrDefault
             (
-                r => r.Id == id
+                predicate
             );
 
             if (assignment == null)
             {
-                var message = "No role assignment was found matching the ID '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        id.ToString()
-                    )
+                    "No role assignment was found matching the key specified."
                 );
             }
 
             return assignment;
+        }
+
+        /// <summary>
+        /// Gets report role assignments for any of the roles specified
+        /// </summary>
+        /// <param name="roleNames">The role names</param>
+        /// <returns>A collection of role assignments</returns>
+        public IEnumerable<ReportRoleAssignment> GetAssignmentsForRoles
+            (
+                params string[] roleNames
+            )
+        {
+            Validate.IsNotNull(roleNames);
+
+            var set = _context.Set<ReportRoleAssignment>();
+
+            var assignments = set.Where
+            (
+                a => roleNames.Any
+                (
+                    role => a.RoleName.ToLower() == role.ToLower()
+                )
+            );
+
+            return assignments.OrderBy
+            (
+                a => a.ReportName
+            );
+        }
+
+        /// <summary>
+        /// Gets report role assignments for a specific role
+        /// </summary>
+        /// <param name="roleName">The role name</param>
+        /// <returns>A collection of role assignments</returns>
+        public IEnumerable<ReportRoleAssignment> GetAssignmentsForRole
+            (
+                string roleName
+            )
+        {
+            Validate.IsNotEmpty(roleName);
+
+            var set = _context.Set<ReportRoleAssignment>();
+
+            var assignments = set.Where
+            (
+                a => a.RoleName.ToLower() == roleName.ToLower()
+            );
+
+            return assignments.OrderBy
+            (
+                a => a.ReportName
+            );
+        }
+
+        /// <summary>
+        /// Gets report role assignments for a specific report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <returns>A collection of role assignments</returns>
+        public IEnumerable<ReportRoleAssignment> GetAssignmentsForReport
+            (
+                string reportName
+            )
+        {
+            Validate.IsNotEmpty(reportName);
+
+            var set = _context.Set<ReportRoleAssignment>();
+
+            var assignments = set.Where
+            (
+                a => a.ReportName.ToLower() == reportName.ToLower()
+            );
+
+            return assignments.OrderBy
+            (
+                a => a.RoleName
+            );
         }
 
         /// <summary>

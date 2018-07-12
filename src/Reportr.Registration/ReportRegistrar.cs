@@ -196,9 +196,9 @@
 
             var matchingReports = allReports.Where
             (
-                r => reportNames.Any
+                report => reportNames.Any
                 (
-                    name => name.ToLower() == r.Name.ToLower()
+                    name => name.ToLower() == report.Name.ToLower()
                 )
             );
 
@@ -217,7 +217,51 @@
         {
             Validate.IsNotNull(userInfo);
 
-            throw new NotImplementedException();
+            if (userInfo.Roles == null)
+            {
+                throw new ArgumentException
+                (
+                    "No user roles have been defined."
+                );
+            }
+
+            var assignments = _roleAssignmentRepository.GetAssignmentsForRoles
+            (
+                userInfo.Roles
+            );
+
+            var reportNames = assignments.Select
+            (
+                a => a.ReportName
+            );
+
+            reportNames = reportNames.Distinct();
+
+            var allReports = _reportRepository.GetAllReports();
+
+            // Get reports that match the role assignments
+            var matchingReports = allReports.Where
+            (
+                report => reportNames.Any
+                (
+                    name => report.Name.ToLower() == name.ToLower()
+                )
+            );
+
+            // Get reports without roles and merge them with the matching reports
+            var reportsWithoutRoles = GetReportsWithoutRoles();
+
+            var userReports = new List<RegisteredReport>
+            (
+                matchingReports
+            );
+            
+            userReports.AddRange(reportsWithoutRoles);
+
+            return userReports.OrderBy
+            (
+                a => a.Name
+            );
         }
 
         /// <summary>
@@ -234,8 +278,65 @@
         {
             Validate.IsNotNull(userInfo);
             Validate.IsNotEmpty(categoryName);
+            
+            var category = _categoryRepository.GetCategory
+            (
+                categoryName
+            );
 
-            throw new NotImplementedException();
+            var reportNames = category.AssignedReports.Select
+            (
+                a => a.ReportName
+            )
+            .ToList();
+
+            var userReports = GetReportsForUser
+            (
+                userInfo
+            );
+
+            userReports = userReports.Where
+            (
+                report => reportNames.Any
+                (
+                    name => name.ToLower() == report.Name.ToLower()
+                )
+            );
+
+            return userReports.OrderBy
+            (
+                a => a.Name
+            );
+        }
+
+        /// <summary>
+        /// Gets all registered reports that do not have any role assignments
+        /// </summary>
+        /// <returns>A collection of registered reports</returns>
+        private IEnumerable<RegisteredReport> GetReportsWithoutRoles()
+        {
+            var allReports = _reportRepository.GetAllReports();
+            var allAssignments = _roleAssignmentRepository.GetAllAssignments();
+
+            var reportNames = allAssignments.Select
+            (
+                a => a.ReportName
+            );
+
+            reportNames = reportNames.Distinct();
+            
+            var filteredReports = allReports.Where
+            (
+                report => false == reportNames.Any
+                (
+                    name => report.Name.ToLower() == name.ToLower()
+                )
+            );
+            
+            return filteredReports.OrderBy
+            (
+                a => a.Name
+            );
         }
 
         /// <summary>

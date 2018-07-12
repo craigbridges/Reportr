@@ -40,10 +40,52 @@
         );
 
         /// <summary>
+        /// Gets a single report role assignment from the repository
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        /// <returns>The matching role</returns>
+        ReportRoleAssignment GetAssignment
+        (
+            string reportName,
+            string roleName
+        );
+
+        /// <summary>
         /// Gets all report role assignments in the repository
         /// </summary>
         /// <returns>A collection of role assignments</returns>
         IEnumerable<ReportRoleAssignment> GetAllAssignments();
+
+        /// <summary>
+        /// Gets report role assignments for a specific role
+        /// </summary>
+        /// <param name="roleName">The role name</param>
+        /// <returns>A collection of role assignments</returns>
+        IEnumerable<ReportRoleAssignment> GetAssignmentsForRole
+        (
+            string roleName
+        );
+
+        /// <summary>
+        /// Gets report role assignments for any of the roles specified
+        /// </summary>
+        /// <param name="roleNames">The role names</param>
+        /// <returns>A collection of role assignments</returns>
+        IEnumerable<ReportRoleAssignment> GetAssignmentsForRoles
+        (
+            params string[] roleNames
+        );
+
+        /// <summary>
+        /// Gets report role assignments for a specific report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <returns>A collection of role assignments</returns>
+        IEnumerable<ReportRoleAssignment> GetAssignmentsForReport
+        (
+            string reportName
+        );
 
         /// <summary>
         /// Updates a single report role assignment to the repository

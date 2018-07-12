@@ -154,12 +154,16 @@
         /// </summary>
         /// <param name="reportName">The report name</param>
         /// <param name="roleName">The role name</param>
+        /// <param name="constraints">The parameter constraints</param>
         public void AssignRoleToReport
             (
                 string reportName,
-                string roleName
+                string roleName,
+                params ReportParameterConstraintConfiguration[] constraints
             )
         {
+            Validate.IsNotNull(constraints);
+
             var assigned = _assignmentRepository.IsRoleAssigned
             (
                 reportName,
@@ -184,10 +188,62 @@
             var assignment = new ReportRoleAssignment
             (
                 reportName,
-                roleName
+                roleName,
+                constraints
             );
 
             _assignmentRepository.AddAssignment(assignment);
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Sets the report parameter constraints for a role assignment
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        /// <param name="constraints">The parameter constraints</param>
+        public void SetAssignedRoleConstraints
+            (
+                string reportName,
+                string roleName,
+                params ReportParameterConstraintConfiguration[] constraints
+            )
+        {
+            Validate.IsNotNull(constraints);
+
+            var assigned = _assignmentRepository.IsRoleAssigned
+            (
+                reportName,
+                roleName
+            );
+
+            if (false == assigned)
+            {
+                var message = "The role '{0}' has not been assigned to '{1}'.";
+
+                throw new InvalidOperationException
+                (
+                    String.Format
+                    (
+                        message,
+                        roleName,
+                        reportName
+                    )
+                );
+            }
+
+            var assignment = _assignmentRepository.GetAssignment
+            (
+                reportName,
+                roleName
+            );
+
+            assignment.SetParameterConstraints
+            (
+                constraints
+            );
+
+            _assignmentRepository.UpdateAssignment(assignment);
             _unitOfWork.SaveChanges();
         }
 
