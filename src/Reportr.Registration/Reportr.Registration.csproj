@@ -76,6 +76,7 @@
     <Compile Include="Categorization\ReportCategorizer.cs" />
     <Compile Include="Categorization\ReportCategory.cs" />
     <Compile Include="Categorization\ReportCategoryAssignment.cs" />
+    <Compile Include="IRegisteredReportDefinitionBuilder.cs" />
     <Compile Include="IRegisteredReportGenerator.cs" />
     <Compile Include="RegisteredReportGenerator.cs" />
     <Compile Include="RegistrationTypeRegister.cs" />
@@ -87,6 +88,9 @@
     <Compile Include="RegisteredReportSourceRevision.cs" />
     <Compile Include="ReportDefinitionSourceType.cs" />
     <Compile Include="ReportRegistrar.cs" />
+    <Compile Include="SubmittedSortingRule.cs" />
+    <Compile Include="SubmittedParameterValue.cs" />
+    <Compile Include="SubmittedReportFilterValues.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Reportr\Reportr.csproj">

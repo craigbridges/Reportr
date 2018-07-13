@@ -44,6 +44,36 @@
         }
 
         /// <summary>
+        /// Constructs an unsuccessful result with a single error
+        /// </summary>
+        /// <param name="executionTime">The execution time</param>
+        /// <param name="areaName">The error area name</param>
+        /// <param name="errorMessage">The error message</param>
+        public ReportExecutionResult
+            (
+                long executionTime,
+                string areaName,
+                string errorMessage
+            )
+        {
+            Validate.IsNotEmpty(areaName);
+            Validate.IsNotEmpty(errorMessage);
+
+            this.Success = false;
+            this.ExecutionTime = executionTime;
+
+            var errorDictionary = new Dictionary<string, string>()
+            {
+                { areaName, errorMessage }
+            };
+
+            this.ErrorMessages = new ReadOnlyDictionary<string, string>
+            (
+                errorDictionary
+            );
+        }
+
+        /// <summary>
         /// Gets a flag indicating if everything ran successfully
         /// </summary>
         public bool Success { get; private set; }

@@ -56,6 +56,12 @@
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
 
+            builder.RegisterAssemblyTypes(assemblies)
+                   .Where(t => typeof(IReportDefinitionBuilder)
+                   .IsAssignableFrom(t))
+                   .AsImplementedInterfaces()
+                   .InstancePerLifetimeScope();
+
             builder.RegisterType<ReportGenerator>()
                    .As<IReportGenerator>()
                    .InstancePerLifetimeScope();
