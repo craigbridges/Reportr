@@ -27,6 +27,16 @@
                 (
                     typeof(IReportRoleManager),
                     typeof(ReportRoleManager)
+                ),
+                new RegisteredType
+                (
+                    typeof(IReportRegistrar),
+                    typeof(ReportRegistrar)
+                ),
+                new RegisteredType
+                (
+                    typeof(IRegisteredReportGenerator),
+                    typeof(RegisteredReportGenerator)
                 )
             };
         }

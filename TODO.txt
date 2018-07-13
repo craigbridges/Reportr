@@ -45,6 +45,8 @@ Rendering
 Low Priority
 ------------
 
+- Optimize report generation by caching query results where the query and parameter values are identical (then we can reuse the same data multiple times)
+
 - Create 'Infrastructure' project that manages storage and retrieval of categories
 
 - Create report component mocking (e.g. generate fake data for chart) for report building and testing
