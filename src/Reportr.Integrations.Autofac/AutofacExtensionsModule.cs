@@ -1,4 +1,4 @@
-﻿namespace Reportr.IoC.Autofac
+﻿namespace Reportr.Integrations.Autofac
 {
     using global::Autofac;
 

@@ -1,11 +1,11 @@
-﻿namespace Reportr.IoC.Autofac
+﻿namespace Reportr.Integrations.Autofac
 {
     using global::Autofac;
     using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Data.Querying.Functions;
     using Reportr.Filtering;
-    using Reportr.IoC.Autofac.Repositories;
+    using Reportr.Integrations.Autofac.Repositories;
     using System.Linq;
 
     /// <summary>
@@ -60,6 +60,10 @@
                    .Where(t => typeof(IReportDefinitionBuilder)
                    .IsAssignableFrom(t))
                    .AsImplementedInterfaces()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<AutofacReportDefinitionBuilderRepository>()
+                   .As<IReportDefinitionBuilderRepository>()
                    .InstancePerLifetimeScope();
 
             builder.RegisterType<ReportGenerator>()

@@ -1,4 +1,4 @@
-﻿namespace Reportr.IoC.Autofac.Repositories
+﻿namespace Reportr.Integrations.Autofac.Repositories
 {
     using global::Autofac;
     using Reportr.Data.Querying;
@@ -11,16 +11,16 @@
     /// </summary>
     public sealed class AutofacQueryRepository : IQueryRepository
     {
-        private readonly IComponentContext _context;
+        private readonly ILifetimeScope _context;
         private IEnumerable<IQuery> _queries;
 
         /// <summary>
-        /// Constructs a query repository with a component context
+        /// Constructs the repository with a component context
         /// </summary>
         /// <param name="context">The Autofac component context</param>
         public AutofacQueryRepository
             (
-                IComponentContext context
+                ILifetimeScope context
             )
         {
             Validate.IsNotNull(context);

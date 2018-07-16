@@ -1,7 +1,7 @@
 ﻿namespace Autofac
 {
     using Reportr;
-    using Reportr.IoC.Autofac;
+    using Reportr.Integrations.Autofac;
     using System;
     using System.Reflection;
     using System.Web.Compilation;

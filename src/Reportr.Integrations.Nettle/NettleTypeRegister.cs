@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Integrations.Nettle
 {
-    using Reportr.IoC;
+    using Reportr.Integrations;
     using Reportr.Templating;
     using System.Collections.Generic;
     

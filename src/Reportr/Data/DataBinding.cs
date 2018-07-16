@@ -78,7 +78,7 @@
         {
             var rawValue = Resolve(row);
 
-            return new GenericObjectToTypeConverter<T>().Convert
+            return new ObjectConverter<T>().Convert
             (
                 rawValue
             );

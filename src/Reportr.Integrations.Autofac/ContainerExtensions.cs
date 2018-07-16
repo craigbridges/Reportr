@@ -1,7 +1,7 @@
 ﻿namespace Autofac
 {
     using Reportr;
-    using Reportr.IoC;
+    using Reportr.Integrations;
 
     /// <summary>
     /// Various extension methods for Autofac containers

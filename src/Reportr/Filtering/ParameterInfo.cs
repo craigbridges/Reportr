@@ -84,7 +84,7 @@
         /// If this property is set to false, the parameter must
         /// be populated programmatically or at design time.
         /// </remarks>
-        public bool Visible { get; private set; }
+        public bool Visible { get; internal set; }
 
         /// <summary>
         /// Adds the default value to the parameter info

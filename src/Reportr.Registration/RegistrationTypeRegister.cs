@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Registration
 {
-    using Reportr.IoC;
+    using Reportr.Integrations;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using System.Collections.Generic;
@@ -32,6 +32,11 @@
                 (
                     typeof(IReportRegistrar),
                     typeof(ReportRegistrar)
+                ),
+                new RegisteredType
+                (
+                    typeof(IRegisteredReportDefinitionBuilder),
+                    typeof(RegisteredReportDefinitionBuilder)
                 ),
                 new RegisteredType
                 (

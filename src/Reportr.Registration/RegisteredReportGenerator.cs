@@ -234,6 +234,8 @@
                 ReportUserInfo userInfo
             )
         {
+            var parameterDefinitions = reportDefinition.Parameters.ToList();
+
             var filter = new ReportFilter
             (
                 reportDefinition.Parameters.ToArray()
@@ -304,12 +306,14 @@
                 (
                     registeredReport,
                     userInfo,
-                    ref parameterValues
+                    ref parameterValues,
+                    out List<string> constrainedParameters
                 );
                 
                 filter.SetParameterValues
                 (
-                    parameterValues
+                    parameterValues,
+                    constrainedParameters.ToArray()
                 );
             }
             
@@ -336,6 +340,7 @@
         /// <param name="registeredReport">The registered report</param>
         /// <param name="userInfo">The user information</param>
         /// <param name="parameterValues">The existing parameter values</param>
+        /// <param name="constrainedParameters">The constrained parameters</param>
         /// <remarks>
         /// The parameter constraints defined by role assignments force certain
         /// report filter parameter values to be used over those submitted.
@@ -346,13 +351,16 @@
             (
                 RegisteredReport registeredReport,
                 ReportUserInfo userInfo,
-                ref Dictionary<string, object> parameterValues
+                ref Dictionary<string, object> parameterValues,
+                out List<string> constrainedParameters
             )
         {
             var assignments = GetAssignmentsForReport
             (
                 registeredReport.Name
             );
+
+            constrainedParameters = new List<string>();
 
             if (assignments.Count == 0)
             {
@@ -373,6 +381,8 @@
                     (
                         userInfo
                     );
+
+                    constrainedParameters.Add(parameterName);
 
                     parameterValues[parameterName] = value;
                 }
@@ -401,16 +411,19 @@
                 submittedValue.ParameterName
             );
 
-            if (definition.Parameter.ExpectedType == typeof(string))
+            var expectedType = definition.Parameter.ExpectedType;
+
+            if (expectedType == typeof(string))
             {
                 return submittedValue.Value;
             }
             else
             {
-
-                // TODO: convert from string to expected type (can we use GenericObjectToTypeConverter?)
-
-                throw new NotImplementedException();
+                return ObjectConverter.Convert
+                (
+                    submittedValue.Value,
+                    expectedType
+                );
             }
         }
     }

@@ -6,7 +6,7 @@
     /// Converter implementation for converting an object to a type value
     /// </summary>
     /// <typeparam name="T">The type to convert to</typeparam>
-    public class GenericObjectToTypeConverter<T>
+    public class ObjectConverter<T>
     {
         /// <summary>
         /// Converts an object value to a value of the type specified, if a conversion is possible

@@ -148,10 +148,12 @@
         /// </summary>
         /// <param name="parameterName">The parameter name</param>
         /// <param name="value">The value to set</param>
+        /// <param name="hide">Makes the parameter invisible if true</param>
         public void SetParameterValue
             (
                 string parameterName,
-                object value
+                object value,
+                bool hide = false
             )
         {
             Validate.IsNotEmpty(parameterName);
@@ -164,6 +166,16 @@
             if (parameterValue != null)
             {
                 parameterValue.SetValue(value);
+
+                if (hide)
+                {
+                    var definition = GetDefinition
+                    (
+                        parameterName
+                    );
+
+                    definition.Hide();
+                }
             }
             else
             {
@@ -182,6 +194,11 @@
                 (
                     parameterValue
                 );
+
+                if (hide)
+                {
+                    definition.Hide();
+                }
             }
         }
 
@@ -189,19 +206,28 @@
         /// Sets a series of report filter parameter values
         /// </summary>
         /// <param name="parameterValues">The parameter values</param>
+        /// <param name="hiddenParameters">The names of parameters to hide</param>
         public void SetParameterValues
             (
-                IDictionary<string, object> parameterValues
+                IDictionary<string, object> parameterValues,
+                params string[] hiddenParameters
             )
         {
             Validate.IsNotNull(parameterValues);
+            Validate.IsNotNull(hiddenParameters);
             
             foreach (var pair in parameterValues)
             {
+                var hide = hiddenParameters.Any
+                (
+                    name => name.ToLower() == pair.Key.ToLower()
+                );
+
                 SetParameterValue
                 (
                     pair.Key,
-                    pair.Value
+                    pair.Value,
+                    hide
                 );
             }
         }
@@ -225,7 +251,10 @@
 
             if (value == null)
             {
-                var definition = GetDefinition(parameterName);
+                var definition = GetDefinition
+                (
+                    parameterName
+                );
 
                 value = new ReportFilterParameterValue
                 (

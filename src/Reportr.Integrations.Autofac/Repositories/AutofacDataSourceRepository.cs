@@ -1,4 +1,4 @@
-﻿namespace Reportr.IoC.Autofac.Repositories
+﻿namespace Reportr.Integrations.Autofac.Repositories
 {
     using global::Autofac;
     using Reportr.Data;
@@ -11,16 +11,16 @@
     /// </summary>
     public sealed class AutofacDataSourceRepository : IDataSourceRepository
     {
-        private readonly IComponentContext _context;
+        private readonly ILifetimeScope _context;
         private IEnumerable<IDataSource> _sources;
 
         /// <summary>
-        /// Constructs a data source repository with a component context
+        /// Constructs the repository with a component context
         /// </summary>
         /// <param name="context">The Autofac component context</param>
         public AutofacDataSourceRepository
             (
-                IComponentContext context
+                ILifetimeScope context
             )
         {
             Validate.IsNotNull(context);

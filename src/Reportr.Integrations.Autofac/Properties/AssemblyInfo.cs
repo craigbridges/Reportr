@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Reportr.IoC.Autofac")]
+[assembly: AssemblyProduct("Reportr.Integrations.Autofac")]
 [assembly: AssemblyCopyright("Copyright © Craig Bridges 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

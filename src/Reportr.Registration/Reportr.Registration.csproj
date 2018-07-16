@@ -78,6 +78,7 @@
     <Compile Include="Categorization\ReportCategoryAssignment.cs" />
     <Compile Include="IRegisteredReportDefinitionBuilder.cs" />
     <Compile Include="IRegisteredReportGenerator.cs" />
+    <Compile Include="RegisteredReportDefinitionBuilder.cs" />
     <Compile Include="RegisteredReportGenerator.cs" />
     <Compile Include="RegistrationTypeRegister.cs" />
     <Compile Include="IRegisteredReportRepository.cs" />

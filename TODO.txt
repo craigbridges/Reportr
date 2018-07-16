@@ -1,18 +1,6 @@
 Unsorted
 --------
 
-- Implement IRegisteredReportDefinitionBuilder and register in RegistrationTypeRegister
-	- Ensure we have a way of getting all registered IReportDefinitionBuilder types
-	- How do we instantiate report builder from type name? Dependency injection?
-
-- RegisteredReportGenerator.SetParameterConstraints
-	- How do we force parameter values to be hidden in report filter when we apply constraint?
-	
-- Complete RegisteredReportGenerator.ConvertParameterValue
-
-- A report generator facade that hides the idea of report definition and auto authenticates user
-	- Also need a facade for report filters so that we can generate filter with defaulted values (based on role assignment constraints) and set a flag to disable/hide them - then enforce these rules upon report generation
-
 - Do we need to log every report generation request and result?
 
 
@@ -23,14 +11,6 @@ High Priority
 	- Data.Csv
 	- Data.Json
 	- Data.Xml
-
-
-Security
---------
-
-- Reports for certain types of user (roles)
-
-- Locked/defaulted filter parameters/values based on role?
 
 
 Templates
@@ -53,8 +33,6 @@ Low Priority
 ------------
 
 - Optimize report generation by caching query results where the query and parameter values are identical (then we can reuse the same data multiple times)
-
-- Create 'Infrastructure' project that manages storage and retrieval of categories
 
 - Create report component mocking (e.g. generate fake data for chart) for report building and testing
 

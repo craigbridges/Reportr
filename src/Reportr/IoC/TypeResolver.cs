@@ -1,4 +1,4 @@
-﻿namespace Reportr.IoC
+﻿namespace Reportr.Integrations
 {
     using System;
     using System.Collections.Generic;

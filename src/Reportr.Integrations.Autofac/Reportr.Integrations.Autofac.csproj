@@ -7,8 +7,8 @@
     <ProjectGuid>{4EF09639-4F46-40E8-AFBD-10889A73714D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Reportr.IoC.Autofac</RootNamespace>
-    <AssemblyName>Reportr.IoC.Autofac</AssemblyName>
+    <RootNamespace>Reportr.Integrations.Autofac</RootNamespace>
+    <AssemblyName>Reportr.Integrations.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AutofacQueryRepository.cs" />
     <Compile Include="Repositories\AutofacDataSourceRepository.cs" />
+    <Compile Include="Repositories\AutofacReportDefinitionBuilderRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Reportr\Reportr.csproj">

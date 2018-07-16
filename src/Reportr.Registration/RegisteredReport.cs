@@ -134,6 +134,16 @@
         public string BuilderTypeName { get; protected set; }
 
         /// <summary>
+        /// Gets the report definition builder type full name
+        /// </summary>
+        public string BuilderTypeFullName { get; protected set; }
+
+        /// <summary>
+        /// Gets the report definition builder type assembly qualified name
+        /// </summary>
+        public string BuilderTypeAssemblyQualifiedName { get; protected set; }
+
+        /// <summary>
         /// Gets the source code of the report definition script
         /// </summary>
         public string ScriptSourceCode { get; protected set; }
@@ -159,8 +169,12 @@
                 new RegisteredReportSourceRevision(this)
             );
 
+            var builderType = builder.GetType();
+
             this.SourceType = ReportDefinitionSourceType.Builder;
-            this.BuilderTypeName = builder.GetType().Name;
+            this.BuilderTypeName = builderType.Name;
+            this.BuilderTypeFullName = builderType.FullName;
+            this.BuilderTypeAssemblyQualifiedName = builderType.AssemblyQualifiedName;
             this.ScriptSourceCode = null;
             this.DateSourceSpecified = DateTime.UtcNow;
             this.DateModified = DateTime.UtcNow;

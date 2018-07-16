@@ -1,6 +1,6 @@
 ﻿namespace Reportr
 {
-    using Reportr.IoC;
+    using Reportr.Integrations;
     using Reportr.Templating;
     using System;
     

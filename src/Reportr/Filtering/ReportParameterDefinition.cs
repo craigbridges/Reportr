@@ -48,5 +48,27 @@
         /// Gets the target value
         /// </summary>
         public object TargetValue { get; protected set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the parameter is hidden
+        /// </summary>
+        public bool Hidden
+        {
+            get
+            {
+                return
+                (
+                    false == this.Parameter.Visible
+                );
+            }
+        }
+
+        /// <summary>
+        /// Hides the parameter
+        /// </summary>
+        public void Hide()
+        {
+            this.Parameter.Visible = false;
+        }
     }
 }

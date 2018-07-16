@@ -72,7 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Conversion\GenericObjectToTypeConverter.cs" />
+    <Compile Include="Common\Conversion\GenericObjectConverter.cs" />
+    <Compile Include="Common\Conversion\ObjectConverter.cs" />
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Common\Validation\TypeConverterChecker.cs" />
     <Compile Include="Components\Collections\ColumnAlignment.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="IoC\RegisteredType.cs" />
     <Compile Include="IoC\TypeResolver.cs" />
     <Compile Include="IReportDefinitionBuilder.cs" />
+    <Compile Include="IReportDefinitionBuilderRepository.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />
     <Compile Include="Filtering\ReportFilter.cs" />
