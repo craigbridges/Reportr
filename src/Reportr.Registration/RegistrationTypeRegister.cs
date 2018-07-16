@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Registration
 {
-    using Reportr.Integrations;
+    using Reportr.IoC;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using System.Collections.Generic;

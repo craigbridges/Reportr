@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Integrations.Autofac
 {
     using global::Autofac;
+    using Reportr.IoC;
 
     /// <summary>
     /// Represents an Autofac dependency resolver implementation

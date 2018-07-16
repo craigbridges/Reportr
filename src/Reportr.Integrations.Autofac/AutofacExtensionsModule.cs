@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Integrations.Autofac
 {
     using global::Autofac;
+    using Reportr.IoC;
 
     /// <summary>
     /// Represents a custom extensions module for an Autofac container builder

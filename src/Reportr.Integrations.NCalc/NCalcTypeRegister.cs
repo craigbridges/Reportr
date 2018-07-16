@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Integrations.NCalc
 {
-    using Reportr.Integrations;
+    using Reportr.IoC;
     using System.Collections.Generic;
     
     /// <summary>

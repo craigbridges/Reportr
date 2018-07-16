@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Integrations.Razor
 {
-    using Reportr.Integrations;
+    using Reportr.IoC;
     using Reportr.Templating;
     using System.Collections.Generic;
     

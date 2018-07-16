@@ -1,4 +1,4 @@
-﻿namespace Reportr.Integrations
+﻿namespace Reportr.IoC
 {
     /// <summary>
     /// Defines a contract for a service that resolves dependencies

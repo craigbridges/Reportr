@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Registration.Entity
 {
-    using Reportr.Integrations;
+    using Reportr.IoC;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using Reportr.Registration.Entity.Repositories;

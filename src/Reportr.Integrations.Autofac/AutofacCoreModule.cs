@@ -6,6 +6,7 @@
     using Reportr.Data.Querying.Functions;
     using Reportr.Filtering;
     using Reportr.Integrations.Autofac.Repositories;
+    using Reportr.IoC;
     using System.Linq;
 
     /// <summary>
