@@ -45,17 +45,18 @@
         /// <summary>
         /// Registers a single report with a builder source
         /// </summary>
+        /// <typeparam name="TBuilder">The builder type</typeparam>
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
         /// <param name="description">The description</param>
-        /// <param name="builder">The definition builder</param>
-        public void RegisterReport
+        public void RegisterReport<TBuilder>
             (
                 string name,
                 string title,
-                string description,
-                IReportDefinitionBuilder builder
+                string description
             )
+
+            where TBuilder : IReportDefinitionBuilder
         {
             var registered = IsRegistered(name);
 
@@ -78,7 +79,7 @@
                 name,
                 title,
                 description,
-                builder
+                typeof(TBuilder)
             );
 
             _reportRepository.AddReport(report);
@@ -342,20 +343,24 @@
         /// <summary>
         /// Specifies the report definition source as a builder
         /// </summary>
+        /// <typeparam name="TBuilder">The builder type</typeparam>
         /// <param name="name">The name of the report</param>
-        /// <param name="builder">The definition builder</param>
-        public void SpecifySource
+        public void SpecifyBuilder<TBuilder>
             (
-                string name,
-                IReportDefinitionBuilder builder
+                string name
             )
+
+            where TBuilder : IReportDefinitionBuilder
         {
             var report = _reportRepository.GetReport
             (
                 name
             );
 
-            report.SpecifySource(builder);
+            report.SpecifyBuilder
+            (
+                typeof(TBuilder)
+            );
 
             _reportRepository.UpdateReport(report);
             _unitOfWork.SaveChanges();
@@ -377,7 +382,10 @@
                 name
             );
 
-            report.SpecifySource(scriptSourceCode);
+            report.SpecifySource
+            (
+                scriptSourceCode
+            );
 
             _reportRepository.UpdateReport(report);
             _unitOfWork.SaveChanges();

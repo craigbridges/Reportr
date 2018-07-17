@@ -51,18 +51,18 @@
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
         /// <param name="description">The description</param>
-        /// <param name="builder">The definition builder</param>
-        public RegisteredReport
+        /// <param name="builderType">The definition builder type</param>
+        internal RegisteredReport
             (
                 string name,
                 string title,
                 string description,
-                IReportDefinitionBuilder builder
+                Type builderType
             )
 
             : this(name, title, description)
         {
-            SpecifySource(builder);
+            SpecifyBuilder(builderType);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@
         /// <param name="title">The title</param>
         /// <param name="description">The description</param>
         /// <param name="scriptSourceCode">The script source code</param>
-        public RegisteredReport
+        internal RegisteredReport
             (
                 string name,
                 string title,
@@ -162,21 +162,22 @@
         /// <summary>
         /// Specifies the report definition source as a builder
         /// </summary>
-        /// <param name="builder">The definition builder</param>
-        public void SpecifySource
+        /// <param name="builderType">The definition builder type</param>
+        internal void SpecifyBuilder
             (
-                IReportDefinitionBuilder builder
+                Type builderType
             )
         {
-            Validate.IsNotNull(builder);
+            Validate.IsNotNull(builderType);
 
-            this.SourceRevisions.Add
-            (
-                new RegisteredReportSourceRevision(this)
-            );
-
-            var builderType = builder.GetType();
-
+            if (this.Version > 0)
+            {
+                this.SourceRevisions.Add
+                (
+                    new RegisteredReportSourceRevision(this)
+                );
+            }
+            
             this.SourceType = ReportDefinitionSourceType.Builder;
             this.BuilderTypeName = builderType.Name;
             this.BuilderTypeFullName = builderType.FullName;
@@ -191,15 +192,18 @@
         /// Specifies the report definition source as a script
         /// </summary>
         /// <param name="scriptSourceCode">The script source code</param>
-        public void SpecifySource
+        internal void SpecifySource
             (
                 string scriptSourceCode
             )
         {
-            this.SourceRevisions.Add
-            (
-                new RegisteredReportSourceRevision(this)
-            );
+            if (this.Version > 0)
+            {
+                this.SourceRevisions.Add
+                (
+                    new RegisteredReportSourceRevision(this)
+                );
+            }
 
             this.SourceType = ReportDefinitionSourceType.Script;
             this.ScriptSourceCode = scriptSourceCode;

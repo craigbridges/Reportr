@@ -11,17 +11,17 @@
         /// <summary>
         /// Registers a single report with a builder source
         /// </summary>
+        /// <typeparam name="TBuilder">The builder type</typeparam>
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
         /// <param name="description">The description</param>
-        /// <param name="builder">The definition builder</param>
-        void RegisterReport
+        void RegisterReport<TBuilder>
         (
             string name,
             string title,
-            string description,
-            IReportDefinitionBuilder builder
-        );
+            string description
+        )
+        where TBuilder : IReportDefinitionBuilder;
 
         /// <summary>
         /// Registers a single report with a script source
@@ -95,17 +95,17 @@
             ReportUserInfo userInfo,
             string categoryName
         );
-        
+
         /// <summary>
         /// Specifies the report definition source as a builder
         /// </summary>
+        /// <typeparam name="TBuilder">The builder type</typeparam>
         /// <param name="name">The name of the report</param>
-        /// <param name="builder">The definition builder</param>
-        void SpecifySource
+        void SpecifyBuilder<TBuilder>
         (
-            string name,
-            IReportDefinitionBuilder builder
-        );
+            string name
+        )
+        where TBuilder : IReportDefinitionBuilder;
 
         /// <summary>
         /// Specifies the report definition source as a script

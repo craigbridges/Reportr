@@ -1,6 +1,13 @@
 Unsorted
 --------
 
+Create IReportRegistrationManager
+	- Auto register categories (array of category configurations)
+	- Auto register roles (array of role configurations)
+	- Auto register reports (array of report configurations)
+	- Auto assign reports to categories (array of report name and category name)
+	- Auto assign roles to reports (report name and role names)
+
 
 High Priority
 -------------
