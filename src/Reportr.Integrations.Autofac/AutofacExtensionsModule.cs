@@ -28,10 +28,10 @@
             foreach (var registeredType in resolvedTypes)
             {
                 var sourceType = registeredType.SourceType;
-                var asType = registeredType.ImplementationType;
+                var implementationType = registeredType.ImplementationType;
 
-                builder.RegisterType(sourceType)
-                       .As(asType)
+                builder.RegisterType(implementationType)
+                       .As(sourceType)
                        .InstancePerLifetimeScope();
             }
         }
