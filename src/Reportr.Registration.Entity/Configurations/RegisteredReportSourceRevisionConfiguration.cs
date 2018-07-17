@@ -35,7 +35,6 @@
                 (
                     m => new
                     {
-                        m.RevisionId,
                         m.ReportId
                     }
                 )

@@ -42,7 +42,6 @@
                 (
                     m => new
                     {
-                        m.Id,
                         m.ParentCategoryId
                     }
                 )

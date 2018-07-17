@@ -36,7 +36,6 @@
                 (
                     m => new
                     {
-                        m.AssignmentId,
                         m.CategoryId
                     }
                 )
