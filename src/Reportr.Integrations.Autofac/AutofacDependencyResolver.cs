@@ -8,15 +8,15 @@
     /// </summary>
     public sealed class AutofacDependencyResolver : IDependencyResolver
     {
-        private readonly IComponentContext _context;
+        private readonly ILifetimeScope _context;
 
         /// <summary>
         /// Constructs a dependency resolver with a component context
         /// </summary>
         /// <param name="context">The Autofac component context</param>
-        internal AutofacDependencyResolver
+        public AutofacDependencyResolver
             (
-                IComponentContext context
+                ILifetimeScope context
             )
         {
             Validate.IsNotNull(context);
