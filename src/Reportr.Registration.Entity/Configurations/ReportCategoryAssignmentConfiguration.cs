@@ -15,7 +15,11 @@
         {
             HasKey
             (
-                m => new { m.AssignmentId }
+                m => new
+                {
+                    m.AssignmentId,
+                    m.CategoryId
+                }
             );
 
             // Configure the primary key constraints

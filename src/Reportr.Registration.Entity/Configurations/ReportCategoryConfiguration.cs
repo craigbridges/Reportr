@@ -35,6 +35,19 @@
                     new IndexAnnotation(indexAttribute)
                 );
 
+            // Set up a foreign key reference for cascade deletes
+            HasOptional(m => m.ParentCategory)
+                .WithMany(m => m.SubCategories)
+                .HasForeignKey
+                (
+                    m => new
+                    {
+                        m.Id,
+                        m.ParentCategoryId
+                    }
+                )
+                .WillCascadeOnDelete();
+
             Map
             (
                 m =>

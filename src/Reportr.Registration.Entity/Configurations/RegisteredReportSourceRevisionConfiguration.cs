@@ -14,7 +14,11 @@
         {
             HasKey
             (
-                m => new { m.RevisionId }
+                m => new
+                {
+                    m.RevisionId,
+                    m.ReportId
+                }
             );
 
             // Configure the primary key constraints
