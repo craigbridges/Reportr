@@ -72,7 +72,7 @@
 
             var registrar = modelBuilder.Configurations;
 
-            modelBuilder.HasDefaultSchema("reportr");
+            //modelBuilder.HasDefaultSchema("reportr");
             
             registrar.Add(new RegisteredReportConfiguration());
             registrar.Add(new RegisteredReportSourceRevisionConfiguration());

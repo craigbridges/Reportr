@@ -11,7 +11,7 @@
     /// A registered report is used to keep track of a report that
     /// can be generated through Reportr.
     /// </remarks>
-    public class RegisteredReport
+    public class RegisteredReport : IAggregate
     {
         /// <summary>
         /// Constructs the registered report with its default configuration
@@ -35,6 +35,7 @@
             Validate.IsNotNull(title);
 
             this.Id = Guid.NewGuid();
+            this.Version = 1;
             this.DateCreated = DateTime.UtcNow;
             this.DateModified = DateTime.UtcNow;
             this.SourceRevisions = new Collection<RegisteredReportSourceRevision>();
@@ -88,6 +89,11 @@
         /// Gets the unique ID of the registered report
         /// </summary>
         public Guid Id { get; protected set; }
+
+        /// <summary>
+        /// Gets the version number of the registered report
+        /// </summary>
+        public int Version { get; protected set; }
 
         /// <summary>
         /// Gets the date and time the registered report was created
@@ -178,6 +184,7 @@
             this.ScriptSourceCode = null;
             this.DateSourceSpecified = DateTime.UtcNow;
             this.DateModified = DateTime.UtcNow;
+            this.Version++;
         }
 
         /// <summary>
@@ -199,6 +206,7 @@
             this.BuilderTypeName = null;
             this.DateSourceSpecified = DateTime.UtcNow;
             this.DateModified = DateTime.UtcNow;
+            this.Version++;
         }
     }
 }

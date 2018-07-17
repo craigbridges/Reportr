@@ -5,7 +5,7 @@
     /// <summary>
     /// Represents a single report role
     /// </summary>
-    public class ReportRole
+    public class ReportRole : IAggregate
     {
         /// <summary>
         /// Constructs the report role with its default configuration
@@ -40,6 +40,11 @@
         /// Gets the unique ID of the report role
         /// </summary>
         public Guid Id { get; protected set; }
+
+        /// <summary>
+        /// Gets the version number of the report role
+        /// </summary>
+        public int Version { get; protected set; }
 
         /// <summary>
         /// Gets the date and time the report role was created
@@ -83,6 +88,7 @@
             Validate.IsNotNull(title);
 
             this.DateModified = DateTime.UtcNow;
+            this.Version++;
 
             this.Name = name;
             this.Title = title;

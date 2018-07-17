@@ -76,6 +76,7 @@
     <Compile Include="Categorization\ReportCategorizer.cs" />
     <Compile Include="Categorization\ReportCategory.cs" />
     <Compile Include="Categorization\ReportCategoryAssignment.cs" />
+    <Compile Include="IAggregate.cs" />
     <Compile Include="IRegisteredReportDefinitionBuilder.cs" />
     <Compile Include="IRegisteredReportGenerator.cs" />
     <Compile Include="RegisteredReportDefinitionBuilder.cs" />

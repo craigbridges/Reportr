@@ -44,8 +44,7 @@
                     {
                         m.ParentCategoryId
                     }
-                )
-                .WillCascadeOnDelete();
+                );
 
             Map
             (

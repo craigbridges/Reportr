@@ -8,7 +8,7 @@
     /// <summary>
     /// Represents a single report category
     /// </summary>
-    public class ReportCategory
+    public class ReportCategory : IAggregate
     {
         /// <summary>
         /// Constructs the report category with its default configuration
@@ -32,12 +32,16 @@
             Validate.IsNotEmpty(title);
 
             this.Id = Guid.NewGuid();
-            this.Name = name;
-            this.Title = title;
-            this.Description = description;
+            this.Version = 1;
+            this.DateCreated = DateTime.UtcNow;
+            this.DateModified = DateTime.UtcNow;
 
             this.SubCategories = new Collection<ReportCategory>();
             this.AssignedReports = new Collection<ReportCategoryAssignment>();
+
+            this.Name = name;
+            this.Title = title;
+            this.Description = description;
         }
 
         /// <summary>
@@ -66,6 +70,21 @@
         /// Gets the category ID
         /// </summary>
         public Guid Id { get; protected set; }
+
+        /// <summary>
+        /// Gets the version number of the report category
+        /// </summary>
+        public int Version { get; protected set; }
+
+        /// <summary>
+        /// Gets the date and time the report category was created
+        /// </summary>
+        public DateTime DateCreated { get; protected set; }
+
+        /// <summary>
+        /// Gets the date and time the report category was modified
+        /// </summary>
+        public DateTime DateModified { get; protected set; }
 
         /// <summary>
         /// Gets the parent report category
@@ -124,6 +143,9 @@
 
             this.SubCategories.Add(subCategory);
 
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
+
             return subCategory;
         }
 
@@ -168,6 +190,9 @@
             (
                 subCategory
             );
+
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
         }
 
         /// <summary>
@@ -220,6 +245,9 @@
             (
                 assignment
             );
+
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
         }
 
         /// <summary>
@@ -275,6 +303,9 @@
             (
                 assignment
             );
+
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
         }
     }
 }

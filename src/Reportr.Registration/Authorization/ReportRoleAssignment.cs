@@ -8,7 +8,7 @@
     /// <summary>
     /// Represents a single report role assignment
     /// </summary>
-    public class ReportRoleAssignment
+    public class ReportRoleAssignment : IAggregate
     {
         /// <summary>
         /// Constructs the report role with its default configuration
@@ -33,7 +33,6 @@
 
             this.Id = Guid.NewGuid();
             this.DateCreated = DateTime.UtcNow;
-            this.DateModified = DateTime.UtcNow;
             this.ParameterConstraints = new Collection<ReportParameterConstraint>();
 
             this.ReportName = reportName;
@@ -46,6 +45,11 @@
         /// Gets the unique ID of the report role
         /// </summary>
         public Guid Id { get; protected set; }
+
+        /// <summary>
+        /// Gets the version number of the report role assignment
+        /// </summary>
+        public int Version { get; protected set; }
 
         /// <summary>
         /// Gets the date and time the report role was created
@@ -91,13 +95,16 @@
             {
                 SetParameterConstraint(configuration);
             }
+
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
         }
 
         /// <summary>
         /// Sets a parameter value constraint against the role assignment
         /// </summary>
         /// <param name="configuration">The constraint configuration</param>
-        public void SetParameterConstraint
+        protected virtual void SetParameterConstraint
             (
                 ReportParameterConstraintConfiguration configuration
             )
@@ -181,6 +188,9 @@
             (
                 constraint
             );
+
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
         }
     }
 }

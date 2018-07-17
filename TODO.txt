@@ -1,8 +1,6 @@
 Unsorted
 --------
 
-- Do we need to log every report generation request and result?
-
 
 High Priority
 -------------
