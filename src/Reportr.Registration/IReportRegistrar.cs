@@ -12,29 +12,21 @@
         /// Registers a single report with a builder source
         /// </summary>
         /// <typeparam name="TBuilder">The builder type</typeparam>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The report configuration</param>
         void RegisterReport<TBuilder>
         (
-            string name,
-            string title,
-            string description
+            RegisteredReportConfiguration configuration
         )
         where TBuilder : IReportDefinitionBuilder;
 
         /// <summary>
         /// Registers a single report with a script source
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The report configuration</param>
         /// <param name="scriptSourceCode">The script source code</param>
         void RegisterReport
         (
-            string name,
-            string title,
-            string description,
+            RegisteredReportConfiguration configuration,
             string scriptSourceCode
         );
 

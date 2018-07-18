@@ -18,48 +18,33 @@
         /// <summary>
         /// Constructs the category with a name and description
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The category configuration</param>
         public ReportCategory
             (
-                string name,
-                string title,
-                string description = null
+                ReportCategoryConfiguration configuration
             )
         {
-            Validate.IsNotEmpty(name);
-            Validate.IsNotEmpty(title);
-
             this.Id = Guid.NewGuid();
-            this.Version = 1;
             this.DateCreated = DateTime.UtcNow;
-            this.DateModified = DateTime.UtcNow;
 
             this.SubCategories = new Collection<ReportCategory>();
             this.AssignedReports = new Collection<ReportCategoryAssignment>();
 
-            this.Name = name;
-            this.Title = title;
-            this.Description = description;
+            Configure(configuration);
         }
 
         /// <summary>
         /// Constructs the category with a parent, name and description
         /// </summary>
         /// <param name="parentCategory">The parent category</param>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The category configuration</param>
         protected ReportCategory
             (
                 ReportCategory parentCategory,
-                string name,
-                string title,
-                string description = null
+                ReportCategoryConfiguration configuration
             )
 
-            : this(name, title, description)
+            : this(configuration)
         {
             Validate.IsNotNull(parentCategory);
 
@@ -112,6 +97,41 @@
         public string Description { get; protected set; }
 
         /// <summary>
+        /// Configures the report category
+        /// </summary>
+        /// <param name="configuration">The category configuration</param>
+        public void Configure
+            (
+                ReportCategoryConfiguration configuration
+            )
+        {
+            Validate.IsNotNull(configuration);
+
+            if (String.IsNullOrWhiteSpace(configuration.Name))
+            {
+                throw new ArgumentException
+                (
+                    "The report category name is required."
+                );
+            }
+
+            if (String.IsNullOrWhiteSpace(configuration.Title))
+            {
+                throw new ArgumentException
+                (
+                    "The report category title is required."
+                );
+            }
+
+            this.Name = configuration.Name;
+            this.Title = configuration.Title;
+            this.Description = configuration.Description;
+
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
+        }
+
+        /// <summary>
         /// Gets a collection of report sub-categories
         /// </summary>
         public virtual ICollection<ReportCategory> SubCategories
@@ -123,22 +143,17 @@
         /// <summary>
         /// Creates a report sub category and against the category
         /// </summary>
-        /// <param name="name">The category name</param>
-        /// <param name="description">The category description</param>
+        /// <param name="configuration">The category configuration</param>
         /// <returns>The category created</returns>
         public ReportCategory CreateSubCategory
             (
-                string name,
-                string description = null
+                ReportCategoryConfiguration configuration
             )
         {
-            Validate.IsNotEmpty(name);
-
             var subCategory = new ReportCategory
             (
                 this,
-                name,
-                description
+                configuration
             );
 
             this.SubCategories.Add(subCategory);

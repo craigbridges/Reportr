@@ -68,12 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\ReportRoleAssignmentConfiguration.cs" />
-    <Compile Include="Configurations\ReportRoleConfiguration.cs" />
-    <Compile Include="Configurations\ReportCategoryAssignmentConfiguration.cs" />
-    <Compile Include="Configurations\ReportCategoryConfiguration.cs" />
-    <Compile Include="Configurations\RegisteredReportSourceRevisionConfiguration.cs" />
-    <Compile Include="Configurations\RegisteredReportConfiguration.cs" />
+    <Compile Include="Configurations\ReportRoleAssignmentEntityConfiguration.cs" />
+    <Compile Include="Configurations\ReportRoleEntityConfiguration.cs" />
+    <Compile Include="Configurations\ReportCategoryAssignmentEntityConfiguration.cs" />
+    <Compile Include="Configurations\ReportCategoryEntityConfiguration.cs" />
+    <Compile Include="Configurations\RegisteredReportSourceRevisionEntityConfiguration.cs" />
+    <Compile Include="Configurations\RegisteredReportEntityConfiguration.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="EfUnitOfWork.cs" />
     <Compile Include="EntityTypeRegister.cs" />

@@ -15,25 +15,16 @@
         /// <summary>
         /// Constructs the report role with the details
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The role configuration</param>
         public ReportRole
             (
-                string name,
-                string title,
-                string description
+                ReportRoleConfiguration configuration
             )
         {
             this.Id = Guid.NewGuid();
             this.DateCreated = DateTime.UtcNow;
 
-            Configure
-            (
-                name,
-                title,
-                description
-            );
+            Configure(configuration);
         }
         
         /// <summary>
@@ -74,25 +65,36 @@
         /// <summary>
         /// Configures the report role
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
-        internal void Configure
+        /// <param name="configuration">The role configuration</param>
+        public void Configure
             (
-                string name,
-                string title,
-                string description
+                ReportRoleConfiguration configuration
             )
         {
-            Validate.IsNotNull(name);
-            Validate.IsNotNull(title);
+            Validate.IsNotNull(configuration);
+
+            if (String.IsNullOrWhiteSpace(configuration.Name))
+            {
+                throw new ArgumentException
+                (
+                    "The report role name is required."
+                );
+            }
+
+            if (String.IsNullOrWhiteSpace(configuration.Title))
+            {
+                throw new ArgumentException
+                (
+                    "The report role title is required."
+                );
+            }
+
+            this.Name = configuration.Name;
+            this.Title = configuration.Title;
+            this.Description = configuration.Description;
 
             this.DateModified = DateTime.UtcNow;
             this.Version++;
-
-            this.Name = name;
-            this.Title = title;
-            this.Description = description;
         }
     }
 }

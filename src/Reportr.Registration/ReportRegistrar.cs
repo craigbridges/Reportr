@@ -46,19 +46,18 @@
         /// Registers a single report with a builder source
         /// </summary>
         /// <typeparam name="TBuilder">The builder type</typeparam>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The report configuration</param>
         public void RegisterReport<TBuilder>
             (
-                string name,
-                string title,
-                string description
+                RegisteredReportConfiguration configuration
             )
 
             where TBuilder : IReportDefinitionBuilder
         {
-            var registered = IsRegistered(name);
+            var registered = IsRegistered
+            (
+                configuration.Name
+            );
 
             if (registered)
             {
@@ -69,16 +68,14 @@
                     String.Format
                     (
                         message,
-                        name
+                        configuration.Name
                     )
                 );
             }
 
             var report = new RegisteredReport
             (
-                name,
-                title,
-                description,
+                configuration,
                 typeof(TBuilder)
             );
 
@@ -89,19 +86,18 @@
         /// <summary>
         /// Registers a single report with a script source
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The report configuration</param>
         /// <param name="scriptSourceCode">The script source code</param>
         public void RegisterReport
             (
-                string name,
-                string title,
-                string description,
+                RegisteredReportConfiguration configuration,
                 string scriptSourceCode
             )
         {
-            var registered = IsRegistered(name);
+            var registered = IsRegistered
+            (
+                configuration.Name
+            );
 
             if (registered)
             {
@@ -112,16 +108,14 @@
                     String.Format
                     (
                         message,
-                        name
+                        configuration.Name
                     )
                 );
             }
 
             var report = new RegisteredReport
             (
-                name,
-                title,
-                description,
+                configuration,
                 scriptSourceCode
             );
 

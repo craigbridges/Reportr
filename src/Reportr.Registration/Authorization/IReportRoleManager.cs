@@ -10,15 +10,20 @@
         /// <summary>
         /// Creates a new report role
         /// </summary>
-        /// <param name="name">The role name</param>
-        /// <param name="title">The role title</param>
-        /// <param name="description">The role description</param>
+        /// <param name="configuration">The role configuration</param>
         /// <returns>The role created</returns>
         ReportRole CreateRole
         (
-            string name,
-            string title,
-            string description
+            ReportRoleConfiguration configuration
+        );
+
+        /// <summary>
+        /// Auto creates multiple report roles
+        /// </summary>
+        /// <param name="configurations">The role configurations</param>
+        void AutoCreateRoles
+        (
+            params ReportRoleConfiguration[] configurations
         );
 
         /// <summary>
@@ -40,16 +45,12 @@
         /// <summary>
         /// Configures a single report role
         /// </summary>
-        /// <param name="currentName">The current role name</param>
-        /// <param name="newName">The new role name</param>
-        /// <param name="title">The new role title</param>
-        /// <param name="description">The new role description</param>
+        /// <param name="roleName">The role name</param>
+        /// <param name="configuration">The role configuration</param>
         void ConfigureRole
         (
-            string currentName,
-            string newName,
-            string title,
-            string description
+            string roleName,
+            ReportRoleConfiguration configuration
         );
 
         /// <summary>
@@ -84,6 +85,15 @@
             string reportName,
             string roleName,
             params ReportParameterConstraintConfiguration[] constraints
+        );
+
+        /// <summary>
+        /// Auto assigns multiple roles to multiple reports
+        /// </summary>
+        /// <param name="assignments">The assignment configurations</param>
+        void AutoAssignRolesToReports
+        (
+            params ReportRoleAssignmentConfiguration[] assignments
         );
 
         /// <summary>

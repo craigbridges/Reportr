@@ -1,42 +1,41 @@
 ﻿namespace Reportr.Registration.Entity.Configurations
 {
-    using Reportr.Registration.Categorization;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.ModelConfiguration;
 
     /// <summary>
-    /// Represents an entity type configuration for a report category assignment
+    /// Represents an entity type configuration for a registered report source revision
     /// </summary>
-    public class ReportCategoryAssignmentConfiguration
-        : EntityTypeConfiguration<ReportCategoryAssignment>
+    public class RegisteredReportSourceRevisionEntityConfiguration 
+        : EntityTypeConfiguration<RegisteredReportSourceRevision>
     {
-        public ReportCategoryAssignmentConfiguration()
+        public RegisteredReportSourceRevisionEntityConfiguration()
             : base()
         {
             HasKey
             (
                 m => new
                 {
-                    m.AssignmentId,
-                    m.CategoryId
+                    m.RevisionId,
+                    m.ReportId
                 }
             );
 
             // Configure the primary key constraints
-            Property(m => m.AssignmentId)
+            Property(m => m.RevisionId)
                 .HasDatabaseGeneratedOption
                 (
                     DatabaseGeneratedOption.Identity
                 );
 
             // Set up a foreign key reference for cascade deletes
-            HasRequired(m => m.Category)
-                .WithMany(m => m.AssignedReports)
+            HasRequired(m => m.Report)
+                .WithMany(m => m.SourceRevisions)
                 .HasForeignKey
                 (
                     m => new
                     {
-                        m.CategoryId
+                        m.ReportId
                     }
                 )
                 .WillCascadeOnDelete();
@@ -45,7 +44,7 @@
             (
                 m =>
                 {
-                    m.ToTable("ReportCategoryAssignments");
+                    m.ToTable("RegisteredReportSourceRevisions");
                 }
             );
         }

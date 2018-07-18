@@ -13,6 +13,8 @@
     /// </remarks>
     public class RegisteredReport : IAggregate
     {
+        private bool _constructing;
+
         /// <summary>
         /// Constructs the registered report with its default configuration
         /// </summary>
@@ -21,68 +23,55 @@
         /// <summary>
         /// Constructs the registered report with basic details
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The report configuration</param>
         protected RegisteredReport
             (
-                string name,
-                string title,
-                string description
+                RegisteredReportConfiguration configuration
             )
         {
-            Validate.IsNotNull(name);
-            Validate.IsNotNull(title);
+            _constructing = true;
 
             this.Id = Guid.NewGuid();
-            this.Version = 1;
             this.DateCreated = DateTime.UtcNow;
-            this.DateModified = DateTime.UtcNow;
             this.SourceRevisions = new Collection<RegisteredReportSourceRevision>();
 
-            this.Name = name;
-            this.Title = title;
-            this.Description = description;
+            Configure(configuration);
         }
 
         /// <summary>
         /// Constructs the registered report with a builder
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The report configuration</param>
         /// <param name="builderType">The definition builder type</param>
         internal RegisteredReport
             (
-                string name,
-                string title,
-                string description,
+                RegisteredReportConfiguration configuration,
                 Type builderType
             )
 
-            : this(name, title, description)
+            : this(configuration)
         {
             SpecifyBuilder(builderType);
+
+            _constructing = false;
         }
 
         /// <summary>
         /// Constructs the registered report with the script source code
         /// </summary>
-        /// <param name="name">The name</param>
-        /// <param name="title">The title</param>
-        /// <param name="description">The description</param>
+        /// <param name="configuration">The report configuration</param>
         /// <param name="scriptSourceCode">The script source code</param>
         internal RegisteredReport
             (
-                string name,
-                string title,
-                string description,
+                RegisteredReportConfiguration configuration,
                 string scriptSourceCode
             )
 
-            : this(name, title, description)
+            : this(configuration)
         {
             SpecifySource(scriptSourceCode);
+
+            _constructing = false;
         }
 
         /// <summary>
@@ -119,6 +108,41 @@
         /// Gets a description of the report
         /// </summary>
         public string Description { get; protected set; }
+
+        /// <summary>
+        /// Configures the registered report
+        /// </summary>
+        /// <param name="configuration">The report configuration</param>
+        public void Configure
+            (
+                RegisteredReportConfiguration configuration
+            )
+        {
+            Validate.IsNotNull(configuration);
+
+            if (String.IsNullOrWhiteSpace(configuration.Name))
+            {
+                throw new ArgumentException
+                (
+                    "The report name is required."
+                );
+            }
+
+            if (String.IsNullOrWhiteSpace(configuration.Title))
+            {
+                throw new ArgumentException
+                (
+                    "The report title is required."
+                );
+            }
+
+            this.Name = configuration.Name;
+            this.Title = configuration.Title;
+            this.Description = configuration.Description;
+
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
+        }
 
         /// <summary>
         /// Gets a collection of report source revisions
@@ -184,8 +208,12 @@
             this.BuilderTypeAssemblyQualifiedName = builderType.AssemblyQualifiedName;
             this.ScriptSourceCode = null;
             this.DateSourceSpecified = DateTime.UtcNow;
-            this.DateModified = DateTime.UtcNow;
-            this.Version++;
+
+            if (false == _constructing)
+            {
+                this.DateModified = DateTime.UtcNow;
+                this.Version++;
+            }
         }
 
         /// <summary>
@@ -209,8 +237,12 @@
             this.ScriptSourceCode = scriptSourceCode;
             this.BuilderTypeName = null;
             this.DateSourceSpecified = DateTime.UtcNow;
-            this.DateModified = DateTime.UtcNow;
-            this.Version++;
+
+            if (false == _constructing)
+            {
+                this.DateModified = DateTime.UtcNow;
+                this.Version++;
+            }
         }
     }
 }

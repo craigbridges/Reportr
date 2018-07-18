@@ -45,6 +45,24 @@
         }
 
         /// <summary>
+        /// Determines if a role exists with the name specified
+        /// </summary>
+        /// <param name="name">The role name</param>
+        /// <returns>True, if the role exists; otherwise false</returns>
+        public bool RoleExists
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+            
+            return _context.Set<ReportRole>().Any
+            (
+                r => r.Name.ToLower() == name.ToLower()
+            );
+        }
+
+        /// <summary>
         /// Gets a single report role from the repository
         /// </summary>
         /// <param name="name">The name of the role to get</param>

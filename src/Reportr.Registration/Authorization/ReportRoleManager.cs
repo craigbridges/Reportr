@@ -37,28 +37,61 @@
         /// <summary>
         /// Creates a new report role
         /// </summary>
-        /// <param name="name">The role name</param>
-        /// <param name="title">The role title</param>
-        /// <param name="description">The role description</param>
+        /// <param name="configuration">The role configuration</param>
         /// <returns>The role created</returns>
         public ReportRole CreateRole
             (
-                string name,
-                string title,
-                string description
+                ReportRoleConfiguration configuration
             )
         {
             var role = new ReportRole
             (
-                name,
-                title,
-                description
+                configuration
             );
 
             _roleRepository.AddRole(role);
             _unitOfWork.SaveChanges();
 
             return role;
+        }
+
+        /// <summary>
+        /// Auto creates multiple report roles
+        /// </summary>
+        /// <param name="configurations">The role configurations</param>
+        public void AutoCreateRoles
+            (
+                params ReportRoleConfiguration[] configurations
+            )
+        {
+            Validate.IsNotNull(configurations);
+
+            var changesMade = false;
+
+            foreach (var configuration in configurations)
+            {
+                var exists = _roleRepository.RoleExists
+                (
+                    configuration.Name
+                );
+
+                if (false == exists)
+                {
+                    var role = new ReportRole
+                    (
+                        configuration
+                    );
+
+                    _roleRepository.AddRole(role);
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -89,28 +122,22 @@
         /// <summary>
         /// Configures a single report role
         /// </summary>
-        /// <param name="currentName">The current role name</param>
-        /// <param name="newName">The new role name</param>
-        /// <param name="title">The new role title</param>
-        /// <param name="description">The new role description</param>
+        /// <param name="roleName">The role name</param>
+        /// <param name="configuration">The role configuration</param>
         public void ConfigureRole
             (
-                string currentName,
-                string newName,
-                string title,
-                string description
+                string roleName,
+                ReportRoleConfiguration configuration
             )
         {
             var role = _roleRepository.GetRole
             (
-                currentName
+                roleName
             );
 
             role.Configure
             (
-                newName,
-                title,
-                description
+                configuration
             );
 
             _roleRepository.UpdateRole(role);
@@ -194,6 +221,55 @@
 
             _assignmentRepository.AddAssignment(assignment);
             _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Auto assigns multiple roles to multiple reports
+        /// </summary>
+        /// <param name="assignments">The assignment configurations</param>
+        public void AutoAssignRolesToReports
+            (
+                params ReportRoleAssignmentConfiguration[] assignments
+            )
+        {
+            Validate.IsNotNull(assignments);
+
+            var changesMade = false;
+
+            foreach (var configuration in assignments)
+            {
+                var reportName = configuration.ReportName;
+                var roleName = configuration.RoleName;
+                var constraints = configuration.Constraints;
+
+                var assigned = _assignmentRepository.IsRoleAssigned
+                (
+                    reportName,
+                    roleName
+                );
+
+                if (false == assigned)
+                {
+                    var assignment = new ReportRoleAssignment
+                    (
+                        reportName,
+                        roleName,
+                        constraints
+                    );
+
+                    _assignmentRepository.AddAssignment
+                    (
+                        assignment
+                    );
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
         }
 
         /// <summary>

@@ -1,41 +1,42 @@
 ﻿namespace Reportr.Registration.Entity.Configurations
 {
+    using Reportr.Registration.Categorization;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.ModelConfiguration;
 
     /// <summary>
-    /// Represents an entity type configuration for a registered report source revision
+    /// Represents an entity type configuration for a report category assignment
     /// </summary>
-    public class RegisteredReportSourceRevisionConfiguration 
-        : EntityTypeConfiguration<RegisteredReportSourceRevision>
+    public class ReportCategoryAssignmentEntityConfiguration
+        : EntityTypeConfiguration<ReportCategoryAssignment>
     {
-        public RegisteredReportSourceRevisionConfiguration()
+        public ReportCategoryAssignmentEntityConfiguration()
             : base()
         {
             HasKey
             (
                 m => new
                 {
-                    m.RevisionId,
-                    m.ReportId
+                    m.AssignmentId,
+                    m.CategoryId
                 }
             );
 
             // Configure the primary key constraints
-            Property(m => m.RevisionId)
+            Property(m => m.AssignmentId)
                 .HasDatabaseGeneratedOption
                 (
                     DatabaseGeneratedOption.Identity
                 );
 
             // Set up a foreign key reference for cascade deletes
-            HasRequired(m => m.Report)
-                .WithMany(m => m.SourceRevisions)
+            HasRequired(m => m.Category)
+                .WithMany(m => m.AssignedReports)
                 .HasForeignKey
                 (
                     m => new
                     {
-                        m.ReportId
+                        m.CategoryId
                     }
                 )
                 .WillCascadeOnDelete();
@@ -44,7 +45,7 @@
             (
                 m =>
                 {
-                    m.ToTable("RegisteredReportSourceRevisions");
+                    m.ToTable("ReportCategoryAssignments");
                 }
             );
         }

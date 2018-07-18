@@ -64,6 +64,8 @@
     <Compile Include="Authorization\IReportRoleAssignmentRepository.cs" />
     <Compile Include="Authorization\IReportRoleManager.cs" />
     <Compile Include="Authorization\IReportRoleRepository.cs" />
+    <Compile Include="Authorization\ReportRoleAssignmentConfiguration.cs" />
+    <Compile Include="Authorization\ReportRoleConfiguration.cs" />
     <Compile Include="Authorization\ReportParameterConstraintConfiguration.cs" />
     <Compile Include="Authorization\ReportParameterConstraint.cs" />
     <Compile Include="Authorization\ReportParameterMappingType.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Categorization\ReportCategorizer.cs" />
     <Compile Include="Categorization\ReportCategory.cs" />
     <Compile Include="Categorization\ReportCategoryAssignment.cs" />
+    <Compile Include="Categorization\ReportCategoryConfiguration.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="IRegisteredReportDefinitionBuilder.cs" />
     <Compile Include="IRegisteredReportGenerator.cs" />
@@ -90,6 +93,7 @@
     <Compile Include="RegisteredReportSourceRevision.cs" />
     <Compile Include="ReportDefinitionSourceType.cs" />
     <Compile Include="ReportRegistrar.cs" />
+    <Compile Include="RegisteredReportConfiguration.cs" />
     <Compile Include="SubmittedSortingRule.cs" />
     <Compile Include="SubmittedParameterValue.cs" />
     <Compile Include="SubmittedReportFilterValues.cs" />

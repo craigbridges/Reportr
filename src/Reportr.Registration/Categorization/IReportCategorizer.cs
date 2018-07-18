@@ -10,31 +10,43 @@
         /// <summary>
         /// Creates a single root level report category
         /// </summary>
-        /// <param name="name">The category name</param>
-        /// <param name="title">The category title</param>
-        /// <param name="description">A description of the category</param>
+        /// <param name="configuration">The category configuration</param>
         /// <returns>The category created</returns>
         ReportCategory CreateCategory
         (
-            string name,
-            string title,
-            string description
+            ReportCategoryConfiguration configuration
         );
 
         /// <summary>
         /// Creates a single report sub category
         /// </summary>
-        /// <param name="parentCategoryId">The parent category name</param>
-        /// <param name="name">The category name</param>
-        /// <param name="title">The category title</param>
-        /// <param name="description">A description of the category</param>
+        /// <param name="parentCategoryName">The parent category name</param>
+        /// <param name="configuration">The category configuration</param>
         /// <returns>The category created</returns>
         ReportCategory CreateSubCategory
         (
-            string parentCategoryId,
-            string name,
-            string title,
-            string description
+            string parentCategoryName,
+            ReportCategoryConfiguration configuration
+        );
+
+        /// <summary>
+        /// Auto creates the report categories specified
+        /// </summary>
+        /// <param name="configurations">The category configurations</param>
+        void AutoCreateCategories
+        (
+            params ReportCategoryConfiguration[] configurations
+        );
+
+        /// <summary>
+        /// Auto creates the report sub categories specified
+        /// </summary>
+        /// <param name="parentCategoryName">The parent category name</param>
+        /// <param name="configurations">The category configurations</param>
+        void AutoCreateCategories
+        (
+            string parentCategoryName,
+            params ReportCategoryConfiguration[] configurations
         );
 
         /// <summary>
@@ -82,6 +94,19 @@
         (
             string categoryName,
             string reportName
+        );
+
+        /// <summary>
+        /// Auto assigns multiple reports to categories
+        /// </summary>
+        /// <param name="assignments">The category-report assignments</param>
+        /// <remarks>
+        /// Each assignment key-value pair represents a category name 
+        /// (the key) and report name (the value).
+        /// </remarks>
+        void AutoAssignReports
+        (
+            params KeyValuePair<string, string>[] assignments
         );
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Registration.Authorization
 {
-    using System;
     using System.Collections.Generic;
     
     /// <summary>
@@ -15,6 +14,16 @@
         void AddRole
         (
             ReportRole role
+        );
+
+        /// <summary>
+        /// Determines if a role exists with the name specified
+        /// </summary>
+        /// <param name="name">The role name</param>
+        /// <returns>True, if the role exists; otherwise false</returns>
+        bool RoleExists
+        (
+            string name
         );
 
         /// <summary>

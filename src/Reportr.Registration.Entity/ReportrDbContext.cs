@@ -74,12 +74,12 @@
 
             //modelBuilder.HasDefaultSchema("reportr");
             
-            registrar.Add(new RegisteredReportConfiguration());
-            registrar.Add(new RegisteredReportSourceRevisionConfiguration());
-            registrar.Add(new ReportCategoryConfiguration());
-            registrar.Add(new ReportCategoryAssignmentConfiguration());
-            registrar.Add(new ReportRoleConfiguration());
-            registrar.Add(new ReportRoleAssignmentConfiguration());
+            registrar.Add(new RegisteredReportEntityConfiguration());
+            registrar.Add(new RegisteredReportSourceRevisionEntityConfiguration());
+            registrar.Add(new ReportCategoryEntityConfiguration());
+            registrar.Add(new ReportCategoryAssignmentEntityConfiguration());
+            registrar.Add(new ReportRoleEntityConfiguration());
+            registrar.Add(new ReportRoleAssignmentEntityConfiguration());
         }
     }
 }

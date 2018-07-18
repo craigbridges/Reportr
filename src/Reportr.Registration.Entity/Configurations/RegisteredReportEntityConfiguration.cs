@@ -1,16 +1,15 @@
 ﻿namespace Reportr.Registration.Entity.Configurations
 {
-    using Reportr.Registration.Categorization;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.ModelConfiguration;
 
     /// <summary>
-    /// Represents an entity type configuration for a report category
+    /// Represents an entity type configuration for a registered report
     /// </summary>
-    public class ReportCategoryConfiguration : EntityTypeConfiguration<ReportCategory>
+    public class RegisteredReportEntityConfiguration : EntityTypeConfiguration<RegisteredReport>
     {
-        public ReportCategoryConfiguration()
+        public RegisteredReportEntityConfiguration()
             : base()
         {
             var indexAttribute = new IndexAttribute()
@@ -35,22 +34,11 @@
                     new IndexAnnotation(indexAttribute)
                 );
 
-            // Set up a foreign key reference for cascade deletes
-            HasOptional(m => m.ParentCategory)
-                .WithMany(m => m.SubCategories)
-                .HasForeignKey
-                (
-                    m => new
-                    {
-                        m.ParentCategoryId
-                    }
-                );
-
             Map
             (
                 m =>
                 {
-                    m.ToTable("ReportCategories");
+                    m.ToTable("RegisteredReports");
                 }
             );
         }

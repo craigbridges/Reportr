@@ -8,9 +8,9 @@
     /// <summary>
     /// Represents an entity type configuration for a report role assignment
     /// </summary>
-    public class ReportRoleAssignmentConfiguration : EntityTypeConfiguration<ReportRoleAssignment>
+    public class ReportRoleAssignmentEntityConfiguration : EntityTypeConfiguration<ReportRoleAssignment>
     {
-        public ReportRoleAssignmentConfiguration()
+        public ReportRoleAssignmentEntityConfiguration()
             : base()
         {
             var indexAttribute = new IndexAttribute()

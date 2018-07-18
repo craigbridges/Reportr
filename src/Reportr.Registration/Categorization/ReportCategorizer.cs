@@ -32,20 +32,16 @@
         /// <summary>
         /// Creates a single root level report category
         /// </summary>
-        /// <param name="name">The category name</param>
-        /// <param name="title">The category title</param>
-        /// <param name="description">A description of the category</param>
+        /// <param name="configuration">The category configuration</param>
         /// <returns>The category created</returns>
         public ReportCategory CreateCategory
             (
-                string name,
-                string title,
-                string description
+                ReportCategoryConfiguration configuration
             )
         {
             var nameAvailable = _categoryRepository.IsNameAvailable
             (
-                name
+                configuration.Name
             );
 
             if (false == nameAvailable)
@@ -57,15 +53,14 @@
                     String.Format
                     (
                         message,
-                        name
+                        configuration.Name
                     )
                 );
             }
 
             var category = new ReportCategory
             (
-                name,
-                description
+                configuration
             );
 
             _categoryRepository.AddCategory(category);
@@ -78,21 +73,17 @@
         /// Creates a single report sub category
         /// </summary>
         /// <param name="parentCategoryName">The parent category name</param>
-        /// <param name="name">The category name</param>
-        /// <param name="title">The category title</param>
-        /// <param name="description">A description of the category</param>
+        /// <param name="configuration">The category configuration</param>
         /// <returns>The category created</returns>
         public ReportCategory CreateSubCategory
             (
                 string parentCategoryName,
-                string name,
-                string title,
-                string description
+                ReportCategoryConfiguration configuration
             )
         {
             var nameAvailable = _categoryRepository.IsNameAvailable
             (
-                name
+                configuration.Name
             );
 
             if (false == nameAvailable)
@@ -104,7 +95,7 @@
                     String.Format
                     (
                         message,
-                        name
+                        configuration.Name
                     )
                 );
             }
@@ -116,14 +107,108 @@
 
             var subCategory = parentCategory.CreateSubCategory
             (
-                name,
-                description
+                configuration
             );
 
             _categoryRepository.AddCategory(subCategory);
             _unitOfWork.SaveChanges();
 
             return subCategory;
+        }
+
+        /// <summary>
+        /// Auto creates the report categories specified
+        /// </summary>
+        /// <param name="configurations">The category configurations</param>
+        public void AutoCreateCategories
+            (
+                params ReportCategoryConfiguration[] configurations
+            )
+        {
+            Validate.IsNotNull(configurations);
+
+            var changesMade = false;
+
+            foreach (var configuration in configurations)
+            {
+                var categoryExists = _categoryRepository.IsNameAvailable
+                (
+                    configuration.Name
+                );
+
+                if (false == categoryExists)
+                {
+                    var category = new ReportCategory
+                    (
+                        configuration
+                    );
+
+                    _categoryRepository.AddCategory
+                    (
+                        category
+                    );
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Auto creates the report sub categories specified
+        /// </summary>
+        /// <param name="parentCategoryName">The parent category name</param>
+        /// <param name="configurations">The category configurations</param>
+        public void AutoCreateCategories
+            (
+                string parentCategoryName,
+                params ReportCategoryConfiguration[] configurations
+            )
+        {
+            Validate.IsNotNull(configurations);
+
+            var changesMade = false;
+            var parentCategory = default(ReportCategory);
+
+            foreach (var configuration in configurations)
+            {
+                var categoryExists = _categoryRepository.IsNameAvailable
+                (
+                    configuration.Name
+                );
+
+                if (false == categoryExists)
+                {
+                    if (parentCategory == null)
+                    {
+                        parentCategory = _categoryRepository.GetCategory
+                        (
+                            parentCategoryName
+                        );
+                    }
+
+                    var subCategory = parentCategory.CreateSubCategory
+                    (
+                        configuration
+                    );
+
+                    _categoryRepository.AddCategory
+                    (
+                        subCategory
+                    );
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -203,6 +288,57 @@
 
             _categoryRepository.UpdateCategory(category);
             _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Auto assigns multiple reports to categories
+        /// </summary>
+        /// <param name="assignments">The category-report assignments</param>
+        /// <remarks>
+        /// Each assignment key-value pair represents a category name 
+        /// (the key) and report name (the value).
+        /// </remarks>
+        public void AutoAssignReports
+            (
+                params KeyValuePair<string, string>[] assignments
+            )
+        {
+            Validate.IsNotNull(assignments);
+
+            var changesMade = false;
+
+            foreach (var pair in assignments)
+            {
+                var categoryName = pair.Key;
+                var reportName = pair.Value;
+
+                var category = _categoryRepository.GetCategory
+                (
+                    categoryName
+                );
+
+                var isAssigned = category.IsReportAssigned
+                (
+                    reportName
+                );
+
+                if (false == isAssigned)
+                {
+                    category.AssignReport(reportName);
+
+                    _categoryRepository.UpdateCategory
+                    (
+                        category
+                    );
+                }
+
+                changesMade = true;
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
         }
 
         /// <summary>
