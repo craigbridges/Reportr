@@ -1,9 +1,6 @@
 Unsorted
 --------
 
-- IReportRegistrar
-	- Auto register reports (array of report configurations - how do we handle RegisterReport<TBuilder>?)
-
 - IReportRegistrationInitialiser
 	- Complete SabreReportRegistrationInitialiser
 	- Create GenesisReportRegistrationInitialiser

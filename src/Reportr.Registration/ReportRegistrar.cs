@@ -54,6 +54,26 @@
 
             where TBuilder : IReportDefinitionBuilder
         {
+            RegisterReport
+            (
+                configuration,
+                typeof(TBuilder)
+            );
+        }
+
+        /// <summary>
+        /// Registers a single report with a builder source
+        /// </summary>
+        /// <param name="configuration">The report configuration</param>
+        /// <param name="builderType">The report builder type</param>
+        public void RegisterReport
+            (
+                RegisteredReportConfiguration configuration,
+                Type builderType
+            )
+        {
+            Validate.IsNotNull(configuration);
+
             var registered = IsRegistered
             (
                 configuration.Name
@@ -76,7 +96,7 @@
             var report = new RegisteredReport
             (
                 configuration,
-                typeof(TBuilder)
+                builderType
             );
 
             _reportRepository.AddReport(report);
@@ -94,6 +114,8 @@
                 string scriptSourceCode
             )
         {
+            Validate.IsNotNull(configuration);
+
             var registered = IsRegistered
             (
                 configuration.Name
@@ -121,6 +143,49 @@
 
             _reportRepository.AddReport(report);
             _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Auto registers multiple reports
+        /// </summary>
+        /// <param name="configurations">The report configurations</param>
+        public void AutoRegisterReports
+            (
+                params AutoRegisteredReportConfiguration[] configurations
+            )
+        {
+            Validate.IsNotNull(configurations);
+
+            var changesMade = false;
+
+            foreach (var configuration in configurations)
+            {
+                var alreadyRegistered = _reportRepository.IsRegistered
+                (
+                    configuration.Name
+                );
+
+                if (false == alreadyRegistered)
+                {
+                    var report = new RegisteredReport
+                    (
+                        configuration,
+                        configuration.BuilderType
+                    );
+
+                    _reportRepository.AddReport
+                    (
+                        report
+                    );
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -346,6 +411,24 @@
 
             where TBuilder : IReportDefinitionBuilder
         {
+            SpecifyBuilder
+            (
+                name,
+                typeof(TBuilder)
+            );
+        }
+
+        /// <summary>
+        /// Specifies the report definition source as a builder
+        /// </summary>
+        /// <param name="name">The name of the report</param>
+        /// <param name="builderType">The report builder type</param>
+        public void SpecifyBuilder
+            (
+                string name,
+                Type builderType
+            )
+        {
             var report = _reportRepository.GetReport
             (
                 name
@@ -353,7 +436,7 @@
 
             report.SpecifyBuilder
             (
-                typeof(TBuilder)
+                builderType
             );
 
             _reportRepository.UpdateReport(report);

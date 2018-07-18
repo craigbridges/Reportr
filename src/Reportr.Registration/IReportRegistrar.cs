@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Registration
 {
     using Reportr.Registration.Authorization;
+    using System;
     using System.Collections.Generic;
     
     /// <summary>
@@ -20,6 +21,17 @@
         where TBuilder : IReportDefinitionBuilder;
 
         /// <summary>
+        /// Registers a single report with a builder source
+        /// </summary>
+        /// <param name="configuration">The report configuration</param>
+        /// <param name="builderType">The report builder type</param>
+        void RegisterReport
+        (
+            RegisteredReportConfiguration configuration,
+            Type builderType
+        );
+
+        /// <summary>
         /// Registers a single report with a script source
         /// </summary>
         /// <param name="configuration">The report configuration</param>
@@ -28,6 +40,15 @@
         (
             RegisteredReportConfiguration configuration,
             string scriptSourceCode
+        );
+
+        /// <summary>
+        /// Auto registers multiple reports
+        /// </summary>
+        /// <param name="configurations">The report configurations</param>
+        void AutoRegisterReports
+        (
+            params AutoRegisteredReportConfiguration[] configurations
         );
 
         /// <summary>
@@ -98,6 +119,17 @@
             string name
         )
         where TBuilder : IReportDefinitionBuilder;
+
+        /// <summary>
+        /// Specifies the report definition source as a builder
+        /// </summary>
+        /// <param name="name">The name of the report</param>
+        /// <param name="builderType">The report builder type</param>
+        void SpecifyBuilder
+        (
+            string name,
+            Type builderType
+        );
 
         /// <summary>
         /// Specifies the report definition source as a script

@@ -73,6 +73,7 @@
     <Compile Include="Authorization\ReportRole.cs" />
     <Compile Include="Authorization\ReportRoleManager.cs" />
     <Compile Include="Authorization\ReportUserInfo.cs" />
+    <Compile Include="AutoRegisteredReportConfiguration.cs" />
     <Compile Include="Categorization\IReportCategorizer.cs" />
     <Compile Include="Categorization\IReportCategoryRepository.cs" />
     <Compile Include="Categorization\ReportCategorizer.cs" />

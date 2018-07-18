@@ -194,6 +194,25 @@
         {
             Validate.IsNotNull(builderType);
 
+            var isValidype = builderType.ImplementsInterface
+            (
+                typeof(IReportDefinitionBuilder)
+            );
+
+            if (false == isValidype)
+            {
+                var message = "The type {0} does not implement IReportDefinitionBuilder.";
+
+                throw new InvalidOperationException
+                (
+                    String.Format
+                    (
+                        message,
+                        builderType.Name
+                    )
+                );
+            }
+
             if (this.Version > 0)
             {
                 this.SourceRevisions.Add
