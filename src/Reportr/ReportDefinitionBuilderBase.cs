@@ -112,6 +112,11 @@
                     )
                 );
             }
+
+            definition.Body.Components.Add
+            (
+                tableDefinition
+            );
         }
     }
 }

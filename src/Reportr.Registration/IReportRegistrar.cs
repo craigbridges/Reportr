@@ -143,6 +143,42 @@
         );
 
         /// <summary>
+        /// Disables a single registered report
+        /// </summary>
+        /// <param name="name">The name of the report</param>
+        void DisableReport
+        (
+            string name
+        );
+
+        /// <summary>
+        /// Automatically disables multiple registered reports
+        /// </summary>
+        /// <param name="reportNames">The report names</param>
+        void AutoDisableReports
+        (
+            params string[] reportNames
+        );
+
+        /// <summary>
+        /// Enables a single registered report
+        /// </summary>
+        /// <param name="name">The name of the report</param>
+        void EnableReport
+        (
+            string name
+        );
+
+        /// <summary>
+        /// Automatically enables multiple registered reports
+        /// </summary>
+        /// <param name="reportNames">The report names</param>
+        void AutoEnableReports
+        (
+            params string[] reportNames
+        );
+
+        /// <summary>
         /// De-registers a single report
         /// </summary>
         /// <param name="name">The name of the report</param>

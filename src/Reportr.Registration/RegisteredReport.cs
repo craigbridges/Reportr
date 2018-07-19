@@ -263,5 +263,54 @@
                 this.Version++;
             }
         }
+
+        /// <summary>
+        /// Gets a flag indicating if the report is disabled
+        /// </summary>
+        public bool Disabled { get; protected set; }
+
+        /// <summary>
+        /// Gets the date and time the report was disabled
+        /// </summary>
+        public DateTime? DateDisabled { get; protected set; }
+
+        /// <summary>
+        /// Gets the date and time the report was enabled
+        /// </summary>
+        public DateTime? DateEnabled { get; protected set; }
+
+        /// <summary>
+        /// Disables the registered report
+        /// </summary>
+        internal void Disable()
+        {
+            if (this.Disabled)
+            {
+                throw new InvalidOperationException
+                (
+                    "The report has already been disabled."
+                );
+            }
+
+            this.Disabled = true;
+            this.DateDisabled = DateTime.UtcNow;
+        }
+
+        /// <summary>
+        /// Enables the registered report
+        /// </summary>
+        internal void Enable()
+        {
+            if (false == this.Disabled)
+            {
+                throw new InvalidOperationException
+                (
+                    "The report has not been disabled."
+                );
+            }
+
+            this.Disabled = false;
+            this.DateEnabled = DateTime.UtcNow;
+        }
     }
 }

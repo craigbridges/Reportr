@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr", "Reportr\Reportr.csproj", "{5108C1B8-79A5-41E2-8AA1-D2C1383AE322}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.Nettle", "Reportr.Integrations.Nettle\Reportr.Integrations.Nettle.csproj", "{B6B26291-3759-486D-B554-544E65C2CE10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.Razor", "Reportr.Integrations.Razor\Reportr.Integrations.Razor.csproj", "{198B838D-3295-4738-BEBA-3A8B64FAC06E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.WebApi", "Reportr.WebApi\Reportr.WebApi.csproj", "{A8AA8689-4009-4BEB-A21E-1F776ED9A0C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Sql", "Reportr.Data.Sql\Reportr.Data.Sql.csproj", "{DF0345FD-83E5-459B-919C-5A1DE9A3094B}"
 EndProject
@@ -57,10 +55,6 @@ Global
 		{198B838D-3295-4738-BEBA-3A8B64FAC06E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{198B838D-3295-4738-BEBA-3A8B64FAC06E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{198B838D-3295-4738-BEBA-3A8B64FAC06E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8AA8689-4009-4BEB-A21E-1F776ED9A0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8AA8689-4009-4BEB-A21E-1F776ED9A0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8AA8689-4009-4BEB-A21E-1F776ED9A0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8AA8689-4009-4BEB-A21E-1F776ED9A0C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF0345FD-83E5-459B-919C-5A1DE9A3094B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF0345FD-83E5-459B-919C-5A1DE9A3094B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF0345FD-83E5-459B-919C-5A1DE9A3094B}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,11 +1,7 @@
 Unsorted
 --------
 
-- Registered report
-	- Add way of disabling and enabling registered reports (so we can grey out in the UI and also add logic to disable generating of report)
-
-- Queries
-	- Optional int? MaxRows property that, if set, does a count of the query before executing it and then if count is greater than max throws exception
+- How do we auto unregister (or update) reports, categories etc?
 
 - IReportRegistrationInitialiser
 	- Complete SabreReportRegistrationInitialiser

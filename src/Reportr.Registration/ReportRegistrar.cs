@@ -469,6 +469,124 @@
         }
 
         /// <summary>
+        /// Disables a single registered report
+        /// </summary>
+        /// <param name="name">The name of the report</param>
+        public void DisableReport
+            (
+                string name
+            )
+        {
+            var report = _reportRepository.GetReport
+            (
+                name
+            );
+
+            report.Disable();
+
+            _reportRepository.UpdateReport(report);
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Automatically disables multiple registered reports
+        /// </summary>
+        /// <param name="reportNames">The report names</param>
+        public void AutoDisableReports
+            (
+                params string[] reportNames
+            )
+        {
+            Validate.IsNotNull(reportNames);
+
+            var changesMade = false;
+
+            foreach (var name in reportNames)
+            {
+                var registeredReport = _reportRepository.GetReport
+                (
+                    name
+                );
+                
+                if (false == registeredReport.Disabled)
+                {
+                    registeredReport.Disable();
+
+                    _reportRepository.UpdateReport
+                    (
+                        registeredReport
+                    );
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Enables a single registered report
+        /// </summary>
+        /// <param name="name">The name of the report</param>
+        public void EnableReport
+            (
+                string name
+            )
+        {
+            var report = _reportRepository.GetReport
+            (
+                name
+            );
+
+            report.Enable();
+
+            _reportRepository.UpdateReport(report);
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Automatically enables multiple registered reports
+        /// </summary>
+        /// <param name="reportNames">The report names</param>
+        public void AutoEnableReports
+            (
+                params string[] reportNames
+            )
+        {
+            Validate.IsNotNull(reportNames);
+
+            var changesMade = false;
+
+            foreach (var name in reportNames)
+            {
+                var registeredReport = _reportRepository.GetReport
+                (
+                    name
+                );
+
+                if (registeredReport.Disabled)
+                {
+                    registeredReport.Enable();
+
+                    _reportRepository.UpdateReport
+                    (
+                        registeredReport
+                    );
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// De-registers a single report
         /// </summary>
         /// <param name="name">The name of the report</param>

@@ -122,6 +122,18 @@
                 reportName
             );
 
+            if (registeredReport.Disabled)
+            {
+                watch.Stop();
+
+                return new ReportGenerationResult
+                (
+                    watch.ElapsedMilliseconds,
+                    "Authorization",
+                    "The report cannot be generated because it is disabled."
+                );
+            }
+
             var reportDefinition = _definitionBuilder.Build
             (
                 registeredReport,
