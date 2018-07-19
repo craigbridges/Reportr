@@ -186,6 +186,7 @@
     <Compile Include="IoC\TypeResolver.cs" />
     <Compile Include="IReportDefinitionBuilder.cs" />
     <Compile Include="IReportDefinitionBuilderRepository.cs" />
+    <Compile Include="ReportDefinitionBuilderBase.cs" />
     <Compile Include="ReportExecutionResult.cs" />
     <Compile Include="ReportGenerationResult.cs" />
     <Compile Include="Filtering\ReportFilter.cs" />

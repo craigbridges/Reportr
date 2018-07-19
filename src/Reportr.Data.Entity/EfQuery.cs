@@ -106,6 +106,24 @@
         }
 
         /// <summary>
+        /// Gets a queryable collection of all entities from a database set
+        /// </summary>
+        /// <typeparam name="TEntity">The entity type</typeparam>
+        /// <param name="context">The database context</param>
+        /// <returns>An IQueryable of all entities in the set</returns>
+        protected virtual IQueryable<TEntity> GetAll<TEntity>
+            (
+                DbContext context
+            )
+
+            where TEntity : class
+        {
+            Validate.IsNotNull(context);
+
+            return context.Set<TEntity>();
+        }
+
+        /// <summary>
         /// Generates a queryable for the database context specified
         /// </summary>
         /// <param name="context">The database context</param>
@@ -177,6 +195,50 @@
             }
 
             return rows;
+        }
+
+        /// <summary>
+        /// Gets a parameter value from the parameters supplied
+        /// </summary>
+        /// <typeparam name="TValue">The parameter value type to return</typeparam>
+        /// <param name="parameterName">The parameter name</param>
+        /// <param name="parameterValues">The parameter values</param>
+        /// <returns>The parameter value as the type specified</returns>
+        protected virtual TValue GetParameterValue<TValue>
+            (
+                string parameterName,
+                params ParameterValue[] parameterValues
+            )
+        {
+            Validate.IsNotEmpty(parameterName);
+
+            var matchingItem = parameterValues.FirstOrDefault
+            (
+                pv => pv.Name.ToLower() == parameterName.ToLower()
+            );
+
+            if (matchingItem == null || matchingItem.Value == null)
+            {
+                return default(TValue);
+            }
+            else
+            {
+                var currentType = matchingItem.Value.GetType();
+
+                if (currentType == typeof(TValue))
+                {
+                    return (TValue)matchingItem.Value;
+                }
+                else
+                {
+                    var converter = new ObjectConverter<TValue>();
+
+                    return converter.Convert
+                    (
+                        matchingItem.Value
+                    );
+                }
+            }
         }
     }
 }

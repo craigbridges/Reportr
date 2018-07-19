@@ -56,10 +56,10 @@
         }
 
         /// <summary>
-        /// Auto creates multiple report roles
+        /// Auto registers multiple report roles
         /// </summary>
         /// <param name="configurations">The role configurations</param>
-        public void AutoCreateRoles
+        public void AutoRegisterRoles
             (
                 params ReportRoleConfiguration[] configurations
             )

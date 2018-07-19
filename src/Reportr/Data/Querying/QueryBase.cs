@@ -72,7 +72,7 @@
         public abstract QueryColumnInfo[] Columns { get; }
 
         /// <summary>
-        /// Gets an array of parameters accepted by the component
+        /// Gets an array of parameters accepted by the query
         /// </summary>
         public abstract ParameterInfo[] Parameters { get; }
 

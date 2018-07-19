@@ -117,10 +117,10 @@
         }
 
         /// <summary>
-        /// Auto creates the report categories specified
+        /// Auto registers the report categories specified
         /// </summary>
         /// <param name="configurations">The category configurations</param>
-        public void AutoCreateCategories
+        public void AutoRegisterCategories
             (
                 params ReportCategoryConfiguration[] configurations
             )
@@ -159,11 +159,11 @@
         }
 
         /// <summary>
-        /// Auto creates the report sub categories specified
+        /// Auto registers the report sub categories specified
         /// </summary>
         /// <param name="parentCategoryName">The parent category name</param>
         /// <param name="configurations">The category configurations</param>
-        public void AutoCreateCategories
+        public void AutoRegisterCategories
             (
                 string parentCategoryName,
                 params ReportCategoryConfiguration[] configurations

@@ -18,13 +18,17 @@
             (
                 string name,
                 string displayText,
-                Type expectedType,
+                Type expectedType = null,
                 string description = null
             )
         {
             Validate.IsNotEmpty(name);
             Validate.IsNotEmpty(displayText);
-            Validate.IsNotNull(expectedType);
+
+            if (expectedType == null)
+            {
+                expectedType = typeof(string);
+            }
 
             this.Name = name;
             this.DisplayText = displayText;
