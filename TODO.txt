@@ -10,7 +10,6 @@ Unsorted
 - IReportRegistrationInitialiser
 	- Complete SabreReportRegistrationInitialiser
 	- Create GenesisReportRegistrationInitialiser
-	- Scan for all IReportRegistrationInitialiser instances and run Initialise during app start up (perhaps in SabreApplication?)
 
 
 High Priority

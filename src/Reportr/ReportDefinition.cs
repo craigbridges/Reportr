@@ -142,7 +142,11 @@
 
                 throw new InvalidOperationException
                 (
-                    String.Format(message, parameterName)
+                    String.Format
+                    (
+                        message,
+                        parameterName
+                    )
                 );
             }
             
@@ -157,7 +161,11 @@
 
                     throw new KeyNotFoundException
                     (
-                        String.Format(message, targetName)
+                        String.Format
+                        (
+                            message,
+                            targetName
+                        )
                     );
                 }
             }
@@ -171,7 +179,11 @@
 
                     throw new KeyNotFoundException
                     (
-                        String.Format(message, targetName)
+                        String.Format
+                        (
+                            message,
+                            targetName
+                        )
                     );
                 }
             }
@@ -185,6 +197,24 @@
             );
 
             this.Parameters.Add(reportParameter);
+        }
+
+        /// <summary>
+        /// Determines if there is a parameter matching the name specified
+        /// </summary>
+        /// <param name="name">The parameter name</param>
+        /// <returns>True, if a matching parameter is found; otherwise false</returns>
+        public bool HasParameter
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            return this.Parameters.Any
+            (
+                p => p.Parameter.Name.ToLower() == name.ToLower()
+            );
         }
 
         /// <summary>
