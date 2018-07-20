@@ -213,7 +213,7 @@
                 );
             }
 
-            if (this.Version > 0)
+            if (false == _constructing)
             {
                 this.SourceRevisions.Add
                 (
@@ -244,7 +244,7 @@
                 string scriptSourceCode
             )
         {
-            if (this.Version > 0)
+            if (false == _constructing)
             {
                 this.SourceRevisions.Add
                 (
