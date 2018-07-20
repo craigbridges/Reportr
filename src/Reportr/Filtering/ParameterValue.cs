@@ -1,7 +1,8 @@
 ﻿namespace Reportr.Filtering
 {
     using System;
-    
+    using System.Collections.Generic;
+
     /// <summary>
     /// Represents a single report parameter value
     /// </summary>
@@ -22,6 +23,39 @@
 
             this.Parameter = parameterInfo;
             this.Name = parameterInfo.Name;
+            
+            if (parameterInfo.HasLookup)
+            {
+                var results = parameterInfo.LookupQuery.Execute();
+                var lookupItems = new List<KeyValuePair<object, string>>();
+
+                var valueBinding = parameterInfo.LookupValueBinding;
+                var textBinding = parameterInfo.LookupDisplayTextBinding;
+
+                foreach (var row in results.AllRows)
+                {
+                    var lookupValue = valueBinding.Resolve
+                    (
+                        row
+                    );
+
+                    var lookupText = textBinding.Resolve<string>
+                    (
+                        row
+                    );
+
+                    lookupItems.Add
+                    (
+                        new KeyValuePair<object, string>
+                        (
+                            lookupValue,
+                            lookupText
+                        )
+                    );
+                }
+
+                this.LookupItems = lookupItems.ToArray();
+            }
 
             SetValue(value);
         }
@@ -30,6 +64,11 @@
         /// Gets the parameter information
         /// </summary>
         public ParameterInfo Parameter { get; private set; }
+
+        /// <summary>
+        /// Gets the lookup items available for the parameter value
+        /// </summary>
+        public KeyValuePair<object, string>[] LookupItems { get; private set; }
 
         /// <summary>
         /// Gets the parameter name

@@ -1,5 +1,7 @@
 ﻿namespace Reportr.Filtering
 {
+    using Reportr.Data;
+    using Reportr.Data.Querying;
     using System;
     
     /// <summary>
@@ -89,6 +91,52 @@
         /// be populated programmatically or at design time.
         /// </remarks>
         public bool Visible { get; internal set; }
+
+        /// <summary>
+        /// Adds a lookup to the parameter info
+        /// </summary>
+        /// <param name="query">The lookup query</param>
+        /// <param name="valueBinding">The value data binding</param>
+        /// <param name="displayTextBinding">The display text data binding</param>
+        /// <returns>The updated parameter info</returns>
+        public ParameterInfo WithLookup
+            (
+                IQuery query,
+                DataBinding valueBinding,
+                DataBinding displayTextBinding
+            )
+        {
+            Validate.IsNotNull(query);
+            Validate.IsNotNull(valueBinding);
+            Validate.IsNotNull(displayTextBinding);
+
+            this.HasLookup = true;
+            this.LookupQuery = query;
+            this.LookupValueBinding = valueBinding;
+            this.LookupDisplayTextBinding = displayTextBinding;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets a flag indicating if the parameter info has a lookup
+        /// </summary>
+        public bool HasLookup { get; private set; }
+
+        /// <summary>
+        /// Gets the lookup query
+        /// </summary>
+        public IQuery LookupQuery { get; private set; }
+
+        /// <summary>
+        /// Gets the lookup value binding
+        /// </summary>
+        public DataBinding LookupValueBinding { get; private set; }
+
+        /// <summary>
+        /// Gets the lookup display text binding
+        /// </summary>
+        public DataBinding LookupDisplayTextBinding { get; private set; }
 
         /// <summary>
         /// Adds the default value to the parameter info

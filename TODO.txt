@@ -2,8 +2,9 @@ Unsorted
 --------
 
 - Report filter parameter lookup data source (e.g. list of organisations or dealers instead of having to type key manually)
-	- Query with value and display text data bindings
-	- This should go into the filter parameter definition
+	- How do we supply parameter values for the query and also filter lookup lists based on the value of another parameter (e.g. filter dealers based on organisation)?
+	- Where do we initialise the lookup items for the parameter value?
+	- Can we call the lookup query async?
 
 - How do we auto unregister reports, roles, categories, category and role assignments?
 
