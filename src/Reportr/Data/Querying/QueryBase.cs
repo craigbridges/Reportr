@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -72,9 +73,61 @@
         public abstract QueryColumnInfo[] Columns { get; }
 
         /// <summary>
+        /// Determines if the query has a column with the name specified
+        /// </summary>
+        /// <param name="name">The column name</param>
+        /// <returns>True, if a matching column is found; otherwise false</returns>
+        public bool HasColumn
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            return this.Columns.Any
+            (
+                info => info.Column.Name.ToLower() == name.ToLower()
+            );
+        }
+
+        /// <summary>
+        /// Gets a column from the query matching the name specified
+        /// </summary>
+        /// <param name="name">The column name</param>
+        /// <returns>The matching column</returns>
+        public QueryColumnInfo GetColumn
+            (
+                string name
+            )
+        {
+            Validate.IsNotEmpty(name);
+
+            var column = this.Columns.FirstOrDefault
+            (
+                info => info.Column.Name.ToLower() == name.ToLower()
+            );
+
+            if (column == null)
+            {
+                var message = "No column was found matching the name '{0}'.";
+
+                throw new KeyNotFoundException
+                (
+                    String.Format
+                    (
+                        message,
+                        name
+                    )
+                );
+            }
+
+            return column;
+        }
+
+        /// <summary>
         /// Gets an array of parameters accepted by the query
         /// </summary>
-        public abstract ParameterInfo[] Parameters { get; }
+        public abstract Filtering.ParameterInfo[] Parameters { get; }
 
         /// <summary>
         /// Gets the maximum number of rows the query will return
@@ -532,6 +585,52 @@
             }
 
             return errors;
+        }
+
+        /// <summary>
+        /// Resolves the data table schema for a specific output type
+        /// </summary>
+        /// <typeparam name="TOutput">The query output type</typeparam>
+        /// <returns>The table schema</returns>
+        protected virtual DataTableSchema ResolveTableSchema<TOutput>()
+        {
+            var outputType = typeof(TOutput);
+            var dataSource = this.DataSource;
+
+            var tableSchema = dataSource.Schema.FirstOrDefault
+            (
+                dts => dts.Name == outputType.Name
+            );
+
+            if (tableSchema == null)
+            {
+                var properties = outputType.GetProperties
+                (
+                    BindingFlags.Public | BindingFlags.GetProperty
+                );
+
+                var columnSchemas = new List<DataColumnSchema>();
+
+                foreach (var property in properties)
+                {
+                    columnSchemas.Add
+                    (
+                        new DataColumnSchema
+                        (
+                            property.Name,
+                            property.PropertyType
+                        )
+                    );
+                }
+
+                tableSchema = new DataTableSchema
+                (
+                    outputType.Name,
+                    columnSchemas.ToArray()
+                );
+            }
+
+            return tableSchema;
         }
 
         /// <summary>

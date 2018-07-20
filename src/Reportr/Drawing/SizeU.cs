@@ -97,7 +97,7 @@
                 object obj
             )
         {
-            if (obj == null || false == (obj is SizeU))
+            if (obj is null || false == (obj is SizeU))
             {
                 return false;
             }

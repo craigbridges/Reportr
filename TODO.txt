@@ -1,7 +1,7 @@
 Unsorted
 --------
 
-- How do we auto unregister (or update) reports, categories etc?
+- How do we auto unregister reports, roles, categories, category and role assignments?
 
 - IReportRegistrationInitialiser
 	- Complete SabreReportRegistrationInitialiser

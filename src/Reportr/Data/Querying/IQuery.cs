@@ -31,6 +31,26 @@
         QueryColumnInfo[] Columns { get; }
 
         /// <summary>
+        /// Determines if the query has a column with the name specified
+        /// </summary>
+        /// <param name="name">The column name</param>
+        /// <returns>True, if a matching column is found; otherwise false</returns>
+        bool HasColumn
+        (
+            string name
+        );
+
+        /// <summary>
+        /// Gets a column from the query matching the name specified
+        /// </summary>
+        /// <param name="name">The column name</param>
+        /// <returns>The matching column</returns>
+        QueryColumnInfo GetColumn
+        (
+            string name
+        );
+
+        /// <summary>
         /// Gets an array of parameters accepted by the component
         /// </summary>
         ParameterInfo[] Parameters { get; }

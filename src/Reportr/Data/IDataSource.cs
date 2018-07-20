@@ -23,6 +23,16 @@
         DataTableSchema[] Schema { get; }
 
         /// <summary>
+        /// Gets a flag indicating if the data schema is unresolvable
+        /// </summary>
+        bool SchemaUnresolvable { get; }
+
+        /// <summary>
+        /// Gets the error message generated while trying to resolve the schema
+        /// </summary>
+        string SchemaGenerationErrorMessage { get; }
+
+        /// <summary>
         /// Gets a schema table from the data source
         /// </summary>
         /// <param name="name">The table name</param>

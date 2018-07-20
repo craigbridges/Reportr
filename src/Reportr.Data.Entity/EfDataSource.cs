@@ -4,6 +4,7 @@
     using System.Data.Entity;
     using EntityFramework.Metadata.Extensions;
     using EntityFramework.Metadata;
+    using System;
 
     /// <summary>
     /// Represents an Entity Framework data source implementation
@@ -57,90 +58,102 @@
                 DbContext context
             )
         {
-            var entityMaps = context.Db();
-            var tableSchemas = new List<DataTableSchema>();
-
-            foreach (var map in entityMaps)
+            try
             {
-                var columnSchemas = MapTableProperties(map);
-                
-                var table = new DataTableSchema
-                (
-                    map.TableName,
-                    columnSchemas
-                );
+                var entityMaps = context.Db();
+                var tableSchemas = new List<DataTableSchema>();
 
-                // Set the primary key details
-                if (map.Pks != null)
+                foreach (var map in entityMaps)
                 {
-                    var pkColumns = new List<DataColumnSchema>();
+                    var columnSchemas = MapTableProperties(map);
 
-                    foreach (var property in map.Pks)
+                    var table = new DataTableSchema
+                    (
+                        map.TableName,
+                        columnSchemas
+                    );
+
+                    // Set the primary key details
+                    if (map.Pks != null)
                     {
-                        var column = new DataColumnSchema
-                        (
-                            property.ColumnName,
-                            property.Type
-                        );
+                        var pkColumns = new List<DataColumnSchema>();
 
-                        pkColumns.Add(column);
+                        foreach (var property in map.Pks)
+                        {
+                            var column = new DataColumnSchema
+                            (
+                                property.ColumnName,
+                                property.Type
+                            );
+
+                            pkColumns.Add(column);
+                        }
+
+                        table = table.WithPrimaryKey
+                        (
+                            pkColumns.ToArray()
+                        );
                     }
 
-                    table = table.WithPrimaryKey
-                    (
-                        pkColumns.ToArray()
-                    );
-                }
-
-                // Set the foreign key details
-                if (map.Fks != null)
-                {
-                    var foreignKeys = new List<DataForeignKey>();
-
-                    foreach (var property in map.Fks)
+                    // Set the foreign key details
+                    if (map.Fks != null)
                     {
-                        var referencedProperty = property.FkTargetColumn;
-                        var fkMap = referencedProperty.EntityMap;
-                        var fkTableColumns = MapTableProperties(map);
+                        var foreignKeys = new List<DataForeignKey>();
 
-                        var key = new DataForeignKey
-                        (
-                            new DataColumnSchema[]
-                            {
+                        foreach (var property in map.Fks)
+                        {
+                            var referencedProperty = property.FkTargetColumn;
+                            var fkMap = referencedProperty.EntityMap;
+                            var fkTableColumns = MapTableProperties(map);
+
+                            var key = new DataForeignKey
+                            (
+                                new DataColumnSchema[]
+                                {
                                 new DataColumnSchema
                                 (
                                     property.ColumnName,
                                     property.Type
                                 )
-                            },
-                            new DataTableSchema
-                            (
-                                fkMap.TableName,
-                                fkTableColumns
-                            ),
-                            new DataColumnSchema[]
-                            {
+                                },
+                                new DataTableSchema
+                                (
+                                    fkMap.TableName,
+                                    fkTableColumns
+                                ),
+                                new DataColumnSchema[]
+                                {
                                 new DataColumnSchema
                                 (
                                     referencedProperty.ColumnName,
                                     referencedProperty.Type
                                 )
-                            }
-                        );
+                                }
+                            );
 
-                        foreignKeys.Add(key);
+                            foreignKeys.Add(key);
+                        }
+
+                        table = table.WithForeignKeys
+                        (
+                            foreignKeys.ToArray()
+                        );
                     }
 
-                    table = table.WithForeignKeys
-                    (
-                        foreignKeys.ToArray()
-                    );
+                    tableSchemas.Add(table);
                 }
 
-                tableSchemas.Add(table);
+                _schema = tableSchemas.ToArray();
             }
+            catch (Exception ex)
+            {
+                _schema = new DataTableSchema[] { };
 
-            _schema = tableSchemas.ToArray();
+                MarkSchemaAsUnresolvable
+                (
+                    ex.Message
+                );
+            }
         }
 
         /// <summary>

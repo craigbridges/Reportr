@@ -50,6 +50,29 @@
         public abstract DataTableSchema[] Schema { get; }
 
         /// <summary>
+        /// Gets a flag indicating if the data schema is unresolvable
+        /// </summary>
+        public bool SchemaUnresolvable { get; protected set; }
+
+        /// <summary>
+        /// Gets the error message generated while trying to resolve the schema
+        /// </summary>
+        public string SchemaGenerationErrorMessage { get; protected set; }
+
+        /// <summary>
+        /// Marks the data source schema as unresolvable with the error
+        /// </summary>
+        /// <param name="errorMessage">The error message</param>
+        protected void MarkSchemaAsUnresolvable
+            (
+                string errorMessage
+            )
+        {
+            this.SchemaUnresolvable = true;
+            this.SchemaGenerationErrorMessage = errorMessage;
+        }
+
+        /// <summary>
         /// Gets a table from the database schema
         /// </summary>
         /// <param name="name">The table name</param>

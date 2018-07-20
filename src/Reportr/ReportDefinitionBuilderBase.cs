@@ -5,6 +5,7 @@
     using Reportr.Data.Querying;
     using Reportr.Filtering;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     
     /// <summary>
@@ -25,17 +26,17 @@
         /// <summary>
         /// Auto populates a report definitions parameters from a query
         /// </summary>
-        /// <param name="definition">The report definition</param>
+        /// <param name="reportDefinition">The report definition</param>
         /// <param name="query">The query</param>
         /// <param name="targetName">The target name (optional)</param>
         protected virtual void AutoPopulateParameters
             (
-                ref ReportDefinition definition,
+                ref ReportDefinition reportDefinition,
                 IQuery query,
                 string targetName = null
             )
         {
-            Validate.IsNotNull(definition);
+            Validate.IsNotNull(reportDefinition);
             Validate.IsNotNull(query);
 
             if (targetName == null)
@@ -45,14 +46,14 @@
 
             foreach (var parameter in query.Parameters)
             {
-                var hasParameter = definition.HasParameter
+                var hasParameter = reportDefinition.HasParameter
                 (
                     parameter.Name
                 );
 
                 if (false == hasParameter)
                 {
-                    definition.AddParameter
+                    reportDefinition.AddParameter
                     (
                         parameter,
                         ReportParameterTargetType.Filter,
@@ -65,24 +66,22 @@
         /// <summary>
         /// Auto creates a table based on the schema of a query
         /// </summary>
-        /// <param name="definition">The report definition</param>
+        /// <param name="reportDefinition">The report definition</param>
         /// <param name="query">The query</param>
         /// <param name="tableTitle">The table title</param>
         /// <param name="excludedColumns">The names of excluded columns</param>
         protected virtual void AutoCreateTable
             (
-                ref ReportDefinition definition,
+                ref ReportDefinition reportDefinition,
                 IQuery query,
                 string tableTitle,
                 params string[] excludedColumns
             )
         {
-            Validate.IsNotNull(definition);
+            Validate.IsNotNull(reportDefinition);
             Validate.IsNotNull(query);
             Validate.IsNotNull(excludedColumns);
-
-            AutoPopulateParameters(ref definition, query);
-
+            
             var tableDefinition = new TableDefinition
             (
                 query.Name,
@@ -113,9 +112,102 @@
                 );
             }
 
-            definition.Body.Components.Add
+            reportDefinition.Body.Components.Add
             (
                 tableDefinition
+            );
+
+            AutoPopulateParameters
+            (
+                ref reportDefinition,
+                query
+            );
+        }
+
+        /// <summary>
+        /// Creates a table based on the schema of a query with the columns specified
+        /// </summary>
+        /// <param name="reportDefinition">The report definition</param>
+        /// <param name="query">The query</param>
+        /// <param name="tableTitle">The table title</param>
+        /// <param name="mappedColumns">The names of columns to map</param>
+        /// <remarks>
+        /// The column mappings are represented as an array of key-value pairs.
+        /// 
+        /// Each pair represents a single query column (key) and the table 
+        /// column (value) that it maps to.
+        /// </remarks>
+        protected virtual void CreateTableWith
+            (
+                ref ReportDefinition reportDefinition,
+                IQuery query,
+                string tableTitle,
+                params KeyValuePair<string, string>[] mappedColumns
+            )
+        {
+            Validate.IsNotNull(reportDefinition);
+            Validate.IsNotNull(query);
+            Validate.IsNotNull(mappedColumns);
+
+            if (mappedColumns.Length == 0)
+            {
+                throw new ArgumentException
+                (
+                    "At least one column must be specified to create a table."
+                );
+            }
+
+            var tableDefinition = new TableDefinition
+            (
+                query.Name,
+                tableTitle,
+                query
+            );
+
+            foreach (var mapping in mappedColumns)
+            {
+                var columnFound = query.HasColumn
+                (
+                    mapping.Key
+                );
+
+                if (false == columnFound)
+                {
+                    var message = "The query does not have a column named '{0}'.";
+
+                    throw new InvalidOperationException
+                    (
+                        String.Format
+                        (
+                            message,
+                            mapping.Key
+                        )
+                    );
+                }
+                
+                tableDefinition.Columns.Add
+                (
+                    new TableColumnDefinition
+                    (
+                        mapping.Value,
+                        new DataBinding
+                        (
+                            DataBindingType.QueryPath,
+                            mapping.Key
+                        )
+                    )
+                );
+            }
+            
+            reportDefinition.Body.Components.Add
+            (
+                tableDefinition
+            );
+
+            AutoPopulateParameters
+            (
+                ref reportDefinition,
+                query
             );
         }
     }

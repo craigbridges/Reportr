@@ -98,7 +98,7 @@
                 object obj
             )
         {
-            if (obj == null || false == (obj is PointU))
+            if (obj is null || false == (obj is PointU))
             {
                 return false;
             }

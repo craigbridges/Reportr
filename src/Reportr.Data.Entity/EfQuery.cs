@@ -37,27 +37,7 @@
         private void ResolveColumns()
         {
             var entityType = typeof(T);
-            var dataSource = this.DataSource;
-
-            var tableSchema = dataSource.Schema.FirstOrDefault
-            (
-                dts => dts.Name == entityType.Name
-            );
-
-            if (tableSchema == null)
-            {
-                var message = "The type {0} is not valid for the data source {1}.";
-
-                throw new InvalidOperationException
-                (
-                    String.Format
-                    (
-                        message,
-                        entityType.Name,
-                        dataSource.Name
-                    )
-                );
-            }
+            var tableSchema = ResolveTableSchema<T>();
 
             var properties = entityType.GetProperties
             (

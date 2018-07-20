@@ -11,17 +11,17 @@
         /// Spacifies a string value by adding a separator (usually space) between words
         /// </summary>
         /// <param name="value">The string value to spacify</param>
-        /// <param name="seperator">The separator value to use, default is a space</param>
+        /// <param name="separator">The separator value to use, default is a space</param>
         /// <returns>The spacified string value</returns>
         public static string Spacify
             (
                 this string value,
-                string seperator = " "
+                string separator = " "
             )
         {
             Validate.IsNotEmpty(value);
 
-            if (String.IsNullOrEmpty(value))
+            if (String.IsNullOrEmpty(value) || value.Contains(separator))
             {
                 return value;
             }
@@ -37,7 +37,7 @@
                         if (Char.IsNumber(previousChar) & !Char.IsNumber(currentChar)
                             || Char.IsUpper(currentChar) & Char.IsLower(previousChar))
                         {
-                            result += seperator + Convert.ToString(currentChar);
+                            result += separator + Convert.ToString(currentChar);
                         }
                         else
                         {
@@ -57,7 +57,7 @@
                     result = result.Replace
                     (
                         "_",
-                        seperator
+                        separator
                     );
 
                     result = result.Replace

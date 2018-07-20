@@ -150,44 +150,6 @@
                 );
             }
             
-            // Make sure the target name is a valid query or component
-            if (targetType == ReportParameterTargetType.Filter)
-            {
-                var query = FindQuery(targetName);
-
-                if (query == null)
-                {
-                    var message = "The name '{0}' did not match any queries.";
-
-                    throw new KeyNotFoundException
-                    (
-                        String.Format
-                        (
-                            message,
-                            targetName
-                        )
-                    );
-                }
-            }
-            else if (targetType == ReportParameterTargetType.ExcludeComponent)
-            {
-                var component = FindComponent(targetName);
-
-                if (component == null)
-                {
-                    var message = "The name '{0}' did not match any components.";
-
-                    throw new KeyNotFoundException
-                    (
-                        String.Format
-                        (
-                            message,
-                            targetName
-                        )
-                    );
-                }
-            }
-            
             var reportParameter = new ReportParameterDefinition
             (
                 parameter,
@@ -240,7 +202,11 @@
 
                 throw new KeyNotFoundException
                 (
-                    String.Format(message, name)
+                    String.Format
+                    (
+                        message,
+                        name
+                    )
                 );
             }
 

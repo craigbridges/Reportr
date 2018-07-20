@@ -167,7 +167,7 @@
                 object obj
             )
         {
-            if (obj == null || false == (obj is ParameterInfo))
+            if (obj is null || false == (obj is ParameterInfo))
             {
                 return false;
             }
@@ -187,13 +187,9 @@
                 ParameterInfo right
             )
         {
-            if (left == null && right != null)
+            if (left is null)
             {
-                return false;
-            }
-            else if (left != null && right == null)
-            {
-                return false;
+                return right is null;
             }
             else
             {
@@ -213,15 +209,15 @@
                 ParameterInfo right
             )
         {
-            if (left == null && right != null)
+            if (left is null && false == right is null)
             {
                 return true;
             }
-            else if (left != null && right == null)
+            else if (false == left is null && right is null)
             {
                 return true;
             }
-            else if (left == null && right == null)
+            else if (left is null && right is null)
             {
                 return false;
             }

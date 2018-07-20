@@ -320,7 +320,7 @@
                 object obj
             )
         {
-            if (obj == null || false == (obj is Unit))
+            if (obj is null || false == (obj is Unit))
             {
                 return false;
             }
