@@ -130,7 +130,7 @@
         /// <param name="reportDefinition">The report definition</param>
         /// <param name="query">The query</param>
         /// <param name="tableTitle">The table title</param>
-        /// <param name="mappedColumns">The names of columns to map</param>
+        /// <param name="columnMappings">The names of columns to map</param>
         /// <remarks>
         /// The column mappings are represented as an array of key-value pairs.
         /// 
@@ -142,14 +142,14 @@
                 ref ReportDefinition reportDefinition,
                 IQuery query,
                 string tableTitle,
-                params KeyValuePair<string, string>[] mappedColumns
+                params KeyValuePair<string, string>[] columnMappings
             )
         {
             Validate.IsNotNull(reportDefinition);
             Validate.IsNotNull(query);
-            Validate.IsNotNull(mappedColumns);
+            Validate.IsNotNull(columnMappings);
 
-            if (mappedColumns.Length == 0)
+            if (columnMappings.Length == 0)
             {
                 throw new ArgumentException
                 (
@@ -164,7 +164,7 @@
                 query
             );
 
-            foreach (var mapping in mappedColumns)
+            foreach (var mapping in columnMappings)
             {
                 var columnFound = query.HasColumn
                 (

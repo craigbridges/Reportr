@@ -1,15 +1,18 @@
 Unsorted
 --------
 
-- How do we auto unregister reports, roles, categories, category and role assignments?
+- Report filter parameter lookup data source (e.g. list of organisations or dealers instead of having to type key manually)
+	- Query with value and display text data bindings
+	- This should go into the filter parameter definition
 
-- IReportRegistrationInitialiser
-	- Complete SabreReportRegistrationInitialiser
-	- Create GenesisReportRegistrationInitialiser
+- How do we auto unregister reports, roles, categories, category and role assignments?
 
 
 High Priority
 -------------
+
+- Look into schema mapping issue for Entity Framework in EfDataSource
+	https://github.com/schneidenbach/EntityFramework.Metadata/blob/master/src/EntityFramework.Metadata/Mappers/MapperBase.cs#L479
 
 - Create DataSource and Query implementations in:
 	- Data.Csv
