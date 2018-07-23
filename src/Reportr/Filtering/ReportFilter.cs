@@ -144,62 +144,16 @@
         }
 
         /// <summary>
-        /// Sets a single report filter parameter value
+        /// Gets the parameter values as a dictionary
         /// </summary>
-        /// <param name="parameterName">The parameter name</param>
-        /// <param name="value">The value to set</param>
-        /// <param name="hide">Makes the parameter invisible if true</param>
-        public void SetParameterValue
-            (
-                string parameterName,
-                object value,
-                bool hide = false
-            )
+        /// <returns>A dictionary with the parameter names and values</returns>
+        private IDictionary<string, object> GetParameterValuesAsDictionary()
         {
-            Validate.IsNotEmpty(parameterName);
-
-            var parameterValue = _parameterValues.FirstOrDefault
+            return this.ParameterValues.ToDictionary
             (
-                p => p.Name.ToLower() == parameterName.ToLower()
+                parameter => parameter.Name,
+                parameter => parameter.Value
             );
-
-            if (parameterValue != null)
-            {
-                parameterValue.SetValue(value);
-
-                if (hide)
-                {
-                    var definition = GetDefinition
-                    (
-                        parameterName
-                    );
-
-                    definition.Hide();
-                }
-            }
-            else
-            {
-                var definition = GetDefinition
-                (
-                    parameterName
-                );
-
-                parameterValue = new ReportFilterParameterValue
-                (
-                    definition,
-                    value
-                );
-
-                _parameterValues.Add
-                (
-                    parameterValue
-                );
-
-                if (hide)
-                {
-                    definition.Hide();
-                }
-            }
         }
 
         /// <summary>
@@ -223,12 +177,149 @@
                     name => name.ToLower() == pair.Key.ToLower()
                 );
 
+                var lookupParameterValues = CompileLookupParameterValues
+                (
+                    pair.Key,
+                    parameterValues
+                );
+
                 SetParameterValue
                 (
                     pair.Key,
                     pair.Value,
-                    hide
+                    hide,
+                    lookupParameterValues
                 );
+            }
+        }
+        
+        /// <summary>
+        /// Sets a single report filter parameter value
+        /// </summary>
+        /// <param name="parameterName">The parameter name</param>
+        /// <param name="value">The value to set</param>
+        /// <param name="hide">Makes the parameter invisible if true</param>
+        private void SetParameterValue
+            (
+                string parameterName,
+                object value,
+                bool hide = false,
+                params ParameterValue[] lookupParameterValues
+            )
+        {
+            Validate.IsNotEmpty(parameterName);
+            
+            var parameterValue = _parameterValues.FirstOrDefault
+            (
+                p => p.Name.ToLower() == parameterName.ToLower()
+            );
+
+            if (parameterValue != null)
+            {
+                parameterValue.SetValue
+                (
+                    value,
+                    lookupParameterValues
+                );
+
+                if (hide)
+                {
+                    var definition = GetDefinition
+                    (
+                        parameterName
+                    );
+
+                    definition.Hide();
+                }
+            }
+            else
+            {
+                var definition = GetDefinition
+                (
+                    parameterName
+                );
+
+                parameterValue = new ReportFilterParameterValue
+                (
+                    definition,
+                    value,
+                    lookupParameterValues
+                );
+
+                _parameterValues.Add
+                (
+                    parameterValue
+                );
+
+                if (hide)
+                {
+                    definition.Hide();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Compiles the lookup parameter values for a single parameters lookup
+        /// </summary>
+        /// <param name="parameterName">The parameter name</param>
+        /// <param name="allParameterValues">All parameter values supplied</param>
+        /// <returns>An array of lookup parameter values</returns>
+        private ParameterValue[] CompileLookupParameterValues
+            (
+                string parameterName,
+                IDictionary<string, object> allParameterValues
+            )
+        {
+            var definition = GetDefinition
+            (
+                parameterName
+            );
+
+            var parameter = definition.Parameter;
+
+            if (parameter.HasLookup && parameter.LookupFilterParameters.Any())
+            {
+                var lookupValues = new List<ParameterValue>();
+
+                foreach (var lookupInfo in parameter.LookupFilterParameters)
+                {
+                    var matchFound = allParameterValues.Any
+                    (
+                        pair => pair.Key.ToLower() == lookupInfo.Name.ToLower()
+                    );
+
+                    var lookupValue = default(ParameterValue);
+
+                    if (matchFound)
+                    {
+                        var matchingPair = allParameterValues.First
+                        (
+                            pair => pair.Key.ToLower() == lookupInfo.Name.ToLower()
+                        );
+
+                        lookupValue = new ParameterValue
+                        (
+                            lookupInfo,
+                            matchingPair.Value
+                        );
+                    }
+                    else
+                    {
+                        lookupValue = new ParameterValue
+                        (
+                            lookupInfo,
+                            lookupInfo.DefaultValue
+                        );
+                    }
+
+                    lookupValues.Add(lookupValue);
+                }
+
+                return lookupValues.ToArray();
+            }
+            else
+            {
+                return new ParameterValue[] { };
             }
         }
 
@@ -256,10 +347,19 @@
                     parameterName
                 );
 
+                var allParameterValues = GetParameterValuesAsDictionary();
+
+                var lookupParameterValues = CompileLookupParameterValues
+                (
+                    parameterName,
+                    allParameterValues
+                );
+
                 value = new ReportFilterParameterValue
                 (
                     definition,
-                    definition.Parameter.DefaultValue
+                    definition.Parameter.DefaultValue,
+                    lookupParameterValues
                 );
             }
 

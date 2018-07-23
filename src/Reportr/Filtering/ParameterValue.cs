@@ -2,35 +2,83 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Represents a single report parameter value
     /// </summary>
     public class ParameterValue
     {
+        private KeyValuePair<object, string>[] _lookupItems = null;
+
         /// <summary>
         /// Constructs the parameter value with the details
         /// </summary>
         /// <param name="parameterInfo">The parameter info</param>
         /// <param name="value">The value</param>
+        /// <param name="lookupParameterValues">The lookup parameter values</param>
         public ParameterValue
             (
                 ParameterInfo parameterInfo,
-                object value
+                object value,
+                params ParameterValue[] lookupParameterValues
             )
         {
             Validate.IsNotNull(parameterInfo);
 
             this.Parameter = parameterInfo;
             this.Name = parameterInfo.Name;
-            
+
+            SetValue(value, lookupParameterValues);
+        }
+
+        /// <summary>
+        /// Gets the parameter information
+        /// </summary>
+        public ParameterInfo Parameter { get; private set; }
+
+        /// <summary>
+        /// Gets an array of lookup parameter values
+        /// </summary>
+        /// <remarks>
+        /// The lookup parameter values are used to filter the lookup 
+        /// items when executing the lookup query.
+        /// </remarks>
+        public ParameterValue[] LookupParameterValues { get; private set; }
+
+        /// <summary>
+        /// Gets the lookup items available for the parameter value
+        /// </summary>
+        public KeyValuePair<object, string>[] LookupItems
+        {
+            get
+            {
+                if (_lookupItems == null)
+                {
+                    InitializeLookupItems();
+                }
+
+                return _lookupItems;
+            }
+        }
+
+        /// <summary>
+        /// Initializes the parameter values lookup items
+        /// </summary>
+        private void InitializeLookupItems()
+        {
+            var parameterInfo = this.Parameter;
+
             if (parameterInfo.HasLookup)
             {
-                var results = parameterInfo.LookupQuery.Execute();
-                var lookupItems = new List<KeyValuePair<object, string>>();
+                var results = parameterInfo.LookupQuery.Execute
+                (
+                    this.LookupParameterValues
+                );
 
                 var valueBinding = parameterInfo.LookupValueBinding;
                 var textBinding = parameterInfo.LookupDisplayTextBinding;
+                var items = new List<KeyValuePair<object, string>>();
 
                 foreach (var row in results.AllRows)
                 {
@@ -44,7 +92,7 @@
                         row
                     );
 
-                    lookupItems.Add
+                    items.Add
                     (
                         new KeyValuePair<object, string>
                         (
@@ -54,21 +102,9 @@
                     );
                 }
 
-                this.LookupItems = lookupItems.ToArray();
+                _lookupItems = items.ToArray();
             }
-
-            SetValue(value);
         }
-
-        /// <summary>
-        /// Gets the parameter information
-        /// </summary>
-        public ParameterInfo Parameter { get; private set; }
-
-        /// <summary>
-        /// Gets the lookup items available for the parameter value
-        /// </summary>
-        public KeyValuePair<object, string>[] LookupItems { get; private set; }
 
         /// <summary>
         /// Gets the parameter name
@@ -84,12 +120,17 @@
         /// Sets the parameter value
         /// </summary>
         /// <param name="value">The value</param>
+        /// <param name="lookupParameterValues">The lookup parameter values</param>
         protected internal void SetValue
             (
-                object value
+                object value,
+                params ParameterValue[] lookupParameterValues
             )
         {
+            Validate.IsNotNull(lookupParameterValues);
+
             var parameter = this.Parameter;
+            var valueChanged = (value != this.Value);
 
             if (value == null)
             {
@@ -134,6 +175,11 @@
                 {
                     this.Value = value;
                 }
+            }
+
+            if (valueChanged || lookupParameterValues.Any())
+            {
+                _lookupItems = null;
             }
         }
     }

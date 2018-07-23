@@ -10,10 +10,12 @@
         /// </summary>
         /// <param name="definition">The parameter definition</param>
         /// <param name="value">The value</param>
+        /// <param name="lookupParameterValues">The lookup parameter values</param>
         public ReportFilterParameterValue
             (
                 ReportParameterDefinition definition,
-                object value
+                object value,
+                params ParameterValue[] lookupParameterValues
             )
 
             : base(definition.Parameter, value)

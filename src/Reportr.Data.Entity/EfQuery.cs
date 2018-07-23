@@ -15,7 +15,7 @@
     /// <typeparam name="T">The query output type</typeparam>
     public abstract class EfQuery<T> : QueryBase
     {
-        private QueryColumnInfo[] _columns;
+        private QueryColumnInfo[] _columns = null;
 
         /// <summary>
         /// Constructs the query with an Entity Framework data source
@@ -72,6 +72,11 @@
         {
             get
             {
+                if (_columns == null || _columns.Length == 0)
+                {
+                    ResolveColumns();
+                }
+
                 return _columns;
             }
         }

@@ -98,22 +98,26 @@
         /// <param name="query">The lookup query</param>
         /// <param name="valueBinding">The value data binding</param>
         /// <param name="displayTextBinding">The display text data binding</param>
+        /// <param name="filterParameters">The filter parameters</param>
         /// <returns>The updated parameter info</returns>
         public ParameterInfo WithLookup
             (
                 IQuery query,
                 DataBinding valueBinding,
-                DataBinding displayTextBinding
+                DataBinding displayTextBinding,
+                params ParameterInfo[] filterParameters
             )
         {
             Validate.IsNotNull(query);
             Validate.IsNotNull(valueBinding);
             Validate.IsNotNull(displayTextBinding);
+            Validate.IsNotNull(filterParameters);
 
             this.HasLookup = true;
             this.LookupQuery = query;
             this.LookupValueBinding = valueBinding;
             this.LookupDisplayTextBinding = displayTextBinding;
+            this.LookupFilterParameters = filterParameters;
 
             return this;
         }
@@ -137,6 +141,11 @@
         /// Gets the lookup display text binding
         /// </summary>
         public DataBinding LookupDisplayTextBinding { get; private set; }
+
+        /// <summary>
+        /// Gets the lookup filter parameters
+        /// </summary>
+        public ParameterInfo[] LookupFilterParameters { get; private set; }
 
         /// <summary>
         /// Adds the default value to the parameter info

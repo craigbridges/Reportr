@@ -2,7 +2,8 @@
 {
     using Reportr.Filtering;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     /// <summary>
     /// Represents various extension methods for queries
     /// </summary>
@@ -24,16 +25,41 @@
 
             foreach (var info in query.Parameters)
             {
-                var defaultValue = info.DefaultValue;
+                // Add the default lookup item filter values
+                if (info.HasLookup && info.LookupFilterParameters.Any())
+                {
+                    var lookupValues = new List<ParameterValue>();
 
-                if (defaultValue != null)
+                    foreach (var filterInfo in info.LookupFilterParameters)
+                    {
+                        lookupValues.Add
+                        (
+                            new ParameterValue
+                            (
+                                filterInfo,
+                                filterInfo.DefaultValue
+                            )
+                        );
+                    }
+
+                    values.Add
+                    (
+                        new ParameterValue
+                        (
+                            info,
+                            info.DefaultValue,
+                            lookupValues.ToArray()
+                        )
+                    );
+                }
+                else
                 {
                     values.Add
                     (
                         new ParameterValue
                         (
                             info,
-                            defaultValue
+                            info.DefaultValue
                         )
                     );
                 }

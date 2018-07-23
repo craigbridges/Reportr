@@ -3,10 +3,11 @@ Unsorted
 
 - Report filter parameter lookup data source (e.g. list of organisations or dealers instead of having to type key manually)
 	- How do we supply parameter values for the query and also filter lookup lists based on the value of another parameter (e.g. filter dealers based on organisation)?
-	- Where do we initialise the lookup items for the parameter value?
-	- Can we call the lookup query async?
+	- How do we pass user meta data into these lookup filters so we can filter the data down? (e.g. user belongs to organisation and has a constraint, so we must filter lookup items for organisation to just the one the user is in).
 
 - How do we auto unregister reports, roles, categories, category and role assignments?
+
+- Create ability to log all registered report generations with their data so we can keep an audit trail for security reasons. E.g. report to show customer information, gets leaked. Logs can be checked to see who generated that data and when so it can be traced.
 
 
 High Priority
