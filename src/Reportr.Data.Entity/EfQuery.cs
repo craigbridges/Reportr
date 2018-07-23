@@ -41,7 +41,7 @@
 
             var properties = entityType.GetProperties
             (
-                BindingFlags.Public | BindingFlags.GetProperty
+                BindingFlags.Public | BindingFlags.Instance
             );
 
             var columnInfos = new List<QueryColumnInfo>();

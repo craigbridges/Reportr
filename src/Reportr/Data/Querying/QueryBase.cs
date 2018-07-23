@@ -606,7 +606,7 @@
             {
                 var properties = outputType.GetProperties
                 (
-                    BindingFlags.Public | BindingFlags.GetProperty
+                    BindingFlags.Public | BindingFlags.Instance
                 );
 
                 var columnSchemas = new List<DataColumnSchema>();
