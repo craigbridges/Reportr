@@ -4,10 +4,12 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents a single report graphic
     /// </summary>
+    [DataContract]
     public class Graphic : ReportComponentBase
     {
         /// <summary>
@@ -62,16 +64,19 @@
         /// <summary>
         /// Gets the image to display
         /// </summary>
+        [DataMember]
         public Image Image { get; protected set; }
 
         /// <summary>
         /// Gets an array of overlays to display over the graphic
         /// </summary>
+        [DataMember]
         public GraphicOverlay[] Overlays { get; protected set; }
 
         /// <summary>
         /// Gets a dictionary of overlay statistics
         /// </summary>
+        [DataMember]
         public Dictionary<Guid, List<Statistic>> OverlayStatistics
         {
             get;
@@ -118,6 +123,7 @@
         /// <summary>
         /// Gets an array of areas to render over the graphic
         /// </summary>
+        [DataMember]
         public GraphicArea[] Areas { get; protected set; }
 
         /// <summary>
@@ -157,11 +163,13 @@
         /// <summary>
         /// Gets the image width
         /// </summary>
+        [DataMember]
         public double? Width { get; protected set; }
 
         /// <summary>
         /// Gets the image height
         /// </summary>
+        [DataMember]
         public double? Height { get; protected set; }
     }
 }

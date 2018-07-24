@@ -352,7 +352,7 @@
 
             foreach (var result in results)
             {
-                if (false == result.Success)
+                if (result != null && false == result.Success)
                 {
                     foreach (var error in result.ErrorMessages)
                     {

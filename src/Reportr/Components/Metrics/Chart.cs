@@ -1,13 +1,17 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents a single two-dimensional report chart
     /// </summary>
+    [JsonObject]
+    [DataContract]
     public class Chart : ReportComponentBase, IEnumerable<ChartDataSet>
     {
         /// <summary>
@@ -63,20 +67,23 @@
             this.YAxisInterval = definition.YAxisInterval;
             this.DataSets = dataSets;
         }
-        
+
         /// <summary>
         /// Gets an array of x-axis labels
         /// </summary>
+        [DataMember]
         public ChartAxisLabel[] XAxisLabels { get; private set; }
 
         /// <summary>
         /// Gets the y-axis step interval
         /// </summary>
+        [DataMember]
         public double? YAxisInterval { get; private set; }
 
         /// <summary>
         /// Gets an array of chart data sets
         /// </summary>
+        [DataMember]
         public ChartDataSet[] DataSets { get; private set; }
         
         /// <summary>

@@ -1,12 +1,16 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents a single report repeater
     /// </summary>
+    [JsonObject]
+    [DataContract]
     public class Repeater : ReportComponentBase, IEnumerable<RepeaterItem>
     {
         /// <summary>
@@ -30,11 +34,13 @@
         /// <summary>
         /// Gets the repeater type
         /// </summary>
+        [DataMember]
         public RepeaterType RepeaterType { get; protected set; }
 
         /// <summary>
         /// Gets the items in the repeater
         /// </summary>
+        [DataMember]
         public RepeaterItem[] Items { get; protected set; }
 
         /// <summary>
