@@ -2,6 +2,7 @@ Unsorted
 
 - Report filter parameter lookup data source (e.g. list of organisations or dealers instead of having to type key manually)
 	- How do we pass user meta data into lookup filters so we can filter the auto data down? (e.g. user belongs to organisation and has a constraint, so we must filter lookup items for organisation to just the one the user is in).
+	- If constraint applied, then lookup items should not be resolved (for performance) and hide flag should be set to true
 
 - How do we auto unregister reports, roles, categories, category and role assignments?
 

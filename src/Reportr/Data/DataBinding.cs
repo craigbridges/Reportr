@@ -12,6 +12,18 @@
         /// <summary>
         /// Constructs the data binding with the details
         /// </summary>
+        /// <param name="expression">The expression</param>
+        public DataBinding
+            (
+                string expression
+            )
+
+            : this(DataBindingType.QueryPath, expression)
+        { }
+
+        /// <summary>
+        /// Constructs the data binding with the details
+        /// </summary>
         /// <param name="bindingType">The binding type</param>
         /// <param name="expression">The expression</param>
         public DataBinding
