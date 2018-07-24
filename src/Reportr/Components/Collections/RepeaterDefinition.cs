@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Newtonsoft.Json;
     using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
@@ -46,6 +47,7 @@
         /// <summary>
         /// Gets the query that will supply the tables data
         /// </summary>
+        [JsonIgnore]
         public IQuery Query { get; protected set; }
 
         /// <summary>

@@ -1,12 +1,16 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents a single report table
     /// </summary>
+    [JsonObject]
+    [DataContract]
     public class Table : ReportComponentBase, IEnumerable<TableRow>
     {
         /// <summary>
@@ -42,15 +46,17 @@
             this.Columns = columns.ToArray();
             this.Rows = rows;
         }
-        
+
         /// <summary>
         /// Gets the columns in the table
         /// </summary>
+        [DataMember]
         public TableColumn[] Columns { get; protected set; }
 
         /// <summary>
         /// Gets the rows in the table
         /// </summary>
+        [DataMember]
         public TableRow[] Rows { get; protected set; }
 
         /// <summary>

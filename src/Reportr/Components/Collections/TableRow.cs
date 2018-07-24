@@ -52,6 +52,8 @@
                     );
                 }
             }
+
+            this.Cells = cells;
         }
 
         /// <summary>
