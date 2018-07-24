@@ -1,14 +1,7 @@
 Unsorted
 
-- Report filter lookups add flag to allow nulls (so the first lookup item can be null)
-
-- Add enum for parameter type that is auto resolved from expected type (e.g. DateTime becomes an enum that suggests a date time input etc)
-
-- Have way of specifying that a query produces no data if no filter values are supplied (.e. when report first generated)
-
 - Report filter parameter lookup data source (e.g. list of organisations or dealers instead of having to type key manually)
-	- How do we supply parameter values for the query and also filter lookup lists based on the value of another parameter (e.g. filter dealers based on organisation)?
-	- How do we pass user meta data into these lookup filters so we can filter the data down? (e.g. user belongs to organisation and has a constraint, so we must filter lookup items for organisation to just the one the user is in).
+	- How do we pass user meta data into lookup filters so we can filter the auto data down? (e.g. user belongs to organisation and has a constraint, so we must filter lookup items for organisation to just the one the user is in).
 
 - How do we auto unregister reports, roles, categories, category and role assignments?
 

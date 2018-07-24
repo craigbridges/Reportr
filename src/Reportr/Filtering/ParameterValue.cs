@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Filtering
 {
+    using Reportr.Common.Reflection;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -63,7 +64,7 @@
         }
 
         /// <summary>
-        /// Initializes the parameter values lookup items
+        /// Initializes the lookup items for the parameter value
         /// </summary>
         private void InitializeLookupItems()
         {
@@ -71,39 +72,153 @@
 
             if (parameterInfo.HasLookup)
             {
-                var results = parameterInfo.LookupQuery.Execute
+                var items = default
                 (
-                    this.LookupParameterValues
+                    List<KeyValuePair<object, string>>
                 );
 
-                var valueBinding = parameterInfo.LookupValueBinding;
-                var textBinding = parameterInfo.LookupDisplayTextBinding;
-                var items = new List<KeyValuePair<object, string>>();
+                var sourceType = parameterInfo.LookupSourceType.Value;
 
-                foreach (var row in results.AllRows)
+                switch (sourceType)
                 {
-                    var lookupValue = valueBinding.Resolve
-                    (
-                        row
-                    );
+                    case ParameterLookupSourceType.Query:
+                    {
+                        items = ExecuteLookupQuery
+                        (
+                            parameterInfo
+                        );
+                        
+                        break;
+                    }
+                    case ParameterLookupSourceType.Enum:
+                    {
+                        items = GetLookupEnumValues
+                        (
+                            parameterInfo
+                        );
+                        
+                        break;
+                    }
+                    default:
+                    {
+                        var message = "The lookup source type {0} is not supported.";
 
-                    var lookupText = textBinding.Resolve<string>
-                    (
-                        row
-                    );
+                        throw new NotSupportedException
+                        (
+                            String.Format
+                            (
+                                message,
+                                sourceType
+                            )
+                        );
+                    }
+                }
 
-                    items.Add
+                if (parameterInfo.InsertBlankLookupItem)
+                {
+                    items.Insert
                     (
+                        0,
                         new KeyValuePair<object, string>
                         (
-                            lookupValue,
-                            lookupText
+                            null,
+                            null
                         )
                     );
                 }
 
                 _lookupItems = items.ToArray();
             }
+        }
+
+        /// <summary>
+        /// Executes a lookup query and returns the results as a key-value list
+        /// </summary>
+        /// <param name="parameterInfo">The parameter information</param>
+        /// <returns>A list of key-value pairs representing the query results</returns>
+        private List<KeyValuePair<object, string>> ExecuteLookupQuery
+            (
+                ParameterInfo parameterInfo
+            )
+        {
+            var results = parameterInfo.LookupQuery.Execute
+            (
+                this.LookupParameterValues
+            );
+
+            var valueBinding = parameterInfo.LookupValueBinding;
+            var textBinding = parameterInfo.LookupDisplayTextBinding;
+            var items = new List<KeyValuePair<object, string>>();
+
+            if (parameterInfo.InsertBlankLookupItem)
+            {
+                items.Add
+                (
+                    new KeyValuePair<object, string>
+                    (
+                        null,
+                        null
+                    )
+                );
+            }
+
+            foreach (var row in results.AllRows)
+            {
+                var lookupValue = valueBinding.Resolve
+                (
+                    row
+                );
+
+                var lookupText = textBinding.Resolve<string>
+                (
+                    row
+                );
+
+                items.Add
+                (
+                    new KeyValuePair<object, string>
+                    (
+                        lookupValue,
+                        lookupText
+                    )
+                );
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Gets the enum values for a parameter lookup
+        /// </summary>
+        /// <param name="parameterInfo">The parameter information</param>
+        /// <returns>A list of key-value pairs representing the enum</returns>
+        private List<KeyValuePair<object, string>> GetLookupEnumValues
+            (
+                ParameterInfo parameterInfo
+            )
+        {
+            var inspector = new EnumInspector();
+
+            var enumInfo = inspector.GetEnumInfo
+            (
+                parameterInfo.LookupEnumType
+            );
+
+            var pairs = new List<KeyValuePair<object, string>>();
+
+            foreach (var item in enumInfo)
+            {
+                pairs.Add
+                (
+                    new KeyValuePair<object, string>
+                    (
+                        item.Name,
+                        item.Description
+                    )
+                );
+            }
+
+            return pairs;
         }
 
         /// <summary>

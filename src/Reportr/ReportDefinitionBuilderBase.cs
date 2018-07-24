@@ -98,18 +98,21 @@
                     exclusion => exclusion.ToLower() == columnName.ToLower()
                 );
 
-                tableDefinition.Columns.Add
-                (
-                    new TableColumnDefinition
+                if (false == isExcluded)
+                {
+                    tableDefinition.Columns.Add
                     (
-                        columnName.Spacify(),
-                        new DataBinding
+                        new TableColumnDefinition
                         (
-                            DataBindingType.QueryPath,
-                            columnName
+                            columnName.Spacify(),
+                            new DataBinding
+                            (
+                                DataBindingType.QueryPath,
+                                columnName
+                            )
                         )
-                    )
-                );
+                    );
+                }
             }
 
             reportDefinition.Body.Components.Add

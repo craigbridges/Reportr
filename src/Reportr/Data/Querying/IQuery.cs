@@ -56,6 +56,11 @@
         ParameterInfo[] Parameters { get; }
 
         /// <summary>
+        /// Gets a flag indicating if at least one parameter value is required to run the query
+        /// </summary>
+        bool OnlyRunWithParameterValues { get; }
+
+        /// <summary>
         /// Gets the maximum number of rows the query will return
         /// </summary>
         /// <remarks>

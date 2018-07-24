@@ -130,6 +130,11 @@
         public abstract Filtering.ParameterInfo[] Parameters { get; }
 
         /// <summary>
+        /// Gets a flag indicating if at least one parameter value is required to run the query
+        /// </summary>
+        public bool OnlyRunWithParameterValues { get; protected set; }
+
+        /// <summary>
         /// Gets the maximum number of rows the query will return
         /// </summary>
         /// <remarks>
@@ -268,6 +273,23 @@
             if (parameterValues == null)
             {
                 parameterValues = new ParameterValue[] { };
+            }
+
+            if (this.OnlyRunWithParameterValues)
+            {
+                var valueFound = parameterValues.Any
+                (
+                    pv => pv.Value != null
+                );
+
+                if (false == valueFound)
+                {
+                    return new QueryResults
+                    (
+                        this,
+                        0
+                    );
+                }
             }
 
             var parameterErrors = ValidateParameterValues

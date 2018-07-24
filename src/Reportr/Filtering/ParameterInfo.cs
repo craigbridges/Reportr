@@ -3,7 +3,8 @@
     using Reportr.Data;
     using Reportr.Data.Querying;
     using System;
-    
+    using System.Drawing;
+
     /// <summary>
     /// Represents information about a single report parameter
     /// </summary>
@@ -38,6 +39,8 @@
             this.Description = description;
             this.Visible = true;
             this.ValueRequired = false;
+
+            SetInputType(expectedType);
         }
 
         /// <summary>
@@ -59,6 +62,65 @@
         /// Gets the expected value type
         /// </summary>
         public Type ExpectedType { get; private set; }
+
+        /// <summary>
+        /// Gets the parameter input type (based on the expected type)
+        /// </summary>
+        public ParameterInputType InputType { get; private set; }
+
+        /// <summary>
+        /// Sets the parameter input type based on the expected type
+        /// </summary>
+        /// <param name="expectedType">The expected type</param>
+        private void SetInputType
+            (
+                Type expectedType
+            )
+        {
+            var inputType = default(ParameterInputType);
+
+            if (this.HasLookup)
+            {
+                inputType = ParameterInputType.Lookup;
+            }
+            else
+            {
+                if (expectedType == typeof(bool))
+                {
+                    inputType = ParameterInputType.Boolean;
+                }
+                else if (expectedType == typeof(short)
+                    || expectedType == typeof(int)
+                    || expectedType == typeof(long))
+                {
+                    inputType = ParameterInputType.WholeNumber;
+                }
+                else if (expectedType == typeof(float)
+                    || expectedType == typeof(double)
+                    || expectedType == typeof(decimal))
+                {
+                    inputType = ParameterInputType.DecimalNumber;
+                }
+                else if (expectedType == typeof(DateTime))
+                {
+                    inputType = ParameterInputType.Date;
+                }
+                else if (expectedType == typeof(TimeSpan))
+                {
+                    inputType = ParameterInputType.Time;
+                }
+                else if (expectedType == typeof(Color))
+                {
+                    inputType = ParameterInputType.Color;
+                }
+                else
+                {
+                    inputType = ParameterInputType.Text;
+                }
+            }
+
+            this.InputType = inputType;
+        }
 
         /// <summary>
         /// Adds configuration details to the parameter info
@@ -93,11 +155,12 @@
         public bool Visible { get; internal set; }
 
         /// <summary>
-        /// Adds a lookup to the parameter info
+        /// Adds a query lookup to the parameter info
         /// </summary>
         /// <param name="query">The lookup query</param>
         /// <param name="valueBinding">The value data binding</param>
         /// <param name="displayTextBinding">The display text data binding</param>
+        /// <param name="insertBlank">If true, a blank lookup item is inserted</param>
         /// <param name="filterParameters">The filter parameters</param>
         /// <returns>The updated parameter info</returns>
         public ParameterInfo WithLookup
@@ -105,6 +168,7 @@
                 IQuery query,
                 DataBinding valueBinding,
                 DataBinding displayTextBinding,
+                bool insertBlank = false,
                 params ParameterInfo[] filterParameters
             )
         {
@@ -114,10 +178,49 @@
             Validate.IsNotNull(filterParameters);
 
             this.HasLookup = true;
+            this.LookupSourceType = ParameterLookupSourceType.Query;
             this.LookupQuery = query;
             this.LookupValueBinding = valueBinding;
             this.LookupDisplayTextBinding = displayTextBinding;
+            this.InsertBlankLookupItem = insertBlank;
             this.LookupFilterParameters = filterParameters;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an enum lookup to the parameter info
+        /// </summary>
+        /// <param name="insertBlank">If true, a blank lookup item is inserted</param>
+        /// <returns>The updated parameter info</returns>
+        public ParameterInfo WithLookup<TEnum>
+            (
+                bool insertBlank = false
+            )
+
+            where TEnum : struct
+        {
+            var enumType = typeof(TEnum);
+
+            if (false == enumType.IsEnum)
+            {
+                var message = "The type {0} is no a valid enum.";
+
+                throw new InvalidOperationException
+                (
+                    String.Format
+                    (
+                        message,
+                        enumType.Name
+                    )
+                );
+            }
+
+            this.HasLookup = true;
+            this.LookupSourceType = ParameterLookupSourceType.Enum;
+            this.LookupEnumType = enumType;
+            this.InsertBlankLookupItem = insertBlank;
+            this.LookupFilterParameters = new ParameterInfo[] { };
 
             return this;
         }
@@ -126,6 +229,11 @@
         /// Gets a flag indicating if the parameter info has a lookup
         /// </summary>
         public bool HasLookup { get; private set; }
+
+        /// <summary>
+        /// Gets the parameter lookup data source type
+        /// </summary>
+        public ParameterLookupSourceType? LookupSourceType { get; private set; }
 
         /// <summary>
         /// Gets the lookup query
@@ -141,6 +249,16 @@
         /// Gets the lookup display text binding
         /// </summary>
         public DataBinding LookupDisplayTextBinding { get; private set; }
+
+        /// <summary>
+        /// Gets the enum type to use for the lookup
+        /// </summary>
+        public Type LookupEnumType { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if a blank lookup item should be inserted
+        /// </summary>
+        public bool InsertBlankLookupItem { get; private set; }
 
         /// <summary>
         /// Gets the lookup filter parameters

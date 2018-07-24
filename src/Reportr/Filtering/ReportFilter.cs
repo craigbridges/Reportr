@@ -277,7 +277,9 @@
 
             var parameter = definition.Parameter;
 
-            if (parameter.HasLookup && parameter.LookupFilterParameters.Any())
+            if (parameter.HasLookup 
+                && parameter.LookupSourceType == ParameterLookupSourceType.Query
+                && parameter.LookupFilterParameters.Any())
             {
                 var lookupValues = new List<ParameterValue>();
 

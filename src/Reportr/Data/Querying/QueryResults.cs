@@ -28,7 +28,10 @@
             this.QueryName = query.Name;
             this.ExecutionTime = executionTime;
             this.Success = success;
+
             this.Columns = query.Columns;
+            this.Groupings = new QueryGrouping[] { };
+            this.AllRows = new QueryRow[] { };
         }
         
         /// <summary>

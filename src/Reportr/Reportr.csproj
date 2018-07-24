@@ -75,8 +75,11 @@
   <ItemGroup>
     <Compile Include="Common\Conversion\GenericObjectConverter.cs" />
     <Compile Include="Common\Conversion\ObjectConverter.cs" />
+    <Compile Include="Common\Extensions\EnumExtensions.cs" />
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
+    <Compile Include="Common\Reflection\EnumInspector.cs" />
+    <Compile Include="Common\Reflection\EnumItemInfo.cs" />
     <Compile Include="Common\Validation\TypeConverterChecker.cs" />
     <Compile Include="Components\Collections\ColumnAlignment.cs" />
     <Compile Include="Components\Collections\ISortableComponent.cs" />
@@ -174,6 +177,8 @@
     <Compile Include="Drawing\UnitType.cs" />
     <Compile Include="Drawing\VerticalAlign.cs" />
     <Compile Include="Filtering\IReportFilterGenerator.cs" />
+    <Compile Include="Filtering\ParameterInputType.cs" />
+    <Compile Include="Filtering\ParameterLookupSourceType.cs" />
     <Compile Include="Filtering\ReportFilterGenerator.cs" />
     <Compile Include="Filtering\ReportFilterParameterValue.cs" />
     <Compile Include="Filtering\ReportFilterSortingRule.cs" />

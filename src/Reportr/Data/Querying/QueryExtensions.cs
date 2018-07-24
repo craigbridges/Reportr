@@ -26,7 +26,9 @@
             foreach (var info in query.Parameters)
             {
                 // Add the default lookup item filter values
-                if (info.HasLookup && info.LookupFilterParameters.Any())
+                if (info.HasLookup 
+                    && info.LookupSourceType == ParameterLookupSourceType.Query 
+                    && info.LookupFilterParameters.Any())
                 {
                     var lookupValues = new List<ParameterValue>();
 
