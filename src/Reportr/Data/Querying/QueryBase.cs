@@ -291,9 +291,14 @@
             }
             else
             {
-                var rows = await FetchDataAsync
+                var fetchTask = FetchDataAsync
                 (
                     parameterValues
+                );
+
+                var rows = await fetchTask.ConfigureAwait
+                (
+                    false
                 );
 
                 rows = SortRows(rows);

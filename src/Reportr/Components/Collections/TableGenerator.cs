@@ -39,9 +39,14 @@
                 defaultParameters.ToArray()
             );
 
-            var results = await query.ExecuteAsync
+            var queryTask = query.ExecuteAsync
             (
                 parameters.ToArray()
+            );
+
+            var results = await queryTask.ConfigureAwait
+            (
+                false
             );
 
             var tableRows = new List<TableRow>();

@@ -36,10 +36,12 @@
                 defaultParameters.ToArray()
             );
 
-            var value = await function.ExecuteAsync
+            var task = function.ExecuteAsync
             (
                 parameters.ToArray()
             );
+
+            var value = await task.ConfigureAwait(false);
 
             var statistic = new Statistic
             (

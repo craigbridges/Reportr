@@ -162,7 +162,13 @@
                 }
             }
 
-            var queryResults = await queryable.ToListAsync();
+            var listTask = queryable.ToListAsync();
+
+            var queryResults = await listTask.ConfigureAwait
+            (
+                false
+            );
+
             var rows = new List<QueryRow>();
             var entityType = typeof(T);
 

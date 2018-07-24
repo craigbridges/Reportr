@@ -47,7 +47,12 @@
             {
                 try
                 {
-                    rows = await _context.SaveChangesAsync();
+                    var saveTask = _context.SaveChangesAsync();
+
+                    rows = await saveTask.ConfigureAwait
+                    (
+                        false
+                    );
 
                     transaction.Commit();
                 }

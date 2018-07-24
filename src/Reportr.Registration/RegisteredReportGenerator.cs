@@ -148,10 +148,15 @@
                 userInfo
             );
 
-            var result = await _reportGenerator.GenerateAsync
+            var task = _reportGenerator.GenerateAsync
             (
                 reportDefinition,
                 reportFilter
+            );
+
+            var result = await task.ConfigureAwait
+            (
+                false
             );
 
             return result;

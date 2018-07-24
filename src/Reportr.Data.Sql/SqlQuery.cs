@@ -202,7 +202,9 @@
 
                 connection.Open();
 
-                using (var reader = await command.ExecuteReaderAsync())
+                var readTask = command.ExecuteReaderAsync();
+
+                using (var reader = await readTask.ConfigureAwait(false))
                 {
                     return reader.ToQueryRows
                     (

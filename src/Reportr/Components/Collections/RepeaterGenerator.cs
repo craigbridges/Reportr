@@ -39,9 +39,14 @@
                 defaultParameters.ToArray()
             );
 
-            var results = await query.ExecuteAsync
+            var queryTask = query.ExecuteAsync
             (
                 parameters.ToArray()
+            );
+
+            var results = await queryTask.ConfigureAwait
+            (
+                false
             );
 
             var generatedItems = new List<RepeaterItem>();
@@ -64,11 +69,18 @@
             await Task.WhenAll
             (
                 itemTasks.ToArray()
+            )
+            .ConfigureAwait
+            (
+                false
             );
             
             foreach (var task in itemTasks)
             {
-                generatedItems.Add(await task);
+                generatedItems.Add
+                (
+                    await task.ConfigureAwait(false)
+                );
             }
 
             if (false == repeaterDefinition.DisableSorting)
@@ -205,11 +217,18 @@
             await Task.WhenAll
             (
                 generationTasks.ToArray()
+            )
+            .ConfigureAwait
+            (
+                false
             );
             
             foreach (var task in generationTasks)
             {
-                componentList.Add(await task);
+                componentList.Add
+                (
+                    await task.ConfigureAwait(false)
+                );
             }
 
             return componentList.ToArray();

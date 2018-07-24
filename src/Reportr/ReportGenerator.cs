@@ -113,13 +113,36 @@
                 reportBodyTask,
                 reportFooterTask,
                 pageFooterTask
+            )
+            .ConfigureAwait
+            (
+                false
             );
             
-            var pageHeaderResult = await pageHeaderTask;
-            var reportHeaderResult = await reportHeaderTask;
-            var reportBodyResult = await reportBodyTask;
-            var pageFooterResult = await pageFooterTask;
-            var reportFooterResult = await reportFooterTask;
+            var pageHeaderResult = await pageHeaderTask.ConfigureAwait
+            (
+                false
+            );
+
+            var reportHeaderResult = await reportHeaderTask.ConfigureAwait
+            (
+                false
+            );
+
+            var reportBodyResult = await reportBodyTask.ConfigureAwait
+            (
+                false
+            );
+
+            var pageFooterResult = await pageFooterTask.ConfigureAwait
+            (
+                false
+            );
+
+            var reportFooterResult = await reportFooterTask.ConfigureAwait
+            (
+                false
+            );
             
             watch.Stop();
 
@@ -258,6 +281,10 @@
                 await Task.WhenAll
                 (
                     generationTasks.Select(pair => pair.Value)
+                )
+                .ConfigureAwait
+                (
+                    false
                 );
 
                 // Compile the results of each task once they have completed
@@ -265,7 +292,10 @@
                 {
                     try
                     {
-                        componentList.Add(await item.Value);
+                        componentList.Add
+                        (
+                            await item.Value.ConfigureAwait(false)
+                        );
                     }
                     catch (Exception ex)
                     {

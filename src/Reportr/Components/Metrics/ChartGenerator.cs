@@ -56,6 +56,10 @@
             await Task.WhenAll
             (
                 queryTasks.Select(pair => pair.Value)
+            )
+            .ConfigureAwait
+            (
+                false
             );
 
             var labelList = new List<ChartAxisLabel>();
@@ -64,9 +68,13 @@
             foreach (var item in queryTasks)
             {
                 var dataPoints = new List<ChartDataPoint>();
-                var queryResults = await item.Value;
                 var setDefinition = item.Key;
 
+                var queryResults = await item.Value.ConfigureAwait
+                (
+                    false
+                );
+                
                 if (queryResults.AllRows.Any())
                 {
                     var rowNumber = 1;

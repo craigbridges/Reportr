@@ -63,9 +63,14 @@
                 params ParameterValue[] parameters
             )
         {
-            var results = await this.Query.ExecuteAsync
+            var queryTask = this.Query.ExecuteAsync
             (
                 parameters
+            );
+
+            var results = await queryTask.ConfigureAwait
+            (
+                false
             );
 
             var numbers = new List<double>();

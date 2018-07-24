@@ -62,7 +62,10 @@
                     );
                 }
 
-                await Task.WhenAll(statisticTasks);
+                await Task.WhenAll(statisticTasks).ConfigureAwait
+                (
+                    false
+                );
 
                 var taskIndex = 0;
 
@@ -72,8 +75,12 @@
 
                     foreach (var statisticDefinition in item.Value)
                     {
-                        var task = statisticTasks.ElementAt(taskIndex);
-                        var statistic = await task as Statistic;
+                        var task = statisticTasks.ElementAt
+                        (
+                            taskIndex
+                        );
+
+                        var statistic = await task.ConfigureAwait(false) as Statistic;
 
                         statisticList.Add(statistic);
 
