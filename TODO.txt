@@ -1,5 +1,10 @@
 Unsorted
---------
+
+- Report filter lookups add flag to allow nulls (so the first lookup item can be null)
+
+- Add enum for parameter type that is auto resolved from expected type (e.g. DateTime becomes an enum that suggests a date time input etc)
+
+- Have way of specifying that a query produces no data if no filter values are supplied (.e. when report first generated)
 
 - Report filter parameter lookup data source (e.g. list of organisations or dealers instead of having to type key manually)
 	- How do we supply parameter values for the query and also filter lookup lists based on the value of another parameter (e.g. filter dealers based on organisation)?
@@ -44,6 +49,8 @@ Low Priority
 - Optimize report generation by caching query results where the query and parameter values are identical (then we can reuse the same data multiple times)
 
 - Create report component mocking (e.g. generate fake data for chart) for report building and testing
+
+- Find a more generic way around using JsonObjectAttribute and JsonIgnoreAttribute for serializing using JSON.NET
 
 - Create Report Definition Language (RDL)
 	- See docs\Brainstorming\RDL Brainstorm Example.rdl
