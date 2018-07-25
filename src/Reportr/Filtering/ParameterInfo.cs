@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Filtering
 {
+    using Newtonsoft.Json;
     using Reportr.Data;
     using Reportr.Data.Querying;
     using System;
@@ -39,8 +40,6 @@
             this.Description = description;
             this.Visible = true;
             this.ValueRequired = false;
-
-            SetInputType(expectedType);
         }
 
         /// <summary>
@@ -66,62 +65,57 @@
         /// <summary>
         /// Gets the parameter input type (based on the expected type)
         /// </summary>
-        public ParameterInputType InputType { get; private set; }
-
-        /// <summary>
-        /// Sets the parameter input type based on the expected type
-        /// </summary>
-        /// <param name="expectedType">The expected type</param>
-        private void SetInputType
-            (
-                Type expectedType
-            )
+        public ParameterInputType InputType
         {
-            var inputType = default(ParameterInputType);
+            get
+            {
+                var expectedType = this.ExpectedType;
+                var inputType = default(ParameterInputType);
 
-            if (this.HasLookup)
-            {
-                inputType = ParameterInputType.Lookup;
-            }
-            else
-            {
-                if (expectedType == typeof(bool))
+                if (this.HasLookup)
                 {
-                    inputType = ParameterInputType.Boolean;
-                }
-                else if (expectedType == typeof(short)
-                    || expectedType == typeof(int)
-                    || expectedType == typeof(long))
-                {
-                    inputType = ParameterInputType.WholeNumber;
-                }
-                else if (expectedType == typeof(float)
-                    || expectedType == typeof(double)
-                    || expectedType == typeof(decimal))
-                {
-                    inputType = ParameterInputType.DecimalNumber;
-                }
-                else if (expectedType == typeof(DateTime))
-                {
-                    inputType = ParameterInputType.Date;
-                }
-                else if (expectedType == typeof(TimeSpan))
-                {
-                    inputType = ParameterInputType.Time;
-                }
-                else if (expectedType == typeof(Color))
-                {
-                    inputType = ParameterInputType.Color;
+                    inputType = ParameterInputType.Lookup;
                 }
                 else
                 {
-                    inputType = ParameterInputType.Text;
+                    if (expectedType.IsAssignableFrom(typeof(bool)))
+                    {
+                        inputType = ParameterInputType.Boolean;
+                    }
+                    else if (expectedType.IsAssignableFrom(typeof(short))
+                        || expectedType.IsAssignableFrom(typeof(int))
+                        || expectedType.IsAssignableFrom(typeof(long)))
+                    {
+                        inputType = ParameterInputType.WholeNumber;
+                    }
+                    else if (expectedType.IsAssignableFrom(typeof(float))
+                        || expectedType.IsAssignableFrom(typeof(double))
+                        || expectedType.IsAssignableFrom(typeof(decimal)))
+                    {
+                        inputType = ParameterInputType.DecimalNumber;
+                    }
+                    else if (expectedType.IsAssignableFrom(typeof(DateTime)))
+                    {
+                        inputType = ParameterInputType.Date;
+                    }
+                    else if (expectedType.IsAssignableFrom(typeof(TimeSpan)))
+                    {
+                        inputType = ParameterInputType.Time;
+                    }
+                    else if (expectedType.IsAssignableFrom(typeof(Color)))
+                    {
+                        inputType = ParameterInputType.Color;
+                    }
+                    else
+                    {
+                        inputType = ParameterInputType.Text;
+                    }
                 }
+
+                return inputType;
             }
-
-            this.InputType = inputType;
         }
-
+        
         /// <summary>
         /// Adds configuration details to the parameter info
         /// </summary>
@@ -238,6 +232,7 @@
         /// <summary>
         /// Gets the lookup query
         /// </summary>
+        [JsonIgnore]
         public IQuery LookupQuery { get; private set; }
 
         /// <summary>

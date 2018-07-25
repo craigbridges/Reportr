@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Data.Querying.Functions
 {
+    using Newtonsoft.Json;
     using Nito.AsyncEx.Synchronous;
     using Reportr.Filtering;
     using System.Collections.Generic;
@@ -31,6 +32,7 @@
         /// <summary>
         /// Gets the query to execute
         /// </summary>
+        [JsonIgnore]
         public IQuery Query { get; private set; }
 
         /// <summary>

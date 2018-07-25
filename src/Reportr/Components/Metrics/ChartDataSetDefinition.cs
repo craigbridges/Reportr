@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using Newtonsoft.Json;
     using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
@@ -82,6 +83,7 @@
         /// <summary>
         /// Gets the query associated with the data set
         /// </summary>
+        [JsonIgnore]
         public IQuery Query { get; protected set; }
 
         /// <summary>

@@ -149,19 +149,7 @@
             var valueBinding = parameterInfo.LookupValueBinding;
             var textBinding = parameterInfo.LookupDisplayTextBinding;
             var items = new List<KeyValuePair<object, string>>();
-
-            if (parameterInfo.InsertBlankLookupItem)
-            {
-                items.Add
-                (
-                    new KeyValuePair<object, string>
-                    (
-                        null,
-                        null
-                    )
-                );
-            }
-
+            
             foreach (var row in results.AllRows)
             {
                 var lookupValue = valueBinding.Resolve

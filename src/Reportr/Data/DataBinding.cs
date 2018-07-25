@@ -112,7 +112,7 @@
             );
 
             var columnName = pathInfo.ColumnName;
-            var currentValue = (object)row[columnName];
+            var currentValue = (object)row[columnName].Value;
             var currentPath = columnName;
             var currentType = currentValue.GetType();
 
