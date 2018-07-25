@@ -13,15 +13,25 @@
     /// </summary>
     internal sealed class NettleCompilerGenerator
     {
+        private readonly IFunction[] _customFunctions;
+
         /// <summary>
-        /// Generates a new Nettle compiler with custom functions
+        /// Constructs the compiler generator with customer functions
         /// </summary>
-        /// <param name="customFunctions">The customer functions</param>
-        /// <returns>The Nettle compiler</returns>
-        public INettleCompiler Generate
+        /// <param name="customFunctions">The customer Nettle functions</param>
+        public NettleCompilerGenerator
             (
                 params IFunction[] customFunctions
             )
+        {
+            _customFunctions = customFunctions;
+        }
+
+        /// <summary>
+        /// Generates a new Nettle compiler with custom functions
+        /// </summary>
+        /// <returns>The Nettle compiler</returns>
+        public INettleCompiler Generate()
         {
             var dataResolver = new NettleDataResolver();
             var webResolver = new NettleWebResolver();
@@ -45,7 +55,7 @@
 
             return NettleEngine.GetCompiler
             (
-                customFunctions
+                _customFunctions
             );
         }
     }

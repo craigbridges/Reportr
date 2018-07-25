@@ -379,11 +379,7 @@
 
             constrainedParameters = new List<string>();
 
-            if (assignments.Count == 0)
-            {
-                return;
-            }
-            else
+            if (assignments.Any())
             {
                 var constraints = assignments.SelectMany
                 (

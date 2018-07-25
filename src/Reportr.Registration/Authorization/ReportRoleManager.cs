@@ -238,31 +238,54 @@
 
             foreach (var configuration in assignments)
             {
-                var reportName = configuration.ReportName;
-                var roleName = configuration.RoleName;
-                var constraints = configuration.Constraints;
+                var reportNames = configuration.ReportNames;
+                var roleNames = configuration.RoleNames;
 
-                var assigned = _assignmentRepository.IsRoleAssigned
-                (
-                    reportName,
-                    roleName
-                );
-
-                if (false == assigned)
+                if (reportNames == null || reportNames.Length == 0)
                 {
-                    var assignment = new ReportRoleAssignment
+                    throw new InvalidOperationException
                     (
-                        reportName,
-                        roleName,
-                        constraints
+                        "At least one report name must be specified for assignments."
                     );
+                }
 
-                    _assignmentRepository.AddAssignment
+                if (roleNames == null || roleNames.Length == 0)
+                {
+                    throw new InvalidOperationException
                     (
-                        assignment
+                        "At least one role name must be specified for assignments."
                     );
+                }
 
-                    changesMade = true;
+                foreach (var reportName in reportNames)
+                {
+                    foreach (var roleName in roleNames)
+                    {
+                        var constraints = configuration.Constraints;
+
+                        var assigned = _assignmentRepository.IsRoleAssigned
+                        (
+                            reportName,
+                            roleName
+                        );
+
+                        if (false == assigned)
+                        {
+                            var assignment = new ReportRoleAssignment
+                            (
+                                reportName,
+                                roleName,
+                                constraints
+                            );
+
+                            _assignmentRepository.AddAssignment
+                            (
+                                assignment
+                            );
+
+                            changesMade = true;
+                        }
+                    }
                 }
             }
 

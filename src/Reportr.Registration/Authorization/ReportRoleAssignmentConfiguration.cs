@@ -6,14 +6,14 @@
     public class ReportRoleAssignmentConfiguration
     {
         /// <summary>
-        /// Gets or sets the report name
+        /// Gets or sets the report names
         /// </summary>
-        public string ReportName { get; set; }
+        public string[] ReportNames { get; set; }
 
         /// <summary>
-        /// Gets or sets the role name
+        /// Gets or sets the role names
         /// </summary>
-        public string RoleName { get; set; }
+        public string[] RoleNames { get; set; }
 
         /// <summary>
         /// Gets or sets an array of parameter constraints

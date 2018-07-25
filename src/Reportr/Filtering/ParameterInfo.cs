@@ -254,7 +254,7 @@
         /// Gets a flag indicating if a blank lookup item should be inserted
         /// </summary>
         public bool InsertBlankLookupItem { get; private set; }
-
+        
         /// <summary>
         /// Gets the lookup filter parameters
         /// </summary>

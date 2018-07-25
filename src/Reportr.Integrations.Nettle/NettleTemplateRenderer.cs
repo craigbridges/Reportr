@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Integrations.Nettle
 {
     using global::Nettle.Compiler;
+    using Reportr.Integrations.Nettle.Functions;
     using Reportr.Templating;
     
     /// <summary>
@@ -9,7 +10,7 @@
     public sealed class NettleTemplateRenderer : ITemplateRenderer
     {
         private INettleCompiler _nettleCompiler;
-
+        
         /// <summary>
         /// Renders a template with a given model
         /// </summary>
@@ -24,7 +25,11 @@
         {
             if (_nettleCompiler == null)
             {
-                var generator = new NettleCompilerGenerator();
+                var generator = new NettleCompilerGenerator
+                (
+                    new ConcatenateQueryCellsFunction(),
+                    new GetQueryCellValueFunction()
+                );
 
                 _nettleCompiler = generator.Generate();
             }

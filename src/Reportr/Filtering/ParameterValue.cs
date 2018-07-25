@@ -70,7 +70,7 @@
         {
             var parameterInfo = this.Parameter;
 
-            if (parameterInfo.HasLookup)
+            if (parameterInfo.HasLookup && parameterInfo.Visible)
             {
                 var items = default
                 (
@@ -121,8 +121,8 @@
                         0,
                         new KeyValuePair<object, string>
                         (
-                            null,
-                            null
+                            String.Empty,
+                            String.Empty
                         )
                     );
                 }
@@ -280,9 +280,9 @@
                 }
             }
 
-            if (valueChanged || lookupParameterValues.Any())
+            if (_lookupItems == null || lookupParameterValues.Any())
             {
-                _lookupItems = null;
+                InitializeLookupItems();
             }
         }
     }
