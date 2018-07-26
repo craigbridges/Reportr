@@ -133,6 +133,14 @@
             {
                 var metaKey = this.MappingValue;
 
+                if (String.IsNullOrEmpty(metaKey))
+                {
+                    throw new InvalidOperationException
+                    (
+                        "The constraints meta data key has not been defined."
+                    );
+                }
+
                 if (userInfo.MetaData == null)
                 {
                     throw new InvalidOperationException

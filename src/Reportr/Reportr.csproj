@@ -137,6 +137,7 @@
     <Compile Include="Data\DataForeignKey.cs" />
     <Compile Include="Data\DataSourceBase.cs" />
     <Compile Include="Data\DataTableSchema.cs" />
+    <Compile Include="Data\DataValueFormattingType.cs" />
     <Compile Include="Data\IDataSource.cs" />
     <Compile Include="Data\IDataSourceRepository.cs" />
     <Compile Include="Data\Querying\Functions\ModeFunction.cs" />

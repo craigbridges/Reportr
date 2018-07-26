@@ -1,5 +1,7 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Reportr.Data;
+
     /// <summary>
     /// Represents the data for a single table cell
     /// </summary>
@@ -23,12 +25,29 @@
             this.Column = column;
             this.Value = value;
             this.Action = action;
+
+            if (value == null)
+            {
+                this.FormattingType = DataValueFormattingType.None;
+            }
+            else
+            {
+                this.FormattingType = value.GetType().GetFormattingType
+                (
+                    value
+                );
+            }
         }
 
         /// <summary>
         /// Gets the associated column
         /// </summary>
         public TableColumn Column { get; private set; }
+
+        /// <summary>
+        /// Gets the value formatting type
+        /// </summary>
+        public DataValueFormattingType FormattingType { get; private set; }
 
         /// <summary>
         /// Gets the cells value

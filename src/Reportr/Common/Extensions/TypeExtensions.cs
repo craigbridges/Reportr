@@ -1,5 +1,6 @@
 ﻿namespace Reportr
 {
+    using Reportr.Data;
     using System;
     using System.Collections;
     using System.Linq;
@@ -38,13 +39,19 @@
                 {
                     return true;
                 }
-                else if (toType.IsAssignableFrom(fromObjectType) || fromObjectType.IsAssignableFrom(toType))
+                else if (toType.IsAssignableFrom(fromObjectType) 
+                    || fromObjectType.IsAssignableFrom(toType))
                 {
                     return true;
                 }
                 else
                 {
-                    if (false == fromObjectType.ImplementsInterface(typeof(IConvertible)))
+                    var implementsInterface = fromObjectType.ImplementsInterface
+                    (
+                        typeof(IConvertible)
+                    );
+
+                    if (false == implementsInterface)
                     {
                         return false;
                     }
@@ -269,9 +276,6 @@
         /// <param name="type">The type</param>
         /// <param name="methodName">The method name</param>
         /// <returns>True, if the method has been overridden</returns>
-        /// <remarks>
-        /// See http://stackoverflow.com/questions/2932421/detect-if-a-method-was-overridden-using-reflection-c
-        /// </remarks>
         public static bool IsMethodOverridden
             (
                 this Type type,
@@ -298,6 +302,66 @@
                 type.IsValueType
                     || type.GetConstructor(Type.EmptyTypes) != null
             );
+        }
+
+        /// <summary>
+        /// Gets the data value formatting type from the type
+        /// </summary>
+        /// <param name="type">The type</param>
+        /// <param name="value">The value to be formatted</param>
+        /// <returns>The formatting type</returns>
+        public static DataValueFormattingType GetFormattingType
+            (
+                this Type type,
+                object value
+            )
+        {
+            if (value == null)
+            {
+                return DataValueFormattingType.None;
+            }
+            else
+            {
+                if (type.IsAssignableFrom(typeof(bool)))
+                {
+                    return DataValueFormattingType.Boolean;
+                }
+                else if (type.IsAssignableFrom(typeof(short))
+                    || type.IsAssignableFrom(typeof(int))
+                    || type.IsAssignableFrom(typeof(long)))
+                {
+                    return DataValueFormattingType.WholeNumber;
+                }
+                else if (type.IsAssignableFrom(typeof(float))
+                    || type.IsAssignableFrom(typeof(double))
+                    || type.IsAssignableFrom(typeof(decimal)))
+                {
+                    return DataValueFormattingType.DecimalNumber;
+                }
+                else if (type.IsAssignableFrom(typeof(decimal)))
+                {
+                    return DataValueFormattingType.Currency;
+                }
+                else if (type.IsAssignableFrom(typeof(DateTime)))
+                {
+                    if (((DateTime)value).TimeOfDay.TotalMilliseconds > 0)
+                    {
+                        return DataValueFormattingType.DateAndTime;
+                    }
+                    else
+                    {
+                        return DataValueFormattingType.Date;
+                    }
+                }
+                else if (type.IsAssignableFrom(typeof(TimeSpan)))
+                {
+                    return DataValueFormattingType.Time;
+                }
+                else
+                {
+                    return DataValueFormattingType.None;
+                }
+            }
         }
     }
 }

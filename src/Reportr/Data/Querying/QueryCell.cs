@@ -20,12 +20,22 @@
 
             this.Column = column;
             this.Value = value;
+
+            this.FormattingType = column.ValueType.GetFormattingType
+            (
+                value
+            );
         }
 
         /// <summary>
         /// Gets the associated column schema
         /// </summary>
         public DataColumnSchema Column { get; private set; }
+
+        /// <summary>
+        /// Gets the value formatting type
+        /// </summary>
+        public DataValueFormattingType FormattingType { get; private set; }
 
         /// <summary>
         /// Gets the cells value
