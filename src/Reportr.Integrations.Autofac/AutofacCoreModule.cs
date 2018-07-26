@@ -52,7 +52,7 @@
                    .InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(assemblies)
-                   .Where(t => typeof(IQueryAggregateFunction)
+                   .Where(t => typeof(IAggregateFunction)
                    .IsAssignableFrom(t))
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();

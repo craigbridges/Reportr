@@ -6,19 +6,17 @@
     /// <summary>
     /// Represents a query aggregate function that calculates the sum
     /// </summary>
-    public class SumFunction : QueryAggregateFunctionBase
+    public class SumFunction : AggregateFunctionBase
     {
         /// <summary>
         /// Constructs the function with a query and binding
         /// </summary>
-        /// <param name="query">The query</param>
         /// <param name="binding">The data binding</param>
         public SumFunction
             (
-                IQuery query,
                 DataBinding binding
             )
-            : base(query, binding)
+            : base(binding)
         { }
 
         /// <summary>

@@ -17,24 +17,28 @@
         /// </summary>
         /// <param name="name">The name</param>
         /// <param name="title">The title</param>
+        /// <param name="query">The query</param>
         /// <param name="function">The aggregate function</param>
         /// <param name="action">The action (optional)</param>
         public StatisticDefinition
             (
                 string name,
                 string title,
-                IQueryAggregateFunction function,
+                IQuery query,
+                IAggregateFunction function,
                 ReportAction action = null
             )
             : base(name, title)
         {
+            Validate.IsNotNull(query);
             Validate.IsNotNull(function);
-            
+
+            this.Query = query;
             this.Function = function;
             this.DefaultParameterValues = new Collection<ParameterValue>();
             this.Action = action;
 
-            var defaultValues = function.Query.CompileDefaultParameters();
+            var defaultValues = query.CompileDefaultParameters();
 
             foreach (var value in defaultValues)
             {
@@ -43,9 +47,14 @@
         }
 
         /// <summary>
+        /// Gets the statistic query
+        /// </summary>
+        public IQuery Query { get; protected set; }
+
+        /// <summary>
         /// Gets the statistic aggregate function
         /// </summary>
-        public IQueryAggregateFunction Function { get; protected set; }
+        public IAggregateFunction Function { get; protected set; }
         
         /// <summary>
         /// Gets the default parameter values for the aggregator
@@ -64,7 +73,7 @@
         {
             return new IQuery[]
             {
-                this.Function.Query
+                this.Query
             };
         }
 

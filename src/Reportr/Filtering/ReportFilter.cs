@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Filtering
 {
+    using Newtonsoft.Json;
     using Reportr.Data;
     using Reportr.Data.Querying;
     using System;
@@ -56,6 +57,7 @@
         /// <summary>
         /// Gets the parameter definitions for the report
         /// </summary>
+        [JsonIgnore]
         public IEnumerable<ReportParameterDefinition> ParameterDefinitions
         {
             get

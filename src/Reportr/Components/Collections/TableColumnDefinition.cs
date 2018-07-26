@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Collections
 {
     using Reportr.Data;
+    using Reportr.Data.Querying.Functions;
     using System;
 
     /// <summary>
@@ -13,10 +14,12 @@
         /// </summary>
         /// <param name="name">The column name</param>
         /// <param name="binding">The data binding</param>
+        /// <param name="totalAggregator">The total aggregator</param>
         public TableColumnDefinition
             (
                 string name,
-                DataBinding binding
+                DataBinding binding,
+                IAggregateFunction totalAggregator = null
             )
         {
             Validate.IsNotEmpty(name);
@@ -26,6 +29,7 @@
             this.Name = name;
             this.Title = name;
             this.Binding = binding;
+            this.TotalAggregator = totalAggregator;
         }
 
         /// <summary>
@@ -42,6 +46,11 @@
         /// Gets the columns data binding
         /// </summary>
         public DataBinding Binding { get; protected set; }
+
+        /// <summary>
+        /// Gets the total aggregator function
+        /// </summary>
+        public IAggregateFunction TotalAggregator { get; protected set; }
 
         /// <summary>
         /// Adds style details to the column

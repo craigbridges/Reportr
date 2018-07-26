@@ -54,10 +54,22 @@
         public TableColumn[] Columns { get; protected set; }
 
         /// <summary>
+        /// Gets an array of the groupings in the table
+        /// </summary>
+        [DataMember]
+        public TableGrouping[] Groupings { get; private set; }
+
+        /// <summary>
         /// Gets the rows in the table
         /// </summary>
         [DataMember]
         public TableRow[] Rows { get; protected set; }
+
+        /// <summary>
+        /// Gets an array of row cells representing the table totals
+        /// </summary>
+        [DataMember]
+        public TableCell[] Totals { get; private set; }
 
         /// <summary>
         /// Gets the row at the index specified

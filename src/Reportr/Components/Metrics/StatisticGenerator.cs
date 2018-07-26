@@ -28,16 +28,18 @@
 
             var statisticDefinition = definition.As<StatisticDefinition>();
             var function = statisticDefinition.Function;
+            var query = statisticDefinition.Query;
             var defaultParameters = statisticDefinition.DefaultParameterValues;
 
             var parameters = filter.GetQueryParameters
             (
-                function.Query,
+                query,
                 defaultParameters.ToArray()
             );
 
             var task = function.ExecuteAsync
             (
+                query,
                 parameters.ToArray()
             );
 

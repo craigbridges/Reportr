@@ -6,19 +6,17 @@
     /// <summary>
     /// Represents a query aggregate function that calculates the mode
     /// </summary>
-    public class ModeFunction : QueryAggregateFunctionBase
+    public class ModeFunction : AggregateFunctionBase
     {
         /// <summary>
         /// Constructs the function with a query and binding
         /// </summary>
-        /// <param name="query">The query</param>
         /// <param name="binding">The data binding</param>
         public ModeFunction
             (
-                IQuery query,
                 DataBinding binding
             )
-            : base(query, binding)
+            : base(binding)
         { }
 
         /// <summary>

@@ -1,39 +1,28 @@
 ﻿namespace Reportr.Data.Querying.Functions
 {
-    using Newtonsoft.Json;
     using Nito.AsyncEx.Synchronous;
     using Reportr.Filtering;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Represents a base class for all query aggregate functions
+    /// Represents a base class for all aggregate functions
     /// </summary>
-    public abstract class QueryAggregateFunctionBase : IQueryAggregateFunction
+    public abstract class AggregateFunctionBase : IAggregateFunction
     {
         /// <summary>
         /// Constructs the function with a query and binding
         /// </summary>
-        /// <param name="query">The query</param>
         /// <param name="binding">The data binding</param>
-        public QueryAggregateFunctionBase
+        public AggregateFunctionBase
             (
-                IQuery query,
                 DataBinding binding
             )
         {
-            Validate.IsNotNull(query);
             Validate.IsNotNull(binding);
-
-            this.Query = query;
+            
             this.Binding = binding;
         }
-
-        /// <summary>
-        /// Gets the query to execute
-        /// </summary>
-        [JsonIgnore]
-        public IQuery Query { get; private set; }
 
         /// <summary>
         /// Gets the query field binding for the operation
@@ -43,14 +32,20 @@
         /// <summary>
         /// Executes the aggregate query and computes the result
         /// </summary>
+        /// <param name="query">The query to execute</param>
         /// <param name="parameters">The parameter values</param>
         /// <returns>The result computed</returns>
         public double Execute
             (
+                IQuery query,
                 params ParameterValue[] parameters
             )
         {
-            var task = ExecuteAsync(parameters);
+            var task = ExecuteAsync
+            (
+                query,
+                parameters
+            );
 
             return task.WaitAndUnwrapException();
         }
@@ -58,14 +53,18 @@
         /// <summary>
         /// Asynchronously executes the aggregate query and computes the result
         /// </summary>
+        /// <param name="query">The query to execute</param>
         /// <param name="parameters">The parameter values</param>
         /// <returns>The result computed</returns>
         public async Task<double> ExecuteAsync
             (
+                IQuery query,
                 params ParameterValue[] parameters
             )
         {
-            var queryTask = this.Query.ExecuteAsync
+            Validate.IsNotNull(query);
+
+            var queryTask = query.ExecuteAsync
             (
                 parameters
             );
@@ -75,9 +74,27 @@
                 false
             );
 
+            return Execute
+            (
+                results.AllRows
+            );
+        }
+
+        /// <summary>
+        /// Executes the aggregate function and computes the result
+        /// </summary>
+        /// <param name="rows">The rows to perform the computation on</param>
+        /// <returns>The result computed</returns>
+        public double Execute
+            (
+                params QueryRow[] rows
+            )
+        {
+            Validate.IsNotNull(rows);
+            
             var numbers = new List<double>();
 
-            foreach (var row in results.AllRows)
+            foreach (var row in rows)
             {
                 var number = ResolveRowValue
                 (

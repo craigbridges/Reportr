@@ -35,7 +35,7 @@
 
                 var matchCount = cells.Count
                 (
-                    s => s.Column.Name.Trim().ToLower() == name.Trim().ToLower()
+                    s => s.Column.Name.ToLower() == name.ToLower()
                 );
 
                 if (matchCount > 1)

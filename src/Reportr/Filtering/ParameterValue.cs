@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Filtering
 {
+    using Newtonsoft.Json;
     using Reportr.Common.Reflection;
     using System;
     using System.Collections.Generic;
@@ -36,6 +37,7 @@
         /// <summary>
         /// Gets the parameter information
         /// </summary>
+        [JsonIgnore]
         public ParameterInfo Parameter { get; private set; }
 
         /// <summary>
