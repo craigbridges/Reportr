@@ -258,10 +258,12 @@
                 reportDefinition.Parameters.ToArray()
             );
 
+            var parameterValues = new Dictionary<string, object>();
+
+            // Process the parameter values submitted and convert them to their expected types
             if (filterValues.ParameterValues != null)
             {
                 var groupedValues = new Dictionary<string, List<object>>();
-                var parameterValues = new Dictionary<string, object>();
 
                 foreach (var submittedValue in filterValues.ParameterValues)
                 {
@@ -318,22 +320,34 @@
                         );
                     }
                 }
-                
-                SetParameterConstraints
-                (
-                    registeredReport,
-                    userInfo,
-                    ref parameterValues,
-                    out List<string> constrainedParameters
-                );
-                
-                filter.SetParameterValues
-                (
-                    parameterValues,
-                    constrainedParameters.ToArray()
-                );
             }
-            
+            else
+            {
+                // Add the default parameter values to the dictionary if nothing was submitted
+                foreach (var parameter in filter.ParameterValues)
+                {
+                    parameterValues.Add
+                    (
+                        parameter.Name,
+                        parameter.Value
+                    );
+                }
+            }
+
+            SetParameterConstraints
+            (
+                registeredReport,
+                userInfo,
+                ref parameterValues,
+                out List<string> constrainedParameters
+            );
+
+            filter.SetParameterValues
+            (
+                parameterValues,
+                constrainedParameters.ToArray()
+            );
+
             if (filterValues.SortingRules!= null)
             {
                 foreach (var submittedRule in filterValues.SortingRules)

@@ -36,10 +36,18 @@
 
                 if (canConvert)
                 {
+                    var convertType = typeof(T);
+
+                    if (convertType.IsGenericType 
+                        && convertType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        convertType = Nullable.GetUnderlyingType(convertType);
+                    }
+
                     return (T)System.Convert.ChangeType
                     (
                         value,
-                        typeof(T)
+                        convertType
                     );
                 }
                 else if (value.GetType() == typeof(string))
@@ -64,6 +72,7 @@
         {
             var convertedValue = default(object);
             var convertType = typeof(T);
+            var makeNullable = false;
 
             if (String.IsNullOrEmpty(value))
             {
@@ -73,51 +82,133 @@
             if (convertType.IsNullable())
             {
                 convertType = Nullable.GetUnderlyingType(convertType);
+                makeNullable = true;
             }
 
             if (convertType == typeof(DateTime))
             {
-                convertedValue = System.Convert.ToDateTime(value);
+                if (makeNullable)
+                {
+                    convertedValue = (DateTime?)System.Convert.ToDateTime(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToDateTime(value);
+                }
             }
             else if (convertType == typeof(bool))
             {
-                convertedValue = System.Convert.ToBoolean(value);
+                if (makeNullable)
+                {
+                    convertedValue = (bool?)System.Convert.ToBoolean(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToBoolean(value);
+                }
             }
             else if (convertType == typeof(double))
             {
-                convertedValue = System.Convert.ToDouble(value);
+                if (makeNullable)
+                {
+                    convertedValue = (double?)System.Convert.ToDouble(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToDouble(value);
+                }
             }
             else if (convertType == typeof(Single))
             {
-                convertedValue = System.Convert.ToSingle(value);
+                if (makeNullable)
+                {
+                    convertedValue = (Single?)System.Convert.ToSingle(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToSingle(value);
+                }
             }
             else if (convertType == typeof(decimal))
             {
-                convertedValue = System.Convert.ToDecimal(value);
+                if (makeNullable)
+                {
+                    convertedValue = (decimal?)System.Convert.ToDecimal(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToDecimal(value);
+                }
             }
             else if (convertType == typeof(long))
             {
-                convertedValue = System.Convert.ToInt64(value);
+                if (makeNullable)
+                {
+                    convertedValue = (long?)System.Convert.ToInt64(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToInt64(value);
+                }
             }
             else if (convertType == typeof(int))
             {
-                convertedValue = System.Convert.ToInt32(value);
+                if (makeNullable)
+                {
+                    convertedValue = (int?)System.Convert.ToInt32(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToInt32(value);
+                }
             }
             else if (convertType == typeof(short))
             {
-                convertedValue = System.Convert.ToInt16(value);
+                if (makeNullable)
+                {
+                    convertedValue = (short?)System.Convert.ToInt16(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToInt16(value);
+                }
             }
             else if (convertType == typeof(char))
             {
-                convertedValue = System.Convert.ToChar(value);
+                if (makeNullable)
+                {
+                    convertedValue = (char?)System.Convert.ToChar(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToChar(value);
+                }
             }
             else if (convertType == typeof(byte))
             {
-                convertedValue = System.Convert.ToByte(value);
+                if (makeNullable)
+                {
+                    convertedValue = (byte?)System.Convert.ToByte(value);
+                }
+                else
+                {
+                    convertedValue = System.Convert.ToByte(value);
+                }
             }
             else if (convertType.IsEnum)
             {
-                convertedValue = Enum.Parse(convertType, value);
+                if (false == Enum.IsDefined(convertType, value))
+                {
+                    RaiseCannotConvertException(value);
+                }
+                else
+                {
+                    convertedValue = (T)(object)Enum.Parse
+                    (
+                        convertType,
+                        value
+                    );
+                }
             }
             else
             {

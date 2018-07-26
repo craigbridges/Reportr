@@ -10,11 +10,11 @@
         /// <summary>
         /// Gets or sets the submitted parameter values
         /// </summary>
-        public IEnumerable<SubmittedParameterValue> ParameterValues { get; set; }
+        public SubmittedParameterValue[] ParameterValues { get; set; }
 
         /// <summary>
         /// Gets or sets the submitted sorting rules
         /// </summary>
-        public IEnumerable<SubmittedSortingRule> SortingRules { get; set; }
+        public SubmittedSortingRule[] SortingRules { get; set; }
     }
 }

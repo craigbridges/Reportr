@@ -58,9 +58,14 @@
         public ReportParameterMappingType MappingType { get; protected set; }
 
         /// <summary>
-        /// Gets the report parameter mapping value
+        /// Gets the report parameter mapping value as a string
         /// </summary>
-        public object MappingValue { get; protected set; }
+        public string MappingValue { get; protected set; }
+
+        /// <summary>
+        /// Gets the report parameter mapping value type name
+        /// </summary>
+        public string MappingValueTypeName { get; protected set; }
 
         /// <summary>
         /// Configures the report parameter constraint
@@ -81,9 +86,20 @@
                 );
             }
 
+            if (configuration.MappingValue == null)
+            {
+                throw new ArgumentException
+                (
+                    "The constraint mapping value is required."
+                );
+            }
+
+            var mappingValue = configuration.MappingValue;
+
             this.ParameterName = configuration.ParameterName;
             this.MappingType = configuration.MappingType;
-            this.MappingValue = configuration.MappingValue;
+            this.MappingValue = mappingValue.ToString();
+            this.MappingValueTypeName = mappingValue.GetType().AssemblyQualifiedName;
         }
 
         /// <summary>
@@ -100,19 +116,22 @@
 
             if (this.MappingType == ReportParameterMappingType.Literal)
             {
-                return this.MappingValue;
+                var rawValue = this.MappingValue;
+
+                var expectedType = Type.GetType
+                (
+                    this.MappingValueTypeName
+                );
+
+                return ObjectConverter.Convert
+                (
+                    rawValue,
+                    expectedType
+                );
             }
             else
             {
-                if (this.MappingValue == null)
-                {
-                    throw new InvalidOperationException
-                    (
-                        "The mapping value must contain a valid meta data key."
-                    );
-                }
-
-                var metaKey = this.MappingValue.ToString();
+                var metaKey = this.MappingValue;
 
                 if (userInfo.MetaData == null)
                 {

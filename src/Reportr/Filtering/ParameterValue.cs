@@ -260,7 +260,7 @@
                 var valueType = value.GetType();
                 var expectedType = parameter.ExpectedType;
 
-                if (valueType != expectedType)
+                if (false == expectedType.IsAssignableFrom(valueType))
                 {
                     var message = "The type is {0} but the type {1} was expected.";
 
