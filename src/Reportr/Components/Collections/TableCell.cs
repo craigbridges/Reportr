@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Newtonsoft.Json;
     using Reportr.Data;
 
     /// <summary>
@@ -42,6 +43,7 @@
         /// <summary>
         /// Gets the associated column
         /// </summary>
+        [JsonIgnore]
         public TableColumn Column { get; private set; }
 
         /// <summary>

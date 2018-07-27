@@ -10,11 +10,9 @@ Unsorted
 
 - How do we filter the lookups for report filters 'on the fly'?
 
-- How do we auto unregister reports, roles, categories, category and role assignments?
+- How do we auto unregister or update reports, roles, categories, category and role assignments?
 
 - Create ability to log all registered report generations with their data so we can keep an audit trail for security reasons. E.g. report to show customer information, gets leaked. Logs can be checked to see who generated that data and when so it can be traced.
-
-- Can we run multiple queries concurrently (i.e. multi threaded) to improve performance?
 
 
 High Priority
@@ -48,7 +46,9 @@ Rendering
 Low Priority
 ------------
 
-- Optimize report generation by caching query results where the query and parameter values are identical (then we can reuse the same data multiple times)
+- Optimization
+	- Cache query results where the query and parameter values are identical (then we can reuse the same data multiple times)
+	- Can we run multiple queries concurrently (i.e. multi threaded) to improve performance?
 
 - Create report component mocking (e.g. generate fake data for chart) for report building and testing
 
