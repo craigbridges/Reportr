@@ -3,6 +3,7 @@
     using Reportr.Components.Collections;
     using Reportr.Data;
     using Reportr.Data.Querying;
+    using Reportr.Data.Querying.Functions;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
@@ -100,17 +101,33 @@
 
                 if (false == isExcluded)
                 {
-                    tableDefinition.Columns.Add
-                    (
-                        new TableColumnDefinition
+                    var totalAggregator = default(IAggregateFunction);
+
+                    if (columnInfo.Column.ValueType.IsNumeric())
+                    {
+                        totalAggregator = new SumFunction
                         (
-                            columnName.Spacify(),
                             new DataBinding
                             (
-                                DataBindingType.QueryPath,
                                 columnName
                             )
-                        )
+                        );
+                    }
+
+                    var columnDefinition = new TableColumnDefinition
+                    (
+                        columnName.Spacify(),
+                        new DataBinding
+                        (
+                            DataBindingType.QueryPath,
+                            columnName
+                        ),
+                        totalAggregator
+                    );
+
+                    tableDefinition.Columns.Add
+                    (
+                        columnDefinition
                     );
                 }
             }
@@ -188,17 +205,38 @@
                     );
                 }
                 
-                tableDefinition.Columns.Add
+                var columnInfo = query.GetColumn
                 (
-                    new TableColumnDefinition
+                    mapping.Key
+                );
+                
+                var totalAggregator = default(IAggregateFunction);
+
+                if (columnInfo.Column.ValueType.IsNumeric())
+                {
+                    totalAggregator = new SumFunction
                     (
-                        mapping.Value,
                         new DataBinding
                         (
-                            DataBindingType.QueryPath,
                             mapping.Key
                         )
-                    )
+                    );
+                }
+
+                var columnDefinition = new TableColumnDefinition
+                (
+                    mapping.Value,
+                    new DataBinding
+                    (
+                        DataBindingType.QueryPath,
+                        mapping.Key
+                    ),
+                    totalAggregator
+                );
+                
+                tableDefinition.Columns.Add
+                (
+                    columnDefinition
                 );
             }
             

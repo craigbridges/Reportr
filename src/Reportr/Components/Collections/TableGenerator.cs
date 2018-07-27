@@ -1,8 +1,8 @@
 ﻿namespace Reportr.Components.Collections
 {
     using Reportr.Data;
+    using Reportr.Data.Querying;
     using Reportr.Filtering;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -87,7 +87,7 @@
                         value,
                         action
                     );
-
+                    
                     tableCells.Add(cell);
                 }
                 
@@ -123,13 +123,27 @@
                 tableRows = SortRows(tableRows, sortingRules).ToList();
             }
 
-            var repeater = new Table
+            var table = new Table
             (
                 tableDefinition,
-                tableRows.ToArray()
+                tableRows
             );
 
-            return repeater;
+            if (tableRows.Any() && tableDefinition.HasTotals)
+            {
+                var columns = table.Columns;
+
+                var totals = GenerateTotals
+                (
+                    tableDefinition,
+                    columns,
+                    results.AllRows
+                );
+
+                table.SetTotals(totals);
+            }
+
+            return table;
         }
 
         /// <summary>
@@ -204,6 +218,53 @@
 
                 return rows;
             }
+        }
+
+        /// <summary>
+        /// Generates the totals for a collection of query rows
+        /// </summary>
+        /// <param name="tableDefinition">The table definition</param>
+        /// <param name="columns">The table columns</param>
+        /// <param name="rows">The query rows</param>
+        /// <returns>The totals as table cells</returns>
+        private IEnumerable<TableCell> GenerateTotals
+            (
+                TableDefinition tableDefinition,
+                IEnumerable<TableColumn> columns,
+                IEnumerable<QueryRow> rows
+            )
+        {
+            var cells = new List<TableCell>();
+
+            foreach (var columnDefinition in tableDefinition.Columns)
+            {
+                var column = columns.FirstOrDefault
+                (
+                    c => c.Name == columnDefinition.Name
+                );
+
+                if (columnDefinition.HasTotal)
+                {
+                    var total = columnDefinition.TotalAggregator.Execute
+                    (
+                        rows.ToArray()
+                    );
+
+                    cells.Add
+                    (
+                        new TableCell(column, total)
+                    );
+                }
+                else
+                {
+                    cells.Add
+                    (
+                        new TableCell(column, null)
+                    );
+                }
+            }
+
+            return cells;
         }
     }
 }

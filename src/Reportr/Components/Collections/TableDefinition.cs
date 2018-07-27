@@ -68,6 +68,20 @@
         }
 
         /// <summary>
+        /// Gets a flag indicating if the table definition has any totals
+        /// </summary>
+        public bool HasTotals
+        {
+            get
+            {
+                return this.Columns.Any
+                (
+                    column => column.HasTotal
+                );
+            }
+        }
+
+        /// <summary>
         /// Gets a collection of all queries being used by the component
         /// </summary>
         /// <returns>A collection of queries</returns>

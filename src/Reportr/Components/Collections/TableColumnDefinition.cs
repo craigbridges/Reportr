@@ -29,7 +29,12 @@
             this.Name = name;
             this.Title = name;
             this.Binding = binding;
-            this.TotalAggregator = totalAggregator;
+
+            if (totalAggregator != null)
+            {
+                this.TotalAggregator = totalAggregator;
+                this.HasTotal = true;
+            }
         }
 
         /// <summary>
@@ -51,6 +56,11 @@
         /// Gets the total aggregator function
         /// </summary>
         public IAggregateFunction TotalAggregator { get; protected set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the column has a total aggregator
+        /// </summary>
+        public bool HasTotal { get; protected set; }
 
         /// <summary>
         /// Adds style details to the column

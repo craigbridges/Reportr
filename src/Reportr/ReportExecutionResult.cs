@@ -1,5 +1,8 @@
 ﻿namespace Reportr
 {
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -47,5 +50,44 @@
         /// Gets any error messages that were generated
         /// </summary>
         public string[] ErrorMessages { get; private set; }
+
+        /// <summary>
+        /// Adds handled exceptions to the execution result
+        /// </summary>
+        /// <param name="exceptions">The handled exceptions</param>
+        public void AddExceptions
+            (
+                IEnumerable<Exception> exceptions
+            )
+        {
+            Validate.IsNotNull(exceptions);
+
+            if (this.HandledExceptions != null && this.HandledExceptions.Any())
+            {
+                var newExceptionList = this.HandledExceptions.ToList();
+
+                newExceptionList.AddRange(exceptions);
+
+                this.HandledExceptions = newExceptionList.ToArray();
+            }
+            else
+            {
+                this.HandledExceptions = exceptions.ToArray();
+            }
+
+            this.HasHandledExceptions = this.HandledExceptions.Any();
+        }
+
+        /// <summary>
+        /// Gets an array of any exceptions that were caught and handled
+        /// </summary>
+        [JsonIgnore]
+        public Exception[] HandledExceptions { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if there are any handled exceptions
+        /// </summary>
+        [JsonIgnore]
+        public bool HasHandledExceptions { get; private set; }
     }
 }

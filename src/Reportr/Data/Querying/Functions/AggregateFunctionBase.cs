@@ -3,6 +3,7 @@
     using Nito.AsyncEx.Synchronous;
     using Reportr.Filtering;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -92,19 +93,26 @@
         {
             Validate.IsNotNull(rows);
             
-            var numbers = new List<double>();
-
-            foreach (var row in rows)
+            if (rows.Any())
             {
-                var number = ResolveRowValue
-                (
-                    row
-                );
+                var numbers = new List<double>();
 
-                numbers.Add(number);
+                foreach (var row in rows)
+                {
+                    var number = ResolveRowValue
+                    (
+                        row
+                    );
+
+                    numbers.Add(number);
+                }
+
+                return Compute(numbers);
             }
-
-            return Compute(numbers);
+            else
+            {
+                return default(double);
+            }
         }
 
         /// <summary>

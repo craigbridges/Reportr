@@ -18,15 +18,18 @@
         /// </summary>
         /// <param name="definition">The table definition</param>
         /// <param name="rows">The table rows</param>
+        /// <param name="totals">The table totals</param>
         public Table
             (
                 TableDefinition definition,
-                params TableRow[] rows
+                IEnumerable<TableRow> rows,
+                IEnumerable<TableCell> totals = null
             )
             : base(definition)
         {
             Validate.IsNotNull(rows);
-            
+            Validate.IsNotNull(totals);
+
             var columns = new List<TableColumn>();
 
             foreach (var columnDefinition in definition.Columns)
@@ -44,7 +47,9 @@
             }
 
             this.Columns = columns.ToArray();
-            this.Rows = rows;
+            this.Rows = rows.ToArray();
+
+            SetTotals(totals);
         }
 
         /// <summary>
@@ -60,7 +65,12 @@
         public TableGrouping[] Groupings { get; private set; }
 
         /// <summary>
-        /// Gets the rows in the table
+        /// Gets a flag indicating if the table has any groupings
+        /// </summary>
+        public bool HasGroupings { get; private set; }
+
+        /// <summary>
+        /// Gets all the rows in the table
         /// </summary>
         [DataMember]
         public TableRow[] Rows { get; protected set; }
@@ -70,6 +80,32 @@
         /// </summary>
         [DataMember]
         public TableCell[] Totals { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the table has totals
+        /// </summary>
+        public bool HasTotals { get; private set; }
+
+        /// <summary>
+        /// Sets the tables totals values
+        /// </summary>
+        /// <param name="totals">The totals to set</param>
+        internal void SetTotals
+            (
+                IEnumerable<TableCell> totals
+            )
+        {
+            if (totals != null && totals.Any())
+            {
+                this.Totals = totals.ToArray();
+                this.HasTotals = true;
+            }
+            else
+            {
+                this.Totals = new TableCell[] { };
+                this.HasTotals = false;
+            }
+        }
 
         /// <summary>
         /// Gets the row at the index specified

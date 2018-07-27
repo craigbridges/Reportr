@@ -7,9 +7,11 @@ Unsorted
 	- Refactor / finish TableGrouping and integrate with Table (as an optional constructor type)
 
 
-- Add JsonIgnore attrbutes to redundant properties to reduce size of generated JSON
+- Add JsonIgnore attributes to redundant properties to reduce size of generated JSON
 
 - Create concept of default value parameter generators (e.g. auto set start date to first day of current month)
+
+- Can we only apply constraints for highest level role? (e.g. someone assigned to consultant and manager only has manager constraints applied)
 
 - How do we filter the lookups for report filters 'on the fly'?
 
