@@ -143,38 +143,52 @@
                 ParameterInfo parameterInfo
             )
         {
-            var results = parameterInfo.LookupQuery.Execute
-            (
-                this.LookupParameterValues
-            );
-
-            var valueBinding = parameterInfo.LookupValueBinding;
-            var textBinding = parameterInfo.LookupDisplayTextBinding;
-            var items = new List<KeyValuePair<object, string>>();
-            
-            foreach (var row in results.AllRows)
+            try
             {
-                var lookupValue = valueBinding.Resolve
+                var results = parameterInfo.LookupQuery.Execute
                 (
-                    row
+                    this.LookupParameterValues
                 );
 
-                var lookupText = textBinding.Resolve<string>
-                (
-                    row
-                );
+                var valueBinding = parameterInfo.LookupValueBinding;
+                var textBinding = parameterInfo.LookupDisplayTextBinding;
+                var items = new List<KeyValuePair<object, string>>();
 
-                items.Add
-                (
+                foreach (var row in results.AllRows)
+                {
+                    var lookupValue = valueBinding.Resolve
+                    (
+                        row
+                    );
+
+                    var lookupText = textBinding.Resolve<string>
+                    (
+                        row
+                    );
+
+                    items.Add
+                    (
+                        new KeyValuePair<object, string>
+                        (
+                            lookupValue,
+                            lookupText
+                        )
+                    );
+                }
+
+                return items;
+            }
+            catch (Exception ex)
+            {
+                return new List<KeyValuePair<object, string>>()
+                {
                     new KeyValuePair<object, string>
                     (
-                        lookupValue,
-                        lookupText
+                        null,
+                        ex.Message
                     )
-                );
+                };
             }
-
-            return items;
         }
 
         /// <summary>

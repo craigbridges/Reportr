@@ -146,7 +146,7 @@
 
                 if (rowCount > this.MaximumRows.Value)
                 {
-                    var message = "The query '{0}' returned {1} rows, but" +
+                    var message = "The query '{0}' returned {1} rows, but " +
                                   "the maximum number of rows allowed is {2}.";
 
                     throw new InvalidOperationException

@@ -397,7 +397,7 @@
 
                 matchingValue = filterValues.FirstOrDefault
                 (
-                    pv => pv.Parameter == parameter
+                    pv => pv.Parameter.Name.ToLower() == parameter.Name.ToLower()
                 );
 
                 if (matchingValue != null)

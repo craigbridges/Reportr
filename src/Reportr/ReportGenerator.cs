@@ -144,10 +144,6 @@
                 false
             );
             
-            watch.Stop();
-
-            var executionTime = watch.ElapsedMilliseconds;
-
             var errorMessages = CompileErrors
             (
                 pageHeaderResult,
@@ -157,64 +153,56 @@
                 pageFooterResult
             );
 
-            if (errorMessages.Any())
+            var report = new Report(definition, filter);
+
+            if (pageHeaderResult != null)
             {
-                return new ReportGenerationResult
+                report = report.WithPageHeader
                 (
-                    executionTime,
-                    errorMessages
+                    pageHeaderResult.Section
                 );
             }
-            else
+
+            if (reportHeaderResult != null)
             {
-                var report = new Report(definition, filter);
-
-                if (pageHeaderResult != null)
-                {
-                    report = report.WithPageHeader
-                    (
-                        pageHeaderResult.Section
-                    );
-                }
-
-                if (reportHeaderResult != null)
-                {
-                    report = report.WithReportHeader
-                    (
-                        reportHeaderResult.Section
-                    );
-                }
-
-                if (reportBodyResult != null)
-                {
-                    report = report.WithBody
-                    (
-                        reportBodyResult.Section
-                    );
-                }
-
-                if (reportFooterResult != null)
-                {
-                    report = report.WithReportFooter
-                    (
-                        reportFooterResult.Section
-                    );
-                }
-
-                if (pageFooterResult != null)
-                {
-                    report = report.WithPageFooter
-                    (
-                        pageFooterResult.Section
-                    );
-                }
-
-                return new ReportGenerationResult
+                report = report.WithReportHeader
                 (
-                    executionTime,
-                    report
+                    reportHeaderResult.Section
                 );
             }
+
+            if (reportBodyResult != null)
+            {
+                report = report.WithBody
+                (
+                    reportBodyResult.Section
+                );
+            }
+
+            if (reportFooterResult != null)
+            {
+                report = report.WithReportFooter
+                (
+                    reportFooterResult.Section
+                );
+            }
+
+            if (pageFooterResult != null)
+            {
+                report = report.WithPageFooter
+                (
+                    pageFooterResult.Section
+                );
+            }
+            
+            watch.Stop();
+            
+            return new ReportGenerationResult
+            (
+                report,
+                watch.ElapsedMilliseconds,
+                errorMessages
+            );
         }
 
         /// <summary>
@@ -246,7 +234,7 @@
             {
                 var generationTasks = new Dictionary<string, Task<IReportComponent>>();
                 var componentList = new List<IReportComponent>();
-                var errorMessages = new Dictionary<string, string>();
+                var errorMessages = new List<string>();
 
                 // Build a dictionary of component generation tasks
                 foreach (var componentDefinition in sectionDefinition.Components)
@@ -278,63 +266,47 @@
                     }
                 }
 
-                await Task.WhenAll
-                (
-                    generationTasks.Select(pair => pair.Value)
-                )
-                .ConfigureAwait
-                (
-                    false
-                );
-
-                // Compile the results of each task once they have completed
-                foreach (var item in generationTasks)
+                try
                 {
-                    try
+                    await Task.WhenAll
+                    (
+                        generationTasks.Select(pair => pair.Value)
+                    )
+                    .ConfigureAwait
+                    (
+                        false
+                    );
+
+                    // Compile the results of each task once they have completed
+                    foreach (var item in generationTasks)
                     {
                         componentList.Add
                         (
                             await item.Value.ConfigureAwait(false)
                         );
                     }
-                    catch (Exception ex)
-                    {
-                        errorMessages.Add
-                        (
-                            item.Key,
-                            ex.Message
-                        );
-                    }
+                }
+                catch (Exception ex)
+                {
+                    errorMessages.Add(ex.Message);
                 }
 
                 watch.Stop();
+                
+                var section = new ReportSection
+                (
+                    sectionDefinition.Title,
+                    sectionDefinition.Description,
+                    sectionType,
+                    componentList.ToArray()
+                );
 
-                var executionTime = watch.ElapsedMilliseconds;
-
-                if (errorMessages.Any())
-                {
-                    return new ReportSectionGenerationResult
-                    (
-                        executionTime,
-                        errorMessages
-                    );
-                }
-                else
-                {
-                    var section = new ReportSection
-                    (
-                        sectionDefinition.Title,
-                        sectionDefinition.Description,
-                        sectionType,
-                        componentList.ToArray()
-                    );
-
-                    return new ReportSectionGenerationResult
-                    (
-                        executionTime,
-                        section
-                    );
-                }
+                return new ReportSectionGenerationResult
+                (
+                    section,
+                    watch.ElapsedMilliseconds,
+                    errorMessages.ToArray()
+                );
             }
         }
 
@@ -343,29 +315,25 @@
         /// </summary>
         /// <param name="results">The section generation results</param>
         /// <returns>A dictionary of errors</returns>
-        private Dictionary<string, string> CompileErrors
+        private string[] CompileErrors
             (
                 params ReportSectionGenerationResult[] results
             )
         {
-            var errorMessages = new Dictionary<string, string>();
+            var errorMessages = new List<string>();
 
             foreach (var result in results)
             {
                 if (result != null && false == result.Success)
                 {
-                    foreach (var error in result.ErrorMessages)
-                    {
-                        errorMessages.Add
-                        (
-                            error.Key,
-                            error.Value
-                        );
-                    }
+                    errorMessages.AddRange
+                    (
+                        result.ErrorMessages
+                    );
                 }
             }
 
-            return errorMessages;
+            return errorMessages.ToArray();
         }
     }
 }

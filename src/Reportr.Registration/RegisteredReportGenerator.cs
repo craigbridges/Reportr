@@ -111,8 +111,8 @@
                 
                 return new ReportGenerationResult
                 (
+                    null,
                     watch.ElapsedMilliseconds,
-                    "Authorization",
                     "The user is not authorized to generate the report."
                 );
             }
@@ -128,8 +128,8 @@
 
                 return new ReportGenerationResult
                 (
+                    null,
                     watch.ElapsedMilliseconds,
-                    "Authorization",
                     "The report cannot be generated because it is disabled."
                 );
             }
