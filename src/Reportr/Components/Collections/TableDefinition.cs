@@ -52,6 +52,7 @@
         /// <summary>
         /// Gets the default parameter values for the query
         /// </summary>
+        [JsonIgnore]
         public ICollection<ParameterValue> DefaultParameterValues
         {
             get;
@@ -61,6 +62,7 @@
         /// <summary>
         /// Gets the columns defined by the table
         /// </summary>
+        [JsonIgnore]
         public ICollection<TableColumnDefinition> Columns
         {
             get;
@@ -103,6 +105,7 @@
         /// The row action can be null, but when set, it overrides
         /// any column actions that have been set.
         /// </remarks>
+        [JsonIgnore]
         public ReportActionDefinition RowAction { get; protected set; }
 
         /// <summary>

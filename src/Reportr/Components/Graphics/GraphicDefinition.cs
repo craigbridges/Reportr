@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Graphics
 {
+    using Newtonsoft.Json;
     using Reportr.Components.Metrics;
     using Reportr.Data.Querying;
     using System;
@@ -89,16 +90,19 @@
         /// <summary>
         /// Gets the image to display
         /// </summary>
+        [JsonIgnore]
         public Image Image { get; protected set; }
-        
+
         /// <summary>
         /// Gets an array of overlays to display over the graphic
         /// </summary>
+        [JsonIgnore]
         public GraphicOverlay[] Overlays { get; protected set; }
 
         /// <summary>
         /// Gets a dictionary of overlay statistics
         /// </summary>
+        [JsonIgnore]
         public Dictionary<Guid, List<StatisticDefinition>> OverlayStatistics
         {
             get;
@@ -201,6 +205,7 @@
         /// <summary>
         /// Gets an array of areas to render over the graphic
         /// </summary>
+        [JsonIgnore]
         public GraphicArea[] Areas { get; protected set; }
 
         /// <summary>

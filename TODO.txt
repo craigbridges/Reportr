@@ -1,13 +1,8 @@
 Unsorted
 --------
 
-*** Tables
-	- Use TableColumnDefinition.TotalAggregator and calculate table totals plus grouping totals
-	- Add 'HasTotals' flags to table and table groupings
+- Tables
 	- Refactor / finish TableGrouping and integrate with Table (as an optional constructor type)
-
-
-- Add JsonIgnore attributes to redundant properties to reduce size of generated JSON
 
 - Create concept of default value parameter generators (e.g. auto set start date to first day of current month)
 

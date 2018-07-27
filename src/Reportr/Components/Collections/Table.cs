@@ -46,7 +46,7 @@
             }
 
             this.Columns = columns.ToArray();
-            this.Rows = rows.ToArray();
+            this.AllRows = rows.ToArray();
 
             SetTotals(totals);
         }
@@ -72,7 +72,7 @@
         /// Gets all the rows in the table
         /// </summary>
         [DataMember]
-        public TableRow[] Rows { get; protected set; }
+        public TableRow[] AllRows { get; protected set; }
 
         /// <summary>
         /// Gets an array of row cells representing the table totals
@@ -115,7 +115,7 @@
         {
             get
             {
-                return this.Rows[index];
+                return this.AllRows[index];
             }
         }
 
@@ -125,7 +125,7 @@
         /// <returns>The enumerator</returns>
         public IEnumerator<TableRow> GetEnumerator()
         {
-            return this.Rows.ToList().GetEnumerator();
+            return this.AllRows.ToList().GetEnumerator();
         }
 
         /// <summary>

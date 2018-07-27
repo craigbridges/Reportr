@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using Newtonsoft.Json;
     using Reportr.Data.Querying;
     using Reportr.Data.Querying.Functions;
     using Reportr.Filtering;
@@ -49,16 +50,19 @@
         /// <summary>
         /// Gets the statistic query
         /// </summary>
+        [JsonIgnore]
         public IQuery Query { get; protected set; }
 
         /// <summary>
         /// Gets the statistic aggregate function
         /// </summary>
+        [JsonIgnore]
         public IAggregateFunction Function { get; protected set; }
-        
+
         /// <summary>
         /// Gets the default parameter values for the aggregator
         /// </summary>
+        [JsonIgnore]
         public ICollection<ParameterValue> DefaultParameterValues
         {
             get;
@@ -122,6 +126,7 @@
         /// <summary>
         /// Gets the statistic action
         /// </summary>
+        [JsonIgnore]
         public ReportAction Action { get; protected set; }
 
         /// <summary>

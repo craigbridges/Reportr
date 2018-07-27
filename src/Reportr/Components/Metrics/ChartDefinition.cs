@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using Newtonsoft.Json;
     using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;
@@ -38,10 +39,11 @@
 
             _chartType = type;
         }
-        
+
         /// <summary>
         /// Gets a collection of chart data set definitions
         /// </summary>
+        [JsonIgnore]
         public ICollection<ChartDataSetDefinition> DataSets
         {
             get;
@@ -51,6 +53,7 @@
         /// <summary>
         /// Gets an array of x-axis label template
         /// </summary>
+        [JsonIgnore]
         public ChartAxisLabel XAxisLabelTemplate { get; protected set; }
 
         /// <summary>

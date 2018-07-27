@@ -53,6 +53,7 @@
         /// <summary>
         /// Gets the default parameter values for the query
         /// </summary>
+        [JsonIgnore]
         public ICollection<ParameterValue> DefaultParameterValues
         {
             get;
@@ -62,6 +63,7 @@
         /// <summary>
         /// Gets the data binding for the repeater
         /// </summary>
+        [JsonIgnore]
         public DataBinding Binding { get; protected set; }
 
         /// <summary>
@@ -99,6 +101,7 @@
         /// <summary>
         /// Gets the action associated with the repeater
         /// </summary>
+        [JsonIgnore]
         public ReportActionDefinition Action { get; protected set; }
 
         /// <summary>
@@ -137,6 +140,7 @@
         /// generate a table of their sales for the month along with a pie 
         /// chart showing a breakdown of which product they sold.
         /// </remarks>
+        [JsonIgnore]
         public ICollection<NestedReportComponentDefinition> NestedComponents
         {
             get;
