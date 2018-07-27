@@ -112,56 +112,64 @@
             );
 
             var columnName = pathInfo.ColumnName;
-            var currentValue = (object)row[columnName].Value;
-            var currentPath = columnName;
-            var currentType = currentValue.GetType();
+            var currentValue = row[columnName].Value;
 
-            foreach (var propertyName in pathInfo.NestedProperties)
+            if (currentValue == null)
             {
-                if (currentValue == null)
-                {
-                    throw new NullReferenceException
-                    (
-                        String.Format
-                        (
-                            "The path '{0}' has a null reference.",
-                            currentPath
-                        )
-                    );
-                }
-
-                var nextPropertyFound = currentType.GetProperties().Any
-                (
-                    p => p.Name == propertyName
-                );
-                
-                if (false == nextPropertyFound)
-                {
-                    throw new MissingFieldException
-                    (
-                        String.Format
-                        (
-                            "The path '{0}' does not contain a property named '{1}'",
-                            currentPath,
-                            propertyName
-                        )
-                    );
-                }
-
-                var nextProperty = currentType.GetProperty
-                (
-                    propertyName
-                );
-
-                currentValue = nextProperty.GetValue
-                (
-                    currentValue
-                );
-
-                currentPath += "." + propertyName;
+                return row[columnName].Value;
             }
+            else
+            {
+                var currentPath = columnName;
+                var currentType = currentValue.GetType();
 
-            return currentValue;
+                foreach (var propertyName in pathInfo.NestedProperties)
+                {
+                    if (currentValue == null)
+                    {
+                        throw new NullReferenceException
+                        (
+                            String.Format
+                            (
+                                "The path '{0}' has a null reference.",
+                                currentPath
+                            )
+                        );
+                    }
+
+                    var nextPropertyFound = currentType.GetProperties().Any
+                    (
+                        p => p.Name == propertyName
+                    );
+
+                    if (false == nextPropertyFound)
+                    {
+                        throw new MissingFieldException
+                        (
+                            String.Format
+                            (
+                                "The path '{0}' does not contain a property named '{1}'.",
+                                currentPath,
+                                propertyName
+                            )
+                        );
+                    }
+
+                    var nextProperty = currentType.GetProperty
+                    (
+                        propertyName
+                    );
+
+                    currentValue = nextProperty.GetValue
+                    (
+                        currentValue
+                    );
+
+                    currentPath += "." + propertyName;
+                }
+
+                return currentValue;
+            }
         }
 
         /// <summary>

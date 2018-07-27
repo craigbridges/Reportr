@@ -338,10 +338,6 @@
                 {
                     return DataValueFormattingType.DecimalNumber;
                 }
-                else if (type.IsAssignableFrom(typeof(decimal)))
-                {
-                    return DataValueFormattingType.Currency;
-                }
                 else if (type.IsAssignableFrom(typeof(DateTime)))
                 {
                     if (((DateTime)value).TimeOfDay.TotalMilliseconds > 0)

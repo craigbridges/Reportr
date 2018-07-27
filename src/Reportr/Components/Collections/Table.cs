@@ -18,7 +18,7 @@
         /// </summary>
         /// <param name="definition">The table definition</param>
         /// <param name="rows">The table rows</param>
-        /// <param name="totals">The table totals</param>
+        /// <param name="totals">The table totals (optional)</param>
         public Table
             (
                 TableDefinition definition,
@@ -28,7 +28,6 @@
             : base(definition)
         {
             Validate.IsNotNull(rows);
-            Validate.IsNotNull(totals);
 
             var columns = new List<TableColumn>();
 
