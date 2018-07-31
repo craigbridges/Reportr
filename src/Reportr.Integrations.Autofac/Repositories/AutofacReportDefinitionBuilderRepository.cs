@@ -125,6 +125,20 @@
 
             var builderType = Type.GetType(fullTypeName);
 
+            if (builderType == null)
+            {
+                var message = "The report builder type '{0}' could not be resolved.";
+
+                throw new KeyNotFoundException
+                (
+                    String.Format
+                    (
+                        message,
+                        fullTypeName
+                    )
+                );
+            }
+
             return GetBuilder(builderType);
         }
 

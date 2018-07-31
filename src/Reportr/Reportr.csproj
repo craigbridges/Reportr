@@ -78,6 +78,7 @@
     <Compile Include="Common\Extensions\EnumExtensions.cs" />
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
+    <Compile Include="Common\Math\Calculate.cs" />
     <Compile Include="Common\Reflection\EnumInspector.cs" />
     <Compile Include="Common\Reflection\EnumItemInfo.cs" />
     <Compile Include="Common\Validation\TypeConverterChecker.cs" />
