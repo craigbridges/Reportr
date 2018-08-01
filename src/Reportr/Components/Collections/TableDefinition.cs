@@ -1,8 +1,10 @@
 ﻿namespace Reportr.Components.Collections
 {
     using Newtonsoft.Json;
+    using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -26,6 +28,7 @@
                 IQuery query,
                 ReportActionDefinition rowAction = null
             )
+
             : base(name, title)
         {
             Validate.IsNotNull(query);
@@ -67,6 +70,49 @@
         {
             get;
             protected set;
+        }
+
+        /// <summary>
+        /// Sets a formatting type override against one or more columns
+        /// </summary>
+        /// <param name="formattingType">The value formatting type</param>
+        /// <param name="columnNames">The column names</param>
+        public void SetFormattingTypeOverrides
+            (
+                DataValueFormattingType formattingType,
+                params string[] columnNames
+            )
+        {
+            Validate.IsNotNull(columnNames);
+
+            foreach (var name in columnNames)
+            {
+                var column = this.Columns.FirstOrDefault
+                (
+                    definition => definition.Name.Replace
+                    (
+                        " ",
+                        String.Empty
+                    )
+                    .ToLower() == name.ToLower()
+                );
+
+                if (column == null)
+                {
+                    var message = "The name '{0}' did not match any columns.";
+
+                    throw new InvalidOperationException
+                    (
+                        String.Format
+                        (
+                            message,
+                            name
+                        )
+                    );
+                }
+
+                column.FormattingTypeOverride = formattingType;
+            }
         }
 
         /// <summary>

@@ -65,21 +65,19 @@
         }
 
         /// <summary>
-        /// Auto creates a table based on the schema of a query
+        /// Auto generates a table based on the schema of a query
         /// </summary>
-        /// <param name="reportDefinition">The report definition</param>
         /// <param name="query">The query</param>
         /// <param name="tableTitle">The table title</param>
         /// <param name="excludedColumns">The names of excluded columns</param>
-        protected virtual void AutoCreateTable
+        /// <returns>The table definition created</returns>
+        protected virtual TableDefinition AutoGenerateTable
             (
-                ref ReportDefinition reportDefinition,
                 IQuery query,
                 string tableTitle,
                 params string[] excludedColumns
             )
         {
-            Validate.IsNotNull(reportDefinition);
             Validate.IsNotNull(query);
             Validate.IsNotNull(excludedColumns);
             
@@ -101,9 +99,10 @@
 
                 if (false == isExcluded)
                 {
+                    var valueType = columnInfo.Column.ValueType;
                     var totalAggregator = default(IAggregateFunction);
 
-                    if (columnInfo.Column.ValueType.IsNumeric())
+                    if (valueType.IsNumeric() && false == valueType.IsEnumAssignable())
                     {
                         totalAggregator = new SumFunction
                         (
@@ -132,40 +131,29 @@
                 }
             }
 
-            reportDefinition.Body.Components.Add
-            (
-                tableDefinition
-            );
-
-            AutoPopulateParameters
-            (
-                ref reportDefinition,
-                query
-            );
+            return tableDefinition;
         }
 
         /// <summary>
-        /// Creates a table based on the schema of a query with the columns specified
+        /// Generates a table based on the schema of a query with the columns specified
         /// </summary>
-        /// <param name="reportDefinition">The report definition</param>
         /// <param name="query">The query</param>
         /// <param name="tableTitle">The table title</param>
         /// <param name="columnMappings">The names of columns to map</param>
+        /// <returns>The table definition created</returns>
         /// <remarks>
         /// The column mappings are represented as an array of key-value pairs.
         /// 
         /// Each pair represents a single query column (key) and the table 
         /// column (value) that it maps to.
         /// </remarks>
-        protected virtual void CreateTableWith
+        protected virtual TableDefinition GenerateTableWith
             (
-                ref ReportDefinition reportDefinition,
                 IQuery query,
                 string tableTitle,
                 params KeyValuePair<string, string>[] columnMappings
             )
         {
-            Validate.IsNotNull(reportDefinition);
             Validate.IsNotNull(query);
             Validate.IsNotNull(columnMappings);
 
@@ -240,16 +228,7 @@
                 );
             }
             
-            reportDefinition.Body.Components.Add
-            (
-                tableDefinition
-            );
-
-            AutoPopulateParameters
-            (
-                ref reportDefinition,
-                query
-            );
+            return tableDefinition;
         }
     }
 }

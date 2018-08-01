@@ -63,6 +63,15 @@
         public bool HasTotal { get; protected set; }
 
         /// <summary>
+        /// Gets the value formatting type override
+        /// </summary>
+        public DataValueFormattingType? FormattingTypeOverride
+        {
+            get;
+            protected internal set;
+        }
+
+        /// <summary>
         /// Adds style details to the column
         /// </summary>
         /// <param name="title">The title</param>

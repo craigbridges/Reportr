@@ -49,7 +49,7 @@
         /// <summary>
         /// Gets the value formatting type
         /// </summary>
-        public DataValueFormattingType FormattingType { get; private set; }
+        public DataValueFormattingType FormattingType { get; internal set; }
 
         /// <summary>
         /// Gets the cells value

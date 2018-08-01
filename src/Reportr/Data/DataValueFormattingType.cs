@@ -20,19 +20,25 @@
         [Description("Currency")]
         Currency = 2,
 
+        [Description("Percentage")]
+        Percentage = 4,
+
         [Description("Decimal Number")]
-        DecimalNumber = 4,
+        DecimalNumber = 8,
 
         [Description("Whole Number")]
-        WholeNumber = 8,
+        WholeNumber = 16,
 
         [Description("Date")]
-        Date = 16,
+        Date = 32,
 
         [Description("Time")]
-        Time = 32,
+        Time = 64,
 
         [Description("Date and Time")]
-        DateAndTime = 64
+        DateAndTime = 128,
+
+        [Description("Enumeration")]
+        Enum = 256
     }
 }

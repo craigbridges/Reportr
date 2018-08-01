@@ -72,18 +72,10 @@
                             queryRow
                         );
                     }
-
-                    var column = new TableColumn
+                    
+                    var cell = CreateTableCell
                     (
-                        columnDefinition.Name,
-                        columnDefinition.Title,
-                        columnDefinition.Alignment,
-                        columnDefinition.Importance
-                    );
-
-                    var cell = new TableCell
-                    (
-                        column,
+                        columnDefinition,
                         value,
                         action
                     );
@@ -243,6 +235,8 @@
                     c => c.Name == columnDefinition.Name
                 );
 
+                var cell = default(TableCell);
+
                 if (columnDefinition.HasTotal)
                 {
                     var total = columnDefinition.TotalAggregator.Execute
@@ -250,21 +244,64 @@
                         rows.ToArray()
                     );
 
-                    cells.Add
+                    cell = CreateTableCell
                     (
-                        new TableCell(column, total)
+                        columnDefinition,
+                        total
                     );
                 }
                 else
                 {
-                    cells.Add
+                    cell = CreateTableCell
                     (
-                        new TableCell(column, null)
+                        columnDefinition,
+                        null
                     );
                 }
+
+                cells.Add(cell);
             }
 
             return cells;
+        }
+
+        /// <summary>
+        /// Create a new table cell from a column definition and value
+        /// </summary>
+        /// <param name="columnDefinition">The column definition</param>
+        /// <param name="value">The cell value</param>
+        /// <param name="action">The cell action (optional)</param>
+        /// <returns>The table cell created</returns>
+        private TableCell CreateTableCell
+            (
+                TableColumnDefinition columnDefinition,
+                object value,
+                ReportAction action = null
+            )
+        {
+            var column = new TableColumn
+            (
+                columnDefinition.Name,
+                columnDefinition.Title,
+                columnDefinition.Alignment,
+                columnDefinition.Importance
+            );
+            
+            var cell = new TableCell
+            (
+                column,
+                value,
+                action
+            );
+
+            var formattingOverride = columnDefinition.FormattingTypeOverride;
+
+            if (formattingOverride.HasValue)
+            {
+                cell.FormattingType = formattingOverride.Value;
+            }
+
+            return cell;
         }
     }
 }

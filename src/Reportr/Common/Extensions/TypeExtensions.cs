@@ -193,6 +193,47 @@
         }
 
         /// <summary>
+        /// Determines if the type is a nullable enum
+        /// </summary>
+        /// <param name="type">The type</param>
+        /// <returns>True, if the type is a nullable enum; otherwise false</returns>
+        public static bool IsNullableEnum
+            (
+                this Type type
+            )
+        {
+            var underlying = Nullable.GetUnderlyingType
+            (
+                type
+            );
+
+            return
+            (
+                (underlying != null) && underlying.IsEnum
+            );
+        }
+
+        /// <summary>
+        /// Determines if the type can have an enum value assigned to it
+        /// </summary>
+        /// <param name="type">The type</param>
+        /// <returns>True, if the type can have an enum value; otherwise false</returns>
+        public static bool IsEnumAssignable
+            (
+                this Type type
+            )
+        {
+            if (type.IsEnum)
+            {
+                return true;
+            }
+            else
+            {
+                return type.IsNullableEnum();
+            }
+        }
+
+        /// <summary>
         /// Determines if the type specified is an enumerable type
         /// </summary>
         /// <param name="type">The type to check</param>
@@ -352,6 +393,10 @@
                 else if (type.IsAssignableFrom(typeof(TimeSpan)))
                 {
                     return DataValueFormattingType.Time;
+                }
+                else if (type.IsEnumAssignable())
+                {
+                    return DataValueFormattingType.Enum;
                 }
                 else
                 {

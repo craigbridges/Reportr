@@ -1,6 +1,8 @@
 Unsorted
 --------
 
+- Nettle create GCD/Ratio custom function
+
 - Tables
 	- Refactor / finish TableGrouping and integrate with Table (as an optional constructor type)
 
