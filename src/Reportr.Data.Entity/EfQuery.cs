@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -162,13 +163,30 @@
                 }
             }
 
-            var listTask = queryable.ToListAsync();
+            var queryResults = default(List<T>);
 
-            var queryResults = await listTask.ConfigureAwait
-            (
-                false
-            );
+            // NOTE:
+            // We are checking if the queryable implements the interface
+            // IDbAsyncEnumerable which allows us to ensure the queryable
+            // is not a mock-up and is a real Entity Framework query.
+            //
+            // Only sources that implement IDbAsyncEnumerable can be used 
+            // for Entity Framework asynchronous operations.
 
+            if (queryable is IDbAsyncEnumerable)
+            {
+                var listTask = queryable.ToListAsync();
+
+                queryResults = await listTask.ConfigureAwait
+                (
+                    false
+                );
+            }
+            else
+            {
+                queryResults = queryable.ToList();
+            }
+            
             var rows = new List<QueryRow>();
             var entityType = typeof(T);
 
