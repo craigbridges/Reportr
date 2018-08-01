@@ -123,11 +123,14 @@
         {
             Validate.IsNotEmpty(fullTypeName);
 
-            var builderType = Type.GetType(fullTypeName);
+            var builder = _builders.FirstOrDefault
+            (
+                b => b.GetType().AssemblyQualifiedName == fullTypeName
+            );
 
-            if (builderType == null)
+            if (builder == null)
             {
-                var message = "The report builder type '{0}' could not be resolved.";
+                var message = "The type '{0}' did not match any report builders.";
 
                 throw new KeyNotFoundException
                 (
@@ -139,7 +142,45 @@
                 );
             }
 
-            return GetBuilder(builderType);
+            return builder;
+        }
+
+        /// <summary>
+        /// Gets a report builder for the type and assembly specified
+        /// </summary>
+        /// <param name="typeName">The builder type name</param>
+        /// <param name="assemblyLocation">The assembly location</param>
+        /// <returns>The matching report builder</returns>
+        public IReportDefinitionBuilder GetBuilder
+            (
+                string typeName,
+                string assemblyLocation
+            )
+        {
+            Validate.IsNotEmpty(typeName);
+            Validate.IsNotEmpty(assemblyLocation);
+
+            var builder = _builders.FirstOrDefault
+            (
+                b => b.GetType().Name == typeName
+                    && b.GetType().Assembly.Location == assemblyLocation
+            );
+
+            if (builder == null)
+            {
+                var message = "The type '{0}' did not match any report builders.";
+
+                throw new KeyNotFoundException
+                (
+                    String.Format
+                    (
+                        message,
+                        typeName
+                    )
+                );
+            }
+
+            return builder;
         }
 
         /// <summary>

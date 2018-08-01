@@ -45,6 +45,18 @@
         );
 
         /// <summary>
+        /// Gets a report builder for the type and assembly specified
+        /// </summary>
+        /// <param name="typeName">The builder type name</param>
+        /// <param name="assemblyLocation">The assembly location</param>
+        /// <returns>The matching report builder</returns>
+        IReportDefinitionBuilder GetBuilder
+        (
+            string typeName,
+            string assemblyLocation
+        );
+
+        /// <summary>
         /// Gets all report builders in the repository
         /// </summary>
         /// <returns>A collection of report builders</returns>

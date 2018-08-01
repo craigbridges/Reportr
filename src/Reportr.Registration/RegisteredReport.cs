@@ -174,6 +174,16 @@
         public string BuilderTypeAssemblyQualifiedName { get; protected set; }
 
         /// <summary>
+        /// Gets the report definition builder assembly name
+        /// </summary>
+        public string BuilderAssemblyName { get; protected set; }
+
+        /// <summary>
+        /// Gets the report definition builder assembly location
+        /// </summary>
+        public string BuilderAssemblyLocation { get; protected set; }
+
+        /// <summary>
         /// Gets the source code of the report definition script
         /// </summary>
         public string ScriptSourceCode { get; protected set; }
@@ -225,6 +235,8 @@
             this.BuilderTypeName = builderType.Name;
             this.BuilderTypeFullName = builderType.FullName;
             this.BuilderTypeAssemblyQualifiedName = builderType.AssemblyQualifiedName;
+            this.BuilderAssemblyName = builderType.Assembly.FullName;
+            this.BuilderAssemblyLocation = builderType.Assembly.Location;
             this.ScriptSourceCode = null;
             this.DateSourceSpecified = DateTime.UtcNow;
 
