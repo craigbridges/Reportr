@@ -3,6 +3,7 @@
     using Newtonsoft.Json;
     using Reportr.Data;
     using Reportr.Data.Querying;
+    using Reportr.Data.Querying.Functions;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
@@ -73,6 +74,45 @@
         }
 
         /// <summary>
+        /// Gets a single column definition from the table definition
+        /// </summary>
+        /// <param name="name">The column name</param>
+        /// <returns>The matching column definition</returns>
+        internal TableColumnDefinition GetColumn
+            (
+                string name
+            )
+        {
+            Validate.IsNotNull(name);
+
+            var column = this.Columns.FirstOrDefault
+            (
+                definition => definition.Name.Replace
+                (
+                    " ",
+                    String.Empty
+                )
+                .ToLower() == name.ToLower()
+            );
+
+            if (column == null)
+            {
+                var message = "The name '{0}' did not match any columns.";
+
+                throw new InvalidOperationException
+                (
+                    String.Format
+                    (
+                        message,
+                        name
+                    )
+                );
+            }
+
+            return column;
+        }
+
+        /// <summary>
         /// Sets a formatting type override against one or more columns
         /// </summary>
         /// <param name="formattingType">The value formatting type</param>
@@ -87,31 +127,64 @@
 
             foreach (var name in columnNames)
             {
-                var column = this.Columns.FirstOrDefault
-                (
-                    definition => definition.Name.Replace
-                    (
-                        " ",
-                        String.Empty
-                    )
-                    .ToLower() == name.ToLower()
-                );
-
-                if (column == null)
-                {
-                    var message = "The name '{0}' did not match any columns.";
-
-                    throw new InvalidOperationException
-                    (
-                        String.Format
-                        (
-                            message,
-                            name
-                        )
-                    );
-                }
+                var column = GetColumn(name);
 
                 column.FormattingTypeOverride = formattingType;
+            }
+        }
+
+        /// <summary>
+        /// Defines total aggregator functions for the columns specified
+        /// </summary>
+        /// <param name="totalAggregator">The total aggregator function</param>
+        /// <param name="columnNames">The column names</param>
+        public void DefineTotals
+            (
+                IAggregateFunction totalAggregator,
+                params string[] columnNames
+            )
+        {
+            Validate.IsNotNull(totalAggregator);
+            Validate.IsNotNull(columnNames);
+
+            foreach (var name in columnNames)
+            {
+                var column = GetColumn(name);
+
+                column.DefineTotal
+                (
+                    totalAggregator
+                );
+            }
+        }
+
+        /// <summary>
+        /// Removes total aggregator functions from the columns specified
+        /// </summary>
+        /// <param name="columnNames">The column names</param>
+        public void RemoveTotals
+            (
+                params string[] columnNames
+            )
+        {
+            Validate.IsNotNull(columnNames);
+
+            foreach (var name in columnNames)
+            {
+                var column = GetColumn(name);
+
+                column.RemoveTotal();
+            }
+        }
+
+        /// <summary>
+        /// Removes totals defined against all columns
+        /// </summary>
+        public void RemoveAllTotals()
+        {
+            foreach (var column in this.Columns.ToList())
+            {
+                column.RemoveTotal();
             }
         }
 

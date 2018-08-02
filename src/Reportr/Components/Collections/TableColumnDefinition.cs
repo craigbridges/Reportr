@@ -32,8 +32,7 @@
 
             if (totalAggregator != null)
             {
-                this.TotalAggregator = totalAggregator;
-                this.HasTotal = true;
+                DefineTotal(totalAggregator);
             }
         }
 
@@ -51,6 +50,30 @@
         /// Gets the columns data binding
         /// </summary>
         public DataBinding Binding { get; protected set; }
+
+        /// <summary>
+        /// Defines a total function for the column
+        /// </summary>
+        /// <param name="totalAggregator">The total aggregate function</param>
+        public void DefineTotal
+            (
+                IAggregateFunction totalAggregator
+            )
+        {
+            Validate.IsNotNull(totalAggregator);
+
+            this.TotalAggregator = totalAggregator;
+            this.HasTotal = true;
+        }
+
+        /// <summary>
+        /// Removes the total function from the column
+        /// </summary>
+        public void RemoveTotal()
+        {
+            this.TotalAggregator = null;
+            this.HasTotal = false;
+        }
 
         /// <summary>
         /// Gets the total aggregator function
