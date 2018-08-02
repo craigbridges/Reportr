@@ -28,7 +28,9 @@
                 var generator = new NettleCompilerGenerator
                 (
                     new ConcatenateQueryCellsFunction(),
-                    new GetQueryCellValueFunction()
+                    new GetQueryCellValueFunction(),
+                    new GcdFunction(),
+                    new AsRatioFunction()
                 );
 
                 _nettleCompiler = generator.Generate();
