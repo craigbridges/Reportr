@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Data.Querying
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -90,6 +91,11 @@
         public QueryGrouping[] Groupings { get; private set; }
 
         /// <summary>
+        /// Gets a flag indicating if the result has multiple groupings
+        /// </summary>
+        public bool HasMultipleGroupings { get; private set; }
+
+        /// <summary>
         /// Gets an array of the all rows in the result
         /// </summary>
         public QueryRow[] AllRows { get; private set; }
@@ -111,7 +117,16 @@
         {
             Validate.IsNotNull(groupings);
 
+            if (groupings.Length == 0)
+            {
+                throw new ArgumentException
+                (
+                    "At least one query grouping must be defined."
+                );
+            }
+
             this.Groupings = groupings;
+            this.HasMultipleGroupings = groupings.Length > 1;
 
             var allRows = new List<QueryRow>();
 
@@ -129,7 +144,29 @@
 
             return this;
         }
-        
+
+        /// <summary>
+        /// Adds the query data to the result
+        /// </summary>
+        /// <param name="rows">The rows generated</param>
+        /// <returns>The updated query result</returns>
+        public QueryResults WithData
+            (
+                params QueryRow[] rows
+            )
+        {
+            Validate.IsNotNull(rows);
+            
+            this.Groupings = new QueryGrouping[] { };
+            this.HasMultipleGroupings = false;
+            
+            this.AllRows = rows;
+            this.RowCount = rows.Length;
+            this.Success = true;
+
+            return this;
+        }
+
         /// <summary>
         /// Gets the group at the index specified
         /// </summary>

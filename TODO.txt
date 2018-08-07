@@ -6,6 +6,7 @@ Unsorted
 
 - Tables
 	- Refactor / finish TableGrouping and integrate with Table (as an optional constructor type)
+		- TableGenerator: modify code to (optionally) insert groupings into table instead of all rows
 
 - Create concept of default value parameter generators (e.g. auto set start date to first day of current month)
 

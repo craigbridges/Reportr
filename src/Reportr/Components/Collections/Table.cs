@@ -14,7 +14,7 @@
     public class Table : ReportComponentBase, IEnumerable<TableRow>
     {
         /// <summary>
-        /// Constructs the table with the details
+        /// Constructs the table with all rows
         /// </summary>
         /// <param name="definition">The table definition</param>
         /// <param name="rows">The table rows</param>
@@ -29,6 +29,56 @@
         {
             Validate.IsNotNull(rows);
 
+            BuildColumns(definition);
+            SetTotals(totals);
+
+            this.AllRows = rows.ToArray();
+            this.HasGroupings = false;
+        }
+
+        /// <summary>
+        /// Constructs the table with groupings
+        /// </summary>
+        /// <param name="definition">The table definition</param>
+        /// <param name="groupings">The table groupings</param>
+        /// <param name="totals">The table totals (optional)</param>
+        public Table
+            (
+                TableDefinition definition,
+                IEnumerable<TableGrouping> groupings,
+                IEnumerable<TableCell> totals = null
+            )
+            : base(definition)
+        {
+            Validate.IsNotNull(groupings);
+
+            BuildColumns(definition);
+            SetTotals(totals);
+
+            var allRows = new List<TableRow>();
+
+            foreach (var group in groupings)
+            {
+                allRows.AddRange
+                (
+                    group.Rows
+                );
+            }
+
+            this.HasGroupings = true;
+            this.Groupings = groupings.ToArray();
+            this.AllRows = allRows.ToArray();
+        }
+
+        /// <summary>
+        /// Builds the tables columns from the definition specified
+        /// </summary>
+        /// <param name="definition">The table definition</param>
+        private void BuildColumns
+            (
+                TableDefinition definition
+            )
+        {
             var columns = new List<TableColumn>();
 
             foreach (var columnDefinition in definition.Columns)
@@ -46,9 +96,6 @@
             }
 
             this.Columns = columns.ToArray();
-            this.AllRows = rows.ToArray();
-
-            SetTotals(totals);
         }
 
         /// <summary>
