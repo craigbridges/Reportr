@@ -49,10 +49,105 @@
                 false
             );
 
+            var table = default(Table);
+
+            if (results.HasMultipleGroupings)
+            {
+                var tableGroups = new List<TableGrouping>();
+
+                foreach (var queryGroup in results.Groupings)
+                {
+                    var groupRows = BuildTableRows
+                    (
+                        tableDefinition,
+                        sectionType,
+                        filter,
+                        queryGroup.Rows
+                    );
+                    
+                    var tableGroup = new TableGrouping
+                    (
+                        queryGroup.GroupingValues,
+                        groupRows.ToArray()
+                    );
+
+                    if (groupRows.Any() && tableDefinition.HasTotals)
+                    {
+                        var columns = table.Columns;
+
+                        var totals = GenerateTotals
+                        (
+                            tableDefinition,
+                            columns,
+                            queryGroup.Rows
+                        );
+
+                        tableGroup.SetTotals(totals);
+                    }
+
+                    tableGroups.Add(tableGroup);
+                }
+
+                table = new Table
+                (
+                    tableDefinition,
+                    tableGroups
+                );
+            }
+            else
+            {
+                var tableRows = BuildTableRows
+                (
+                    tableDefinition,
+                    sectionType,
+                    filter,
+                    results.AllRows
+                );
+
+                table = new Table
+                (
+                    tableDefinition,
+                    tableRows
+                );
+            }
+
+            if (table.AllRows.Any() && tableDefinition.HasTotals)
+            {
+                var columns = table.Columns;
+
+                var totals = GenerateTotals
+                (
+                    tableDefinition,
+                    columns,
+                    results.AllRows
+                );
+
+                table.SetTotals(totals);
+            }
+
+            return table;
+        }
+
+        /// <summary>
+        /// Builds a collection of table rows from a collection of query rows
+        /// </summary>
+        /// <param name="tableDefinition">The table definition</param>
+        /// <param name="sectionType">The report section type</param>
+        /// <param name="filter">The report filter</param>
+        /// <param name="queryRows">The query rows</param>
+        /// <returns>A collection of table rows</returns>
+        private IEnumerable<TableRow> BuildTableRows
+            (
+                TableDefinition tableDefinition,
+                ReportSectionType sectionType,
+                ReportFilter filter,
+                IEnumerable<QueryRow> queryRows
+            )
+        {
             var tableRows = new List<TableRow>();
             var actionDefinition = tableDefinition.RowAction;
 
-            foreach (var queryRow in results.AllRows)
+            foreach (var queryRow in queryRows)
             {
                 var tableCells = new List<TableCell>();
 
@@ -72,17 +167,17 @@
                             queryRow
                         );
                     }
-                    
+
                     var cell = CreateTableCell
                     (
                         columnDefinition,
                         value,
                         action
                     );
-                    
+
                     tableCells.Add(cell);
                 }
-                
+
                 var tableRow = new TableRow
                 (
                     tableCells.ToArray()
@@ -109,33 +204,13 @@
                 var sortingRules = filter.GetSortingRules
                 (
                     sectionType,
-                    definition.Name
+                    tableDefinition.Name
                 );
 
                 tableRows = SortRows(tableRows, sortingRules).ToList();
             }
 
-            var table = new Table
-            (
-                tableDefinition,
-                tableRows
-            );
-
-            if (tableRows.Any() && tableDefinition.HasTotals)
-            {
-                var columns = table.Columns;
-
-                var totals = GenerateTotals
-                (
-                    tableDefinition,
-                    columns,
-                    results.AllRows
-                );
-
-                table.SetTotals(totals);
-            }
-
-            return table;
+            return tableRows;
         }
 
         /// <summary>

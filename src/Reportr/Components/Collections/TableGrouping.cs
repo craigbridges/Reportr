@@ -23,7 +23,7 @@
         /// <param name="totals">The totals (optional)</param>
         public TableGrouping
             (
-                Dictionary<TableColumn, object> groupingValues,
+                Dictionary<string, object> groupingValues,
                 TableRow[] rows,
                 TableCell[] totals = null
             )
@@ -51,7 +51,7 @@
         /// <param name="groupingValues">The grouping values</param>
         private void SetGroupingValues
             (
-                Dictionary<TableColumn, object> groupingValues
+                Dictionary<string, object> groupingValues
             )
         {
             if (groupingValues.Count == 0)
@@ -88,11 +88,7 @@
         /// <summary>
         /// Gets the grouping values by column
         /// </summary>
-        public Dictionary<TableColumn, object> GroupingValues
-        {
-            get;
-            private set;
-        }
+        public Dictionary<string, object> GroupingValues { get; private set; }
 
         /// <summary>
         /// Gets a string description of the grouping values
@@ -110,7 +106,33 @@
         /// </summary>
         [DataMember]
         public TableCell[] Totals { get; private set; }
-        
+
+        /// <summary>
+        /// Gets a flag indicating if the grouping has totals
+        /// </summary>
+        public bool HasTotals { get; private set; }
+
+        /// <summary>
+        /// Sets the table groupings totals values
+        /// </summary>
+        /// <param name="totals">The totals to set</param>
+        internal void SetTotals
+            (
+                IEnumerable<TableCell> totals
+            )
+        {
+            if (totals != null && totals.Any())
+            {
+                this.Totals = totals.ToArray();
+                this.HasTotals = true;
+            }
+            else
+            {
+                this.Totals = new TableCell[] { };
+                this.HasTotals = false;
+            }
+        }
+
         /// <summary>
         /// Gets the row at the index specified
         /// </summary>

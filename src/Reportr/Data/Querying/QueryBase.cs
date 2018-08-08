@@ -482,18 +482,14 @@
                 foreach (var item in groupedRows)
                 {
                     var firstRow = item.Value.First();
-                    var groupingValues = new Dictionary<QueryColumnInfo, object>();
+                    var groupingValues = new Dictionary<string, object>();
+                    var allColumns = this.Columns;
 
                     foreach (var columnName in _groupingColumns)
                     {
-                        var column = this.Columns.First
-                        (
-                            info => info.Column.Name.ToLower() == columnName.ToLower()
-                        );
-
                         groupingValues.Add
                         (
-                            column,
+                            columnName,
                             firstRow[columnName].Value
                         );
                     }
@@ -501,6 +497,7 @@
                     var grouping = new QueryGrouping
                     (
                         groupingValues,
+                        allColumns,
                         item.Value.ToArray()
                     );
 

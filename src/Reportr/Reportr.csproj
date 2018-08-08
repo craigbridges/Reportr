@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Common\Conversion\GenericObjectConverter.cs" />
     <Compile Include="Common\Conversion\ObjectConverter.cs" />
+    <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Common\Extensions\EnumExtensions.cs" />
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
@@ -179,7 +180,15 @@
     <Compile Include="Drawing\UnitExtensions.cs" />
     <Compile Include="Drawing\UnitType.cs" />
     <Compile Include="Drawing\VerticalAlign.cs" />
+    <Compile Include="Filtering\ValueGenerators\DatePeriod.cs" />
+    <Compile Include="Filtering\ValueGenerators\LastDayValueGenerator.cs" />
+    <Compile Include="Filtering\ValueGenerators\FirstDayValueGenerator.cs" />
+    <Compile Include="Filtering\ValueGenerators\IParameterValueGenerator.cs" />
+    <Compile Include="Filtering\ValueGenerators\DateValueGeneratorBase.cs" />
+    <Compile Include="Filtering\ValueGenerators\DateOffsetValueGenerator.cs" />
+    <Compile Include="Filtering\ValueGenerators\TodayValueGenerator.cs" />
     <Compile Include="Filtering\IReportFilterGenerator.cs" />
+    <Compile Include="Filtering\ParameterDefaultValueType.cs" />
     <Compile Include="Filtering\ParameterInputType.cs" />
     <Compile Include="Filtering\ParameterLookupSourceType.cs" />
     <Compile Include="Filtering\ReportFilterGenerator.cs" />

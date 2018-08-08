@@ -3,6 +3,7 @@
     using Newtonsoft.Json;
     using Reportr.Data;
     using Reportr.Data.Querying;
+    using Reportr.Filtering.ValueGenerators;
     using System;
     using System.Drawing;
 
@@ -34,12 +35,14 @@
                 expectedType = typeof(string);
             }
 
+            this.Visible = true;
+            this.ValueRequired = false;
+            this.DefaultValueType = ParameterDefaultValueType.StaticValue;
+
             this.Name = name;
             this.DisplayText = displayText;
             this.ExpectedType = expectedType;
             this.Description = description;
-            this.Visible = true;
-            this.ValueRequired = false;
         }
 
         /// <summary>
@@ -279,7 +282,7 @@
                 var valueType = value.GetType();
                 var expectedType = this.ExpectedType;
 
-                if (valueType != expectedType)
+                if (false == expectedType.IsAssignableFrom(valueType))
                 {
                     var message = "The type is {0} but the type {1} was expected.";
 
@@ -296,6 +299,7 @@
                 else
                 {
                     this.DefaultValue = value;
+                    this.DefaultValueType = ParameterDefaultValueType.StaticValue;
                 }
             }
 
@@ -306,6 +310,55 @@
         /// Gets the parameters default value
         /// </summary>
         public object DefaultValue { get; private set; }
+
+        /// <summary>
+        /// Adds the default value generator to the parameter info
+        /// </summary>
+        /// <param name="generator">The default value generator</param>
+        /// <returns>The updated parameter info</returns>
+        public ParameterInfo WithDefault
+            (
+                IParameterValueGenerator generator
+            )
+        {
+            Validate.IsNotNull(generator);
+
+            var valueType = generator.ValueType;
+            var expectedType = this.ExpectedType;
+
+            if (false == expectedType.IsAssignableFrom(valueType))
+            {
+                var message = "The type is {0} but the type {1} was expected.";
+
+                throw new ArgumentException
+                (
+                    String.Format
+                    (
+                        message,
+                        valueType,
+                        expectedType
+                    )
+                );
+            }
+            else
+            {
+                this.DefaultValue = generator.GenerateValue();
+                this.DefaultValueGenerator = generator;
+                this.DefaultValueType = ParameterDefaultValueType.Generator;
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Gets the default parameter value generator
+        /// </summary>
+        public IParameterValueGenerator DefaultValueGenerator { get; private set; }
+
+        /// <summary>
+        /// Gets the parameters default value type
+        /// </summary>
+        public ParameterDefaultValueType DefaultValueType { get; private set; }
 
         /// <summary>
         /// Generates a custom hash code for the parameter info

@@ -28,34 +28,26 @@
         /// Constructs the query grouping with the details
         /// </summary>
         /// <param name="groupingValues">The grouping values</param>
+        /// <param name="columns">The columns</param>
         /// <param name="rows">The rows</param>
         public QueryGrouping
             (
-                Dictionary<QueryColumnInfo, object> groupingValues,
+                Dictionary<string, object> groupingValues,
+                QueryColumnInfo[] columns,
                 params QueryRow[] rows
             )
         {
             Validate.IsNotNull(groupingValues);
-            Validate.IsNotNull(rows);
-            
+
             this.GroupingValues = groupingValues;
-
-            var columns = groupingValues.Select
-            (
-                pair => pair.Key
-            );
-
+            
             SetData(columns, rows);
         }
         
         /// <summary>
         /// Gets the grouping values by column
         /// </summary>
-        public Dictionary<QueryColumnInfo, object> GroupingValues
-        {
-            get;
-            private set;
-        }
+        public Dictionary<string, object> GroupingValues { get; private set; }
 
         /// <summary>
         /// Gets an array of the rows in the result

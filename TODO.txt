@@ -4,12 +4,6 @@ Unsorted
 - Make EfQuery.GenerateQuerable async and add a CountAsync method so we can count how many rows will be returned
 	- This should solve the problem of hybrid queries that execute a query or queries synchronously and then convert the results and mock a queryable
 
-- Tables
-	- Refactor / finish TableGrouping and integrate with Table (as an optional constructor type)
-		- TableGenerator: modify code to (optionally) insert groupings into table instead of all rows
-
-- Create concept of default value parameter generators (e.g. auto set start date to first day of current month)
-
 - Can we only apply constraints for highest level role? (e.g. someone assigned to consultant and manager only has manager constraints applied)
 
 - How do we filter the lookup items for report filters 'on the fly'?
