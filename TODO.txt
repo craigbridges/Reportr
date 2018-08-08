@@ -4,9 +4,8 @@ Unsorted
 - Make EfQuery.GenerateQuerable async and add a CountAsync method so we can count how many rows will be returned
 	- This should solve the problem of hybrid queries that execute a query or queries synchronously and then convert the results and mock a queryable
 
-- Can we only apply constraints for highest level role? (e.g. someone assigned to consultant and manager only has manager constraints applied)
-
 - How do we filter the lookup items for report filters 'on the fly'?
+	- Create service that takes report name (in Reportr.Registration and then report builder in core Reportr) plus current filter values and returns a new (updated) report filter
 
 - How do we auto unregister or update reports, roles, categories, category and role assignments?
 

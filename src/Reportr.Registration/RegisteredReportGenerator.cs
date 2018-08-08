@@ -386,32 +386,63 @@
                 out List<string> constrainedParameters
             )
         {
-            var assignments = GetAssignmentsForReport
-            (
-                registeredReport.Name
-            );
-
             constrainedParameters = new List<string>();
 
-            if (assignments.Any())
-            {
-                var constraints = assignments.SelectMany
-                (
-                    assignment => assignment.ParameterConstraints
-                );
-                
-                foreach (var constraint in constraints.ToList())
-                {
-                    var parameterName = constraint.ParameterName;
+            // NOTE:
+            // We don't apply constraints when a user has no roles.
 
-                    var value = constraint.ResolveValue
+            if (false == userInfo.Roles.Any())
+            {
+                return;
+            }
+            else
+            {
+                var assignments = GetAssignmentsForReport
+                (
+                    registeredReport.Name
+                );
+
+                assignments = assignments.Where
+                (
+                    a => userInfo.Roles.Any
                     (
-                        userInfo
+                        role => role.ToLower() == a.RoleName.ToLower()
+                    )
+                )
+                .ToList();
+                
+                if (assignments.Any())
+                {
+                    var constraints = assignments.SelectMany
+                    (
+                        assignment => assignment.ParameterConstraints
                     );
 
-                    constrainedParameters.Add(parameterName);
+                    foreach (var constraint in constraints.ToList())
+                    {
+                        var applyConstraint = assignments.All
+                        (
+                            a => a.ParameterConstraints.Any
+                            (
+                                c => c.ParameterName.ToLower() == constraint.ParameterName.ToLower()
+                            )
+                        );
 
-                    parameterValues[parameterName] = value;
+                        // Only apply the constraint if all role assignments have it
+                        if (applyConstraint)
+                        {
+                            var parameterName = constraint.ParameterName;
+
+                            var value = constraint.ResolveValue
+                            (
+                                userInfo
+                            );
+
+                            constrainedParameters.Add(parameterName);
+
+                            parameterValues[parameterName] = value;
+                        }
+                    }
                 }
             }
         }
