@@ -26,6 +26,7 @@
             Validate.IsNotNull(binding);
             
             this.Binding = binding;
+            this.AutoRoundResult = autoRoundResult;
         }
 
         /// <summary>
