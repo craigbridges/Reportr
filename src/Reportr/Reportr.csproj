@@ -144,6 +144,7 @@
     <Compile Include="Data\IDataSource.cs" />
     <Compile Include="Data\IDataSourceRepository.cs" />
     <Compile Include="Data\Querying\Functions\ModeFunction.cs" />
+    <Compile Include="Data\Querying\Functions\DivisionFunction.cs" />
     <Compile Include="Data\Querying\Functions\SumFunction.cs" />
     <Compile Include="Data\Querying\Functions\MedianFunction.cs" />
     <Compile Include="Data\Querying\Functions\MinimumFunction.cs" />

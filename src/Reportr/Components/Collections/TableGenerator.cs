@@ -3,6 +3,7 @@
     using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -319,11 +320,30 @@
                         rows.ToArray()
                     );
 
-                    cell = CreateTableCell
-                    (
-                        columnDefinition,
-                        total
-                    );
+                    var format = columnDefinition.TotalFormat;
+
+                    if (format == null)
+                    {
+                        cell = CreateTableCell
+                        (
+                            columnDefinition,
+                            total
+                        );
+                    }
+                    else
+                    {
+                        var formattedTotal = String.Format
+                        (
+                            format,
+                            total
+                        );
+
+                        cell = CreateTableCell
+                        (
+                            columnDefinition,
+                            formattedTotal
+                        );
+                    }
                 }
                 else
                 {

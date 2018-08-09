@@ -144,6 +144,27 @@
                 params string[] columnNames
             )
         {
+            DefineTotals
+            (
+                totalAggregator,
+                null,
+                columnNames
+            );
+        }
+
+        /// <summary>
+        /// Defines total aggregator functions for the columns specified
+        /// </summary>
+        /// <param name="totalAggregator">The total aggregator function</param>
+        /// <param name="totalFormat">The total format pattern</param>
+        /// <param name="columnNames">The column names</param>
+        public void DefineTotals
+            (
+                IAggregateFunction totalAggregator,
+                string totalFormat,
+                params string[] columnNames
+            )
+        {
             Validate.IsNotNull(totalAggregator);
             Validate.IsNotNull(columnNames);
 
@@ -153,7 +174,8 @@
 
                 column.DefineTotal
                 (
-                    totalAggregator
+                    totalAggregator,
+                    totalFormat
                 );
             }
         }

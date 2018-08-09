@@ -14,12 +14,14 @@
         /// </summary>
         /// <param name="name">The column name</param>
         /// <param name="binding">The data binding</param>
-        /// <param name="totalAggregator">The total aggregator</param>
+        /// <param name="totalAggregator">The total aggregator (optional)</param>
+        /// <param name="totalFormat">The total format (optional)</param>
         public TableColumnDefinition
             (
                 string name,
                 DataBinding binding,
-                IAggregateFunction totalAggregator = null
+                IAggregateFunction totalAggregator = null,
+                string totalFormat = null
             )
         {
             Validate.IsNotEmpty(name);
@@ -32,7 +34,7 @@
 
             if (totalAggregator != null)
             {
-                DefineTotal(totalAggregator);
+                DefineTotal(totalAggregator, totalFormat);
             }
         }
 
@@ -55,14 +57,17 @@
         /// Defines a total function for the column
         /// </summary>
         /// <param name="totalAggregator">The total aggregate function</param>
+        /// <param name="totalFormat">The total format (optional)</param>
         public void DefineTotal
             (
-                IAggregateFunction totalAggregator
+                IAggregateFunction totalAggregator,
+                string totalFormat = null
             )
         {
             Validate.IsNotNull(totalAggregator);
 
             this.TotalAggregator = totalAggregator;
+            this.TotalFormat = totalFormat;
             this.HasTotal = true;
         }
 
@@ -72,6 +77,7 @@
         public void RemoveTotal()
         {
             this.TotalAggregator = null;
+            this.TotalFormat = null;
             this.HasTotal = false;
         }
 
@@ -79,6 +85,11 @@
         /// Gets the total aggregator function
         /// </summary>
         public IAggregateFunction TotalAggregator { get; protected set; }
+
+        /// <summary>
+        /// Gets the total display format
+        /// </summary>
+        public string TotalFormat { get; protected set; }
 
         /// <summary>
         /// Gets a flag indicating if the column has a total aggregator

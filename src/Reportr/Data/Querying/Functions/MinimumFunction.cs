@@ -12,11 +12,13 @@
         /// Constructs the function with a query and binding
         /// </summary>
         /// <param name="binding">The data binding</param>
+        /// <param name="autoRoundResult">True, to auto round the result</param>
         public MinimumFunction
             (
-                DataBinding binding
+                DataBinding binding,
+                bool autoRoundResult = false
             )
-            : base(binding)
+            : base(binding, autoRoundResult)
         { }
 
         /// <summary>

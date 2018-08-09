@@ -2,6 +2,7 @@
 {
     using Nito.AsyncEx.Synchronous;
     using Reportr.Filtering;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -15,9 +16,11 @@
         /// Constructs the function with a query and binding
         /// </summary>
         /// <param name="binding">The data binding</param>
+        /// <param name="autoRoundResult">True, to auto round the result</param>
         public AggregateFunctionBase
             (
-                DataBinding binding
+                DataBinding binding,
+                bool autoRoundResult = false
             )
         {
             Validate.IsNotNull(binding);
@@ -31,12 +34,20 @@
         public DataBinding Binding { get; private set; }
 
         /// <summary>
+        /// Gets a flag indicating of the result should automatically be rounded
+        /// </summary>
+        /// <remarks>
+        /// If true, the result is rounded to two decimal places.
+        /// </remarks>
+        protected bool AutoRoundResult { get; private set; }
+
+        /// <summary>
         /// Executes the aggregate query and computes the result
         /// </summary>
         /// <param name="query">The query to execute</param>
         /// <param name="parameters">The parameter values</param>
         /// <returns>The result computed</returns>
-        public double Execute
+        public virtual double Execute
             (
                 IQuery query,
                 params ParameterValue[] parameters
@@ -57,7 +68,7 @@
         /// <param name="query">The query to execute</param>
         /// <param name="parameters">The parameter values</param>
         /// <returns>The result computed</returns>
-        public async Task<double> ExecuteAsync
+        public virtual async Task<double> ExecuteAsync
             (
                 IQuery query,
                 params ParameterValue[] parameters
@@ -86,20 +97,40 @@
         /// </summary>
         /// <param name="rows">The rows to perform the computation on</param>
         /// <returns>The result computed</returns>
-        public double Execute
+        public virtual double Execute
             (
                 params QueryRow[] rows
             )
         {
+            return Execute
+            (
+                this.Binding,
+                rows
+            );
+        }
+
+        /// <summary>
+        /// Executes the aggregate function and computes the result
+        /// </summary>
+        /// <param name="binding">The data binding</param>
+        /// <param name="rows">The rows to perform the computation on</param>
+        /// <returns>The result computed</returns>
+        protected virtual double Execute
+            (
+                DataBinding binding,
+                params QueryRow[] rows
+            )
+        {
+            Validate.IsNotNull(binding);
             Validate.IsNotNull(rows);
-            
+
             if (rows.Any())
             {
                 var numbers = new List<double>();
 
                 foreach (var row in rows)
                 {
-                    var number = ResolveRowValue
+                    var number = binding.Resolve<double>
                     (
                         row
                     );
@@ -107,32 +138,23 @@
                     numbers.Add(number);
                 }
 
-                return Compute(numbers);
+                var result = Compute(numbers);
+
+                if (this.AutoRoundResult)
+                {
+                    return Math.Round(result, 2);
+                }
+                else
+                {
+                    return result;
+                }
             }
             else
             {
                 return default(double);
             }
         }
-
-        /// <summary>
-        /// Resolves the double value of a single query row
-        /// </summary>
-        /// <param name="row">The query row</param>
-        /// <returns>The double value resolved</returns>
-        protected virtual double ResolveRowValue
-            (
-                QueryRow row
-            )
-        {
-            Validate.IsNotNull(row);
-
-            return this.Binding.Resolve<double>
-            (
-                row
-            );
-        }
-
+        
         /// <summary>
         /// Computes the function value from the multiple values specified
         /// </summary>
