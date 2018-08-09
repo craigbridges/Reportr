@@ -55,7 +55,7 @@
 
                     var endDate = startDate.AddMonths(1).AddDays(-1);
 
-                    return startDate;
+                    return endDate;
 
                 default:
                     return today.EndOfWeek
