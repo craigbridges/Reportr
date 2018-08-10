@@ -139,6 +139,50 @@
         /// </summary>
         /// <param name="query">The query</param>
         /// <param name="tableTitle">The table title</param>
+        /// <param name="columnNames">The names of columns to map</param>
+        /// <returns>The table definition created</returns>
+        protected virtual TableDefinition GenerateTableWith
+            (
+                IQuery query,
+                string tableTitle,
+                params string[] columnNames
+            )
+        {
+            Validate.IsNotNull(query);
+            Validate.IsNotNull(columnNames);
+            
+            var columnMappings = new List<KeyValuePair<string, string>>();
+
+            // Auto generate column mappings from the column names
+            foreach (var name in columnNames)
+            {
+                var label = name.Spacify();
+
+                columnMappings.Add
+                (
+                    new KeyValuePair<string, string>
+                    (
+                        name,
+                        label
+                    )
+                );
+            }
+
+            var tableDefinition = GenerateTableWith
+            (
+                query,
+                tableTitle,
+                columnMappings.ToArray()
+            );
+
+            return tableDefinition;
+        }
+
+        /// <summary>
+        /// Generates a table based on the schema of a query with the columns specified
+        /// </summary>
+        /// <param name="query">The query</param>
+        /// <param name="tableTitle">The table title</param>
         /// <param name="columnMappings">The names of columns to map</param>
         /// <returns>The table definition created</returns>
         /// <remarks>
