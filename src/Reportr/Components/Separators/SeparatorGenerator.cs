@@ -15,7 +15,7 @@
         /// <param name="sectionType">The report section type</param>
         /// <param name="filter">The report filter</param>
         /// <returns>The report component generated</returns>
-        public override async Task<IReportComponent> GenerateAsync
+        public override Task<IReportComponent> GenerateAsync
             (
                 IReportComponentDefinition definition,
                 ReportSectionType sectionType,
@@ -24,9 +24,14 @@
         {
             Validate.IsNotNull(definition);
 
-            return new Separator
+            var seperator = new Separator
             (
                 (SeparatorDefinition)definition
+            );
+
+            return Task.FromResult<IReportComponent>
+            (
+                seperator
             );
         }
     }

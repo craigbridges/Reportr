@@ -2,7 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     /// <summary>
     /// Represents the default report categorizer implementation
     /// </summary>
@@ -128,7 +129,28 @@
             Validate.IsNotNull(configurations);
 
             var changesMade = false;
+            var allCategories = _categoryRepository.GetAllCategories();
 
+            // Find all categories that don't match the configurations and remove
+            var unmatchedCategories = allCategories.Where
+            (
+                report => false == configurations.Any
+                (
+                    config => config.Name.ToLower() == report.Name.ToLower()
+                )
+            );
+
+            foreach (var category in unmatchedCategories.ToList())
+            {
+                _categoryRepository.RemoveCategory
+                (
+                    category.Name
+                );
+
+                changesMade = true;
+            }
+
+            // Add any new categories that have not been registered yet
             foreach (var configuration in configurations)
             {
                 var categoryExists = _categoryRepository.IsNameAvailable
@@ -173,7 +195,32 @@
 
             var changesMade = false;
             var parentCategory = default(ReportCategory);
+            
+            var allCategories = _categoryRepository.GetSubCategories
+            (
+                parentCategoryName
+            );
 
+            // Find all categories that don't match the configurations and remove
+            var unmatchedCategories = allCategories.Where
+            (
+                report => false == configurations.Any
+                (
+                    config => config.Name.ToLower() == report.Name.ToLower()
+                )
+            );
+
+            foreach (var category in unmatchedCategories.ToList())
+            {
+                _categoryRepository.RemoveCategory
+                (
+                    category.Name
+                );
+
+                changesMade = true;
+            }
+            
+            // Add any new categories that have not been registered yet
             foreach (var configuration in configurations)
             {
                 var categoryExists = _categoryRepository.IsNameAvailable

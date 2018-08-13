@@ -1,13 +1,15 @@
 Unsorted
 --------
 
-- Make EfQuery.GenerateQuerable async and add a CountAsync method so we can count how many rows will be returned
-	- This should solve the problem of hybrid queries that execute a query or queries synchronously and then convert the results and mock a queryable
-
 - How do we filter the lookup items for report filters 'on the fly'?
 	- Create service that takes report name (in Reportr.Registration and then report builder in core Reportr) plus current filter values and returns a new (updated) report filter
 
 - How do we auto unregister or update reports, roles, categories, category and role assignments?
+	- Auto remove:
+		- ReportCategorizer.AutoAssignReports
+		- ReportRoleManager.AutoRegisterRoles
+		- ReportRoleManager.AutoAssignRolesToReports
+		- ReportRoleManager - update constraints on existing assignments
 
 - Create ability to log all registered report generations with their data so we can keep an audit trail for security reasons. E.g. report to show customer information, gets leaked. Logs can be checked to see who generated that data and when so it can be traced.
 

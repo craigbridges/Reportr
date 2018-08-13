@@ -157,6 +157,26 @@
             Validate.IsNotNull(configurations);
 
             var changesMade = false;
+            var allReports = _reportRepository.GetAllReports();
+
+            // Find all reports that don't match the configurations and remove
+            var unmatchedReports = allReports.Where
+            (
+                report => false == configurations.Any
+                (
+                    config => config.Name.ToLower() == report.Name.ToLower()
+                )
+            );
+            
+            foreach (var report in unmatchedReports.ToList())
+            {
+                _reportRepository.RemoveReport
+                (
+                    report.Name
+                );
+
+                changesMade = true;
+            }
 
             foreach (var configuration in configurations)
             {

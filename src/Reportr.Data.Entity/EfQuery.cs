@@ -110,12 +110,12 @@
         }
 
         /// <summary>
-        /// Generates a queryable for the database context specified
+        /// Asynchronously generates a queryable from a database context
         /// </summary>
         /// <param name="context">The database context</param>
         /// <param name="parameterValues">The parameter values</param>
         /// <returns>The query generated</returns>
-        protected abstract IQueryable<T> GenerateQuerable
+        protected abstract Task<IQueryable<T>> GenerateQuerableAsync
         (
             DbContext context,
             params ParameterValue[] parameterValues
@@ -135,7 +135,7 @@
 
             var context = GetContext();
 
-            var queryable = GenerateQuerable
+            var queryable = await GenerateQuerableAsync
             (
                 context,
                 parameterValues
