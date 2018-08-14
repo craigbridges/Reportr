@@ -139,6 +139,10 @@
             (
                 context,
                 parameterValues
+            )
+            .ConfigureAwait
+            (
+                false
             );
 
             if (this.MaximumRows.HasValue)
