@@ -129,26 +129,26 @@
             Validate.IsNotNull(configurations);
 
             var changesMade = false;
-            var allCategories = _categoryRepository.GetAllCategories();
+            //var allCategories = _categoryRepository.GetAllCategories();
 
-            // Find all categories that don't match the configurations and remove
-            var unmatchedCategories = allCategories.Where
-            (
-                report => false == configurations.Any
-                (
-                    config => config.Name.ToLower() == report.Name.ToLower()
-                )
-            );
+            //// Find all categories that don't match the configurations and remove
+            //var unmatchedCategories = allCategories.Where
+            //(
+            //    report => false == configurations.Any
+            //    (
+            //        config => config.Name.ToLower() == report.Name.ToLower()
+            //    )
+            //);
 
-            foreach (var category in unmatchedCategories.ToList())
-            {
-                _categoryRepository.RemoveCategory
-                (
-                    category.Name
-                );
+            //foreach (var category in unmatchedCategories.ToList())
+            //{
+            //    _categoryRepository.RemoveCategory
+            //    (
+            //        category.Name
+            //    );
 
-                changesMade = true;
-            }
+            //    changesMade = true;
+            //}
 
             // Add any new categories that have not been registered yet
             foreach (var configuration in configurations)

@@ -157,27 +157,28 @@
             Validate.IsNotNull(configurations);
 
             var changesMade = false;
-            var allReports = _reportRepository.GetAllReports();
+            //var allReports = _reportRepository.GetAllReports();
 
-            // Find all reports that don't match the configurations and remove
-            var unmatchedReports = allReports.Where
-            (
-                report => false == configurations.Any
-                (
-                    config => config.Name.ToLower() == report.Name.ToLower()
-                )
-            );
+            //// Find all reports that don't match the configurations and remove
+            //var unmatchedReports = allReports.Where
+            //(
+            //    report => false == configurations.Any
+            //    (
+            //        config => config.Name.ToLower() == report.Name.ToLower()
+            //    )
+            //);
             
-            foreach (var report in unmatchedReports.ToList())
-            {
-                _reportRepository.RemoveReport
-                (
-                    report.Name
-                );
+            //foreach (var report in unmatchedReports.ToList())
+            //{
+            //    _reportRepository.RemoveReport
+            //    (
+            //        report.Name
+            //    );
 
-                changesMade = true;
-            }
+            //    changesMade = true;
+            //}
 
+            // Add any new reports that have not been registered yet
             foreach (var configuration in configurations)
             {
                 var alreadyRegistered = _reportRepository.IsRegistered
