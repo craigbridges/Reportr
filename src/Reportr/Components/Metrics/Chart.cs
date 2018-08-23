@@ -50,15 +50,9 @@
 
                 if (matchCount > 1)
                 {
-                    var message = "The set name '{0}' has already been used.";
-
                     throw new ArgumentException
                     (
-                        String.Format
-                        (
-                            message,
-                            name
-                        )
+                        $"The set name '{name}' has already been used."
                     );
                 }
             }
@@ -105,15 +99,9 @@
 
             if (set == null)
             {
-                var message = "No data set exists with the name '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        name
-                    )
+                    $"No data set exists with the name '{name}'."
                 );
             }
 

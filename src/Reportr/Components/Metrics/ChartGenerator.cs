@@ -213,11 +213,9 @@
 
                             if (false == valueType.IsNumeric())
                             {
-                                var message = "The value '{0}' is not numeric.";
-
                                 throw new InvalidCastException
                                 (
-                                    String.Format(message, value)
+                                    $"The value '{value}' is not numeric."
                                 );
                             }
                             
@@ -232,11 +230,9 @@
 
                             if (valueType != typeof(DateTime) && valueType != typeof(DateTime?))
                             {
-                                var message = "The value '{0}' is not a valid date.";
-
                                 throw new InvalidCastException
                                 (
-                                    String.Format(message, value)
+                                    $"The value '{value}' is not a valid date."
                                 );
                             }
 

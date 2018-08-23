@@ -119,15 +119,9 @@
 
             if (definition == null)
             {
-                var message = "The name '{0}' did not match any parameters.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        parameterName
-                    )
+                    $"The name '{parameterName}' did not match any parameters."
                 );
             }
 

@@ -97,15 +97,9 @@
 
             if (column == null)
             {
-                var message = "The name '{0}' did not match any columns.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        name
-                    )
+                    $"The name '{name}' did not match any columns."
                 );
             }
 

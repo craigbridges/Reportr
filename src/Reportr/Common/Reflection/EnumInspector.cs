@@ -40,15 +40,9 @@
 
             if (false == enumType.IsEnum)
             {
-                var message = "The type {0} is not a valid enum.";
-
                 throw new ArgumentException
                 (
-                    String.Format
-                    (
-                        message,
-                        enumType.Name
-                    )
+                    $"The type {enumType.Name} is not a valid enum."
                 );
             }
 

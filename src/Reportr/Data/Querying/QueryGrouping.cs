@@ -87,15 +87,9 @@
 
                 if (matchCount > 1)
                 {
-                    var message = "The column name '{0}' can only be used once.";
-
                     throw new ArgumentException
                     (
-                        String.Format
-                        (
-                            message,
-                            name
-                        )
+                        $"The column name '{name}' can only be used once."
                     );
                 }
             }
@@ -128,16 +122,9 @@
 
                 if (cellCount != columnCount)
                 {
-                    var message = "{0} cells were expected, but {1} were found.";
-
                     throw new InvalidOperationException
                     (
-                        String.Format
-                        (
-                            message,
-                            columnCount,
-                            cellCount
-                        )
+                        $"{columnCount} cells were expected, but {cellCount} were found."
                     );
                 }
 
@@ -153,15 +140,9 @@
 
                     if (false == matchFound)
                     {
-                        var message = "No data was found for the column '{0}'.";
-
                         throw new InvalidOperationException
                         (
-                            String.Format
-                            (
-                                message,
-                                name
-                            )
+                            $"No data was found for the column '{name}'."
                         );
                     }
                 }

@@ -134,6 +134,8 @@
     <Compile Include="Components\ReportComponentType.cs" />
     <Compile Include="Components\Separators\Separator.cs" />
     <Compile Include="Components\Separators\SeparatorDefinition.cs" />
+    <Compile Include="Conversion\Csv\ReportCsvConverter.cs" />
+    <Compile Include="Conversion\IReportConverter.cs" />
     <Compile Include="Data\DataBinding.cs" />
     <Compile Include="Data\DataBindingType.cs" />
     <Compile Include="Data\DataColumnSchema.cs" />

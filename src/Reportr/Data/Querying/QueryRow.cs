@@ -40,15 +40,9 @@
 
                 if (matchCount > 1)
                 {
-                    var message = "The column '{0}' can only be referenced once.";
-
                     throw new ArgumentException
                     (
-                        String.Format
-                        (
-                            message,
-                            name
-                        )
+                        $"The column '{name}' can only be referenced once."
                     );
                 }
             }
@@ -90,15 +84,9 @@
 
                 if (cell == null)
                 {
-                    var message = "No column was found with the name '{0}'.";
-
                     throw new KeyNotFoundException
                     (
-                        String.Format
-                        (
-                            message,
-                            columnName
-                        )
+                        $"No column was found with the name '{columnName}'."
                     );
                 }
 

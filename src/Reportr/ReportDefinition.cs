@@ -138,15 +138,9 @@
 
             if (nameUsed)
             {
-                var message = "The parameter name '{0}' has already been used.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        parameterName
-                    )
+                    $"The parameter name '{parameterName}' has already been used."
                 );
             }
             
@@ -198,15 +192,9 @@
 
             if (parameter == null)
             {
-                var message = "The name '{0}' did not match any parameters.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        name
-                    )
+                    $"The name '{name}' did not match any parameters."
                 );
             }
 

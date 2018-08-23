@@ -129,11 +129,7 @@
                     {
                         throw new NullReferenceException
                         (
-                            String.Format
-                            (
-                                "The path '{0}' has a null reference.",
-                                currentPath
-                            )
+                            $"The path '{currentPath}' has a null reference."
                         );
                     }
 
@@ -146,12 +142,7 @@
                     {
                         throw new MissingFieldException
                         (
-                            String.Format
-                            (
-                                "The path '{0}' does not contain a property named '{1}'.",
-                                currentPath,
-                                propertyName
-                            )
+                            $"The path '{currentPath}' does not contain a property named '{propertyName}'."
                         );
                     }
 

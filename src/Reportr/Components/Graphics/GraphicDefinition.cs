@@ -133,15 +133,9 @@
 
             if (statisticAlreadyAdded)
             {
-                var message = "'{0}' has already been added to the overlay.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        statistic.Name
-                    )
+                    $"'{statistic.Name}' has already been added to the overlay."
                 );
             }
             else
@@ -184,15 +178,9 @@
 
                 if (false == entry.Contains(statistic))
                 {
-                    var message = "'{0}' has not been added to the overlay.";
-
                     throw new InvalidOperationException
                     (
-                        String.Format
-                        (
-                            message,
-                            statistic.Name
-                        )
+                        $"'{statistic.Name}' has not been added to the overlay."
                     );
                 }
                 else

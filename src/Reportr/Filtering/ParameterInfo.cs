@@ -201,15 +201,9 @@
 
             if (false == enumType.IsEnum)
             {
-                var message = "The type {0} is no a valid enum.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        enumType.Name
-                    )
+                    $"The type {enumType.Name} is no a valid enum."
                 );
             }
 

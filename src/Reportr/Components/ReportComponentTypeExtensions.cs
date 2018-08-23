@@ -42,15 +42,9 @@
                     return new SeparatorGenerator();
 
                 default:
-                    var message = "The component type {0} is not supported.";
-
                     throw new InvalidOperationException
                     (
-                        String.Format
-                        (
-                            message,
-                            componentType
-                        )
+                        $"The component type {componentType} is not supported."
                     );
             }
         }

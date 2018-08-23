@@ -225,15 +225,9 @@
 
                 if (false == columnFound)
                 {
-                    var message = "The query does not have a column named '{0}'.";
-
                     throw new InvalidOperationException
                     (
-                        String.Format
-                        (
-                            message,
-                            mapping.Key
-                        )
+                        $"The query does not have a column named '{mapping.Key}'."
                     );
                 }
                 

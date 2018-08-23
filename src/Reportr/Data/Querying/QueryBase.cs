@@ -109,15 +109,9 @@
 
             if (column == null)
             {
-                var message = "No column was found matching the name '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        name
-                    )
+                    $"No column was found matching the name '{name}'."
                 );
             }
 
@@ -178,15 +172,9 @@
 
             if (false == columnFound)
             {
-                var message = "The column '{0}' does not exist.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        columnName
-                    )
+                    $"The column '{columnName}' does not exist."
                 );
             }
             
@@ -228,15 +216,9 @@
 
             if (false == columnFound)
             {
-                var message = "The column '{0}' does not exist.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        columnName
-                    )
+                    $"The column '{columnName}' does not exist."
                 );
             }
             
@@ -532,17 +514,10 @@
 
                 if (matchingParameter == null)
                 {
-                    var message = "'{0}' did not match any parameters in the query '{1}'.";
-
                     errors.Add
                     (
                         parameterName,
-                        String.Format
-                        (
-                            message,
-                            parameterName,
-                            this.Name
-                        )
+                        $"'{parameterName}' did not match any parameters in the query '{this.Name}'."
                     );
                 }
                 else
@@ -562,17 +537,10 @@
 
                             if (false == canConvert)
                             {
-                                var message = "The type {0} is not valid for the parameter '{1}'.";
-
                                 errors.Add
                                 (
                                     parameterName,
-                                    String.Format
-                                    (
-                                        message,
-                                        actualType.Name,
-                                        parameterName
-                                    )
+                                    $"The type {actualType.Name} is not valid for the parameter '{parameterName}'."
                                 );
                             }
                         }
@@ -593,16 +561,10 @@
 
                     if (false == valueFound)
                     {
-                        var message = "A value is required for the parameter '{1}'.";
-
                         errors.Add
                         (
                             parameter.Name,
-                            String.Format
-                            (
-                                message,
-                                parameter.Name
-                            )
+                            $"A value is required for the parameter '{parameter.Name}'."
                         );
                     }
                 }

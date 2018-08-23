@@ -165,11 +165,7 @@
                 default:
                     throw new ArgumentOutOfRangeException
                     (
-                        String.Format
-                        (
-                            "The unit type '{0}' is not supported.",
-                            typeDescriptor
-                        )
+                        $"The unit type '{typeDescriptor}' is not supported."
                     );
             }
         }
@@ -1150,11 +1146,7 @@
         {
             if (this.UnitType == UnitType.Percentage)
             {
-                return String.Format
-                (
-                    "{0}%",
-                    this.Value
-                );
+                return $"{this.Value}%";
             }
             else
             {
@@ -1163,12 +1155,7 @@
                     this.UnitType
                 );
 
-                return String.Format
-                (
-                    "{0}{1}",
-                    this.Value,
-                    typeDescriptor
-                );
+                return $"{this.Value}{typeDescriptor}";
             }
         }
     }

@@ -286,15 +286,9 @@
 
             if (templateContent == null)
             {
-                var message = "The content for the component type {0} has not been set.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        componentType
-                    )
+                    $"The content for the component type {componentType} has not been set."
                 );
             }
 

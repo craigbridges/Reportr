@@ -91,11 +91,9 @@
 
             if (table == null)
             {
-                var message = "The data source does not contain a table named '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format(message, name)
+                    $"The data source does not contain a table named '{name}'."
                 );
             }
 

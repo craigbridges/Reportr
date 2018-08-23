@@ -103,15 +103,9 @@
                     }
                     default:
                     {
-                        var message = "The lookup source type {0} is not supported.";
-
                         throw new NotSupportedException
                         (
-                            String.Format
-                            (
-                                message,
-                                sourceType
-                            )
+                            $"The lookup source type {sourceType} is not supported."
                         );
                     }
                 }
@@ -255,15 +249,9 @@
             {
                 if (parameter.ValueRequired)
                 {
-                    var message = "A value for the parameter '{0}' is required.";
-
                     throw new ArgumentException
                     (
-                        String.Format
-                        (
-                            message,
-                            parameter.Name
-                        )
+                        $"A value for the parameter '{parameter.Name}' is required."
                     );
                 }
                 else
@@ -278,16 +266,9 @@
 
                 if (false == expectedType.IsAssignableFrom(valueType))
                 {
-                    var message = "The type is {0} but the type {1} was expected.";
-
                     throw new ArgumentException
                     (
-                        String.Format
-                        (
-                            message,
-                            valueType,
-                            expectedType
-                        )
+                        $"The type is {valueType} but the type {expectedType} was expected."
                     );
                 }
                 else

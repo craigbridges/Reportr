@@ -45,11 +45,7 @@
             {
                 throw new ArgumentException
                 (
-                    String.Format
-                    (
-                        "The path '{0}' is invalid.",
-                        path
-                    )
+                    $"The path '{path}' is invalid."
                 );
             }
 

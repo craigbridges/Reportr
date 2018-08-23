@@ -74,15 +74,9 @@
 
                 if (false == exists)
                 {
-                    var message = "No column was found matching the name '{0}'.";
-
                     throw new InvalidOperationException
                     (
-                        String.Format
-                        (
-                            message,
-                            column.Name
-                        )
+                        $"No column was found matching the name '{column.Name}'."
                     );
                 }
             }
