@@ -10,28 +10,28 @@
     public static class CsvDocumentExtensions
     {
         /// <summary>
-        /// Converts a CSV document to a text writer
+        /// Converts a CSV document to a memory stream
         /// </summary>
         /// <param name="document">The CSV document</param>
-        /// <returns>The text writer containing the CSV content</returns>
-        public static TextWriter ToText
+        /// <returns>A memory stream containing the CSV content</returns>
+        public static MemoryStream ToStream
             (
                 this CsvDocument document
             )
         {
-            return document.ToText
+            return document.ToStream
             (
                 new Configuration()
             );
         }
 
         /// <summary>
-        /// Converts a CSV document to a text writer
+        /// Converts a CSV document to a memory stream
         /// </summary>
         /// <param name="document">The CSV document</param>
         /// <param name="configuration">The configuration</param>
-        /// <returns>The text writer containing the CSV content</returns>
-        public static TextWriter ToText
+        /// <returns>A memory stream containing the CSV content</returns>
+        public static MemoryStream ToStream
             (
                 this CsvDocument document,
                 Configuration configuration
@@ -42,11 +42,11 @@
 
             using (var stream = new MemoryStream())
             {
-                using (var textWriter = new StreamWriter(stream))
+                using (var writer = new StreamWriter(stream))
                 {
                     var csv = new CsvWriter
                     (
-                        textWriter,
+                        writer,
                         configuration
                     );
 
@@ -69,7 +69,7 @@
 
                     csv.Flush();
 
-                    return textWriter;
+                    return stream;
                 }
             }
         }
