@@ -278,16 +278,9 @@
 
                 if (false == expectedType.IsAssignableFrom(valueType))
                 {
-                    var message = "The type is {0} but the type {1} was expected.";
-
                     throw new ArgumentException
                     (
-                        String.Format
-                        (
-                            message,
-                            valueType,
-                            expectedType
-                        )
+                        $"The type {valueType} cannot be assigned to {expectedType}."
                     );
                 }
                 else
@@ -322,16 +315,9 @@
 
             if (false == expectedType.IsAssignableFrom(valueType))
             {
-                var message = "The type is {0} but the type {1} was expected.";
-
                 throw new ArgumentException
                 (
-                    String.Format
-                    (
-                        message,
-                        valueType,
-                        expectedType
-                    )
+                    $"The type {valueType} cannot be assigned to {expectedType}."
                 );
             }
             else

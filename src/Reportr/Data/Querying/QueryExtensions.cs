@@ -21,7 +21,7 @@
         {
             Validate.IsNotNull(query);
 
-            var values = new List<ParameterValue>();
+            var parameterValues = new List<ParameterValue>();
 
             foreach (var info in query.Parameters)
             {
@@ -44,7 +44,7 @@
                         );
                     }
 
-                    values.Add
+                    parameterValues.Add
                     (
                         new ParameterValue
                         (
@@ -56,7 +56,7 @@
                 }
                 else
                 {
-                    values.Add
+                    parameterValues.Add
                     (
                         new ParameterValue
                         (
@@ -67,7 +67,7 @@
                 }
             }
 
-            return values.ToArray();
+            return parameterValues.ToArray();
         }
     }
 }
