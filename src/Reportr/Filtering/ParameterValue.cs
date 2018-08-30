@@ -277,6 +277,8 @@
                 }
             }
 
+            this.LookupParameterValues = lookupParameterValues;
+
             if (_lookupItems == null || lookupParameterValues.Any())
             {
                 InitializeLookupItems();
