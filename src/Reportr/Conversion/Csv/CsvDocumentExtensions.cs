@@ -10,28 +10,28 @@
     public static class CsvDocumentExtensions
     {
         /// <summary>
-        /// Converts a CSV document to a memory stream
+        /// Converts a CSV document to a byte array
         /// </summary>
         /// <param name="document">The CSV document</param>
-        /// <returns>A memory stream containing the CSV content</returns>
-        public static MemoryStream ToStream
+        /// <returns>A byte array containing the CSV content</returns>
+        public static byte[] ToByteArray
             (
                 this CsvDocument document
             )
         {
-            return document.ToStream
+            return document.ToByteArray
             (
                 new Configuration()
             );
         }
 
         /// <summary>
-        /// Converts a CSV document to a memory stream
+        /// Converts a CSV document to a byte array
         /// </summary>
         /// <param name="document">The CSV document</param>
         /// <param name="configuration">The configuration</param>
         /// <returns>A memory stream containing the CSV content</returns>
-        public static MemoryStream ToStream
+        public static byte[] ToByteArray
             (
                 this CsvDocument document,
                 Configuration configuration
@@ -41,36 +41,29 @@
             Validate.IsNotNull(configuration);
 
             using (var stream = new MemoryStream())
+            using (var writer = new StreamWriter(stream))
+            using (var csv = new CsvWriter(writer, configuration))
             {
-                using (var writer = new StreamWriter(stream))
+                foreach (var heading in document.Headings)
                 {
-                    var csv = new CsvWriter
-                    (
-                        writer,
-                        configuration
-                    );
+                    csv.WriteField(heading);
+                }
 
-                    foreach (var heading in document.Headings)
+                csv.NextRecord();
+
+                foreach (var row in document.Rows)
+                {
+                    foreach (var cell in row.Cells)
                     {
-                        csv.WriteRecord(heading);
+                        csv.WriteField(cell.Value);
                     }
 
                     csv.NextRecord();
-
-                    foreach (var row in document.Rows)
-                    {
-                        foreach (var cell in row.Cells)
-                        {
-                            csv.WriteRecord(cell.Value);
-                        }
-
-                        csv.NextRecord();
-                    }
-
-                    csv.Flush();
-
-                    return stream;
                 }
+
+                writer.Flush();
+
+                return stream.ToArray();
             }
         }
     }
