@@ -48,15 +48,9 @@
 
                         if (columnSchema == null)
                         {
-                            var message = "The field name '{0}' was not expected.";
-
                             throw new InvalidOperationException
                             (
-                                String.Format
-                                (
-                                    message,
-                                    fieldName
-                                )
+                                $"The field name '{fieldName}' was not expected."
                             );
                         }
 

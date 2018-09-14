@@ -26,11 +26,6 @@
             Validate.IsNotNull(context);
 
             this.Context = context;
-
-            PopulateSchema
-            (
-                context
-            );
         }
 
         /// <summary>
@@ -45,6 +40,14 @@
         {
             get
             {
+                if (_schema == null)
+                {
+                    PopulateSchema
+                    (
+                        this.Context
+                    );
+                }
+
                 return _schema;
             }
         }
@@ -144,6 +147,8 @@
                 }
 
                 _schema = tableSchemas.ToArray();
+
+                this.DateSchemaResolved = DateTime.UtcNow;
             }
             catch (Exception ex)
             {

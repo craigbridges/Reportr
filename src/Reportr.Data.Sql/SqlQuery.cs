@@ -95,15 +95,9 @@
 
             if (isDefined)
             {
-                var message = "A column named '{0}' has already been defined.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        columnName
-                    )
+                    $"A column named '{columnName}' has already been defined."
                 );
             }
 

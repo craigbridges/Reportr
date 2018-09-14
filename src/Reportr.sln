@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr", "Reportr\Reportr.csproj", "{5108C1B8-79A5-41E2-8AA1-D2C1383AE322}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Registration", "Reportr.Registration\Reportr.Registration.csproj", "{B8604028-E123-4C2F-A217-342E65149B17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Registration.Entity", "Reportr.Registration.Entity\Reportr.Registration.Entity.csproj", "{5EBD3D81-B224-4870-83D2-30413B8DC0AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Dapper", "Reportr.Data.Dapper\Reportr.Data.Dapper.csproj", "{F2393F19-041F-43A2-B122-F7ACFDD16431}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{5EBD3D81-B224-4870-83D2-30413B8DC0AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EBD3D81-B224-4870-83D2-30413B8DC0AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EBD3D81-B224-4870-83D2-30413B8DC0AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2393F19-041F-43A2-B122-F7ACFDD16431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2393F19-041F-43A2-B122-F7ACFDD16431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2393F19-041F-43A2-B122-F7ACFDD16431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2393F19-041F-43A2-B122-F7ACFDD16431}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
