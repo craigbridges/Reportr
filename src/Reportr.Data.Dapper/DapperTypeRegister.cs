@@ -18,11 +18,6 @@
             {
                 new RegisteredType
                 (
-                    typeof(IDataSource),
-                    typeof(DapperDataSource)
-                ),
-                new RegisteredType
-                (
                     typeof(DapperDataSource),
                     typeof(DapperDataSource)
                 )

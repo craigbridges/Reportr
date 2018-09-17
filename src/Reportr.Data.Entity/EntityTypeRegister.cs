@@ -18,11 +18,6 @@
             {
                 new RegisteredType
                 (
-                    typeof(IDataSource),
-                    typeof(EfDataSource)
-                ),
-                new RegisteredType
-                (
                     typeof(EfDataSource),
                     typeof(EfDataSource)
                 )

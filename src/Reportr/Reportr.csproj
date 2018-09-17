@@ -175,6 +175,7 @@
     <Compile Include="Data\Querying\QueryResults.cs" />
     <Compile Include="Data\Querying\QueryRow.cs" />
     <Compile Include="Data\Querying\QuerySortingRule.cs" />
+    <Compile Include="Data\Querying\SqlStatement.cs" />
     <Compile Include="Data\SortDirection.cs" />
     <Compile Include="Drawing\BorderSideStyle.cs" />
     <Compile Include="Drawing\BorderStyle.cs" />

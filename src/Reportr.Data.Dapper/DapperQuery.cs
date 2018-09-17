@@ -59,11 +59,11 @@
         /// </summary>
         /// <param name="parameterValues">The parameter values</param>
         /// <returns>The SQL query generated</returns>
-        protected abstract string CompileSql
+        protected abstract SqlStatement CompileSql
         (
             params ParameterValue[] parameterValues
         );
-
+        
         /// <summary>
         /// Asynchronously fetches the query data using the parameter values
         /// </summary>
@@ -77,11 +77,24 @@
             Validate.IsNotNull(parameterValues);
 
             var connection = GetConnection();
-            var sql = CompileSql(parameterValues);
+            var statement = CompileSql(parameterValues);
+
+            var sql = statement.Sql;
+            var parameters = new DynamicParameters();
+
+            foreach (var item in statement.Parameters)
+            {
+                parameters.Add
+                (
+                    item.Key,
+                    item.Value
+                );
+            }
 
             var queryResults = await connection.QueryAsync<T>
             (
-                sql
+                sql,
+                parameters
             )
             .ConfigureAwait
             (
