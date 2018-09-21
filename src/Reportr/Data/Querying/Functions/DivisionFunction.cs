@@ -1,9 +1,8 @@
-﻿namespace Genesis.Reporting.Querying.Functions
+﻿namespace Reportr.Data.Querying.Functions
 {
     using Reportr;
     using Reportr.Data;
     using Reportr.Data.Querying;
-    using Reportr.Data.Querying.Functions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -25,6 +24,7 @@
                 DataBinding rightNumberBinding,
                 bool autoRoundResult = false
             )
+
             : base(leftNumberBinding, autoRoundResult)
         {
             Validate.IsNotNull(rightNumberBinding);
@@ -59,7 +59,12 @@
                 rows
             );
 
-            var result = leftNumber / rightNumber;
+            var result = default(double);
+
+            if (leftNumber > 0 && rightNumber > 0)
+            {
+                result = leftNumber / rightNumber;
+            }
 
             if (this.AutoRoundResult)
             {

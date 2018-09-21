@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Data.Dapper
 {
     using global::Dapper;
+    using Nito.AsyncEx.Synchronous;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
     using System.Collections.Generic;
@@ -76,25 +77,14 @@
         {
             Validate.IsNotNull(parameterValues);
 
-            var connection = GetConnection();
-            var statement = CompileSql(parameterValues);
-
-            var sql = statement.Sql;
-            var parameters = new DynamicParameters();
-
-            foreach (var item in statement.Parameters)
-            {
-                parameters.Add
-                (
-                    item.Key,
-                    item.Value
-                );
-            }
-
-            var queryResults = await connection.QueryAsync<T>
+            var statement = CompileSql
             (
-                sql,
-                parameters
+                parameterValues
+            );
+
+            var queryResults = await ExecuteQueryAsync<T>
+            (
+                statement
             )
             .ConfigureAwait
             (
@@ -107,6 +97,66 @@
             );
 
             return rows;
+        }
+
+        /// <summary>
+        /// Executes an SQL statement and returns the results
+        /// </summary>
+        /// <typeparam name="TOutput">The query output type</typeparam>
+        /// <param name="statement">The SQL statement</param>
+        /// <returns>The results</returns>
+        protected IEnumerable<TOutput> ExecuteQuery<TOutput>
+            (
+                SqlStatement statement
+            )
+        {
+            Validate.IsNotNull(statement);
+
+            var task = ExecuteQueryAsync<TOutput>
+            (
+                statement
+            );
+
+            return task.WaitAndUnwrapException();
+        }
+
+        /// <summary>
+        /// Executes an SQL statement and returns the results
+        /// </summary>
+        /// <typeparam name="TOutput">The query output type</typeparam>
+        /// <param name="statement">The SQL statement</param>
+        /// <returns>The results</returns>
+        protected async Task<IEnumerable<TOutput>> ExecuteQueryAsync<TOutput>
+            (
+                SqlStatement statement
+            )
+        {
+            Validate.IsNotNull(statement);
+
+            var connection = GetConnection();
+            var sql = statement.Sql;
+            var parameters = new DynamicParameters();
+
+            foreach (var item in statement.Parameters)
+            {
+                parameters.Add
+                (
+                    item.Key,
+                    item.Value
+                );
+            }
+
+            var queryResults = await connection.QueryAsync<TOutput>
+            (
+                sql,
+                parameters
+            )
+            .ConfigureAwait
+            (
+                false
+            );
+
+            return queryResults;
         }
     }
 }
