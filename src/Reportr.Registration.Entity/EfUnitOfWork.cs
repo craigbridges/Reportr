@@ -1,8 +1,6 @@
 ﻿namespace Reportr.Registration.Entity
 {
     using Nito.AsyncEx.Synchronous;
-    using System;
-    using System.Data;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -41,34 +39,10 @@
         /// <returns>The number of objects written to the database</returns>
         public async Task<int> SaveChangesAsync()
         {
-            var rows = default(int);
-            
-            using (var transaction = _context.Database.BeginTransaction())
-            {
-                try
-                {
-                    var saveTask = _context.SaveChangesAsync();
-
-                    rows = await saveTask.ConfigureAwait
-                    (
-                        false
-                    );
-
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-
-                    throw new DataException
-                    (
-                        "The transaction failed. See inner exception for details.",
-                        ex
-                    );
-                }
-            }
-            
-            return rows;
+            return await _context.SaveChangesAsync().ConfigureAwait
+            (
+                false
+            );
         }
 
         /// <summary>
