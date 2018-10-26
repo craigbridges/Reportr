@@ -1,44 +1,32 @@
 ﻿namespace Reportr.Registration.Entity
 {
+    using Microsoft.EntityFrameworkCore;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using Reportr.Registration.Entity.Configurations;
-    using Reportr.Registration.Entity.Migrations;
-    using System.Data.Entity;
-
+    
     /// <summary>
     /// Represents a Reportr database context implementation
     /// </summary>
     public class ReportrDbContext : DbContext
     {
         /// <summary>
-        /// Constructs the context with migrations enabled
+        /// Constructs the context with default options
         /// </summary>
         public ReportrDbContext()
-            : this(typeof(ReportrDbContext).Name)
+            : base()
         { }
 
         /// <summary>
-        /// Constructs the context with migrations enabled
+        /// Constructs the context with the options specified
         /// </summary>
-        /// <param name="connectionStringName">The name of the connection string</param>
+        /// <param name="options">The context options</param>
         public ReportrDbContext
             (
-                string connectionStringName
+                DbContextOptions options
             )
-
-            : base(connectionStringName)
-        {
-            this.Configuration.ProxyCreationEnabled = true;
-            this.Configuration.LazyLoadingEnabled = true;
-
-            Database.SetInitializer
-            (
-                new MigrateDatabaseToLatestVersion<ReportrDbContext, Configuration>()
-            );
-
-            this.ReadAllDateTimeValuesAsUtc();
-        }
+            : base(options)
+        { }
 
         /// <summary>
         /// Gets or sets the registered reports set
@@ -63,23 +51,50 @@
         /// <summary>
         /// Handles the model creation process by injecting entity configurations into the model builder
         /// </summary>
+        /// <param name="modelBuilder">The model builder</param>
         protected override void OnModelCreating
             (
-                DbModelBuilder modelBuilder
+                ModelBuilder modelBuilder
             )
         {
             base.OnModelCreating(modelBuilder);
 
-            var registrar = modelBuilder.Configurations;
+            modelBuilder.SpecifyDateKind<RegisteredReport>();
+            modelBuilder.SpecifyDateKind<RegisteredReportSourceRevision>();
+            modelBuilder.SpecifyDateKind<ReportCategory>();
+            modelBuilder.SpecifyDateKind<ReportCategoryAssignment>();
+            modelBuilder.SpecifyDateKind<ReportRole>();
+            modelBuilder.SpecifyDateKind<ReportRoleAssignment>();
 
-            //modelBuilder.HasDefaultSchema("reportr");
-            
-            registrar.Add(new RegisteredReportEntityConfiguration());
-            registrar.Add(new RegisteredReportSourceRevisionEntityConfiguration());
-            registrar.Add(new ReportCategoryEntityConfiguration());
-            registrar.Add(new ReportCategoryAssignmentEntityConfiguration());
-            registrar.Add(new ReportRoleEntityConfiguration());
-            registrar.Add(new ReportRoleAssignmentEntityConfiguration());
+            modelBuilder.ApplyConfiguration
+            (
+                new RegisteredReportEntityConfiguration()
+            );
+
+            modelBuilder.ApplyConfiguration
+            (
+                new RegisteredReportSourceRevisionEntityConfiguration()
+            );
+
+            modelBuilder.ApplyConfiguration
+            (
+                new ReportCategoryEntityConfiguration()
+            );
+
+            modelBuilder.ApplyConfiguration
+            (
+                new ReportCategoryAssignmentEntityConfiguration()
+            );
+
+            modelBuilder.ApplyConfiguration
+            (
+                new ReportRoleEntityConfiguration()
+            );
+
+            modelBuilder.ApplyConfiguration
+            (
+                new ReportRoleAssignmentEntityConfiguration()
+            );
         }
     }
 }

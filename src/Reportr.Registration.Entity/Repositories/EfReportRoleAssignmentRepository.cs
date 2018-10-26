@@ -1,9 +1,9 @@
 ﻿namespace Reportr.Registration.Entity.Repositories
 {
+    using Microsoft.EntityFrameworkCore;
     using Reportr.Registration.Authorization;
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Linq;
     
     /// <summary>
@@ -280,16 +280,9 @@
 
             if (assignment == null)
             {
-                var message = "The role '{0}' has not been assigned to '{1}'.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        roleName,
-                        reportName
-                    )
+                    $"The role '{roleName}' has not been assigned to '{reportName}'."
                 );
             }
 

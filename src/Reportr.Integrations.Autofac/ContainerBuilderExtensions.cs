@@ -1,10 +1,10 @@
 ﻿namespace Autofac
 {
+    using Microsoft.Extensions.DependencyModel;
     using Reportr;
     using Reportr.Integrations.Autofac;
-    using System;
+    using System.Collections.Generic;
     using System.Reflection;
-    using System.Web.Compilation;
 
     /// <summary>
     /// Various extension methods for Autofac container builders
@@ -22,18 +22,27 @@
         /// We merge the two results to ensure assemblies found in the plugins
         /// directory are also included, as they are not referenced.
         /// </remarks>
-        internal static Assembly[] GetAssemblies
+        internal static Assembly[] GetAllAssemblies
             (
                 this ContainerBuilder builder
             )
         {
             if (_allAssemblies == null)
             {
-                // Load all referenced assemblies into the current AppDomain
-                BuildManager.GetReferencedAssemblies();
+                var assemblies = new List<Assembly>();
+                var dependencies = DependencyContext.Default.RuntimeLibraries;
 
-                // Now the AppDomain includes all referenced assemblies
-                _allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var library in dependencies)
+                {
+                    var assembly = Assembly.Load
+                    (
+                        new AssemblyName(library.Name)
+                    );
+
+                    assemblies.Add(assembly);
+                }
+
+                _allAssemblies = assemblies.ToArray();
             }
 
             return _allAssemblies;

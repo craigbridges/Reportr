@@ -25,7 +25,7 @@
         {
             // TODO: register rendering and templating services
 
-            var assemblies = builder.GetAssemblies();
+            var assemblies = builder.GetAllAssemblies();
 
             builder.RegisterAssemblyTypes(assemblies)
                    .Where(t => typeof(IDataSource)

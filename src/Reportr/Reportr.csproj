@@ -1,258 +1,39 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5108C1B8-79A5-41E2-8AA1-D2C1383AE322}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Reportr</RootNamespace>
-    <AssemblyName>Reportr</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="CsvHelper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
-      <HintPath>..\packages\CsvHelper.7.1.1\lib\net45\CsvHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="DatabaseSchemaReader, Version=2.6.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DatabaseSchemaReader.2.6.2\lib\net45\DatabaseSchemaReader.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Nito.AsyncEx, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nito.AsyncEx.4.0.1\lib\net45\Nito.AsyncEx.dll</HintPath>
-    </Reference>
-    <Reference Include="Nito.AsyncEx.Concurrent, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nito.AsyncEx.4.0.1\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
-    </Reference>
-    <Reference Include="Nito.AsyncEx.Enlightenment, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nito.AsyncEx.4.0.1\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Common\Conversion\GenericObjectConverter.cs" />
-    <Compile Include="Common\Conversion\ObjectConverter.cs" />
-    <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Common\Extensions\EnumExtensions.cs" />
-    <Compile Include="Common\Extensions\StringExtensions.cs" />
-    <Compile Include="Common\Extensions\TypeExtensions.cs" />
-    <Compile Include="Common\Math\Calculate.cs" />
-    <Compile Include="Common\Reflection\EnumInspector.cs" />
-    <Compile Include="Common\Reflection\EnumItemInfo.cs" />
-    <Compile Include="Common\Validation\TypeConverterChecker.cs" />
-    <Compile Include="Components\Collections\ColumnAlignment.cs" />
-    <Compile Include="Components\Collections\ISortableComponent.cs" />
-    <Compile Include="Components\Collections\TableGrouping.cs" />
-    <Compile Include="Components\Collections\RepeaterDefinition.cs" />
-    <Compile Include="Components\Collections\TableGenerator.cs" />
-    <Compile Include="Components\Collections\RepeaterItem.cs" />
-    <Compile Include="Components\Collections\RepeaterType.cs" />
-    <Compile Include="Components\Collections\Repeater.cs" />
-    <Compile Include="Components\Collections\RepeaterGenerator.cs" />
-    <Compile Include="Components\Collections\TableCell.cs" />
-    <Compile Include="Components\Collections\TableRow.cs" />
-    <Compile Include="Components\Collections\TableColumn.cs" />
-    <Compile Include="Components\Collections\TableColumnDefinition.cs" />
-    <Compile Include="Components\Collections\Table.cs" />
-    <Compile Include="Components\Collections\TableDefinition.cs" />
-    <Compile Include="Components\Graphics\GraphicArea.cs" />
-    <Compile Include="Components\Graphics\GraphicOutputTypes.cs" />
-    <Compile Include="Components\Graphics\GraphicOverlay.cs" />
-    <Compile Include="Components\Graphics\GraphicDefinition.cs" />
-    <Compile Include="Components\Graphics\Graphic.cs" />
-    <Compile Include="Components\Graphics\GraphicGenerator.cs" />
-    <Compile Include="Components\IReportComponentDefinition.cs" />
-    <Compile Include="Components\IReportComponent.cs" />
-    <Compile Include="Components\IReportComponentGenerator.cs" />
-    <Compile Include="Components\Metrics\ChartAxisLabel.cs" />
-    <Compile Include="Components\Metrics\ChartDataPoint.cs" />
-    <Compile Include="Components\Metrics\ChartDataSet.cs" />
-    <Compile Include="Components\Metrics\Chart.cs" />
-    <Compile Include="Components\Metrics\ChartDataSetDefinition.cs" />
-    <Compile Include="Components\Metrics\ChartPlacement.cs" />
-    <Compile Include="Components\Metrics\ChartValueType.cs" />
-    <Compile Include="Components\Metrics\Statistic.cs" />
-    <Compile Include="Components\Metrics\ChartDefinition.cs" />
-    <Compile Include="Components\Metrics\StatisticDefinition.cs" />
-    <Compile Include="Components\Metrics\ChartGenerator.cs" />
-    <Compile Include="Components\Metrics\StatisticGenerator.cs" />
-    <Compile Include="Components\Metrics\StatisticType.cs" />
-    <Compile Include="Components\NestedReportComponentDefinition.cs" />
-    <Compile Include="Components\ReportActionDefinition.cs" />
-    <Compile Include="Components\ReportAction.cs" />
-    <Compile Include="Components\ReportActionType.cs" />
-    <Compile Include="Components\ReportComponentDefinitionBase.cs" />
-    <Compile Include="Components\ReportComponentBase.cs" />
-    <Compile Include="Components\ReportComponentDefinitionExtensions.cs" />
-    <Compile Include="Components\ReportComponentGeneratorBase.cs" />
-    <Compile Include="Components\ReportComponentTypeExtensions.cs" />
-    <Compile Include="Components\Separators\SeparatorGenerator.cs" />
-    <Compile Include="Components\Separators\ReportComponentSeparatorType.cs" />
-    <Compile Include="Components\ReportComponentType.cs" />
-    <Compile Include="Components\Separators\Separator.cs" />
-    <Compile Include="Components\Separators\SeparatorDefinition.cs" />
-    <Compile Include="Conversion\Csv\CsvCell.cs" />
-    <Compile Include="Conversion\Csv\CsvDocumentExtensions.cs" />
-    <Compile Include="Conversion\Csv\CsvRow.cs" />
-    <Compile Include="Conversion\Csv\CsvDocument.cs" />
-    <Compile Include="Conversion\Csv\ReportCsvConverter.cs" />
-    <Compile Include="Conversion\IReportConverter.cs" />
-    <Compile Include="Data\DataBinding.cs" />
-    <Compile Include="Data\DataBindingType.cs" />
-    <Compile Include="Data\DataColumnSchema.cs" />
-    <Compile Include="Data\DataForeignKey.cs" />
-    <Compile Include="Data\DataSourceBase.cs" />
-    <Compile Include="Data\DataTableSchema.cs" />
-    <Compile Include="Data\DataValueFormattingType.cs" />
-    <Compile Include="Data\IDataSource.cs" />
-    <Compile Include="Data\IDataSourceRepository.cs" />
-    <Compile Include="Data\Querying\Functions\ModeFunction.cs" />
-    <Compile Include="Data\Querying\Functions\DivisionFunction.cs" />
-    <Compile Include="Data\Querying\Functions\SumFunction.cs" />
-    <Compile Include="Data\Querying\Functions\MedianFunction.cs" />
-    <Compile Include="Data\Querying\Functions\MinimumFunction.cs" />
-    <Compile Include="Data\Querying\Functions\MaximumFunction.cs" />
-    <Compile Include="Data\Querying\Functions\CountFunction.cs" />
-    <Compile Include="Data\Querying\Functions\AverageFunction.cs" />
-    <Compile Include="Data\Querying\Functions\AggregateFunctionBase.cs" />
-    <Compile Include="Data\Querying\IQuery.cs" />
-    <Compile Include="Data\Querying\Functions\IAggregateFunction.cs" />
-    <Compile Include="Data\Querying\IQueryRepository.cs" />
-    <Compile Include="Data\Querying\ISortable.cs" />
-    <Compile Include="Data\Querying\QueryBase.cs" />
-    <Compile Include="Data\Querying\QueryCell.cs" />
-    <Compile Include="Components\Collections\ColumnImportance.cs" />
-    <Compile Include="Data\Querying\QueryColumnInfo.cs" />
-    <Compile Include="Data\Querying\QueryExtensions.cs" />
-    <Compile Include="Data\Querying\QueryGrouping.cs" />
-    <Compile Include="Data\Querying\QueryPathInfo.cs" />
-    <Compile Include="Data\Querying\QueryResults.cs" />
-    <Compile Include="Data\Querying\QueryRow.cs" />
-    <Compile Include="Data\Querying\QuerySortingRule.cs" />
-    <Compile Include="Data\Querying\SqlStatement.cs" />
-    <Compile Include="Data\SortDirection.cs" />
-    <Compile Include="Drawing\BorderSideStyle.cs" />
-    <Compile Include="Drawing\BorderStyle.cs" />
-    <Compile Include="Drawing\BorderType.cs" />
-    <Compile Include="Drawing\BoxSize.cs" />
-    <Compile Include="Drawing\HorizontalAlign.cs" />
-    <Compile Include="Drawing\LineStyle.cs" />
-    <Compile Include="Drawing\Padding.cs" />
-    <Compile Include="Drawing\PointU.cs" />
-    <Compile Include="Drawing\SizeU.cs" />
-    <Compile Include="Drawing\Style.cs" />
-    <Compile Include="Drawing\Unit.cs" />
-    <Compile Include="Drawing\UnitExtensions.cs" />
-    <Compile Include="Drawing\UnitType.cs" />
-    <Compile Include="Drawing\VerticalAlign.cs" />
-    <Compile Include="Filtering\ValueGenerators\DatePeriod.cs" />
-    <Compile Include="Filtering\ValueGenerators\LastDayValueGenerator.cs" />
-    <Compile Include="Filtering\ValueGenerators\FirstDayValueGenerator.cs" />
-    <Compile Include="Filtering\ValueGenerators\IParameterValueGenerator.cs" />
-    <Compile Include="Filtering\ValueGenerators\DateValueGeneratorBase.cs" />
-    <Compile Include="Filtering\ValueGenerators\DateOffsetValueGenerator.cs" />
-    <Compile Include="Filtering\ValueGenerators\TodayValueGenerator.cs" />
-    <Compile Include="Filtering\IReportFilterGenerator.cs" />
-    <Compile Include="Filtering\ParameterDefaultValueType.cs" />
-    <Compile Include="Filtering\ParameterInputType.cs" />
-    <Compile Include="Filtering\ParameterLookupSourceType.cs" />
-    <Compile Include="Filtering\ReportFilterGenerator.cs" />
-    <Compile Include="Filtering\ReportFilterParameterValue.cs" />
-    <Compile Include="Filtering\ReportFilterSortingRule.cs" />
-    <Compile Include="Filtering\ReportParameterBinding.cs" />
-    <Compile Include="Filtering\ReportParameterDefinition.cs" />
-    <Compile Include="Filtering\ReportParameterTargetType.cs" />
-    <Compile Include="IMathExpressionEvaluator.cs" />
-    <Compile Include="IoC\IDependencyResolver.cs" />
-    <Compile Include="IoC\IDependencyRegistrar.cs" />
-    <Compile Include="IoC\ITypeRegister.cs" />
-    <Compile Include="IoC\RegisteredType.cs" />
-    <Compile Include="IoC\TypeResolver.cs" />
-    <Compile Include="IReportDefinitionBuilder.cs" />
-    <Compile Include="IReportDefinitionBuilderRepository.cs" />
-    <Compile Include="ReportDefinitionBuilderBase.cs" />
-    <Compile Include="ReportExecutionResult.cs" />
-    <Compile Include="ReportGenerationResult.cs" />
-    <Compile Include="Filtering\ReportFilter.cs" />
-    <Compile Include="IReportGenerator.cs" />
-    <Compile Include="Filtering\ParameterInfo.cs" />
-    <Compile Include="Filtering\ParameterValue.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rendering\IRenderedReport.cs" />
-    <Compile Include="Rendering\IReportRenderer.cs" />
-    <Compile Include="Rendering\RenderedReport.cs" />
-    <Compile Include="ReportGenerator.cs" />
-    <Compile Include="ReportrEngine.cs" />
-    <Compile Include="ReportSectionDefinition.cs" />
-    <Compile Include="ReportDefinition.cs" />
-    <Compile Include="Report.cs" />
-    <Compile Include="ReportSection.cs" />
-    <Compile Include="ReportSectionGenerationResult.cs" />
-    <Compile Include="ReportSectionType.cs" />
-    <Compile Include="Templating\ITemplateRenderer.cs" />
-    <Compile Include="Templating\SectionTemplateContent.cs" />
-    <Compile Include="Templating\ComponentTemplateContent.cs" />
-    <Compile Include="Templating\IReportTemplateRepository.cs" />
-    <Compile Include="Templating\ReportTemplate.cs" />
-    <Compile Include="Templating\TemplateContent.cs" />
-    <Compile Include="Templating\TemplateOutputType.cs" />
-    <Compile Include="Common\Validation\Validate.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-  </Target>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Product>Reportr</Product>
+		<Description>Reportr is a .NET template orientated reporting framework, designed from the ground up as a lightweight solution to solving various reporting problems faced in .NET applications.</Description>
+		<Copyright>Copyright © Craig Bridges 2018</Copyright>
+		<Authors>Craig Bridges</Authors>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<Version>1.0.0</Version>
+		<PackageLicenseUrl>https://github.com/craigbridges/Reportr/blob/master/LICENSE.md</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
+		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
+		<PackageReleaseNotes>First preview of Reportr</PackageReleaseNotes>
+		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
+		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CsvHelper" Version="7.1.1" />
+	  <PackageReference Include="DatabaseSchemaReader" Version="2.6.3" />
+	  <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+	  <PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
+	  <PackageReference Include="System.Data.Common" Version="4.3.0" />
+	  <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+	  <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+	</ItemGroup>
+
 </Project>

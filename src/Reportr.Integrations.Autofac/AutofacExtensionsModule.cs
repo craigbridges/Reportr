@@ -17,7 +17,7 @@
                 ContainerBuilder builder
             )
         {
-            var assemblies = builder.GetAssemblies();
+            var assemblies = builder.GetAllAssemblies();
             var resolver = new TypeResolver();
 
             var resolvedTypes = resolver.FindRegisteredTypes

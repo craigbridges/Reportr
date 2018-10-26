@@ -1,19 +1,22 @@
 ﻿namespace Reportr.Registration.Entity.Configurations
 {
+    using Humanizer;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Reportr.Registration.Categorization;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.ModelConfiguration;
-
+    
     /// <summary>
     /// Represents an entity type configuration for a report category assignment
     /// </summary>
     public class ReportCategoryAssignmentEntityConfiguration
-        : EntityTypeConfiguration<ReportCategoryAssignment>
+        : IEntityTypeConfiguration<ReportCategoryAssignment>
     {
-        public ReportCategoryAssignmentEntityConfiguration()
-            : base()
+        public void Configure
+            (
+                EntityTypeBuilder<ReportCategoryAssignment> builder
+            )
         {
-            HasKey
+            builder.HasKey
             (
                 m => new
                 {
@@ -22,15 +25,7 @@
                 }
             );
 
-            // Configure the primary key constraints
-            Property(m => m.AssignmentId)
-                .HasDatabaseGeneratedOption
-                (
-                    DatabaseGeneratedOption.Identity
-                );
-
-            // Set up a foreign key reference for cascade deletes
-            HasRequired(m => m.Category)
+            builder.HasOne(m => m.Category)
                 .WithMany(m => m.AssignedReports)
                 .HasForeignKey
                 (
@@ -39,14 +34,11 @@
                         m.CategoryId
                     }
                 )
-                .WillCascadeOnDelete();
+                .OnDelete(DeleteBehavior.Cascade);
 
-            Map
+            builder.ToTable
             (
-                m =>
-                {
-                    m.ToTable("ReportCategoryAssignments");
-                }
+                nameof(ReportCategoryAssignment).Pluralize()
             );
         }
     }

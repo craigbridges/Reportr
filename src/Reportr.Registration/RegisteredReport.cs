@@ -13,7 +13,7 @@
     /// </remarks>
     public class RegisteredReport : IAggregate
     {
-        private bool _constructing;
+        private readonly bool _constructing;
 
         /// <summary>
         /// Constructs the registered report with its default configuration

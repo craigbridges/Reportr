@@ -1,9 +1,9 @@
 ﻿namespace Reportr.Registration.Entity.Repositories
 {
+    using Microsoft.EntityFrameworkCore;
     using Reportr.Registration.Categorization;
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Linq;
     
     /// <summary>

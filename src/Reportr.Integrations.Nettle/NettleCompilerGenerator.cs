@@ -6,7 +6,7 @@
     using global::Nettle.Functions;
     using global::Nettle.Web;
     using System;
-    using System.Web.Configuration;
+    using System.Configuration;
 
     /// <summary>
     /// Generates compilers for the Nettle templating engine
@@ -36,7 +36,7 @@
             var dataResolver = new NettleDataResolver();
             var webResolver = new NettleWebResolver();
 
-            var appSettings = WebConfigurationManager.AppSettings;
+            var appSettings = ConfigurationManager.AppSettings;
             var defaultTimeZoneId = appSettings["DefaultTimeZoneId"];
 
             NettleEngine.RegisterResolvers

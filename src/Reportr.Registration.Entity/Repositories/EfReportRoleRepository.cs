@@ -1,9 +1,8 @@
 ﻿namespace Reportr.Registration.Entity.Repositories
 {
+    using Microsoft.EntityFrameworkCore;
     using Reportr.Registration.Authorization;
-    using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Linq;
     
     /// <summary>
@@ -83,15 +82,9 @@
 
             if (role == null)
             {
-                var message = "No role was found matching the name '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        name.ToString()
-                    )
+                    $"No role was found matching the name '{name}'."
                 );
             }
 

@@ -1,18 +1,21 @@
 ﻿namespace Reportr.Registration.Entity.Configurations
 {
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.ModelConfiguration;
-
+    using Humanizer;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    
     /// <summary>
     /// Represents an entity type configuration for a registered report source revision
     /// </summary>
-    public class RegisteredReportSourceRevisionEntityConfiguration 
-        : EntityTypeConfiguration<RegisteredReportSourceRevision>
+    public class RegisteredReportSourceRevisionEntityConfiguration
+        : IEntityTypeConfiguration<RegisteredReportSourceRevision>
     {
-        public RegisteredReportSourceRevisionEntityConfiguration()
-            : base()
+        public void Configure
+            (
+                EntityTypeBuilder<RegisteredReportSourceRevision> builder
+            )
         {
-            HasKey
+            builder.HasKey
             (
                 m => new
                 {
@@ -21,15 +24,7 @@
                 }
             );
 
-            // Configure the primary key constraints
-            Property(m => m.RevisionId)
-                .HasDatabaseGeneratedOption
-                (
-                    DatabaseGeneratedOption.Identity
-                );
-
-            // Set up a foreign key reference for cascade deletes
-            HasRequired(m => m.Report)
+            builder.HasOne(m => m.Report)
                 .WithMany(m => m.SourceRevisions)
                 .HasForeignKey
                 (
@@ -38,14 +33,11 @@
                         m.ReportId
                     }
                 )
-                .WillCascadeOnDelete();
+                .OnDelete(DeleteBehavior.Cascade);
 
-            Map
+            builder.ToTable
             (
-                m =>
-                {
-                    m.ToTable("RegisteredReportSourceRevisions");
-                }
+                nameof(RegisteredReportSourceRevision).Pluralize()
             );
         }
     }

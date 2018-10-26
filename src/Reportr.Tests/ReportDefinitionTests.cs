@@ -1,12 +1,10 @@
 ﻿namespace Reportr.Tests
 {
-    using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class ReportDefinitionTests
     {
-        [TestMethod]
+        [Fact]
         public void ReportDefinition_DefineSection_GetSection()
         {
             // Arrange
@@ -25,7 +23,7 @@
             );
 
             // Assert
-            Assert.IsNotNull(body);
+            Assert.NotNull(body);
         }
     }
 }
