@@ -5,31 +5,31 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr", "Reportr\Reportr.csproj", "{13DDF171-FD88-4B1C-BFB0-E42BD9618305}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Csv", "Reportr.Data.Csv\Reportr.Data.Csv.csproj", "{4EB82E4C-1E0E-47F0-BAD5-346A3C18B567}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Data.Csv", "Reportr.Data.Csv\Reportr.Data.Csv.csproj", "{4EB82E4C-1E0E-47F0-BAD5-346A3C18B567}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Dapper", "Reportr.Data.Dapper\Reportr.Data.Dapper.csproj", "{2087D0A3-4D77-4B5F-8B67-3BAC25975A5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Data.Dapper", "Reportr.Data.Dapper\Reportr.Data.Dapper.csproj", "{2087D0A3-4D77-4B5F-8B67-3BAC25975A5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Entity", "Reportr.Data.Entity\Reportr.Data.Entity.csproj", "{4167C52F-2421-45B0-BE90-219319CD7C04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Data.Entity", "Reportr.Data.Entity\Reportr.Data.Entity.csproj", "{4167C52F-2421-45B0-BE90-219319CD7C04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Json", "Reportr.Data.Json\Reportr.Data.Json.csproj", "{2F4337BF-21EC-4BB0-BABB-6F729F454C7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Data.Json", "Reportr.Data.Json\Reportr.Data.Json.csproj", "{2F4337BF-21EC-4BB0-BABB-6F729F454C7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Sql", "Reportr.Data.Sql\Reportr.Data.Sql.csproj", "{20302447-BD4F-4551-B58F-22C00387D3FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Data.Sql", "Reportr.Data.Sql\Reportr.Data.Sql.csproj", "{20302447-BD4F-4551-B58F-22C00387D3FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Data.Xml", "Reportr.Data.Xml\Reportr.Data.Xml.csproj", "{AB5F7048-9A69-45F3-A4CE-F19C342D1B75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Data.Xml", "Reportr.Data.Xml\Reportr.Data.Xml.csproj", "{AB5F7048-9A69-45F3-A4CE-F19C342D1B75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.Autofac", "Reportr.Integrations.Autofac\Reportr.Integrations.Autofac.csproj", "{8CDFDD3A-881F-4542-9119-BBAC794CAD5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Integrations.Autofac", "Reportr.Integrations.Autofac\Reportr.Integrations.Autofac.csproj", "{8CDFDD3A-881F-4542-9119-BBAC794CAD5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.NCalc", "Reportr.Integrations.NCalc\Reportr.Integrations.NCalc.csproj", "{4E2E2D31-C190-4F4F-9DFD-3E33B1BCC497}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Integrations.NCalc", "Reportr.Integrations.NCalc\Reportr.Integrations.NCalc.csproj", "{4E2E2D31-C190-4F4F-9DFD-3E33B1BCC497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.Nettle", "Reportr.Integrations.Nettle\Reportr.Integrations.Nettle.csproj", "{4A288852-E0B8-4822-98AF-AA7EE25109C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Integrations.Nettle", "Reportr.Integrations.Nettle\Reportr.Integrations.Nettle.csproj", "{4A288852-E0B8-4822-98AF-AA7EE25109C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Integrations.Razor", "Reportr.Integrations.Razor\Reportr.Integrations.Razor.csproj", "{7FFD548D-6600-45F1-B97F-1138193AAC65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Integrations.Razor", "Reportr.Integrations.Razor\Reportr.Integrations.Razor.csproj", "{7FFD548D-6600-45F1-B97F-1138193AAC65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Registration", "Reportr.Registration\Reportr.Registration.csproj", "{E8F05EA6-AFE9-49D9-8216-A98B11A88BF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Registration", "Reportr.Registration\Reportr.Registration.csproj", "{E8F05EA6-AFE9-49D9-8216-A98B11A88BF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Registration.Entity", "Reportr.Registration.Entity\Reportr.Registration.Entity.csproj", "{40B581D1-1462-483A-A666-8EBAA2BC96BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Registration.Entity", "Reportr.Registration.Entity\Reportr.Registration.Entity.csproj", "{40B581D1-1462-483A-A666-8EBAA2BC96BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reportr.Tests", "Reportr.Tests\Reportr.Tests.csproj", "{B4406944-A886-4640-ABFC-F3AC2BF34CD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Tests", "Reportr.Tests\Reportr.Tests.csproj", "{B4406944-A886-4640-ABFC-F3AC2BF34CD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
