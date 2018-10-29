@@ -3,6 +3,7 @@
     using Microsoft.Extensions.DependencyModel;
     using Reportr;
     using Reportr.Integrations.Autofac;
+    using System;
     using System.Collections.Generic;
     using System.Reflection;
 
@@ -29,20 +30,28 @@
         {
             if (_allAssemblies == null)
             {
-                var assemblies = new List<Assembly>();
-                var dependencies = DependencyContext.Default.RuntimeLibraries;
+                var dependencies = DependencyContext.Default?.RuntimeLibraries;
 
-                foreach (var library in dependencies)
+                if (dependencies != null)
                 {
-                    var assembly = Assembly.Load
-                    (
-                        new AssemblyName(library.Name)
-                    );
+                    var assemblies = new List<Assembly>();
 
-                    assemblies.Add(assembly);
+                    foreach (var library in dependencies)
+                    {
+                        var assembly = Assembly.Load
+                        (
+                            new AssemblyName(library?.Name)
+                        );
+
+                        assemblies.Add(assembly);
+                    }
+
+                    _allAssemblies = assemblies.ToArray();
                 }
-
-                _allAssemblies = assemblies.ToArray();
+                else
+                {
+                    _allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+                }
             }
 
             return _allAssemblies;
