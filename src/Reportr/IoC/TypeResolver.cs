@@ -22,19 +22,23 @@
         {
             Validate.IsNotNull(assemblies);
 
+            var allTypes = new List<Type>();
             var allRegisteredTypes = new List<RegisteredType>();
 
-            var allTypes = assemblies.SelectMany
-            (
-                x => x.GetTypes()
-            );
+            foreach (var assembly in assemblies)
+            {
+                var assemblyTypes = assembly.GetLoadableTypes();
 
+                allTypes.AddRange(assemblyTypes);
+            }
+            
             var registries = allTypes.Where
             (
-                x => typeof(ITypeRegister).IsAssignableFrom(x) 
-                    && false == x.IsInterface 
-                    && false == x.IsAbstract
-                    && x.HasDefaultConstructor()
+                type => type != null 
+                    && typeof(ITypeRegister).IsAssignableFrom(type) 
+                    && false == type.IsInterface 
+                    && false == type.IsAbstract 
+                    && type.HasDefaultConstructor()
             );
 
             foreach (var type in registries)
