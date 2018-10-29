@@ -23,10 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="Icon.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="Nettle" Version="1.2.4" />
 	  <PackageReference Include="Nettle.Data" Version="1.1.0" />
 	  <PackageReference Include="Nettle.Web" Version="1.0.0" />

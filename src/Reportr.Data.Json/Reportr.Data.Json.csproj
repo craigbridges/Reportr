@@ -21,11 +21,7 @@
 	<ItemGroup>
 		<None Remove="Icon.ico" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="Icon.ico" />
-	</ItemGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
 	</ItemGroup>

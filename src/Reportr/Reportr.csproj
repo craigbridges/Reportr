@@ -23,10 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="Icon.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="CsvHelper" Version="7.1.1" />
 	  <PackageReference Include="DatabaseSchemaReader" Version="2.6.3" />
 	  <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
