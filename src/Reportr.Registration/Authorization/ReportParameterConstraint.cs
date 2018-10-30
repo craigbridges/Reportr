@@ -40,7 +40,7 @@
         /// <summary>
         /// Gets the role assignment
         /// </summary>
-        public ReportRoleAssignment Assignment { get; protected set; }
+        public virtual ReportRoleAssignment Assignment { get; protected set; }
         
         /// <summary>
         /// Gets the role assignment ID
@@ -151,15 +151,9 @@
 
                 if (false == userInfo.MetaData.ContainsKey(metaKey))
                 {
-                    var message = "No user meta data was found matching the key '{0}'.";
-
                     throw new KeyNotFoundException
                     (
-                        String.Format
-                        (
-                            message,
-                            metaKey
-                        )
+                        $"No user meta data was found matching the key '{metaKey}'."
                     );
                 }
 

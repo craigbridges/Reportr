@@ -13,8 +13,12 @@
         /// <summary>
         /// Constructs the context with default options
         /// </summary>
-        public ReportrDbContext()
-            : base()
+        /// <param name="optionsGenerator">The options generator</param>
+        public ReportrDbContext
+            (
+                IDbContextOptionsGenerator optionsGenerator
+            )
+            : this(optionsGenerator.Generate())
         { }
 
         /// <summary>

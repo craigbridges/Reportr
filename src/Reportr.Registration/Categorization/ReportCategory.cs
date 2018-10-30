@@ -237,16 +237,9 @@
 
             if (isAssigned)
             {
-                var message = "The report '{0}' has already been assigned to '{1}'.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        reportName,
-                        this.Name
-                    )
+                    $"The report '{reportName}' has already been assigned to '{this.Name}'."
                 );
             }
 
@@ -301,16 +294,9 @@
 
             if (assignment == null)
             {
-                var message = "The report '{0}' has not been assigned to '{1}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        reportName,
-                        this.Name
-                    )
+                    $"The report '{reportName}' has not been assigned to '{this.Name}'."
                 );
             }
 

@@ -211,15 +211,12 @@
 
             if (false == isValidype)
             {
-                var message = "The type {0} does not implement IReportDefinitionBuilder.";
+                var foundName = builderType.Name;
+                var expectedName = nameof(IReportDefinitionBuilder);
 
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        builderType.Name
-                    )
+                    $"The type {foundName} does not implement {expectedName}."
                 );
             }
 

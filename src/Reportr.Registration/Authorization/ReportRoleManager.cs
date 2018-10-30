@@ -199,16 +199,9 @@
 
             if (assigned)
             {
-                var message = "The role '{0}' has already been assigned to '{1}'.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        roleName,
-                        reportName
-                    )
+                    $"The role '{roleName}' has already been assigned to '{reportName}'."
                 );
             }
 
@@ -318,16 +311,9 @@
 
             if (false == assigned)
             {
-                var message = "The role '{0}' has not been assigned to '{1}'.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        roleName,
-                        reportName
-                    )
+                    $"The role '{roleName}' has not been assigned to '{reportName}'."
                 );
             }
 
@@ -365,16 +351,9 @@
 
             if (false == assigned)
             {
-                var message = "The role '{0}' has not been assigned to '{1}'.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        roleName,
-                        reportName
-                    )
+                    $"The role '{roleName}' has not been assigned to '{reportName}'."
                 );
             }
 

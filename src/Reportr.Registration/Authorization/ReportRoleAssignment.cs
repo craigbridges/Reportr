@@ -153,15 +153,9 @@
 
             if (constraint == null)
             {
-                var message = "No parameter constraint was found for '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        parameterName
-                    )
+                    $"No parameter constraint was found for '{parameterName}'."
                 );
             }
 

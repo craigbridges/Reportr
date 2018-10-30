@@ -26,6 +26,11 @@
                 ),
                 new RegisteredType
                 (
+                    typeof(IDbContextOptionsGenerator),
+                    typeof(DefaultDbContextOptionsGenerator)
+                ),
+                new RegisteredType
+                (
                     typeof(IUnitOfWork),
                     typeof(EfUnitOfWork)
                 ),

@@ -123,15 +123,9 @@
 
             if (registered)
             {
-                var message = "A report named '{0}' has already been registered.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        configuration.Name
-                    )
+                    $"A report named '{configuration.Name}' has already been registered."
                 );
             }
 
@@ -620,15 +614,9 @@
 
             if (false == registered)
             {
-                var message = "A report named '{0}' has not been registered.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        name
-                    )
+                    $"A report named '{name}' has not been registered."
                 );
             }
             
