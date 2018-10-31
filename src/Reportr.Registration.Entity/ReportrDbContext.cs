@@ -92,6 +92,11 @@
 
             modelBuilder.ApplyConfiguration
             (
+                new ReportParameterConstraintEntityConfiguration()
+            );
+
+            modelBuilder.ApplyConfiguration
+            (
                 new ReportRoleEntityConfiguration()
             );
 
