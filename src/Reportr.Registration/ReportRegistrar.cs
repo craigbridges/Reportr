@@ -74,22 +74,14 @@
         {
             Validate.IsNotNull(configuration);
 
-            var registered = IsRegistered
-            (
-                configuration.Name
-            );
+            var name = configuration.Name;
+            var registered = IsRegistered(name);
 
             if (registered)
             {
-                var message = "A report named '{0}' has already been registered.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        configuration.Name
-                    )
+                    $"A report named '{name}' has already been registered."
                 );
             }
 
@@ -116,16 +108,14 @@
         {
             Validate.IsNotNull(configuration);
 
-            var registered = IsRegistered
-            (
-                configuration.Name
-            );
+            var name = configuration.Name;
+            var registered = IsRegistered(name);
 
             if (registered)
             {
                 throw new InvalidOperationException
                 (
-                    $"A report named '{configuration.Name}' has already been registered."
+                    $"A report named '{name}' has already been registered."
                 );
             }
 
