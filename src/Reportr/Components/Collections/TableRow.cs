@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Newtonsoft.Json;
     using Reportr.Data;
     using System;
     using System.Collections;
@@ -10,6 +11,8 @@
     /// <summary>
     /// Represents the data for a single table row
     /// </summary>
+    [JsonObject]
+    [DataContract]
     public class TableRow : IEnumerable<TableCell>
     {
         /// <summary>

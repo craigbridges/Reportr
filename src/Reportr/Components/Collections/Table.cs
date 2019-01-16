@@ -91,7 +91,8 @@
                         columnDefinition.Name,
                         columnDefinition.Title,
                         columnDefinition.Alignment,
-                        columnDefinition.Importance
+                        columnDefinition.Importance,
+                        columnDefinition.NoWrap
                     )
                 );
             }
