@@ -29,7 +29,6 @@
                 IQuery query,
                 ReportActionDefinition rowAction = null
             )
-
             : base(name, title)
         {
             Validate.IsNotNull(query);
@@ -275,6 +274,7 @@
         /// <summary>
         /// Gets a collection of row importance rules for the defined table
         /// </summary>
+        [JsonIgnore]
         public ICollection<TableRowImportanceRule> RowImportanceRules
         {
             get;

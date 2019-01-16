@@ -5,6 +5,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Represents the data for a single table row
@@ -84,6 +85,7 @@
         /// <summary>
         /// Gets the importance of the row
         /// </summary>
+        [DataMember]
         public DataImportance Importance { get; private set; }
 
         /// <summary>
@@ -111,6 +113,7 @@
         /// <summary>
         /// Gets the rows action
         /// </summary>
+        [DataMember]
         public ReportAction Action { get; private set; }
 
         /// <summary>

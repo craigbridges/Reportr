@@ -7,12 +7,12 @@
 		<Description>Reportr is a .NET template orientated reporting framework, designed from the ground up as a lightweight solution to solving various reporting problems faced in .NET applications.</Description>
 		<Copyright>Copyright © Craig Bridges 2018</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.0.2</AssemblyVersion>
-		<Version>1.0.2-alpha</Version>
+		<AssemblyVersion>1.0.3</AssemblyVersion>
+		<Version>1.0.3-alpha</Version>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-		<PackageReleaseNotes>Integrated with CodeChange.Toolkit and added table row importance rules.</PackageReleaseNotes>
+		<PackageReleaseNotes>Fixed bug with NoWrap flag and row data importance.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
 	</PropertyGroup>
