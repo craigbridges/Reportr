@@ -108,6 +108,34 @@
         }
 
         /// <summary>
+        /// Applies style configuration to a table column definition
+        /// </summary>
+        /// <param name="columnName">The column name</param>
+        /// <param name="title">The title</param>
+        /// <param name="alignment">The text alignment</param>
+        /// <param name="importance">The importance</param>
+        /// <param name="noWrap">True, if the cell text shouldn't word wrap</param>
+        public void StyleColumn
+            (
+                string columnName,
+                string title,
+                ColumnAlignment alignment,
+                DataImportance importance = default(DataImportance),
+                bool noWrap = false
+            )
+        {
+            var column = GetColumn(columnName);
+
+            column = column.WithStyle
+            (
+                title,
+                alignment,
+                importance,
+                noWrap
+            );
+        }
+
+        /// <summary>
         /// Sets a formatting type override against one or more columns
         /// </summary>
         /// <param name="formattingType">The value formatting type</param>
