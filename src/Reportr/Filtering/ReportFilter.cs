@@ -3,6 +3,7 @@
     using Newtonsoft.Json;
     using Reportr.Data;
     using Reportr.Data.Querying;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 

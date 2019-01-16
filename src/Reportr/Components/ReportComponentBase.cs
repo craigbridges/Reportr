@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components
 {
     using Reportr.Drawing;
+    using System;
     using System.Collections.Generic;
 
     /// <summary>

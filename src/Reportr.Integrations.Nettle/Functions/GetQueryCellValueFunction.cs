@@ -3,6 +3,7 @@
     using global::Nettle.Compiler;
     using global::Nettle.Functions;
     using Reportr.Data.Querying;
+    using System;
 
     public sealed class GetQueryCellValueFunction : FunctionBase
     {

@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Filtering
 {
+    using System;
     using Reportr.Data;
     
     /// <summary>

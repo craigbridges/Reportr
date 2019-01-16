@@ -179,8 +179,25 @@
                     tableCells.Add(cell);
                 }
 
+                var importance = DataImportance.Default;
+
+                if (tableDefinition.RowImportanceRules.Any())
+                {
+                    foreach (var rule in tableDefinition.RowImportanceRules)
+                    {
+                        var columnName = rule.ColumnName;
+                        var candidateValue = queryRow[columnName].Value;
+
+                        if (rule.Matches(candidateValue))
+                        {
+                            importance = rule.ImportanceOnMatch;
+                        }
+                    }
+                }
+
                 var tableRow = new TableRow
                 (
+                    importance,
                     tableCells.ToArray()
                 );
 

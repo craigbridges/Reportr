@@ -1,7 +1,6 @@
 ﻿namespace Autofac
 {
     using Microsoft.Extensions.DependencyModel;
-    using Reportr;
     using Reportr.Integrations.Autofac;
     using System;
     using System.Collections.Generic;

@@ -1,7 +1,8 @@
 ﻿namespace Reportr.Data.Sql
 {
     using Reportr.Filtering;
-    
+    using System;
+
     /// <summary>
     /// Represents a single parameterized SQL statement
     /// </summary>

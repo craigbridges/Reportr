@@ -111,17 +111,20 @@
         /// <param name="title">The title</param>
         /// <param name="alignment">The text alignment</param>
         /// <param name="importance">The importance</param>
+        /// <param name="noWrap">True, if the cell text shouldn't word wrap</param>
         /// <returns>The updated column</returns>
         public TableColumnDefinition WithStyle
             (
                 string title,
                 ColumnAlignment alignment,
-                ColumnImportance importance = default(ColumnImportance)
+                DataImportance importance = default(DataImportance),
+                bool noWrap = false
             )
         {
             this.Title = title;
             this.Alignment = alignment;
             this.Importance = importance;
+            this.NoWrap = noWrap;
 
             return this;
         }
@@ -139,7 +142,12 @@
         /// <summary>
         /// Gets the importance of the column
         /// </summary>
-        public ColumnImportance Importance { get; private set; }
+        public DataImportance Importance { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the cell text should be word wrapped
+        /// </summary>
+        public bool NoWrap { get; private set; }
 
         /// <summary>
         /// Adds the cell action to the column

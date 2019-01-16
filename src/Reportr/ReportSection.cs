@@ -1,6 +1,7 @@
 ﻿namespace Reportr
 {
     using Reportr.Components;
+    using System;
 
     /// <summary>
     /// Represents a single report section

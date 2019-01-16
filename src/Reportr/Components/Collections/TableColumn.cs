@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Reportr.Data;
     using System;
 
     /// <summary>
@@ -14,12 +15,14 @@
         /// <param name="title">The title</param>
         /// <param name="alignment">The alignment (optional)</param>
         /// <param name="importance">The importance (optional)</param>
+        /// <param name="noWrap">Should text be wrapped (optional)</param>
         public TableColumn
             (
                 string name,
                 string title,
                 ColumnAlignment alignment = default(ColumnAlignment),
-                ColumnImportance importance = default(ColumnImportance)
+                DataImportance importance = default(DataImportance),
+                bool noWrap = false
             )
         {
             Validate.IsNotEmpty(name);
@@ -30,6 +33,7 @@
             this.Title = title;
             this.Alignment = alignment;
             this.Importance = importance;
+            this.NoWrap = noWrap;
         }
 
         /// <summary>
@@ -55,8 +59,13 @@
         /// <summary>
         /// Gets the importance of the column
         /// </summary>
-        public ColumnImportance Importance { get; private set; }
-        
+        public DataImportance Importance { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the cell text should be word wrapped
+        /// </summary>
+        public bool NoWrap { get; private set; }
+
         /// <summary>
         /// Provides a custom string description
         /// </summary>

@@ -2,7 +2,8 @@
 {
     using global::Nettle.Compiler;
     using global::Nettle.Functions;
-    
+    using System;
+
     public sealed class GcdFunction : FunctionBase
     {
         public GcdFunction() : base()

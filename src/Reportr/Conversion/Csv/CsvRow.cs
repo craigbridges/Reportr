@@ -1,5 +1,7 @@
 ﻿namespace Reportr.Conversion.Csv
 {
+    using System;
+
     /// <summary>
     /// Represents a single Comma Separated (CSV) row
     /// </summary>

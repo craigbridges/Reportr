@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Rendering
 {
     using Reportr.Templating;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 

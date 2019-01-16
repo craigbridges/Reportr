@@ -2,6 +2,7 @@
 {
     using global::Autofac;
     using Reportr.IoC;
+    using System;
 
     /// <summary>
     /// Represents an Autofac dependency resolver implementation

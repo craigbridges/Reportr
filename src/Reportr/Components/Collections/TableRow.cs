@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Reportr.Data;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -13,8 +14,38 @@
         /// <summary>
         /// Constructs the table row with the cell data
         /// </summary>
+        /// <param name="importance">The row importance</param>
         /// <param name="cells">The cells</param>
         public TableRow
+            (
+                DataImportance importance,
+                params TableCell[] cells
+            )
+        {
+            this.Importance = importance;
+
+            PopulateCells(cells);
+        }
+
+        /// <summary>
+        /// Constructs the table row with the cell data
+        /// </summary>
+        /// <param name="cells">The cells</param>
+        public TableRow
+            (
+                params TableCell[] cells
+            )
+        {
+            this.Importance = DataImportance.Default;
+
+            PopulateCells(cells);
+        }
+
+        /// <summary>
+        /// Populates the row cells with the table cells specified
+        /// </summary>
+        /// <param name="cells">The table cells</param>
+        private void PopulateCells
             (
                 params TableCell[] cells
             )
@@ -49,6 +80,11 @@
 
             this.Cells = cells;
         }
+
+        /// <summary>
+        /// Gets the importance of the row
+        /// </summary>
+        public DataImportance Importance { get; private set; }
 
         /// <summary>
         /// Gets an array of row cells

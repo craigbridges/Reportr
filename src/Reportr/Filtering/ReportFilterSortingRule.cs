@@ -2,7 +2,8 @@
 {
     using Reportr.Data;
     using Reportr.Data.Querying;
-    
+    using System;
+
     /// <summary>
     /// Represents a single report filter sorting rule
     /// </summary>

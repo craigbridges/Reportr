@@ -1,5 +1,7 @@
 ﻿namespace Reportr.Data
 {
+    using System;
+
     /// <summary>
     /// Represents the details of a single foreign key
     /// </summary>

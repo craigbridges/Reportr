@@ -2,6 +2,7 @@
 {
     using Reportr.Data.Querying;
     using Reportr.Filtering;
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -70,7 +71,7 @@
         {
             Validate.IsNotNull(context);
 
-            return context.Set<TEntity>();
+            return context.Set<TEntity>().AsNoTracking();
         }
 
         /// <summary>

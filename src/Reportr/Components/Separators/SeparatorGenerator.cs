@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Separators
 {
     using Reportr.Filtering;
+    using System;
     using System.Threading.Tasks;
 
     /// <summary>

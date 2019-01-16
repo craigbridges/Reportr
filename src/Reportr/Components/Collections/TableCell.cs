@@ -2,6 +2,7 @@
 {
     using Newtonsoft.Json;
     using Reportr.Data;
+    using System;
 
     /// <summary>
     /// Represents the data for a single table cell

@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Metrics
 {
     using Reportr.Filtering;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 

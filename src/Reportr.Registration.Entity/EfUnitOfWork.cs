@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Registration.Entity
 {
     using Nito.AsyncEx.Synchronous;
+    using System;
     using System.Threading.Tasks;
 
     /// <summary>

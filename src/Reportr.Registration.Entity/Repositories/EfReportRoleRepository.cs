@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Reportr.Registration.Authorization;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     

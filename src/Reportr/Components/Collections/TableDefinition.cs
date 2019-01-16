@@ -37,6 +37,7 @@
             this.Query = query;
             this.DefaultParameterValues = new Collection<ParameterValue>();
             this.Columns = new Collection<TableColumnDefinition>();
+            this.RowImportanceRules = new Collection<TableRowImportanceRule>();
             this.RowAction = rowAction;
 
             var defaultValues = query.CompileDefaultParameters();
@@ -242,6 +243,56 @@
         /// </remarks>
         [JsonIgnore]
         public ReportActionDefinition RowAction { get; protected set; }
+
+        /// <summary>
+        /// Gets a collection of row importance rules for the defined table
+        /// </summary>
+        public ICollection<TableRowImportanceRule> RowImportanceRules
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// Adds a row importance rule to the table definition
+        /// </summary>
+        /// <param name="columnName">The column name</param>
+        /// <param name="matchValue">The data match value</param>
+        /// <param name="compareOperator">The match compare operator</param>
+        /// <param name="importanceOnMatch">The importance flag for matches</param>
+        public void AddRowImportanceRule
+            (
+                string columnName,
+                object matchValue,
+                DataCompareOperator compareOperator,
+                DataImportance importanceOnMatch
+            )
+        {
+            var ruleFound = this.RowImportanceRules.Any
+            (
+                r => r.ColumnName == columnName 
+                    && r.MatchValue == matchValue 
+                    && r.CompareOperator == compareOperator
+            );
+
+            if (ruleFound)
+            {
+                throw new ArgumentException
+                (
+                    "A rule with matching column, value and comparer has been defined."
+                );
+            }
+
+            var rule = new TableRowImportanceRule
+            (
+                columnName,
+                matchValue,
+                compareOperator,
+                importanceOnMatch
+            );
+
+            this.RowImportanceRules.Add(rule);
+        }
 
         /// <summary>
         /// Gets or sets a flag indicating if column sorting is disabled

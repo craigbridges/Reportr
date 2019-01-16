@@ -2,6 +2,7 @@
 {
     using Reportr;
     using Reportr.IoC;
+    using System;
 
     /// <summary>
     /// Various extension methods for Autofac containers

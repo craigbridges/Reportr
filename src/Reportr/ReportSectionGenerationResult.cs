@@ -1,5 +1,7 @@
 ﻿namespace Reportr
 {
+    using System;
+
     /// <summary>
     /// Represents the result of a report section generation
     /// </summary>

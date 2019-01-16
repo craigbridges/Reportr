@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Data.Querying
 {
     using Reportr.Data;
+    using System;
 
     /// <summary>
     /// Represents a single query sorting rule

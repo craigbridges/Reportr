@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Data.Querying
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 

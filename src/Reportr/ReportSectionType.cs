@@ -20,6 +20,6 @@
         ReportFooter = 4,
 
         [Description("Page Footer")]
-        PageFooter = 8,
+        PageFooter = 8
     }
 }

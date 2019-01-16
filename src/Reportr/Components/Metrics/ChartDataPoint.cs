@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using System;
     using System.Drawing;
 
     /// <summary>

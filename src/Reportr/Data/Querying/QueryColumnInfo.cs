@@ -1,5 +1,7 @@
 ﻿namespace Reportr.Data.Querying
 {
+    using System;
+
     /// <summary>
     /// Represents information about a single query column
     /// </summary>

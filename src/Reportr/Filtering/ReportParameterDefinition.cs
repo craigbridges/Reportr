@@ -1,5 +1,7 @@
 ﻿namespace Reportr.Filtering
 {
+    using System;
+
     /// <summary>
     /// Represents the definition of a single report parameter
     /// </summary>

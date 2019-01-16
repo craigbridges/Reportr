@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration.Authorization
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
