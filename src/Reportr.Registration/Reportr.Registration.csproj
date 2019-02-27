@@ -7,8 +7,8 @@
 		<Description>A report registration abstraction for the Reportr framework.</Description>
 		<Copyright>Copyright © Craig Bridges 2018</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.0.2</AssemblyVersion>
-		<Version>1.0.2</Version>
+		<AssemblyVersion>1.0.3</AssemblyVersion>
+		<Version>1.0.3</Version>
 		<PackageLicenseUrl>https://github.com/craigbridges/Reportr/blob/master/LICENSE.md</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>

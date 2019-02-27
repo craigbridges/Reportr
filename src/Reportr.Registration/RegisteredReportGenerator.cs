@@ -251,21 +251,20 @@
                 ReportUserInfo userInfo
             )
         {
-            var parameterDefinitions = reportDefinition.Parameters.ToList();
+            var submittedParameterValues = filterValues.ParameterValues;
+            var convertedParameterValues = new Dictionary<string, object>();
 
             var filter = new ReportFilter
             (
                 reportDefinition.Parameters.ToArray()
             );
 
-            var parameterValues = new Dictionary<string, object>();
-
             // Process the parameter values submitted and convert them to their expected types
-            if (filterValues.ParameterValues != null)
+            if (submittedParameterValues != null && submittedParameterValues.Any())
             {
                 var groupedValues = new Dictionary<string, List<object>>();
 
-                foreach (var submittedValue in filterValues.ParameterValues)
+                foreach (var submittedValue in submittedParameterValues)
                 {
                     var parameterName = submittedValue.ParameterName;
 
@@ -305,7 +304,7 @@
                 {
                     if (pair.Value.Count > 1)
                     {
-                        parameterValues.Add
+                        convertedParameterValues.Add
                         (
                             pair.Key,
                             pair.Value.ToArray()
@@ -313,7 +312,7 @@
                     }
                     else
                     {
-                        parameterValues.Add
+                        convertedParameterValues.Add
                         (
                             pair.Key,
                             pair.Value.First()
@@ -326,7 +325,7 @@
                 // Add the default parameter values to the dictionary if nothing was submitted
                 foreach (var parameter in filter.ParameterValues)
                 {
-                    parameterValues.Add
+                    convertedParameterValues.Add
                     (
                         parameter.Name,
                         parameter.Value
@@ -338,13 +337,13 @@
             (
                 registeredReport,
                 userInfo,
-                ref parameterValues,
+                ref convertedParameterValues,
                 out List<string> constrainedParameters
             );
 
             filter.SetParameterValues
             (
-                parameterValues,
+                convertedParameterValues,
                 constrainedParameters.ToArray()
             );
 
