@@ -104,8 +104,6 @@
             (
                 new ReportRoleAssignmentEntityConfiguration()
             );
-
-            this.Database.EnsureCreated();
         }
     }
 }
