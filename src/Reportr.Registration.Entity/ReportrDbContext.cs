@@ -4,7 +4,8 @@
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using Reportr.Registration.Entity.Configurations;
-    
+    using System;
+
     /// <summary>
     /// Represents a Reportr database context implementation
     /// </summary>
@@ -30,7 +31,16 @@
                 DbContextOptions options
             )
             : base(options)
-        { }
+        {
+            Validate.IsNotNull(options);
+
+            ReportrDbContext.CurrentContextOptions = options;
+        }
+
+        /// <summary>
+        /// Gets the last used options instance
+        /// </summary>
+        public static DbContextOptions CurrentContextOptions { get; private set; }
 
         /// <summary>
         /// Gets or sets the registered reports set

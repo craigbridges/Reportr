@@ -5,7 +5,7 @@
     using Reportr.Registration.Categorization;
     using Reportr.Registration.Entity.Repositories;
     using System.Collections.Generic;
-    
+
     /// <summary>
     /// Represents an entity type register implementation
     /// </summary>
@@ -28,6 +28,11 @@
                 (
                     typeof(IDbContextOptionsGenerator),
                     typeof(DefaultDbContextOptionsGenerator)
+                ),
+                new RegisteredType
+                (
+                    typeof(IReportrDbMigrator),
+                    typeof(DefaultReportrDbMigrator)
                 ),
                 new RegisteredType
                 (
