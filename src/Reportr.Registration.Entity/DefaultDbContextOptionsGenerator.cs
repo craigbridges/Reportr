@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
+    using System;
     using System.IO;
 
     /// <summary>
@@ -25,8 +26,16 @@
 
             var connectionString = configuration.GetConnectionString
             (
-                "ReportrDbContextConnectionString"
+                "ReportrDbContext"
             );
+
+            if (connectionString == null)
+            {
+                throw new InvalidOperationException
+                (
+                    "The ReportrDbContext connection string has not been configured."
+                );
+            }
 
             builder.UseLazyLoadingProxies();
             builder.UseSqlServer(connectionString);

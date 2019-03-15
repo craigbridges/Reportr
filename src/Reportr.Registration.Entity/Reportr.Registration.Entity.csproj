@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>netcoreapp2.1</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Product>Reportr.Registration.Entity</Product>
 		<Description>An Entity Framework report registration implementation for the Reportr framework.</Description>
@@ -29,11 +29,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Include="Migrations\20190315093631_Initial.cs" />
+	  <Compile Include="Migrations\20190315093631_Initial.Designer.cs" />
+	  <Compile Include="Migrations\ReportrDbContextModelSnapshot.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="FluentModelBuilder.Relational" Version="1.5.1" />
 		<PackageReference Include="Humanizer.Core" Version="2.5.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.4" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
 		<PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
