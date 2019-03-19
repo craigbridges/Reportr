@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
 
     /// <summary>
@@ -54,6 +55,7 @@
         /// <summary>
         /// Gets the category ID
         /// </summary>
+        [Key]
         public Guid Id { get; protected set; }
 
         /// <summary>

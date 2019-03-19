@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Registration.Categorization
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Represents a single report category assignment
@@ -43,6 +44,7 @@
         /// <summary>
         /// Gets the ID of the assignment
         /// </summary>
+        [Key]
         public Guid AssignmentId { get; protected set; }
 
         /// <summary>

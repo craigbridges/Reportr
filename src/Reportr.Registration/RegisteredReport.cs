@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Represents a single registered report
@@ -77,6 +78,7 @@
         /// <summary>
         /// Gets the unique ID of the registered report
         /// </summary>
+        [Key]
         public Guid Id { get; protected set; }
 
         /// <summary>

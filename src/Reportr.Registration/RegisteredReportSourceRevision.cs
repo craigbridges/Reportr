@@ -1,7 +1,8 @@
 ﻿namespace Reportr.Registration
 {
     using System;
-    
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
     /// Represents a single registered report source revision
     /// </summary>
@@ -36,6 +37,7 @@
         /// <summary>
         /// Gets the source revision ID
         /// </summary>
+        [Key]
         public Guid RevisionId { get; protected set; }
 
         /// <summary>

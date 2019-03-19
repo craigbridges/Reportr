@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
 
     /// <summary>
@@ -40,10 +41,11 @@
 
             SetParameterConstraints(constraints);
         }
-        
+
         /// <summary>
         /// Gets the unique ID of the report role
         /// </summary>
+        [Key]
         public Guid Id { get; protected set; }
 
         /// <summary>

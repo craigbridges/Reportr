@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Product>Reportr.Registration.EF6</Product>
+	  <Description>Reportr Registration with Entity Framework 6.</Description>
+	  <Copyright>Copyright © Craig Bridges 2019</Copyright>
+	  <Authors>Craig Bridges</Authors>
+	  <AssemblyVersion>1.0.1</AssemblyVersion>
+	  <Version>1.0.1</Version>
+	  <PackageLicenseUrl>https://github.com/craigbridges/Reportr/blob/master/LICENSE.md</PackageLicenseUrl>
+	  <PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
+	  <PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
+	  <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
+	  <PackageReleaseNotes>Added handle for empty filter parameter values array.</PackageReleaseNotes>
+	  <RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
+	  <Tags>Reportr Reporting Framework EF6 .NET DOTNET C#</Tags>
+  </PropertyGroup>
+	<ItemGroup>
+		<None Remove="Icon.ico" />
+	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
+    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reportr.Registration\Reportr.Registration.csproj" />
+    <ProjectReference Include="..\Reportr\Reportr.csproj" />
+  </ItemGroup>
+</Project>

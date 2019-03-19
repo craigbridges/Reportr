@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Registration.Authorization
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Represents a single report role
@@ -26,10 +27,11 @@
 
             Configure(configuration);
         }
-        
+
         /// <summary>
         /// Gets the unique ID of the report role
         /// </summary>
+        [Key]
         public Guid Id { get; protected set; }
 
         /// <summary>
