@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Data.Dapper
 {
+    using CodeChange.Toolkit.Culture;
     using System;
     using System.Data;
     using System.Data.Common;
@@ -20,6 +21,23 @@
                 IDbConnection connection
             )
             : base(connection.Database)
+        {
+            Validate.IsNotNull(connection);
+
+            this.Connection = connection;
+        }
+
+        /// <summary>
+        /// Constructs the data source with locale configuration
+        /// </summary>
+        /// <param name="name">The name of the data source</param>
+        /// <param name="localeConfiguration">The locale configuration</param>
+        public DapperDataSource
+            (
+                IDbConnection connection,
+                ILocaleConfiguration localeConfiguration
+            )
+            : base(connection.Database, localeConfiguration)
         {
             Validate.IsNotNull(connection);
 

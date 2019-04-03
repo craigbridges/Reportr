@@ -5,6 +5,7 @@
     using EntityFramework.Metadata.Extensions;
     using EntityFramework.Metadata;
     using System;
+    using CodeChange.Toolkit.Culture;
 
     /// <summary>
     /// Represents an Entity Framework data source implementation
@@ -22,6 +23,23 @@
                 DbContext context
             )
             : base(context.Database.Connection.Database)
+        {
+            Validate.IsNotNull(context);
+
+            this.Context = context;
+        }
+
+        /// <summary>
+        /// Constructs the data source with locale configuration
+        /// </summary>
+        /// <param name="name">The name of the data source</param>
+        /// <param name="localeConfiguration">The locale configuration</param>
+        public EfDataSource
+            (
+                DbContext context,
+                ILocaleConfiguration localeConfiguration
+            )
+            : base(context.Database.Connection.Database, localeConfiguration)
         {
             Validate.IsNotNull(context);
 

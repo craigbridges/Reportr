@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Data.Sql
 {
+    using CodeChange.Toolkit.Culture;
     using System;
     using System.Data.SqlClient;
     
@@ -21,6 +22,27 @@
                 string connectionString
             )
             : base(name)
+        {
+            Validate.IsNotEmpty(connectionString);
+
+            this.ConnectionString = connectionString;
+
+            _schema = null;
+        }
+
+        /// <summary>
+        /// Constructs the data source with locale configuration
+        /// </summary>
+        /// <param name="name">The name of the data source</param>
+        /// <param name="connectionString">The connection string</param>
+        /// <param name="localeConfiguration">The locale configuration</param>
+        public SqlDataSource
+            (
+                string name,
+                string connectionString,
+                ILocaleConfiguration localeConfiguration
+            )
+            : base(name, localeConfiguration)
         {
             Validate.IsNotEmpty(connectionString);
 
