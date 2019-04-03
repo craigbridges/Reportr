@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Data.Querying
 {
     using Nito.AsyncEx.Synchronous;
+    using Reportr.Culture;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
@@ -376,6 +377,7 @@
                 IEnumerable<T> data
             )
         {
+            var localeConfiguration = this.DataSource.LocaleConfiguration;
             var rows = new List<QueryRow>();
             var entityType = typeof(T);
 
@@ -393,6 +395,17 @@
                     var propertyValue = property.GetValue
                     (
                         item
+                    );
+
+                    var transformer = CulturalTransformerFactory.GetInstance
+                    (
+                        propertyValue
+                    );
+
+                    propertyValue = transformer.Transform
+                    (
+                        propertyValue,
+                        localeConfiguration
                     );
 
                     cells.Add

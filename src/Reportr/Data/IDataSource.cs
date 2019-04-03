@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Data
 {
+    using CodeChange.Toolkit.Culture;
     using System;
 
     /// <summary>
@@ -16,7 +17,12 @@
         /// Gets the name of the data source
         /// </summary>
         string Name { get; }
-        
+
+        /// <summary>
+        /// Gets the locale configuration for the culture
+        /// </summary>
+        ILocaleConfiguration LocaleConfiguration { get; }
+
         /// <summary>
         /// Gets an array of the tables held by the data source
         /// </summary>

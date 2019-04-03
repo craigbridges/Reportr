@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Data
 {
+    using CodeChange.Toolkit.Culture;
     using DatabaseSchemaReader;
     using System;
     using System.Collections.Generic;
@@ -26,6 +27,24 @@
 
             this.SourceId = Guid.NewGuid();
             this.Name = name;
+            this.LocaleConfiguration = new DefaultLocaleConfiguration();
+        }
+
+        /// <summary>
+        /// Constructs the data source with locale configuration
+        /// </summary>
+        /// <param name="name">The name of the data source</param>
+        /// <param name="localeConfiguration">The locale configuration</param>
+        public DataSourceBase
+            (
+                string name,
+                ILocaleConfiguration localeConfiguration
+            )
+            : this(name)
+        {
+            Validate.IsNotNull(localeConfiguration);
+
+            this.LocaleConfiguration = localeConfiguration;
         }
 
         /// <summary>
@@ -45,7 +64,12 @@
         /// Gets the name of the data source
         /// </summary>
         public string Name { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the locale configuration for the culture
+        /// </summary>
+        public ILocaleConfiguration LocaleConfiguration { get; private set; }
+
         /// <summary>
         /// Gets an array of the tables held by the data source
         /// </summary>

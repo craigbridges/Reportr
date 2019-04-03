@@ -202,6 +202,7 @@
                 {
                     return reader.ToQueryRows
                     (
+                        this.DataSource.LocaleConfiguration,
                         _columns.ToArray()
                     );
                 }

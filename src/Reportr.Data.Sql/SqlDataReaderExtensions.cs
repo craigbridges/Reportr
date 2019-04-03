@@ -1,5 +1,7 @@
 ﻿namespace Reportr.Data.Sql
 {
+    using CodeChange.Toolkit.Culture;
+    using Reportr.Culture;
     using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;
@@ -20,9 +22,12 @@
         public static IEnumerable<QueryRow> ToQueryRows
             (
                 this SqlDataReader reader,
+                ILocaleConfiguration localeConfiguration,
                 params QueryColumnInfo[] queryColumns
             )
         {
+            Validate.IsNotNull(localeConfiguration);
+
             var rows = new List<QueryRow>();
 
             if (reader.HasRows)
@@ -40,6 +45,17 @@
                     {
                         var fieldName = reader.GetName(i);
                         var fieldValue = reader.GetValue(i);
+
+                        var transformer = CulturalTransformerFactory.GetInstance
+                        (
+                            fieldValue
+                        );
+
+                        fieldValue = transformer.Transform
+                        (
+                            fieldValue,
+                            localeConfiguration
+                        );
 
                         var columnSchema = columnSchemas.FirstOrDefault
                         (

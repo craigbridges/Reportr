@@ -7,13 +7,13 @@
 		<Description>An SQL client data extension for the Reportr framework.</Description>
 		<Copyright>Copyright © Craig Bridges 2018</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.0.1</AssemblyVersion>
-		<Version>1.0.1</Version>
+		<AssemblyVersion>1.0.2</AssemblyVersion>
+		<Version>1.0.2</Version>
 		<PackageLicenseUrl>https://github.com/craigbridges/Reportr/blob/master/LICENSE.md</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-		<PackageReleaseNotes>Integrated with CodeChange.Toolkit</PackageReleaseNotes>
+		<PackageReleaseNotes>Integrated with cultural transformers.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C# Data Extension SQL</Tags>
 	</PropertyGroup>
@@ -23,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CodeChange.Toolkit" Version="1.2.1" />
 		<PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
 		<PackageReference Include="System.Data.Common" Version="4.3.0" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.5.1" />

@@ -147,7 +147,10 @@
 
                     using (var reader = await readTask.ConfigureAwait(false))
                     {
-                        return reader.ToQueryRows();
+                        return reader.ToQueryRows
+                        (
+                            this.DataSource.LocaleConfiguration
+                        );
                     }
                 }
             }
