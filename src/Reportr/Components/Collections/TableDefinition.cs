@@ -36,6 +36,7 @@
             this.Query = query;
             this.DefaultParameterValues = new Collection<ParameterValue>();
             this.Columns = new Collection<TableColumnDefinition>();
+            this.DynamicColumnGroups = new Collection<TableDynamicColumnGroup>();
             this.RowImportanceRules = new Collection<TableRowImportanceRule>();
             this.RowAction = rowAction;
 
@@ -119,13 +120,13 @@
                 string columnName,
                 string title,
                 ColumnAlignment alignment,
-                DataImportance importance = default(DataImportance),
+                DataImportance importance = default,
                 bool noWrap = false
             )
         {
             var column = GetColumn(columnName);
 
-            column = column.WithStyle
+            _ = column.WithStyle
             (
                 title,
                 alignment,
@@ -244,6 +245,16 @@
                     column => column.HasTotal
                 );
             }
+        }
+
+        /// <summary>
+        /// Gets the dynamic column groups defined by the table
+        /// </summary>
+        [JsonIgnore]
+        public ICollection<TableDynamicColumnGroup> DynamicColumnGroups
+        {
+            get;
+            protected set;
         }
 
         /// <summary>

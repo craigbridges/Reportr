@@ -17,7 +17,6 @@
             (
                 string expression
             )
-
             : this(DataBindingType.QueryPath, expression)
         { }
 
@@ -142,7 +141,7 @@
                     {
                         throw new MissingFieldException
                         (
-                            $"The path '{currentPath}' does not contain a property named '{propertyName}'."
+                            $"'{currentPath}' does not contain the property '{propertyName}'."
                         );
                     }
 

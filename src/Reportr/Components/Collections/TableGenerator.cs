@@ -154,7 +154,7 @@
 
                 foreach (var columnDefinition in tableDefinition.Columns)
                 {
-                    var value = columnDefinition.Binding.Resolve
+                    var value = columnDefinition.ValueBinding.Resolve
                     (
                         queryRow
                     );

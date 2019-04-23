@@ -9,7 +9,7 @@
     /// </summary>
     public static class ReportrEngine
     {
-        private static object _engineLock = new object();
+        private static readonly object _engineLock = new object();
         private static TimeZoneInfo _defaultTimeZone = TimeZoneInfo.Local;
 
         /// <summary>

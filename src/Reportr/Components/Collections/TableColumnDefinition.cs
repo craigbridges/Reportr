@@ -5,32 +5,32 @@
     using System;
 
     /// <summary>
-    /// Represents a single report table column definition
+    /// Represents a column definition for a report table
     /// </summary>
     public class TableColumnDefinition
     {
         /// <summary>
-        /// Constructs the column definition with the details
+        /// Constructs the column definition with the configuration
         /// </summary>
         /// <param name="name">The column name</param>
-        /// <param name="binding">The data binding</param>
+        /// <param name="valueBinding">The row value binding</param>
         /// <param name="totalAggregator">The total aggregator (optional)</param>
         /// <param name="totalFormat">The total format (optional)</param>
         public TableColumnDefinition
             (
                 string name,
-                DataBinding binding,
+                DataBinding valueBinding,
                 IAggregateFunction totalAggregator = null,
                 string totalFormat = null
             )
         {
             Validate.IsNotEmpty(name);
-            Validate.IsNotNull(binding);
+            Validate.IsNotNull(valueBinding);
 
             this.ColumnId = Guid.NewGuid();
             this.Name = name;
             this.Title = name;
-            this.Binding = binding;
+            this.ValueBinding = valueBinding;
 
             if (totalAggregator != null)
             {
@@ -49,9 +49,9 @@
         public string Name { get; protected set; }
 
         /// <summary>
-        /// Gets the columns data binding
+        /// Gets the columns row value binding
         /// </summary>
-        public DataBinding Binding { get; protected set; }
+        public DataBinding ValueBinding { get; protected set; }
 
         /// <summary>
         /// Defines a total function for the column
@@ -117,7 +117,7 @@
             (
                 string title,
                 ColumnAlignment alignment,
-                DataImportance importance = default(DataImportance),
+                DataImportance importance = default,
                 bool noWrap = false
             )
         {
