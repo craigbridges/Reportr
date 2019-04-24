@@ -35,7 +35,7 @@
             
             this.Query = query;
             this.DefaultParameterValues = new Collection<ParameterValue>();
-            this.Columns = new Collection<TableColumnDefinition>();
+            this.StaticColumns = new Collection<TableColumnDefinition>();
             this.DynamicColumnGroups = new Collection<TableDynamicColumnGroup>();
             this.RowImportanceRules = new Collection<TableRowImportanceRule>();
             this.RowAction = rowAction;
@@ -65,10 +65,10 @@
         }
 
         /// <summary>
-        /// Gets the columns defined by the table
+        /// Gets the static columns defined by the table
         /// </summary>
         [JsonIgnore]
-        public ICollection<TableColumnDefinition> Columns
+        public ICollection<TableColumnDefinition> StaticColumns
         {
             get;
             protected set;
@@ -86,7 +86,7 @@
         {
             Validate.IsNotNull(name);
 
-            var column = this.Columns.FirstOrDefault
+            var column = this.StaticColumns.FirstOrDefault
             (
                 definition => definition.Name.Replace
                 (
@@ -227,7 +227,7 @@
         /// </summary>
         public void RemoveAllTotals()
         {
-            foreach (var column in this.Columns.ToList())
+            foreach (var column in this.StaticColumns.ToList())
             {
                 column.RemoveTotal();
             }
@@ -240,7 +240,7 @@
         {
             get
             {
-                return this.Columns.Any
+                return this.StaticColumns.Any
                 (
                     column => column.HasTotal
                 );
@@ -345,7 +345,7 @@
         {
             get
             {
-                return this.Columns.Select(c => c.Name).ToArray();
+                return this.StaticColumns.Select(c => c.Name).ToArray();
             }
         }
 

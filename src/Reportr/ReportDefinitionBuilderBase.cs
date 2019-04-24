@@ -124,7 +124,7 @@
                         totalAggregator
                     );
 
-                    tableDefinition.Columns.Add
+                    tableDefinition.StaticColumns.Add
                     (
                         columnDefinition
                     );
@@ -260,7 +260,7 @@
                     totalAggregator
                 );
                 
-                tableDefinition.Columns.Add
+                tableDefinition.StaticColumns.Add
                 (
                     columnDefinition
                 );

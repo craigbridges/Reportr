@@ -18,20 +18,19 @@
         /// Constructs the table with all rows
         /// </summary>
         /// <param name="definition">The table definition</param>
+        /// <param name="generatedColumns">The columns that were generated</param>
         /// <param name="rows">The table rows</param>
-        /// <param name="totals">The table totals (optional)</param>
         public Table
             (
                 TableDefinition definition,
-                IEnumerable<TableRow> rows,
-                IEnumerable<TableCell> totals = null
+                IEnumerable<TableColumnDefinition> generatedColumns,
+                IEnumerable<TableRow> rows
             )
             : base(definition)
         {
             Validate.IsNotNull(rows);
 
-            BuildColumns(definition);
-            SetTotals(totals);
+            BuildColumns(generatedColumns);
 
             this.AllRows = rows.ToArray();
             this.HasGroupings = false;
@@ -41,20 +40,19 @@
         /// Constructs the table with groupings
         /// </summary>
         /// <param name="definition">The table definition</param>
+        /// <param name="generatedColumns">The columns that were generated</param>
         /// <param name="groupings">The table groupings</param>
-        /// <param name="totals">The table totals (optional)</param>
         public Table
             (
                 TableDefinition definition,
-                IEnumerable<TableGrouping> groupings,
-                IEnumerable<TableCell> totals = null
+                IEnumerable<TableColumnDefinition> generatedColumns,
+                IEnumerable<TableGrouping> groupings
             )
             : base(definition)
         {
             Validate.IsNotNull(groupings);
 
-            BuildColumns(definition);
-            SetTotals(totals);
+            BuildColumns(generatedColumns);
 
             var allRows = new List<TableRow>();
 
@@ -74,25 +72,25 @@
         /// <summary>
         /// Builds the tables columns from the definition specified
         /// </summary>
-        /// <param name="definition">The table definition</param>
+        /// <param name="columnDefinitions">The column definitions</param>
         private void BuildColumns
             (
-                TableDefinition definition
+                IEnumerable<TableColumnDefinition> columnDefinitions
             )
         {
             var columns = new List<TableColumn>();
 
-            foreach (var columnDefinition in definition.Columns)
+            foreach (var definition in columnDefinitions)
             {
                 columns.Add
                 (
                     new TableColumn
                     (
-                        columnDefinition.Name,
-                        columnDefinition.Title,
-                        columnDefinition.Alignment,
-                        columnDefinition.Importance,
-                        columnDefinition.NoWrap
+                        definition.Name,
+                        definition.Title,
+                        definition.Alignment,
+                        definition.Importance,
+                        definition.NoWrap
                     )
                 );
             }

@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Collections
 {
+    using Nito.AsyncEx.Synchronous;
     using Reportr.Data;
     using Reportr.Data.Querying;
     using Reportr.Filtering;
@@ -9,10 +10,20 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Represents a report table generator
+    /// Represents the default report table generator implementation
     /// </summary>
-    public class TableGenerator : ReportComponentGeneratorBase
+    public sealed class TableGenerator : ReportComponentGeneratorBase
     {
+        private readonly Dictionary<Guid, IEnumerable<TableColumnDefinition>> _dynamicColumnCache;
+
+        /// <summary>
+        /// Constructs the table generator with a column cache
+        /// </summary>
+        public TableGenerator()
+        {
+            _dynamicColumnCache = new Dictionary<Guid, IEnumerable<TableColumnDefinition>>();
+        }
+
         /// <summary>
         /// Asynchronously generates a component from a report definition and filter
         /// </summary>
@@ -30,19 +41,15 @@
             Validate.IsNotNull(definition);
             Validate.IsNotNull(filter);
 
+            var table = default(Table);
             var tableDefinition = definition.As<TableDefinition>();
             var query = tableDefinition.Query;
             var defaultParameters = tableDefinition.DefaultParameterValues;
 
-            var parameters = filter.GetQueryParameters
-            (
-                query,
-                defaultParameters.ToArray()
-            );
-
             var queryTask = query.ExecuteAsync
             (
-                parameters.ToArray()
+                filter,
+                defaultParameters.ToArray()
             );
 
             var results = await queryTask.ConfigureAwait
@@ -50,7 +57,16 @@
                 false
             );
 
-            var table = default(Table);
+            var columnsTask = GetColumnsDynamicallyAsync
+            (
+                tableDefinition,
+                filter
+            );
+
+            var columnDefinitions = await columnsTask.ConfigureAwait
+            (
+                false
+            );
 
             if (results.HasMultipleGroupings)
             {
@@ -74,12 +90,10 @@
 
                     if (groupRows.Any() && tableDefinition.HasTotals)
                     {
-                        var columns = table.Columns;
-
                         var totals = GenerateTotals
                         (
                             tableDefinition,
-                            columns,
+                            filter,
                             queryGroup.Rows
                         );
 
@@ -92,6 +106,7 @@
                 table = new Table
                 (
                     tableDefinition,
+                    columnDefinitions,
                     tableGroups
                 );
             }
@@ -108,18 +123,17 @@
                 table = new Table
                 (
                     tableDefinition,
+                    columnDefinitions,
                     tableRows
                 );
             }
 
             if (table.AllRows.Any() && tableDefinition.HasTotals)
             {
-                var columns = table.Columns;
-
                 var totals = GenerateTotals
                 (
                     tableDefinition,
-                    columns,
+                    filter,
                     results.AllRows
                 );
 
@@ -127,6 +141,63 @@
             }
 
             return table;
+        }
+
+        /// <summary>
+        /// Gets columns dynamically for a table definition
+        /// </summary>
+        /// <param name="definition">The table definition</param>
+        /// <param name="filter">The report filter</param>
+        /// <returns>A collection of column definitions</returns>
+        private IEnumerable<TableColumnDefinition> GetColumnsDynamically
+            (
+                TableDefinition definition,
+                ReportFilter filter
+            )
+        {
+            var task = GetColumnsDynamicallyAsync
+            (
+                definition,
+                filter
+            );
+
+            return task.WaitAndUnwrapException();
+        }
+
+        /// <summary>
+        /// Asynchronously gets columns dynamically for a table definition
+        /// </summary>
+        /// <param name="definition">The table definition</param>
+        /// <param name="filter">The report filter</param>
+        /// <returns>A collection of column definitions</returns>
+        private async Task<IEnumerable<TableColumnDefinition>> GetColumnsDynamicallyAsync
+            (
+                TableDefinition definition,
+                ReportFilter filter
+            )
+        {
+            var tableId = definition.ComponentId;
+
+            if (_dynamicColumnCache.ContainsKey(tableId))
+            {
+                return _dynamicColumnCache[tableId];
+            }
+            else
+            {
+                var buildTask = definition.BuildColumnsDynamicallyAsync
+                (
+                    filter
+                );
+
+                var columns = await buildTask.ConfigureAwait
+                (
+                    false
+                );
+
+                _dynamicColumnCache.Add(tableId, columns);
+
+                return columns;
+            }
         }
 
         /// <summary>
@@ -148,11 +219,17 @@
             var tableRows = new List<TableRow>();
             var actionDefinition = tableDefinition.RowAction;
 
+            var columnDefinitions = GetColumnsDynamically
+            (
+                tableDefinition,
+                filter
+            );
+
             foreach (var queryRow in queryRows)
             {
                 var tableCells = new List<TableCell>();
 
-                foreach (var columnDefinition in tableDefinition.Columns)
+                foreach (var columnDefinition in columnDefinitions)
                 {
                     var value = columnDefinition.ValueBinding.Resolve
                     (
@@ -309,25 +386,26 @@
         /// Generates the totals for a collection of query rows
         /// </summary>
         /// <param name="tableDefinition">The table definition</param>
-        /// <param name="columns">The table columns</param>
+        /// <param name="filter">The report filter</param>
         /// <param name="rows">The query rows</param>
         /// <returns>The totals as table cells</returns>
         private IEnumerable<TableCell> GenerateTotals
             (
                 TableDefinition tableDefinition,
-                IEnumerable<TableColumn> columns,
+                ReportFilter filter,
                 IEnumerable<QueryRow> rows
             )
         {
             var cells = new List<TableCell>();
 
-            foreach (var columnDefinition in tableDefinition.Columns)
-            {
-                var column = columns.FirstOrDefault
-                (
-                    c => c.Name == columnDefinition.Name
-                );
+            var columnDefinitions = GetColumnsDynamically
+            (
+                tableDefinition,
+                filter
+            );
 
+            foreach (var columnDefinition in columnDefinitions)
+            {
                 var cell = default(TableCell);
 
                 if (columnDefinition.HasTotal)
