@@ -231,8 +231,9 @@
 
                 foreach (var columnDefinition in columnDefinitions)
                 {
-                    var value = columnDefinition.ValueBinding.Resolve
+                    var value = ResolveColumnValue
                     (
+                        columnDefinition,
                         queryRow
                     );
 
@@ -306,6 +307,38 @@
             }
 
             return tableRows;
+        }
+
+        /// <summary>
+        /// Resolves a column value for a specific query row
+        /// </summary>
+        /// <param name="column">The column definition</param>
+        /// <param name="row">The query row</param>
+        /// <returns>The value that was resolved</returns>
+        private object ResolveColumnValue
+            (
+                TableColumnDefinition column,
+                QueryRow row
+            )
+        {
+            var columnType = column.GetType();
+
+            if (columnType == typeof(TableDynamicColumnDefinition))
+            {
+                // TODO: look up nested table
+                    // - match row on current query row key value and dynamic column key match value
+                    // - if no match found, then return default value
+                    // - if match found then resolve using value binding on matching row
+
+                throw new NotImplementedException();
+            }
+            else
+            {
+                return column.ValueBinding.Resolve
+                (
+                    row
+                );
+            }
         }
 
         /// <summary>

@@ -55,18 +55,73 @@
             }
             else
             {
+                var columnCount = definition.StaticColumns.Count;
+
                 var columns = new List<TableColumnDefinition>
                 (
                     definition.StaticColumns
                 );
 
-
-                // TODO: build dynamic column groups
-                // ensure cluster of columns is inserted into correct position (validate index first)
+                var defaultParameters = definition.DefaultParameterValues.ToArray();
 
                 foreach (var group in dynamicGroups)
                 {
+                    var queryTask = group.ColumnQuery.ExecuteAsync
+                    (
+                        filter,
+                        defaultParameters
+                    );
 
+                    var results = await queryTask.ConfigureAwait
+                    (
+                        false
+                    );
+
+                    var columnCluster = new List<TableColumnDefinition>();
+
+                    foreach (var row in results.AllRows)
+                    {
+                        foreach (var columnTemplate in group.Columns.ToList())
+                        {
+                            var headerBinding = columnTemplate.HeaderBinding;
+
+                            var title = headerBinding.Resolve<string>
+                            (
+                                row
+                            );
+
+                            var name = title.RemoveSpecialCharacters();
+
+                            var dynamicColumn = new TableDynamicColumnDefinition
+                            (
+                                name,
+                                headerBinding,
+                                columnTemplate.ValueBinding,
+                                columnTemplate.TotalAggregator,
+                                columnTemplate.TotalFormat
+                            );
+
+                            columnCluster.Add(dynamicColumn);
+                        }
+                    }
+
+                    var insertIndex = group.InsertPosition ?? columnCount;
+
+                    if (insertIndex < 0 || insertIndex > columnCount)
+                    {
+                        insertIndex = columnCount;
+                    }
+
+                    if (columnCluster.Count > 0)
+                    {
+                        columns.InsertRange
+                        (
+                            insertIndex,
+                            columnCluster
+                        );
+                    }
+
+                    columnCount = columns.Count;
                 }
 
                 return columns;
