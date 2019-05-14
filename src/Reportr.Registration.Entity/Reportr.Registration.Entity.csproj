@@ -9,13 +9,15 @@
 		<Authors>Craig Bridges</Authors>
 		<AssemblyVersion>2.0.0</AssemblyVersion>
 		<Version>2.0.0</Version>
-		<PackageLicenseUrl>https://github.com/craigbridges/Reportr/blob/master/LICENSE.md</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
 		<PackageReleaseNotes>Redesigned EF migrations approach.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
+		<metadata>
+			<license type="MIT"/>
+		</metadata>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -36,17 +38,17 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentModelBuilder.Relational" Version="1.5.1" />
-		<PackageReference Include="Humanizer.Core" Version="2.5.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3">
+		<PackageReference Include="Humanizer.Core" Version="2.6.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
-		<PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+		<PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

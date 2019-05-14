@@ -9,13 +9,15 @@
 		<Authors>Craig Bridges</Authors>
 		<AssemblyVersion>1.0.3</AssemblyVersion>
 		<Version>1.0.3</Version>
-		<PackageLicenseUrl>https://github.com/craigbridges/Reportr/blob/master/LICENSE.md</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
 		<PackageReleaseNotes>Added culture specific data source constructor.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C# Data Extension SQL</Tags>
+		<metadata>
+			<license type="MIT"/>
+		</metadata>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -23,10 +25,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CodeChange.Toolkit" Version="1.2.1" />
-		<PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
+		<PackageReference Include="CodeChange.Toolkit" Version="1.2.6" />
+		<PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
 		<PackageReference Include="System.Data.Common" Version="4.3.0" />
-		<PackageReference Include="System.Data.SqlClient" Version="4.5.1" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
 	</ItemGroup>
 
 	<ItemGroup>
