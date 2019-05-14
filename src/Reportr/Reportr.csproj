@@ -15,6 +15,9 @@
 		<PackageReleaseNotes>Introduced data cultural transformers concept.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
+		<metadata>
+			<license type="MIT"/>
+		</metadata>
 	</PropertyGroup>
 
 	<ItemGroup>

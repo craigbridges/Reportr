@@ -9,13 +9,15 @@
 		<Authors>Craig Bridges</Authors>
 		<AssemblyVersion>1.0.1</AssemblyVersion>
 		<Version>1.0.1</Version>
-		<PackageLicenseUrl>https://github.com/craigbridges/Reportr/blob/master/LICENSE.md</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
 		<PackageReleaseNotes>Integrated with CodeChange.Toolkit</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C# Extension NCalc</Tags>
+		<metadata>
+			<license type="MIT"/>
+		</metadata>
 	</PropertyGroup>
 
 	<ItemGroup>
