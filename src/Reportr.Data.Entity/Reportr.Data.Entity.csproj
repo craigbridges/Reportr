@@ -23,10 +23,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Dapper" Version="1.50.5" />
+		<PackageReference Include="Dapper" Version="1.60.6" />
 		<PackageReference Include="EntityFramework" Version="6.2.0" />
 		<PackageReference Include="EntityFramework.Metadata" Version="1.0.2" />
-		<PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
+		<PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
