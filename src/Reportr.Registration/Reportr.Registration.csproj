@@ -24,16 +24,11 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
+	  <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Reportr\Reportr.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="System.ComponentModel.Annotations">
-	    <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.ComponentModel.Annotations.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 
 </Project>
