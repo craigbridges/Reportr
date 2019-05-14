@@ -9,13 +9,15 @@
 		<Authors>Craig Bridges</Authors>
 		<AssemblyVersion>1.0.4</AssemblyVersion>
 		<Version>1.0.4</Version>
-		<PackageLicenseUrl>https://github.com/craigbridges/Reportr/blob/master/LICENSE.md</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
 		<PackageReleaseNotes>Added primary key annotations.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
+		<metadata>
+			<license type="MIT"/>
+		</metadata>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -23,17 +25,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Nito.AsyncEx" Version="4.0.1" />
+	  <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
+	  <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Reportr\Reportr.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="System.ComponentModel.Annotations">
-	    <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.ComponentModel.Annotations.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 
 </Project>
