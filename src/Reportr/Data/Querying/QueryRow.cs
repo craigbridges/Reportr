@@ -95,6 +95,46 @@
         }
 
         /// <summary>
+        /// Finds a cell in the query row by column name
+        /// </summary>
+        /// <param name="columnName">The column name</param>
+        /// <returns>The matching cell, if found; otherwise null</returns>
+        public QueryCell FindCell
+            (
+                string columnName
+            )
+        {
+            Validate.IsNotEmpty(columnName);
+
+            return this.Cells.FirstOrDefault
+            (
+                c => c.Column.Name.ToLower() == columnName.ToLower()
+            );
+        }
+
+        /// <summary>
+        /// Finds a cell value in the query row by column name
+        /// </summary>
+        /// <param name="columnName">The column name</param>
+        /// <returns>The matching cell value, if found; otherwise null</returns>
+        public object FindCellValue
+            (
+                string columnName
+            )
+        {
+            var cell = FindCell(columnName);
+
+            if (cell == null)
+            {
+                return null;
+            }
+            else
+            {
+                return cell.Value;
+            }
+        }
+
+        /// <summary>
         /// Gets an enumerator for the collection of cells
         /// </summary>
         /// <returns>The enumerator</returns>

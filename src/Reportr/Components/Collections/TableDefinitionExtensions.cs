@@ -66,24 +66,40 @@
 
                 foreach (var group in dynamicGroups)
                 {
-                    var queryTask = group.ColumnQuery.ExecuteAsync
+                    group.Validate();
+
+                    var columnQueryTask = group.ColumnQuery.ExecuteAsync
                     (
                         filter,
                         defaultParameters
                     );
 
-                    var results = await queryTask.ConfigureAwait
+                    var valueQueryTask = group.ValueQuery.ExecuteAsync
+                    (
+                        filter,
+                        defaultParameters
+                    );
+
+                    var columnResults = await columnQueryTask.ConfigureAwait
                     (
                         false
                     );
 
+                    var valueResults = await valueQueryTask.ConfigureAwait
+                    (
+                        false
+                    );
+
+                    group.AddValueResults(valueResults);
+
                     var columnCluster = new List<TableColumnDefinition>();
 
-                    foreach (var row in results.AllRows)
+                    foreach (var row in columnResults.AllRows)
                     {
                         foreach (var columnTemplate in group.Columns.ToList())
                         {
                             var headerBinding = columnTemplate.HeaderBinding;
+                            var valueBinding = columnTemplate.ValueBinding;
 
                             var title = headerBinding.Resolve<string>
                             (
@@ -95,12 +111,17 @@
                             var dynamicColumn = new TableDynamicColumnDefinition
                             (
                                 name,
+                                group,
                                 headerBinding,
-                                columnTemplate.ValueBinding,
-                                columnTemplate.TotalAggregator,
-                                columnTemplate.TotalFormat
+                                valueBinding
                             );
 
+                            var rowKeyValue = row.FindCellValue
+                            (
+                                group.ColumnToValueQueryKeyMap.FromColumnName
+                            );
+
+                            dynamicColumn.SetRowKeyValue(rowKeyValue);
                             columnCluster.Add(dynamicColumn);
                         }
                     }

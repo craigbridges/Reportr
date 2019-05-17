@@ -323,21 +323,59 @@
         {
             var columnType = column.GetType();
 
-            if (columnType == typeof(TableDynamicColumnDefinition))
-            {
-                // TODO: look up nested table
-                    // - match row on current query row key value and dynamic column key match value
-                    // - if no match found, then return default value
-                    // - if match found then resolve using value binding on matching row
-
-                throw new NotImplementedException();
-            }
-            else
+            if (columnType != typeof(TableDynamicColumnDefinition))
             {
                 return column.ValueBinding.Resolve
                 (
                     row
                 );
+            }
+            else
+            {
+                var dynamicColumn = (TableDynamicColumnDefinition)column;
+                var group = dynamicColumn.ColumnGroup;
+                var columnRowKeyValue = dynamicColumn.ColumnRowKeyValue;
+                var valueResults = group.ValueResults;
+
+                var masterKeyValue = row.FindCellValue
+                (
+                    group.MasterToValueQueryKeyMap.FromColumnName
+                );
+
+                // NOTE:
+                // We find the value rows matching the master row and then 
+                // filter these to the exact row by matching the column key.
+                //
+                // We are trying narrow the column value results to match 
+                // the keys from both the master and column query results.
+
+                var matchingRows = valueResults.FindRows
+                (
+                    group.MasterToValueQueryKeyMap.ToColumnName,
+                    masterKeyValue
+                );
+
+                var valueColumnIndex = valueResults.GetColumnIndex
+                (
+                    group.ColumnToValueQueryKeyMap.ToColumnName
+                );
+
+                var matchingValueRow = matchingRows.FirstOrDefault
+                (
+                    r => r.Cells[valueColumnIndex].Value == columnRowKeyValue
+                );
+
+                if (matchingValueRow == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return column.ValueBinding.Resolve
+                    (
+                        matchingValueRow
+                    );
+                }
             }
         }
 

@@ -86,6 +86,39 @@
         public QueryColumnInfo[] Columns { get; private set; }
 
         /// <summary>
+        /// Gets the index of a specified column within the query results
+        /// </summary>
+        /// <param name="columnName">The column name</param>
+        /// <returns>The column index</returns>
+        internal int GetColumnIndex
+            (
+                string columnName
+            )
+        {
+            Validate.IsNotEmpty(columnName);
+
+            var matchingColumn = this.Columns.FirstOrDefault
+            (
+                c => c.Column.Name.ToLower() == columnName.ToLower()
+            );
+
+            if (matchingColumn == null)
+            {
+                throw new ArgumentException
+                (
+                    $"The column '{columnName}' could not be found."
+                );
+            }
+
+            var columnIndex = this.Columns.ToList().IndexOf
+            (
+                matchingColumn
+            );
+
+            return columnIndex;
+        }
+
+        /// <summary>
         /// Gets an array of the groupings in the result
         /// </summary>
         public QueryGrouping[] Groupings { get; private set; }
@@ -165,6 +198,31 @@
             this.Success = true;
 
             return this;
+        }
+
+        /// <summary>
+        /// Finds all rows in the results matching a column name and value
+        /// </summary>
+        /// <param name="columnName">The column name</param>
+        /// <param name="value">The value to match on</param>
+        /// <returns>The matching query row; if found; otherwise null</returns>
+        public IEnumerable<QueryRow> FindRows
+            (
+                string columnName,
+                object value
+            )
+        {
+            var columnIndex = GetColumnIndex
+            (
+                columnName
+            );
+
+            var rows = this.AllRows.Where
+            (
+                r => r.Cells[columnIndex].Value == value
+            );
+
+            return rows;
         }
 
         /// <summary>
