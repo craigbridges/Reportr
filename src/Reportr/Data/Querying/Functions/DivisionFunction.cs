@@ -1,6 +1,5 @@
 ﻿namespace Reportr.Data.Querying.Functions
 {
-    using Reportr;
     using Reportr.Data;
     using Reportr.Data.Querying;
     using System;
@@ -13,7 +12,7 @@
     public class DivisionFunction : AggregateFunctionBase
     {
         /// <summary>
-        /// Constructs the function with a query and binding
+        /// Constructs the function with a data binding
         /// </summary>
         /// <param name="leftNumberBinding">The left number binding</param>
         /// <param name="rightNumberBinding">The right number binding</param>
@@ -47,15 +46,18 @@
                 params QueryRow[] rows
             )
         {
+            var leftBinding = this.Binding;
+            var rightBinding = this.DivisorBinding;
+
             var leftNumber = Execute
             (
-                this.Binding,
+                leftBinding,
                 rows
             );
 
             var rightNumber = Execute
             (
-                this.DivisorBinding,
+                rightBinding,
                 rows
             );
 

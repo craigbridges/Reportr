@@ -53,5 +53,15 @@
         (
             params QueryRow[] rows
         );
+
+        /// <summary>
+        /// Executes the aggregate function and computers the result
+        /// </summary>
+        /// <param name="numbers">The numbers to perform the computation on</param>
+        /// <returns>The result computed</returns>
+        double Execute
+        (
+            params double[] numbers
+        );
     }
 }

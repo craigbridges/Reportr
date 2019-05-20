@@ -13,7 +13,19 @@
     public abstract class AggregateFunctionBase : IAggregateFunction
     {
         /// <summary>
-        /// Constructs the function with a query and binding
+        /// Constructs the function without a data binding
+        /// </summary>
+        /// <param name="autoRoundResult">True, to auto round the result</param>
+        public AggregateFunctionBase
+            (
+                bool autoRoundResult = false
+            )
+        {
+            this.AutoRoundResult = autoRoundResult;
+        }
+
+        /// <summary>
+        /// Constructs the function with a data binding
         /// </summary>
         /// <param name="binding">The data binding</param>
         /// <param name="autoRoundResult">True, to auto round the result</param>
@@ -103,11 +115,53 @@
                 params QueryRow[] rows
             )
         {
+            var binding = this.Binding;
+
+            if (binding == null)
+            {
+                throw new InvalidOperationException
+                (
+                    "The aggregate function binding has not been set."
+                );
+            }
+
             return Execute
             (
-                this.Binding,
+                binding,
                 rows
             );
+        }
+
+        /// <summary>
+        /// Executes the aggregate function and computers the result
+        /// </summary>
+        /// <param name="numbers">The numbers to perform the computation on</param>
+        /// <returns>The result computed</returns>
+        public double Execute
+            (
+                params double[] numbers
+            )
+        {
+            if (numbers.Any())
+            {
+                var result = Compute
+                (
+                    numbers.ToList()
+                );
+
+                if (this.AutoRoundResult)
+                {
+                    return Math.Round(result, 2);
+                }
+                else
+                {
+                    return result;
+                }
+            }
+            else
+            {
+                return default;
+            }
         }
 
         /// <summary>
@@ -152,7 +206,7 @@
             }
             else
             {
-                return default(double);
+                return default;
             }
         }
         

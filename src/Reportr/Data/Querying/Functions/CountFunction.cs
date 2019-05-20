@@ -8,7 +8,18 @@
     public class CountFunction : AggregateFunctionBase
     {
         /// <summary>
-        /// Constructs the function with a query and binding
+        /// Constructs the function without a data binding
+        /// </summary>
+        /// <param name="autoRoundResult">True, to auto round the result</param>
+        public CountFunction
+            (
+                bool autoRoundResult = false
+            )
+            : base(autoRoundResult)
+        { }
+
+        /// <summary>
+        /// Constructs the function with a data binding
         /// </summary>
         /// <param name="binding">The data binding</param>
         /// <param name="autoRoundResult">True, to auto round the result</param>

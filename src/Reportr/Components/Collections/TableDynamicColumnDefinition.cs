@@ -32,6 +32,17 @@
         }
 
         /// <summary>
+        /// Gets a flag indicating if the column is dynamic
+        /// </summary>
+        public override bool IsDynamic
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Gets the dynamic column group the definition belongs to
         /// </summary>
         public TableDynamicColumnGroup ColumnGroup { get; private set; }

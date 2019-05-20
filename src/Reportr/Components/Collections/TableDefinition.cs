@@ -126,7 +126,7 @@
         {
             var column = GetColumn(columnName);
 
-            _ = column.WithStyle
+            column.DefineStyle
             (
                 title,
                 alignment,

@@ -54,11 +54,22 @@
         public DataBinding ValueBinding { get; protected set; }
 
         /// <summary>
+        /// Gets a flag indicating if the column is dynamic
+        /// </summary>
+        public virtual bool IsDynamic
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Defines a total function for the column
         /// </summary>
         /// <param name="totalAggregator">The total aggregate function</param>
         /// <param name="totalFormat">The total format (optional)</param>
-        public void DefineTotal
+        public virtual void DefineTotal
             (
                 IAggregateFunction totalAggregator,
                 string totalFormat = null
@@ -74,7 +85,7 @@
         /// <summary>
         /// Removes the total function from the column
         /// </summary>
-        public void RemoveTotal()
+        public virtual void RemoveTotal()
         {
             this.TotalAggregator = null;
             this.TotalFormat = null;
@@ -106,14 +117,13 @@
         }
 
         /// <summary>
-        /// Adds style details to the column
+        /// Defines the style details for the column
         /// </summary>
         /// <param name="title">The title</param>
         /// <param name="alignment">The text alignment</param>
         /// <param name="importance">The importance</param>
         /// <param name="noWrap">True, if the cell text shouldn't word wrap</param>
-        /// <returns>The updated column</returns>
-        public TableColumnDefinition WithStyle
+        public virtual void DefineStyle
             (
                 string title,
                 ColumnAlignment alignment,
@@ -125,8 +135,7 @@
             this.Alignment = alignment;
             this.Importance = importance;
             this.NoWrap = noWrap;
-
-            return this;
+            this.HasStyling = true;
         }
 
         /// <summary>
@@ -150,11 +159,15 @@
         public bool NoWrap { get; private set; }
 
         /// <summary>
-        /// Adds the cell action to the column
+        /// Gets a flag indicating if the column has styling
+        /// </summary>
+        public bool HasStyling { get; protected set; }
+
+        /// <summary>
+        /// Defines the cell action for the column
         /// </summary>
         /// <param name="action">The report action</param>
-        /// <returns>The updated column</returns>
-        public TableColumnDefinition WithAction
+        public virtual void DefineAction
             (
                 ReportActionDefinition action
             )
@@ -162,8 +175,7 @@
             Validate.IsNotNull(action);
 
             this.CellAction = action;
-
-            return this;
+            this.HasCellAction = true;
         }
 
         /// <summary>
@@ -177,6 +189,11 @@
         /// action has not been set.
         /// </remarks>
         public ReportActionDefinition CellAction { get; protected set; }
+
+        /// <summary>
+        /// Gets a flag indicating if the column has a cell action
+        /// </summary>
+        public bool HasCellAction { get; protected set; }
 
         /// <summary>
         /// Provides a custom string description

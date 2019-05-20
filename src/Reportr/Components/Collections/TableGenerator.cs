@@ -15,6 +15,7 @@
     public sealed class TableGenerator : ReportComponentGeneratorBase
     {
         private readonly Dictionary<Guid, IEnumerable<TableColumnDefinition>> _dynamicColumnCache;
+        private readonly Dictionary<string, List<object>> _columnValueCache;
 
         /// <summary>
         /// Constructs the table generator with a column cache
@@ -22,6 +23,7 @@
         public TableGenerator()
         {
             _dynamicColumnCache = new Dictionary<Guid, IEnumerable<TableColumnDefinition>>();
+            _columnValueCache = new Dictionary<string, List<object>>();
         }
 
         /// <summary>
@@ -139,6 +141,8 @@
 
                 table.SetTotals(totals);
             }
+
+            _columnValueCache.Clear();
 
             return table;
         }
@@ -321,11 +325,11 @@
                 QueryRow row
             )
         {
-            var columnType = column.GetType();
+            var value = default(object);
 
-            if (columnType != typeof(TableDynamicColumnDefinition))
+            if (false == column.IsDynamic)
             {
-                return column.ValueBinding.Resolve
+                value = column.ValueBinding.Resolve
                 (
                     row
                 );
@@ -367,16 +371,31 @@
 
                 if (matchingValueRow == null)
                 {
-                    return null;
+                    value = null;
                 }
                 else
                 {
-                    return column.ValueBinding.Resolve
+                    value = column.ValueBinding.Resolve
                     (
                         matchingValueRow
                     );
                 }
             }
+
+            var columnName = column.Name;
+
+            if (false == _columnValueCache.ContainsKey(columnName))
+            {
+                _columnValueCache.Add
+                (
+                    columnName,
+                    new List<object>()
+                );
+            }
+
+            _columnValueCache[columnName].Add(value);
+
+            return value;
         }
 
         /// <summary>
@@ -481,10 +500,44 @@
 
                 if (columnDefinition.HasTotal)
                 {
-                    var total = columnDefinition.TotalAggregator.Execute
-                    (
-                        rows.ToArray()
-                    );
+                    var total = default(double);
+
+                    if (columnDefinition.IsDynamic)
+                    {
+                        var cellValues = _columnValueCache[columnDefinition.Name];
+                        var numbers = new List<double>();
+
+                        // Convert the cell values into their double equivalent
+                        foreach (var value in cellValues)
+                        {
+                            if (value == null)
+                            {
+                                numbers.Add(0);
+                            }
+                            else
+                            {
+                                Double.TryParse
+                                (
+                                    value.ToString(),
+                                    out double number
+                                );
+
+                                numbers.Add(number);
+                            }
+                        }
+
+                        total = columnDefinition.TotalAggregator.Execute
+                        (
+                            numbers.ToArray()
+                        );
+                    }
+                    else
+                    {
+                        total = columnDefinition.TotalAggregator.Execute
+                        (
+                            rows.ToArray()
+                        );
+                    }
 
                     var format = columnDefinition.TotalFormat;
 

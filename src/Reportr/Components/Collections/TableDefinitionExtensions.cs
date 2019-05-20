@@ -116,6 +116,34 @@
                                 valueBinding
                             );
 
+                            if (columnTemplate.HasTotal)
+                            {
+                                dynamicColumn.DefineTotal
+                                (
+                                    columnTemplate.TotalAggregator,
+                                    columnTemplate.TotalFormat
+                                );
+                            }
+
+                            if (columnTemplate.HasStyling)
+                            {
+                                dynamicColumn.DefineStyle
+                                (
+                                    columnTemplate.Title,
+                                    columnTemplate.Alignment,
+                                    columnTemplate.Importance,
+                                    columnTemplate.NoWrap
+                                );
+                            }
+
+                            if (columnTemplate.HasCellAction)
+                            {
+                                dynamicColumn.DefineAction
+                                (
+                                    columnTemplate.CellAction
+                                );
+                            }
+
                             var rowKeyValue = row.FindCellValue
                             (
                                 group.ColumnToValueQueryKeyMap.FromColumnName
