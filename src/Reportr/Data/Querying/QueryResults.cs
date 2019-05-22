@@ -217,12 +217,29 @@
                 columnName
             );
 
-            var rows = this.AllRows.Where
-            (
-                r => r.Cells[columnIndex].Value == value
-            );
+            if (value != null)
+            {
+                var rows = this.AllRows.Where
+                (
+                    r => r.Cells[columnIndex].Value != null
+                        && r.Cells[columnIndex].Value.ToString().Equals
+                        (
+                            value.ToString(),
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
+                );
 
-            return rows;
+                return rows.ToList();
+            }
+            else
+            {
+                var rows = this.AllRows.Where
+                (
+                    r => r.Cells[columnIndex].Value == null
+                );
+
+                return rows.ToList();
+            }
         }
 
         /// <summary>

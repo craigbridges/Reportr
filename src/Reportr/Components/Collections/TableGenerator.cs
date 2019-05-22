@@ -364,10 +364,27 @@
                     group.ColumnToValueQueryKeyMap.ToColumnName
                 );
 
-                var matchingValueRow = matchingRows.FirstOrDefault
-                (
-                    r => r.Cells[valueColumnIndex].Value == columnRowKeyValue
-                );
+                var matchingValueRow = default(QueryRow);
+
+                if (columnRowKeyValue == null)
+                {
+                    matchingValueRow = matchingRows.FirstOrDefault
+                    (
+                        r => r.Cells[valueColumnIndex].Value == null
+                    );
+                }
+                else
+                {
+                    matchingValueRow = matchingRows.FirstOrDefault
+                    (
+                        r => r.Cells[valueColumnIndex].Value != null
+                            && r.Cells[valueColumnIndex].Value.ToString().Equals
+                            (
+                                columnRowKeyValue.ToString(),
+                                StringComparison.InvariantCultureIgnoreCase
+                            )
+                    );
+                }
 
                 if (matchingValueRow == null)
                 {

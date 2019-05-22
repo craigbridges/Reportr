@@ -15,8 +15,8 @@
     /// </summary>
     public abstract class QueryBase : IQuery
     {
-        private Dictionary<string, QuerySortingRule> _sortingRules;
-        private List<string> _groupingColumns;
+        private readonly Dictionary<string, QuerySortingRule> _sortingRules;
+        private readonly List<string> _groupingColumns;
 
         /// <summary>
         /// Constructs the query with a data source
@@ -634,7 +634,7 @@
                                 errors.Add
                                 (
                                     parameterName,
-                                    $"The type {actualType.Name} is not valid for the parameter '{parameterName}'."
+                                    $"Type {actualType.Name} is not valid for parameter '{parameterName}'."
                                 );
                             }
                         }
@@ -689,7 +689,7 @@
 
             if (matchingItem == null || matchingItem.Value == null)
             {
-                return default(TValue);
+                return default;
             }
             else
             {
