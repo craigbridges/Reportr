@@ -240,10 +240,33 @@
         {
             get
             {
-                return this.StaticColumns.Any
+                var staticTotals = this.StaticColumns.Any
                 (
                     column => column.HasTotal
                 );
+
+                if (staticTotals)
+                {
+                    return true;
+                }
+                else if (this.DynamicColumnGroups.Any())
+                {
+                    var dynamicColumns = this.DynamicColumnGroups.SelectMany
+                    (
+                        g => g.Columns
+                    );
+
+                    var dynamicTotals = dynamicColumns.Any
+                    (
+                        c => c.HasTotal
+                    );
+
+                    return dynamicTotals;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

@@ -102,7 +102,7 @@
                     var valueType = columnInfo.Column.ValueType;
                     var totalAggregator = default(IAggregateFunction);
 
-                    if (valueType.IsNumeric() && false == valueType.IsEnumAssignable())
+                    if (valueType.IsNumericType() && false == valueType.IsEnumAssignable())
                     {
                         totalAggregator = new SumFunction
                         (

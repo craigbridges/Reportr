@@ -183,12 +183,13 @@
         }
 
         /// <summary>
-        /// Adds a column to the dynamic column group
+        /// Defines a column in the dynamic column group
         /// </summary>
         /// <param name="name">The column name</param>
         /// <param name="headerBinding">The column header binding</param>
         /// <param name="valueBinding">The row value binding</param>
-        public void AddColumn
+        /// <returns>The column that was defined</returns>
+        public TableColumnDefinition DefineColumn
             (
                 string name,
                 DataBinding headerBinding,
@@ -219,6 +220,8 @@
             );
 
             this.Columns.Add(column);
+
+            return column;
         }
 
         /// <summary>

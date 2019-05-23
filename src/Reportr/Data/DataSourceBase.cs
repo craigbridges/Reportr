@@ -146,73 +146,76 @@
 
                     foreach (var fk in dbTable.ForeignKeys)
                     {
-                        var fkColumns = new List<DataColumnSchema>();
-                        var refPrimaryColumns = new List<DataColumnSchema>();
-                        var refAllColumns = new List<DataColumnSchema>();
-
-                        // Build a list of the foreign key columns
-                        foreach (var columnName in fk.Columns)
+                        if (false == String.IsNullOrEmpty(fk.RefersToTable))
                         {
-                            var dbColumn = dbTable.FindColumn
+                            var fkColumns = new List<DataColumnSchema>();
+                            var refPrimaryColumns = new List<DataColumnSchema>();
+                            var refAllColumns = new List<DataColumnSchema>();
+
+                            // Build a list of the foreign key columns
+                            foreach (var columnName in fk.Columns)
+                            {
+                                var dbColumn = dbTable.FindColumn
+                                (
+                                    columnName
+                                );
+
+                                fkColumns.Add
+                                (
+                                    new DataColumnSchema
+                                    (
+                                        dbColumn.Name,
+                                        dbColumn.DataType.GetNetType()
+                                    )
+                                );
+                            }
+
+                            var referencedTable = fk.ReferencedTable(schema);
+
+                            // Build a list of the referenced primary columns
+                            foreach (var columnName in referencedTable.PrimaryKey.Columns)
+                            {
+                                var dbColumn = dbTable.FindColumn
+                                (
+                                    columnName
+                                );
+
+                                refPrimaryColumns.Add
+                                (
+                                    new DataColumnSchema
+                                    (
+                                        dbColumn.Name,
+                                        dbColumn.DataType.GetNetType()
+                                    )
+                                );
+                            }
+
+                            // Build a list of the referenced table columns
+                            foreach (var dbColumn in referencedTable.Columns)
+                            {
+                                refAllColumns.Add
+                                (
+                                    new DataColumnSchema
+                                    (
+                                        dbColumn.Name,
+                                        dbColumn.DataType.GetNetType()
+                                    )
+                                );
+                            }
+
+                            var refTableSchema = new DataTableSchema
                             (
-                                columnName
+                                fk.RefersToTable,
+                                refAllColumns.ToArray()
                             );
 
-                            fkColumns.Add
+                            var fkSchema = new DataForeignKey
                             (
-                                new DataColumnSchema
-                                (
-                                    dbColumn.Name,
-                                    dbColumn.DataType.GetNetType()
-                                )
+                                fkColumns.ToArray(),
+                                refTableSchema,
+                                refPrimaryColumns.ToArray()
                             );
                         }
-
-                        var referencedTable = fk.ReferencedTable(schema);
-
-                        // Build a list of the referenced primary columns
-                        foreach (var columnName in referencedTable.PrimaryKey.Columns)
-                        {
-                            var dbColumn = dbTable.FindColumn
-                            (
-                                columnName
-                            );
-
-                            refPrimaryColumns.Add
-                            (
-                                new DataColumnSchema
-                                (
-                                    dbColumn.Name,
-                                    dbColumn.DataType.GetNetType()
-                                )
-                            );
-                        }
-
-                        // Build a list of the referenced table columns
-                        foreach (var dbColumn in referencedTable.Columns)
-                        {
-                            refAllColumns.Add
-                            (
-                                new DataColumnSchema
-                                (
-                                    dbColumn.Name,
-                                    dbColumn.DataType.GetNetType()
-                                )
-                            );
-                        }
-
-                        var refTableSchema = new DataTableSchema
-                        (
-                            fk.RefersToTable,
-                            refAllColumns.ToArray()
-                        );
-
-                        var fkSchema = new DataForeignKey
-                        (
-                            fkColumns.ToArray(),
-                            refTableSchema,
-                            refPrimaryColumns.ToArray()
-                        );
                     }
 
                     tableSchema = tableSchema.WithForeignKeys
