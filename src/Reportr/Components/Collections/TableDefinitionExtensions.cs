@@ -57,7 +57,7 @@
             {
                 var columnCount = definition.StaticColumns.Count;
 
-                var columns = new List<TableColumnDefinition>
+                var allColumns = new List<TableColumnDefinition>
                 (
                     definition.StaticColumns
                 );
@@ -107,6 +107,25 @@
                             );
 
                             var name = title.RemoveSpecialCharacters();
+
+                            var nameUsed =
+                            (
+                                columnCluster.Any
+                                (
+                                    d => d.Name.ToLower() == name.ToLower()
+                                )
+                                ||
+                                allColumns.Any
+                                (
+                                    d => d.Name.ToLower() == name.ToLower()
+                                )
+                            );
+
+                            // Don't allow the same name to be used more than once
+                            if (nameUsed)
+                            {
+                                continue;
+                            }
 
                             var dynamicColumn = new TableDynamicColumnDefinition
                             (
@@ -163,17 +182,17 @@
 
                     if (columnCluster.Count > 0)
                     {
-                        columns.InsertRange
+                        allColumns.InsertRange
                         (
                             insertIndex,
                             columnCluster
                         );
                     }
 
-                    columnCount = columns.Count;
+                    columnCount = allColumns.Count;
                 }
 
-                return columns;
+                return allColumns;
             }
         }
     }
