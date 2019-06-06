@@ -242,8 +242,7 @@
             Validate.IsNotNull(lookupParameterValues);
 
             var parameter = this.Parameter;
-            var valueChanged = (value != this.Value);
-
+            
             if (value == null)
             {
                 if (parameter.ValueRequired)
@@ -267,7 +266,8 @@
                 {
                     throw new ArgumentException
                     (
-                        $"The type is {valueType} but the type {expectedType} was expected."
+                        $"The type for the parameter {parameter.Name} is " +
+                        $"{valueType} but the type {expectedType} was expected."
                     );
                 }
                 else

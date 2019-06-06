@@ -212,6 +212,11 @@
 
             if (parameterValue != null)
             {
+                if (value == null)
+                {
+                    value = parameterValue.Parameter.DefaultValue;
+                }
+
                 parameterValue.SetValue
                 (
                     value,

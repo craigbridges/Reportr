@@ -39,6 +39,22 @@
             this.ValueRequired = false;
             this.DefaultValueType = ParameterDefaultValueType.StaticValue;
 
+            if (expectedType.IsValueType)
+            {
+                this.DefaultValue = Activator.CreateInstance
+                (
+                    expectedType
+                );
+            }
+            else if (expectedType != typeof(string) && expectedType.IsArray)
+            {
+                this.DefaultValue = Activator.CreateInstance
+                (
+                    expectedType,
+                    new object[] { 0 }
+                );
+            }
+
             this.Name = name;
             this.DisplayText = displayText;
             this.ExpectedType = expectedType;
