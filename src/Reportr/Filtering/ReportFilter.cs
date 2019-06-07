@@ -18,8 +18,8 @@
     public class ReportFilter
     {
         private List<ReportParameterDefinition> _parameterDefinitions;
-        private List<ReportFilterParameterValue> _parameterValues;
-        private List<ReportFilterSortingRule> _sortingRules;
+        private readonly List<ReportFilterParameterValue> _parameterValues;
+        private readonly List<ReportFilterSortingRule> _sortingRules;
 
         /// <summary>
         /// Constructs the report filter with parameter definitions

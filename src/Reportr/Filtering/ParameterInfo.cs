@@ -30,29 +30,40 @@
             Validate.IsNotEmpty(name);
             Validate.IsNotEmpty(displayText);
 
+            this.Visible = true;
+            this.ValueRequired = false;
+            this.DefaultValueType = ParameterDefaultValueType.StaticValue;
+
             if (expectedType == null)
             {
                 expectedType = typeof(string);
             }
 
-            this.Visible = true;
-            this.ValueRequired = false;
-            this.DefaultValueType = ParameterDefaultValueType.StaticValue;
-
-            if (expectedType.IsValueType)
+            if (expectedType.IsNullable())
             {
-                this.DefaultValue = Activator.CreateInstance
-                (
-                    expectedType
-                );
+                this.DefaultValue = null;
             }
-            else if (expectedType != typeof(string) && expectedType.IsArray)
+            else
             {
-                this.DefaultValue = Activator.CreateInstance
-                (
-                    expectedType,
-                    new object[] { 0 }
-                );
+                var defaultValue = default(object);
+
+                if (expectedType.IsValueType)
+                {
+                    defaultValue = Activator.CreateInstance
+                    (
+                        expectedType
+                    );
+                }
+                else if (expectedType != typeof(string) && expectedType.IsArray)
+                {
+                    defaultValue = Activator.CreateInstance
+                    (
+                        expectedType,
+                        new object[] { 0 }
+                    );
+                }
+
+                this.DefaultValue = defaultValue;
             }
 
             this.Name = name;
