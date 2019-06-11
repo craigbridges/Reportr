@@ -34,7 +34,7 @@
             this.Groupings = new QueryGrouping[] { };
             this.AllRows = new QueryRow[] { };
         }
-        
+
         /// <summary>
         /// Gets the name of the query that generated the results
         /// </summary>
@@ -79,7 +79,7 @@
         /// The error messages are grouped by error code.
         /// </remarks>
         public IDictionary<string, string> ErrorMessages { get; private set; }
-        
+
         /// <summary>
         /// Gets an array of the columns from the query
         /// </summary>
@@ -99,7 +99,7 @@
 
             var matchingColumn = this.Columns.FirstOrDefault
             (
-                c => c.Column.Name.ToLower() == columnName.ToLower()
+                c => c.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (matchingColumn == null)
@@ -189,10 +189,10 @@
             )
         {
             Validate.IsNotNull(rows);
-            
+
             this.Groupings = new QueryGrouping[] { };
             this.HasMultipleGroupings = false;
-            
+
             this.AllRows = rows;
             this.RowCount = rows.Length;
             this.Success = true;

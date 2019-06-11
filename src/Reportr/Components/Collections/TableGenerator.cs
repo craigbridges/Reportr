@@ -83,7 +83,7 @@
                         filter,
                         queryGroup.Rows
                     );
-                    
+
                     var tableGroup = new TableGrouping
                     (
                         queryGroup.GroupingValues,
@@ -443,7 +443,7 @@
                 {
                     object keySelector(TableRow row) => row.First
                     (
-                        cell => cell.Column.Name.ToLower() == rule.ColumnName.ToLower()
+                        cell => cell.Column.Name.Equals(rule.ColumnName, StringComparison.OrdinalIgnoreCase)
                     )
                     .Value;
 
@@ -618,7 +618,7 @@
                 columnDefinition.Importance,
                 columnDefinition.NoWrap
             );
-            
+
             var cell = new TableCell
             (
                 column,

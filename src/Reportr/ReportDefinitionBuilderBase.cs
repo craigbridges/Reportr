@@ -8,7 +8,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+
     /// <summary>
     /// Represents a base implementation for a report definition builder
     /// </summary>
@@ -80,7 +80,7 @@
         {
             Validate.IsNotNull(query);
             Validate.IsNotNull(excludedColumns);
-            
+
             var tableDefinition = new TableDefinition
             (
                 query.Name,
@@ -94,7 +94,7 @@
 
                 var isExcluded = excludedColumns.Any
                 (
-                    exclusion => exclusion.ToLower() == columnName.ToLower()
+                    exclusion => exclusion.Equals(columnName, StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (false == isExcluded)
@@ -150,7 +150,7 @@
         {
             Validate.IsNotNull(query);
             Validate.IsNotNull(columnNames);
-            
+
             var columnMappings = new List<KeyValuePair<string, string>>();
 
             // Auto generate column mappings from the column names
@@ -230,12 +230,12 @@
                         $"The query does not have a column named '{mapping.Key}'."
                     );
                 }
-                
+
                 var columnInfo = query.GetColumn
                 (
                     mapping.Key
                 );
-                
+
                 var totalAggregator = default(IAggregateFunction);
 
                 if (columnInfo.Column.ValueType.IsNumeric())
@@ -259,13 +259,13 @@
                     ),
                     totalAggregator
                 );
-                
+
                 tableDefinition.StaticColumns.Add
                 (
                     columnDefinition
                 );
             }
-            
+
             return tableDefinition;
         }
     }

@@ -171,7 +171,7 @@
 
             var changesMade = false;
             var parentCategory = default(ReportCategory);
-            
+
             var allCategories = _categoryRepository.GetSubCategories
             (
                 parentCategoryName
@@ -182,7 +182,7 @@
             (
                 report => false == configurations.Any
                 (
-                    config => config.Name.ToLower() == report.Name.ToLower()
+                    config => config.Name.Equals(report.Name, StringComparison.OrdinalIgnoreCase)
                 )
             );
 
@@ -195,7 +195,7 @@
 
                 changesMade = true;
             }
-            
+
             // Add any new categories that have not been registered yet
             foreach (var configuration in configurations)
             {

@@ -96,7 +96,7 @@
 
             return _parameterDefinitions.Any
             (
-                d => d.Parameter.Name.ToLower() == parameterName.ToLower()
+                d => d.Parameter.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -114,7 +114,7 @@
 
             var definition = _parameterDefinitions.FirstOrDefault
             (
-                d => d.Parameter.Name.ToLower() == parameterName.ToLower()
+                d => d.Parameter.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (definition == null)
@@ -180,15 +180,15 @@
 
                 if (matchingConstraints.Any())
                 {
-                    SetParameterValue
-                    (
+                SetParameterValue
+                (
                         valueEntry.Key,
                         valueEntry.Value,
                         true,
                         matchingConstraints.First().Value,
-                        lookupParameterValues
-                    );
-                }
+                    lookupParameterValues
+                );
+            }
                 else
                 {
                     SetParameterValue
@@ -199,7 +199,7 @@
                         null,
                         lookupParameterValues
                     );
-                }
+        }
             }
 
             IEnumerable<KeyValuePair<string, object>> GetMatchingConstraints
@@ -243,10 +243,10 @@
             )
         {
             Validate.IsNotEmpty(parameterName);
-            
+
             var parameterValue = _parameterValues.FirstOrDefault
             (
-                p => p.Name.ToLower() == parameterName.ToLower()
+                p => p.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (parameterValue != null)
@@ -261,7 +261,7 @@
                     valueToSet,
                     lookupParameterValues
                 );
-            }
+                }
             else
             {
                 var definition = GetDefinition
@@ -283,7 +283,7 @@
             }
 
             if (isConstrained)
-            {
+                {
                 var definition = parameterValue.Definition;
 
                 if (definition.Parameter.HasLookup)
@@ -307,9 +307,9 @@
                     // Auto hide the parameter if one or less lookup items are available
                     if (parameterValue.LookupItems.Length <= 1)
                     {
-                        definition.Hide();
-                    }
+                    definition.Hide();
                 }
+            }
                 else
                 {
                     parameterValue.SetValue
@@ -319,7 +319,7 @@
                     );
 
                     definition.Hide();
-                }
+        }
             }
         }
 
@@ -342,7 +342,7 @@
 
             var parameter = definition.Parameter;
 
-            if (parameter.HasLookup 
+            if (parameter.HasLookup
                 && parameter.LookupSourceType == ParameterLookupSourceType.Query
                 && parameter.LookupFilterParameters.Any())
             {
@@ -352,7 +352,7 @@
                 {
                     var matchFound = allParameterValues.Any
                     (
-                        pair => pair.Key.ToLower() == lookupInfo.Name.ToLower()
+                        pair => pair.Key.Equals(lookupInfo.Name, StringComparison.OrdinalIgnoreCase)
                     );
 
                     var lookupValue = default(ParameterValue);
@@ -361,7 +361,7 @@
                     {
                         var matchingPair = allParameterValues.First
                         (
-                            pair => pair.Key.ToLower() == lookupInfo.Name.ToLower()
+                            pair => pair.Key.Equals(lookupInfo.Name, StringComparison.OrdinalIgnoreCase)
                         );
 
                         lookupValue = new ParameterValue
@@ -404,7 +404,7 @@
 
             var value = _parameterValues.FirstOrDefault
             (
-                p => p.Name.ToLower() == parameterName.ToLower()
+                p => p.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (value == null)
@@ -446,7 +446,7 @@
             )
         {
             Validate.IsNotNull(query);
-            
+
             var filterValues = _parameterValues.Where
             (
                 p => p.Definition.TargetType == ReportParameterTargetType.Filter
@@ -460,7 +460,7 @@
 
                 matchingValue = filterValues.FirstOrDefault
                 (
-                    pv => pv.Parameter.Name.ToLower() == parameter.Name.ToLower()
+                    pv => pv.Parameter.Name.Equals(parameter.Name, StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (matchingValue != null)
@@ -533,7 +533,7 @@
 
             var exclusionParameters = GetComponentExclusionParameters();
             var excluded = false;
-            
+
             foreach (var parameter in exclusionParameters)
             {
                 var defined = IsDefined
@@ -550,7 +550,7 @@
 
                     excluded =
                     (
-                        definition.TargetName.ToLower() == componentName.ToLower()
+                        definition.TargetName.Equals(componentName, StringComparison.OrdinalIgnoreCase)
                             && definition.TargetValue == parameter.Value
                     );
 
@@ -582,7 +582,7 @@
             (
                 targetType
             );
-            
+
             var matchingValues = _parameterValues.Where
             (
                 p => p.Definition.TargetType == targetType
@@ -599,7 +599,7 @@
                 {
                     var valueFound = targetValues.Any
                     (
-                        v => v.Name.ToLower() == value.Name.ToLower()
+                        v => v.Name.Equals(value.Name, StringComparison.OrdinalIgnoreCase)
                     );
 
                     if (false == valueFound)
@@ -644,8 +644,8 @@
             var matchingRule = _sortingRules.FirstOrDefault
             (
                 p => p.SectionType == sectionType
-                    && p.ComponentName.ToLower() == componentName.ToLower()
-                    && p.ColumnName.ToLower() == columnName.ToLower()
+                    && p.ComponentName.Equals(componentName, StringComparison.OrdinalIgnoreCase)
+                    && p.ColumnName.Equals(columnName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (matchingRule != null)
@@ -692,7 +692,7 @@
                 );
             }
         }
-        
+
         /// <summary>
         /// Gets sorting rules for a section and component
         /// </summary>
@@ -710,7 +710,7 @@
             return _sortingRules.Where
             (
                 rule => rule.SectionType == sectionType
-                    && rule.ComponentName.ToLower() == componentName.ToLower()
+                    && rule.ComponentName.Equals(componentName, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -734,8 +734,8 @@
             var rule = _sortingRules.FirstOrDefault
             (
                 r => r.SectionType == sectionType
-                    && r.ComponentName.ToLower() == componentName.ToLower()
-                    && r.ColumnName.ToLower() == columnName.ToLower()
+                    && r.ComponentName.Equals(componentName, StringComparison.OrdinalIgnoreCase)
+                    && r.ColumnName.Equals(columnName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (rule == null)

@@ -87,7 +87,7 @@
 
             return this.Columns.Any
             (
-                info => info.Column.Name.ToLower() == name.ToLower()
+                info => info.Column.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -105,7 +105,7 @@
 
             var column = this.Columns.FirstOrDefault
             (
-                info => info.Column.Name.ToLower() == name.ToLower()
+                info => info.Column.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (column == null)
@@ -168,7 +168,7 @@
 
             var columnFound = this.Columns.Any
             (
-                info => info.Column.Name.ToLower() == columnName.ToLower()
+                info => info.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (false == columnFound)
@@ -178,7 +178,7 @@
                     $"The column '{columnName}' does not exist."
                 );
             }
-            
+
             var rule = new QuerySortingRule
             (
                 columnName,
@@ -212,7 +212,7 @@
 
             var columnFound = this.Columns.Any
             (
-                info => info.Column.Name.ToLower() == columnName.ToLower()
+                info => info.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (false == columnFound)
@@ -222,7 +222,7 @@
                     $"The column '{columnName}' does not exist."
                 );
             }
-            
+
             _groupingColumns.Add(columnName);
         }
 
@@ -455,7 +455,7 @@
                 {
                     object keySelector(QueryRow row) => row.First
                     (
-                        cell => cell.Column.Name.ToLower() == rule.ColumnName.ToLower()
+                        cell => cell.Column.Name.Equals(rule.ColumnName, StringComparison.OrdinalIgnoreCase)
                     )
                     .Value;
 
@@ -603,7 +603,7 @@
 
                 var matchingParameter = parameters.FirstOrDefault
                 (
-                    p => p.Name.ToLower() == parameterName.ToLower()
+                    p => p.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (matchingParameter == null)
@@ -641,7 +641,7 @@
                     }
                 }
             }
-            
+
             // Ensure all required parameters have been supplied
             foreach (var parameter in parameters)
             {
@@ -649,7 +649,7 @@
                 {
                     var valueFound = parameterValues.Any
                     (
-                        value => value.Name.ToLower() == parameter.Name.ToLower() 
+                        value => value.Name.Equals(parameter.Name, StringComparison.OrdinalIgnoreCase)
                             && value.Value != null
                     );
 
@@ -684,7 +684,7 @@
 
             var matchingItem = parameterValues.FirstOrDefault
             (
-                pv => pv.Name.ToLower() == parameterName.ToLower()
+                pv => pv.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (matchingItem == null || matchingItem.Value == null)

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    
+
     /// <summary>
     /// Represents schema information about a single data table
     /// </summary>
@@ -50,7 +50,7 @@
 
             return this.Columns.Any
             (
-                c => c.Name.ToLower() == name.ToLower()
+                c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -101,7 +101,7 @@
                     "The primary key must use at least one column."
                 );
             }
-            
+
             EnsureColumnsExist(columns);
 
             this.PrimaryKey = columns;

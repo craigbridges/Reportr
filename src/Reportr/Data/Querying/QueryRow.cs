@@ -35,7 +35,7 @@
 
                 var matchCount = cells.Count
                 (
-                    s => s.Column.Name.Trim().ToLower() == name.Trim().ToLower()
+                    s => s.Column.Name.Trim().Equals(name.Trim(), StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (matchCount > 1)
@@ -79,7 +79,7 @@
             {
                 var cell = this.Cells.FirstOrDefault
                 (
-                    c => c.Column.Name.ToLower() == columnName.ToLower()
+                    c => c.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (cell == null)
@@ -108,7 +108,7 @@
 
             return this.Cells.FirstOrDefault
             (
-                c => c.Column.Name.ToLower() == columnName.ToLower()
+                c => c.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
             );
         }
 

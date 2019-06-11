@@ -5,7 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+
     /// <summary>
     /// Represents the default report registrar implementation
     /// </summary>
@@ -265,7 +265,7 @@
             (
                 report => reportNames.Any
                 (
-                    name => name.ToLower() == report.Name.ToLower()
+                    name => name.Equals(report.Name, StringComparison.OrdinalIgnoreCase)
                 )
             );
 
@@ -311,7 +311,7 @@
             (
                 report => reportNames.Any
                 (
-                    name => report.Name.ToLower() == name.ToLower()
+                    name => report.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                 )
             );
 
@@ -322,7 +322,7 @@
             (
                 matchingReports
             );
-            
+
             userReports.AddRange(reportsWithoutRoles);
 
             return userReports.OrderBy
@@ -345,7 +345,7 @@
         {
             Validate.IsNotNull(userInfo);
             Validate.IsNotEmpty(categoryName);
-            
+
             var category = _categoryRepository.GetCategory
             (
                 categoryName
@@ -366,7 +366,7 @@
             (
                 report => reportNames.Any
                 (
-                    name => name.ToLower() == report.Name.ToLower()
+                    name => name.Equals(report.Name, StringComparison.OrdinalIgnoreCase)
                 )
             );
 
@@ -391,15 +391,15 @@
             );
 
             reportNames = reportNames.Distinct();
-            
+
             var filteredReports = allReports.Where
             (
                 report => false == reportNames.Any
                 (
-                    name => report.Name.ToLower() == name.ToLower()
+                    name => report.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                 )
             );
-            
+
             return filteredReports.OrderBy
             (
                 a => a.Name
@@ -514,7 +514,7 @@
                 (
                     name
                 );
-                
+
                 if (false == registeredReport.Disabled)
                 {
                     registeredReport.Disable();
@@ -611,7 +611,7 @@
                     $"A report named '{name}' has not been registered."
                 );
             }
-            
+
             _reportRepository.RemoveReport(name);
             _unitOfWork.SaveChanges();
         }
