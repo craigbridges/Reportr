@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents an Entity Framework registered report category repository
@@ -107,7 +108,7 @@
         /// <returns>The matching category</returns>
         private ReportCategory GetCategory
             (
-                Func<ReportCategory, bool> predicate
+                Expression<Func<ReportCategory, bool>> predicate
             )
         {
             var set = _context.Set<ReportCategory>();

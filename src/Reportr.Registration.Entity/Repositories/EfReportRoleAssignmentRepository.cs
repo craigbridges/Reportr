@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents an Entity Framework report role assignment repository
@@ -113,7 +114,7 @@
         /// <returns>The matching role</returns>
         private ReportRoleAssignment GetAssignment
             (
-                Func<ReportRoleAssignment, bool> predicate
+                Expression<Func<ReportRoleAssignment, bool>> predicate
             )
         {
             var set = _context.Set<ReportRoleAssignment>();
