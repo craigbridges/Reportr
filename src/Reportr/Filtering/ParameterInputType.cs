@@ -28,7 +28,13 @@
         [Description("Color")]
         Color = 32,
 
-        [Description("Lookup Item")]
-        Lookup = 64
+        [Description("Single Select Lookup")]
+        SingleSelectLookup = 64,
+
+        [Description("Multi Select Lookup")]
+        MultiSelectLookup = 128,
+
+        [Description("Lookup")]
+        Lookup = SingleSelectLookup | MultiSelectLookup
     }
 }

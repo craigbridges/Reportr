@@ -21,7 +21,7 @@
         private readonly IQueryRepository _queryRepository;
         private readonly IReportGenerator _reportGenerator;
 
-        private Dictionary<string, List<ReportRoleAssignment>> _assignmentCache;
+        private readonly Dictionary<string, List<ReportRoleAssignment>> _assignmentCache;
 
         /// <summary>
         /// Constructs the report generator with required dependencies
@@ -333,18 +333,16 @@
                 }
             }
 
-            SetParameterConstraints
+            var constrainedParameters = CompileParameterConstraints
             (
                 registeredReport,
-                userInfo,
-                ref convertedParameterValues,
-                out List<string> constrainedParameters
+                userInfo
             );
 
             filter.SetParameterValues
             (
                 convertedParameterValues,
-                constrainedParameters.ToArray()
+                constrainedParameters
             );
 
             if (filterValues.SortingRules!= null)
@@ -365,36 +363,33 @@
         }
 
         /// <summary>
-        /// Sets the filter parameter constraints for the user specified
+        /// Compiles filter parameter constraints for the user specified
         /// </summary>
         /// <param name="registeredReport">The registered report</param>
         /// <param name="userInfo">The user information</param>
         /// <param name="parameterValues">The existing parameter values</param>
         /// <param name="constrainedParameters">The constrained parameters</param>
+        /// <returns>
+        /// The parameter constraints (parameter name and constrain value)
+        /// </returns>
         /// <remarks>
         /// The parameter constraints defined by role assignments force certain
         /// report filter parameter values to be used over those submitted.
         /// 
         /// In this method, we ensure any constraints are adhered to.
         /// </remarks>
-        private void SetParameterConstraints
+        private Dictionary<string, object> CompileParameterConstraints
             (
                 RegisteredReport registeredReport,
-                ReportUserInfo userInfo,
-                ref Dictionary<string, object> parameterValues,
-                out List<string> constrainedParameters
+                ReportUserInfo userInfo
             )
         {
-            constrainedParameters = new List<string>();
+            var constrainedParameters = new Dictionary<string, object>();
 
             // NOTE:
             // We don't apply constraints when a user has no roles.
 
-            if (false == userInfo.Roles.Any())
-            {
-                return;
-            }
-            else
+            if (userInfo.Roles.Any())
             {
                 var assignments = GetAssignmentsForReport
                 (
@@ -437,13 +432,17 @@
                                 userInfo
                             );
 
-                            constrainedParameters.Add(parameterName);
-
-                            parameterValues[parameterName] = value;
+                            constrainedParameters.Add
+                            (
+                                parameterName,
+                                value
+                            );
                         }
                     }
                 }
             }
+
+            return constrainedParameters;
         }
 
         /// <summary>

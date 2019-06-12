@@ -2,6 +2,7 @@
 {
     using Newtonsoft.Json;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -10,6 +11,7 @@
     /// </summary>
     public class ParameterValue
     {
+        private bool _lookupItemsInitialised = false;
         private KeyValuePair<object, string>[] _lookupItems = null;
 
         /// <summary>
@@ -55,13 +57,29 @@
         {
             get
             {
-                if (_lookupItems == null)
+                if (false == _lookupItemsInitialised)
                 {
                     InitializeLookupItems();
                 }
 
                 return _lookupItems;
             }
+        }
+
+        /// <summary>
+        /// Determines if there is a lookup item matching
+        /// </summary>
+        /// <param name="lookupValue">The lookup item value</param>
+        /// <returns>True, if a match was found; otherwise false</returns>
+        public bool HasLookupItem
+            (
+                object lookupValue
+            )
+        {
+            return this.LookupItems.Any
+            (
+                pair => pair.Key == lookupValue
+            );
         }
 
         /// <summary>
@@ -73,12 +91,9 @@
 
             if (parameterInfo.HasLookup && parameterInfo.Visible)
             {
-                var items = default
-                (
-                    List<KeyValuePair<object, string>>
-                );
-
                 var sourceType = parameterInfo.LookupSourceType.Value;
+
+                List<KeyValuePair<object, string>> items;
 
                 switch (sourceType)
                 {
@@ -88,7 +103,7 @@
                         (
                             parameterInfo
                         );
-                        
+
                         break;
                     }
                     case ParameterLookupSourceType.Enum:
@@ -97,7 +112,7 @@
                         (
                             parameterInfo
                         );
-                        
+
                         break;
                     }
                     default:
@@ -124,6 +139,8 @@
 
                 _lookupItems = items.ToArray();
             }
+
+            _lookupItemsInitialised = true;
         }
 
         /// <summary>
@@ -181,6 +198,75 @@
                         ex.Message
                     )
                 };
+            }
+        }
+
+        /// <summary>
+        /// Auto filters the lookup items for a parameter constraint value
+        /// </summary>
+        /// <param name="constraintValue">The constraint value</param>
+        protected internal void AutoFilterLookupItemsForConstraint
+            (
+                object constraintValue
+            )
+        {
+            if (false == _lookupItemsInitialised)
+            {
+                InitializeLookupItems();
+            }
+
+            if (_lookupItems == null || _lookupItems.Length == 0)
+            {
+                return;
+            }
+            else if (constraintValue == null)
+            {
+                _lookupItems = new KeyValuePair<object, string>[] { };
+            }
+            else
+            {
+                var filteredItems = new Dictionary<object, string>();
+                var constraintType = constraintValue.GetType();
+
+                string GetLookupItemText(object value)
+                {
+                    var item = _lookupItems.First
+                    (
+                        pair => pair.Key == value
+                    );
+
+                    return item.Value;
+                }
+
+                void AutoAddFilteredItem(object value)
+                {
+                    var matchFound = HasLookupItem(constraintValue);
+
+                    if (matchFound)
+                    {
+                        var itemText = GetLookupItemText(constraintValue);
+
+                        filteredItems.Add
+                        (
+                            constraintValue,
+                            itemText
+                        );
+                    }
+                }
+
+                if (constraintType.IsEnumerable())
+                {
+                    foreach (var value in constraintValue as IEnumerable)
+                    {
+                        AutoAddFilteredItem(value);
+                    }
+                }
+                else
+                {
+                    AutoAddFilteredItem(constraintValue);
+                }
+
+                _lookupItems = filteredItems.ToArray();
             }
         }
 
@@ -282,6 +368,14 @@
             {
                 InitializeLookupItems();
             }
+        }
+
+        /// <summary>
+        /// Resets the parameter value to its default
+        /// </summary>
+        protected internal void ResetValue()
+        {
+            this.Value = this.Parameter.DefaultValue;
         }
     }
 }

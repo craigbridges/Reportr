@@ -17,7 +17,7 @@
         {
             if (value == null)
             {
-                return default(T);
+                return default;
             }
 
             var valueType = value.GetType();
@@ -57,7 +57,7 @@
                 {
                     RaiseCannotConvertException(value);
 
-                    return default(T);
+                    return default;
                 }
             }
         }
@@ -74,7 +74,7 @@
 
             if (String.IsNullOrEmpty(value))
             {
-                return default(T);
+                return default;
             }
 
             if (convertType.IsNullable())

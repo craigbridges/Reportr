@@ -100,11 +100,18 @@
             get
             {
                 var expectedType = this.ExpectedType;
-                var inputType = default(ParameterInputType);
+                ParameterInputType inputType;
 
                 if (this.HasLookup)
                 {
-                    inputType = ParameterInputType.Lookup;
+                    if (expectedType.IsEnumerable())
+                    {
+                        inputType = ParameterInputType.MultiSelectLookup;
+                    }
+                    else
+                    {
+                        inputType = ParameterInputType.SingleSelectLookup;
+                    }
                 }
                 else
                 {

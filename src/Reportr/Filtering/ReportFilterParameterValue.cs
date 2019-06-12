@@ -17,8 +17,7 @@
                 object value,
                 params ParameterValue[] lookupParameterValues
             )
-
-            : base(definition.Parameter, value)
+            : base(definition.Parameter, value, lookupParameterValues)
         {
             this.Definition = definition;
         }

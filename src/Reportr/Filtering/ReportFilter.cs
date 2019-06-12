@@ -156,36 +156,54 @@
         /// Sets a series of report filter parameter values
         /// </summary>
         /// <param name="parameterValues">The parameter values</param>
-        /// <param name="hiddenParameters">The names of parameters to hide</param>
+        /// <param name="parameterConstraints">The parameter constraints</param>
         public void SetParameterValues
             (
                 IDictionary<string, object> parameterValues,
-                params string[] hiddenParameters
+                IDictionary<string, object> parameterConstraints = null
             )
         {
             Validate.IsNotNull(parameterValues);
-            Validate.IsNotNull(hiddenParameters);
             
-            foreach (var pair in parameterValues)
+            foreach (var valueEntry in parameterValues)
             {
-                var hide = hiddenParameters.Any
-                (
-                    name => name.ToLower() == pair.Key.ToLower()
-                );
-
                 var lookupParameterValues = CompileLookupParameterValues
                 (
-                    pair.Key,
+                    valueEntry.Key,
                     parameterValues
                 );
 
-                SetParameterValue
+                var constrainments = parameterConstraints.Where
                 (
-                    pair.Key,
-                    pair.Value,
-                    hide,
-                    lookupParameterValues
+                    c => c.Key.Equals
+                    (
+                        valueEntry.Key,
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
                 );
+
+                if (constrainments.Any())
+                {
+                    SetParameterValue
+                    (
+                        valueEntry.Key,
+                        valueEntry.Value,
+                        true,
+                        constrainments.First().Value,
+                        lookupParameterValues
+                    );
+                }
+                else
+                {
+                    SetParameterValue
+                    (
+                        valueEntry.Key,
+                        valueEntry.Value,
+                        false,
+                        null,
+                        lookupParameterValues
+                    );
+                }
             }
         }
         
@@ -193,13 +211,16 @@
         /// Sets a single report filter parameter value
         /// </summary>
         /// <param name="parameterName">The parameter name</param>
-        /// <param name="value">The value to set</param>
-        /// <param name="hide">Makes the parameter invisible if true</param>
+        /// <param name="valueToSet">The value to set</param>
+        /// <param name="isConstrained">True, if the parameter is constrained</param>
+        /// <param name="constraintValue">The constrained value</param>
+        /// <param name="lookupParameterValues">The lookup parameter values</param>
         private void SetParameterValue
             (
                 string parameterName,
-                object value,
-                bool hide = false,
+                object valueToSet,
+                bool isConstrained = false,
+                object constraintValue = null,
                 params ParameterValue[] lookupParameterValues
             )
         {
@@ -212,26 +233,16 @@
 
             if (parameterValue != null)
             {
-                if (value == null)
+                if (valueToSet == null)
                 {
-                    value = parameterValue.Parameter.DefaultValue;
+                    valueToSet = parameterValue.Parameter.DefaultValue;
                 }
 
                 parameterValue.SetValue
                 (
-                    value,
+                    valueToSet,
                     lookupParameterValues
                 );
-
-                if (hide)
-                {
-                    var definition = GetDefinition
-                    (
-                        parameterName
-                    );
-
-                    definition.Hide();
-                }
             }
             else
             {
@@ -243,7 +254,7 @@
                 parameterValue = new ReportFilterParameterValue
                 (
                     definition,
-                    value,
+                    valueToSet,
                     lookupParameterValues
                 );
 
@@ -251,9 +262,44 @@
                 (
                     parameterValue
                 );
+            }
 
-                if (hide)
+            if (isConstrained)
+            {
+                var definition = parameterValue.Definition;
+
+                if (definition.Parameter.InputType == ParameterInputType.Lookup)
                 {
+                    parameterValue.AutoFilterLookupItemsForConstraint
+                    (
+                        constraintValue
+                    );
+
+                    var valueAllowed = parameterValue.HasLookupItem
+                    (
+                        valueToSet
+                    );
+
+                    if (false == valueAllowed)
+                    {
+                        parameterValue.ResetValue();
+                    }
+
+                    // NOTE:
+                    // Auto hide the parameter if one or less lookup items are available
+                    if (parameterValue.LookupItems.Length <= 1)
+                    {
+                        definition.Hide();
+                    }
+                }
+                else
+                {
+                    parameterValue.SetValue
+                    (
+                        constraintValue,
+                        lookupParameterValues
+                    );
+
                     definition.Hide();
                 }
             }
