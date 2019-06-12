@@ -32,9 +32,6 @@
         SingleSelectLookup = 64,
 
         [Description("Multi Select Lookup")]
-        MultiSelectLookup = 128,
-
-        [Description("Lookup")]
-        Lookup = SingleSelectLookup | MultiSelectLookup
+        MultiSelectLookup = 128
     }
 }
