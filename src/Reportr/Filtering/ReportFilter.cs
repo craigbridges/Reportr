@@ -164,7 +164,7 @@
             )
         {
             Validate.IsNotNull(parameterValues);
-            
+
             foreach (var valueEntry in parameterValues)
             {
                 var lookupParameterValues = CompileLookupParameterValues
@@ -173,23 +173,19 @@
                     parameterValues
                 );
 
-                var constrainments = parameterConstraints.Where
+                var matchingConstraints = GetMatchingConstraints
                 (
-                    c => c.Key.Equals
-                    (
-                        valueEntry.Key,
-                        StringComparison.InvariantCultureIgnoreCase
-                    )
+                    valueEntry.Key
                 );
 
-                if (constrainments.Any())
+                if (matchingConstraints.Any())
                 {
                     SetParameterValue
                     (
                         valueEntry.Key,
                         valueEntry.Value,
                         true,
-                        constrainments.First().Value,
+                        matchingConstraints.First().Value,
                         lookupParameterValues
                     );
                 }
@@ -202,6 +198,28 @@
                         false,
                         null,
                         lookupParameterValues
+                    );
+                }
+            }
+
+            IEnumerable<KeyValuePair<string, object>> GetMatchingConstraints
+                (
+                    string parameterName
+                )
+            {
+                if (parameterConstraints == null)
+                {
+                    return new List<KeyValuePair<string, object>>();
+                }
+                else
+                {
+                    return parameterConstraints.Where
+                    (
+                        c => c.Key.Equals
+                        (
+                            parameterName,
+                            StringComparison.InvariantCultureIgnoreCase
+                        )
                     );
                 }
             }
@@ -268,7 +286,7 @@
             {
                 var definition = parameterValue.Definition;
 
-                if (definition.Parameter.InputType == ParameterInputType.Lookup)
+                if (definition.Parameter.HasLookup)
                 {
                     parameterValue.AutoFilterLookupItemsForConstraint
                     (

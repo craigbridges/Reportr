@@ -67,7 +67,46 @@
         }
 
         /// <summary>
-        /// Determines if there is a lookup item matching
+        /// Finds a lookup item matching a specific value
+        /// </summary>
+        /// <param name="lookupValue">The lookup item value</param>
+        /// <returns>The matching item, if found; otherwise null</returns>
+        protected internal KeyValuePair<object, string>? FindLookupItem
+            (
+                object lookupValue
+            )
+        {
+            var lookupItems = this.LookupItems;
+            IEnumerable<KeyValuePair<object, string>> matches;
+
+            if (lookupValue == null)
+            {
+                matches = lookupItems.Where
+                (
+                    pair => pair.Key == null
+                );
+            }
+            else
+            {
+                matches = lookupItems.Where
+                (
+                    pair => pair.Key != null
+                        && pair.Key.ToString() == lookupValue.ToString()
+                );
+            }
+
+            if (matches.Any())
+            {
+                return matches.First();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Determines if there is a lookup item matching a specific value
         /// </summary>
         /// <param name="lookupValue">The lookup item value</param>
         /// <returns>True, if a match was found; otherwise false</returns>
@@ -76,10 +115,9 @@
                 object lookupValue
             )
         {
-            return this.LookupItems.Any
-            (
-                pair => pair.Key == lookupValue
-            );
+            var matchingItem = FindLookupItem(lookupValue);
+
+            return matchingItem != null;
         }
 
         /// <summary>
@@ -228,23 +266,13 @@
                 var filteredItems = new Dictionary<object, string>();
                 var constraintType = constraintValue.GetType();
 
-                string GetLookupItemText(object value)
-                {
-                    var item = _lookupItems.First
-                    (
-                        pair => pair.Key == value
-                    );
-
-                    return item.Value;
-                }
-
                 void AutoAddFilteredItem(object value)
                 {
-                    var matchFound = HasLookupItem(constraintValue);
+                    var matchingItem = FindLookupItem(value);
 
-                    if (matchFound)
+                    if (matchingItem != null)
                     {
-                        var itemText = GetLookupItemText(constraintValue);
+                        var itemText = matchingItem.Value.Value;
 
                         filteredItems.Add
                         (
