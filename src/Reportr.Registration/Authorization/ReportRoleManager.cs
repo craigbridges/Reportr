@@ -75,7 +75,20 @@
                     configuration.Name
                 );
 
-                if (false == exists)
+                if (exists)
+                {
+                    var role = _roleRepository.GetRole
+                    (
+                        configuration.Name
+                    );
+
+                    role.Configure(configuration);
+
+                    _roleRepository.UpdateRole(role);
+
+                    changesMade = true;
+                }
+                else
                 {
                     var role = new ReportRole
                     (
@@ -262,7 +275,27 @@
                             roleName
                         );
 
-                        if (false == assigned)
+                        if (assigned)
+                        {
+                            var assignment = _assignmentRepository.GetAssignment
+                            (
+                                reportName,
+                                roleName
+                            );
+
+                            assignment.SetParameterConstraints
+                            (
+                                constraints
+                            );
+
+                            _assignmentRepository.UpdateAssignment
+                            (
+                                assignment
+                            );
+
+                            changesMade = true;
+                        }
+                        else
                         {
                             var assignment = new ReportRoleAssignment
                             (
