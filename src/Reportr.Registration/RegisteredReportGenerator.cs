@@ -320,15 +320,27 @@
                     }
                 }
             }
-            else
+
+            // Add any missing parameter values by using the definition defaults
+            foreach (var definition in filter.ParameterDefinitions)
             {
-                // Add the default parameter values to the dictionary if nothing was submitted
-                foreach (var parameter in filter.ParameterValues)
+                var parameter = definition.Parameter;
+
+                var matchFound = convertedParameterValues.Any
+                (
+                    pair => pair.Key.Equals
+                    (
+                        parameter.Name,
+                        StringComparison.InvariantCultureIgnoreCase
+                    )
+                );
+
+                if (false == matchFound)
                 {
                     convertedParameterValues.Add
                     (
                         parameter.Name,
-                        parameter.Value
+                        parameter.DefaultValue
                     );
                 }
             }
