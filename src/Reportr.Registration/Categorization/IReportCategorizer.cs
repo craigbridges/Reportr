@@ -86,6 +86,26 @@
         );
 
         /// <summary>
+        /// Configures a report category
+        /// </summary>
+        /// <param name="categoryName">The category name</param>
+        /// <param name="configuration">The category configuration</param>
+        void ConfigureCategory
+        (
+            string categoryName,
+            ReportCategoryConfiguration configuration
+        );
+
+        /// <summary>
+        /// Deletes a single report category
+        /// </summary>
+        /// <param name="name">The category name</param>
+        void DeleteCategory
+        (
+            string name
+        );
+
+        /// <summary>
         /// Assigns a single report to a category
         /// </summary>
         /// <param name="categoryName">The category name</param>
@@ -133,12 +153,13 @@
         );
 
         /// <summary>
-        /// Deletes a single report category
+        /// Gets a collection of category assignments for a report
         /// </summary>
-        /// <param name="name">The category name</param>
-        void DeleteCategory
+        /// <param name="reportName">The report name</param>
+        /// <returns>A collection of report category assignments</returns>
+        IEnumerable<ReportCategoryAssignment> GetCategoryAssignments
         (
-            string name
+            string reportName
         );
     }
 }

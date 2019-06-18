@@ -105,7 +105,7 @@
                 a => a.Name
             );
         }
-        
+
         /// <summary>
         /// Updates a single report role to the repository
         /// </summary>

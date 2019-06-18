@@ -189,6 +189,35 @@
         }
 
         /// <summary>
+        /// Gets a collection of category assignments for a report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <returns>A collection of report category assignments</returns>
+        public IEnumerable<ReportCategoryAssignment> GetCategoryAssignments
+            (
+                string reportName
+            )
+        {
+            Validate.IsNotEmpty(reportName);
+
+            var set = _context.Set<ReportCategoryAssignment>();
+
+            var assignments = set.Where
+            (
+                a => a.ReportName.Equals
+                (
+                    reportName,
+                    StringComparison.OrdinalIgnoreCase
+                )
+            );
+
+            return assignments.OrderBy
+            (
+                a => a.Category.Name
+            );
+        }
+
+        /// <summary>
         /// Updates a single report category to the repository
         /// </summary>
         /// <param name="category">The category to update</param>

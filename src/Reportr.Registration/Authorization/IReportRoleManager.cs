@@ -75,6 +75,16 @@
         );
 
         /// <summary>
+        /// Gets a collection of role assignments for a report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <returns>A collection of report role assignments</returns>
+        IEnumerable<ReportRoleAssignment> GetRoleAssignments
+        (
+            string reportName
+        );
+
+        /// <summary>
         /// Assigns a role to a report
         /// </summary>
         /// <param name="reportName">The report name</param>
@@ -107,6 +117,18 @@
             string reportName,
             string roleName,
             params ReportParameterConstraintConfiguration[] constraints
+        );
+
+        /// <summary>
+        /// Gets parameter constraints for a report role assignment
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        /// <returns>A collection of parameter constraints</returns>
+        IEnumerable<ReportParameterConstraint> GetAssignmentConstraints
+        (
+            string reportName,
+            string roleName
         );
 
         /// <summary>

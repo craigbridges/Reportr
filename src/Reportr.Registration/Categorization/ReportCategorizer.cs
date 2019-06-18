@@ -129,26 +129,6 @@
             Validate.IsNotNull(configurations);
 
             var changesMade = false;
-            //var allCategories = _categoryRepository.GetAllCategories();
-
-            //// Find all categories that don't match the configurations and remove
-            //var unmatchedCategories = allCategories.Where
-            //(
-            //    report => false == configurations.Any
-            //    (
-            //        config => config.Name.ToLower() == report.Name.ToLower()
-            //    )
-            //);
-
-            //foreach (var category in unmatchedCategories.ToList())
-            //{
-            //    _categoryRepository.RemoveCategory
-            //    (
-            //        category.Name
-            //    );
-
-            //    changesMade = true;
-            //}
 
             // Add any new categories that have not been registered yet
             foreach (var configuration in configurations)
@@ -316,6 +296,41 @@
         }
 
         /// <summary>
+        /// Configures a report category
+        /// </summary>
+        /// <param name="categoryName">The category name</param>
+        /// <param name="configuration">The category configuration</param>
+        public void ConfigureCategory
+            (
+                string categoryName,
+                ReportCategoryConfiguration configuration
+            )
+        {
+            var category = _categoryRepository.GetCategory
+            (
+                categoryName
+            );
+
+            category.Configure(configuration);
+
+            _categoryRepository.UpdateCategory(category);
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Deletes a single report category
+        /// </summary>
+        /// <param name="name">The category name</param>
+        public void DeleteCategory
+            (
+                string name
+            )
+        {
+            _categoryRepository.RemoveCategory(name);
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
         /// Assigns a single report to a category
         /// </summary>
         /// <param name="categoryName">The category name</param>
@@ -434,16 +449,19 @@
         }
 
         /// <summary>
-        /// Deletes a single report category
+        /// Gets a collection of category assignments for a report
         /// </summary>
-        /// <param name="name">The category name</param>
-        public void DeleteCategory
+        /// <param name="reportName">The report name</param>
+        /// <returns>A collection of report category assignments</returns>
+        public IEnumerable<ReportCategoryAssignment> GetCategoryAssignments
             (
-                string name
+                string reportName
             )
         {
-            _categoryRepository.RemoveCategory(name);
-            _unitOfWork.SaveChanges();
+            return _categoryRepository.GetCategoryAssignments
+            (
+                reportName
+            );
         }
     }
 }

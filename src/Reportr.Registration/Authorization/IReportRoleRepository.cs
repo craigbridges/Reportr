@@ -41,7 +41,7 @@
         /// </summary>
         /// <returns>A collection of roles</returns>
         IEnumerable<ReportRole> GetAllRoles();
-        
+
         /// <summary>
         /// Updates a single report role to the repository
         /// </summary>

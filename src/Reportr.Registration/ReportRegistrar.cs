@@ -141,26 +141,6 @@
             Validate.IsNotNull(configurations);
 
             var changesMade = false;
-            //var allReports = _reportRepository.GetAllReports();
-
-            //// Find all reports that don't match the configurations and remove
-            //var unmatchedReports = allReports.Where
-            //(
-            //    report => false == configurations.Any
-            //    (
-            //        config => config.Name.ToLower() == report.Name.ToLower()
-            //    )
-            //);
-            
-            //foreach (var report in unmatchedReports.ToList())
-            //{
-            //    _reportRepository.RemoveReport
-            //    (
-            //        report.Name
-            //    );
-
-            //    changesMade = true;
-            //}
 
             // Add any new reports that have not been registered yet
             foreach (var configuration in configurations)
@@ -191,6 +171,28 @@
             {
                 _unitOfWork.SaveChanges();
             }
+        }
+
+        /// <summary>
+        /// Configures a registered report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="configuration">The report configuration</param>
+        public void ConfigureReport
+            (
+                string reportName,
+                RegisteredReportConfiguration configuration
+            )
+        {
+            var report = _reportRepository.GetReport
+            (
+                reportName
+            );
+
+            report.Configure(configuration);
+
+            _reportRepository.UpdateReport(report);
+            _unitOfWork.SaveChanges();
         }
 
         /// <summary>

@@ -74,6 +74,16 @@
         );
 
         /// <summary>
+        /// Gets a collection of category assignments for a report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <returns>A collection of report category assignments</returns>
+        IEnumerable<ReportCategoryAssignment> GetCategoryAssignments
+        (
+            string reportName
+        );
+
+        /// <summary>
         /// Updates a single report category to the repository
         /// </summary>
         /// <param name="category">The category to update</param>

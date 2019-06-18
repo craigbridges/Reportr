@@ -52,6 +52,17 @@
         );
 
         /// <summary>
+        /// Configures a registered report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="configuration">The report configuration</param>
+        void ConfigureReport
+        (
+            string reportName,
+            RegisteredReportConfiguration configuration
+        );
+
+        /// <summary>
         /// Determines if a report has been registered
         /// </summary>
         /// <param name="name">The name of the report</param>

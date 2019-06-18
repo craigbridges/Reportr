@@ -2,7 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     /// <summary>
     /// Represents the default report role manager implementation
     /// </summary>
@@ -190,6 +191,22 @@
         }
 
         /// <summary>
+        /// Gets a collection of role assignments for a report
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <returns>A collection of report role assignments</returns>
+        public IEnumerable<ReportRoleAssignment> GetRoleAssignments
+            (
+                string reportName
+            )
+        {
+            return _assignmentRepository.GetAssignmentsForReport
+            (
+                reportName
+            );
+        }
+
+        /// <summary>
         /// Assigns a role to a report
         /// </summary>
         /// <param name="reportName">The report name</param>
@@ -363,6 +380,27 @@
 
             _assignmentRepository.UpdateAssignment(assignment);
             _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Gets parameter constraints for a report role assignment
+        /// </summary>
+        /// <param name="reportName">The report name</param>
+        /// <param name="roleName">The role name</param>
+        /// <returns>A collection of parameter constraints</returns>
+        public IEnumerable<ReportParameterConstraint> GetAssignmentConstraints
+            (
+                string reportName,
+                string roleName
+            )
+        {
+            var assignment = _assignmentRepository.GetAssignment
+            (
+                reportName,
+                roleName
+            );
+
+            return assignment.ParameterConstraints.ToList();
         }
 
         /// <summary>
