@@ -278,7 +278,7 @@
                         {
                             filteredItems.Add
                             (
-                                constraintValue,
+                                value,
                                 itemText
                             );
                         }
