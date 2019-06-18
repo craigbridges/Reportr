@@ -274,11 +274,14 @@
                     {
                         var itemText = matchingItem.Value.Value;
 
-                        filteredItems.Add
-                        (
-                            constraintValue,
-                            itemText
-                        );
+                        if (false == filteredItems.ContainsKey(value))
+                        {
+                            filteredItems.Add
+                            (
+                                constraintValue,
+                                itemText
+                            );
+                        }
                     }
                 }
 

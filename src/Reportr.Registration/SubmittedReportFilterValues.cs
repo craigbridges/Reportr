@@ -1,7 +1,5 @@
 ﻿namespace Reportr.Registration
 {
-    using System.Collections.Generic;
-    
     /// <summary>
     /// Represents a collection of submitted report filter values
     /// </summary>
