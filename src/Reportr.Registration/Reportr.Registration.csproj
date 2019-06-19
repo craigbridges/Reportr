@@ -7,12 +7,12 @@
 		<Description>A report registration abstraction for the Reportr framework.</Description>
 		<Copyright>Copyright © Craig Bridges 2018</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.0.8</AssemblyVersion>
-		<Version>1.0.8</Version>
+		<AssemblyVersion>1.0.9</AssemblyVersion>
+		<Version>1.0.9</Version>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-    <PackageReleaseNotes>Added more APIs to manage registered reports, categories and roles.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed issue with report categories being re-registered indefinitely.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
 		<metadata>

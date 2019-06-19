@@ -129,12 +129,12 @@
 
             foreach (var configuration in configurations)
             {
-                var categoryExists = _categoryRepository.IsNameAvailable
+                var nameAvailable = _categoryRepository.IsNameAvailable
                 (
                     configuration.Name
                 );
 
-                if (false == categoryExists)
+                if (nameAvailable)
                 {
                     var category = new ReportCategory
                     (
@@ -199,12 +199,12 @@
             // Add any new categories that have not been registered yet
             foreach (var configuration in configurations)
             {
-                var categoryExists = _categoryRepository.IsNameAvailable
+                var nameAvailable = _categoryRepository.IsNameAvailable
                 (
                     configuration.Name
                 );
 
-                if (false == categoryExists)
+                if (nameAvailable)
                 {
                     if (parentCategory == null)
                     {
