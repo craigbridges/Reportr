@@ -58,10 +58,12 @@
 
             var set = _context.Set<ReportCategory>();
 
-            return set.Any
+            var nameUsed = set.Any
             (
-                category => category.Name.ToLower() == categoryName.ToLower()
+                c => c.Name.ToLower() == categoryName.ToLower()
             );
+
+            return false == nameUsed;
         }
 
         /// <summary>

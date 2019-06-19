@@ -46,15 +46,9 @@
 
             if (nameUsed)
             {
-                var message = "A report named '{0}' has already been registered.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        report.Name
-                    )
+                    $"A report named '{report.Name}' has already been registered."
                 );
             }
 
@@ -102,15 +96,9 @@
 
             if (report == null)
             {
-                var message = "No report was found with the name '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        name
-                    )
+                    $"No report was found with the name '{name}'."
                 );
             }
 

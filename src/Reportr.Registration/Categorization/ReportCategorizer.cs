@@ -40,22 +40,20 @@
                 ReportCategoryConfiguration configuration
             )
         {
+            Validate.IsNotNull(configuration);
+
+            var name = configuration.Name;
+
             var nameAvailable = _categoryRepository.IsNameAvailable
             (
-                configuration.Name
+                name
             );
 
             if (false == nameAvailable)
             {
-                var message = "The category name '{0}' is not available.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        configuration.Name
-                    )
+                    $"The category name '{name}' is not available."
                 );
             }
 
@@ -82,22 +80,21 @@
                 ReportCategoryConfiguration configuration
             )
         {
+            Validate.IsNotEmpty(parentCategoryName);
+            Validate.IsNotNull(configuration);
+
+            var name = configuration.Name;
+
             var nameAvailable = _categoryRepository.IsNameAvailable
             (
-                configuration.Name
+                name
             );
 
             if (false == nameAvailable)
             {
-                var message = "The category name '{0}' is not available.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        configuration.Name
-                    )
+                    $"The category name '{name}' is not available."
                 );
             }
 
@@ -130,7 +127,6 @@
 
             var changesMade = false;
 
-            // Add any new categories that have not been registered yet
             foreach (var configuration in configurations)
             {
                 var categoryExists = _categoryRepository.IsNameAvailable

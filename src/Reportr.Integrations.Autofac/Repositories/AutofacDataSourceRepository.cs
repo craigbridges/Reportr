@@ -47,15 +47,9 @@
 
             if (found)
             {
-                var message = "The data source '{0}' has already been added.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        source
-                    )
+                    $"The data source '{source}' has already been added."
                 );
             }
 
@@ -103,15 +97,9 @@
 
             if (source == null)
             {
-                var message = "No data source was found with the name '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        name
-                    )
+                    $"No data source was found with the name '{name}'."
                 );
             }
 

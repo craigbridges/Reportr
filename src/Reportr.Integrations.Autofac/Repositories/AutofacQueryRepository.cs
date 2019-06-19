@@ -47,15 +47,9 @@
 
             if (found)
             {
-                var message = "The query '{0}' has already been added.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        query
-                    )
+                    $"The query '{query.Name}' has already been added."
                 );
             }
 
@@ -103,15 +97,9 @@
 
             if (query == null)
             {
-                var message = "No query was found with the name '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        name
-                    )
+                    $"No query was found with the name '{name}'."
                 );
             }
 

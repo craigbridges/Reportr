@@ -83,15 +83,9 @@
 
             if (role == null)
             {
-                var message = "No role was found matching the name '{0}'.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        name.ToString()
-                    )
+                    $"No role was found matching the name '{name}'."
                 );
             }
 

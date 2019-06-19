@@ -49,15 +49,9 @@
 
             if (matchFound)
             {
-                var message = "The report builder {0} has already been registered.";
-
                 throw new InvalidOperationException
                 (
-                    String.Format
-                    (
-                        message,
-                        builderType.Name
-                    )
+                    $"Report builder {builderType.Name} has already been registered."
                 );
             }
 
@@ -96,15 +90,9 @@
 
             if (builder == null)
             {
-                var message = "The type {0} did not match any report builders.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        builderType.Name
-                    )
+                    $"{builderType.Name} did not match any report builders."
                 );
             }
 
@@ -130,15 +118,9 @@
 
             if (builder == null)
             {
-                var message = "The type '{0}' did not match any report builders.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        fullTypeName
-                    )
+                    $"The type '{fullTypeName}' did not match any report builders."
                 );
             }
 
@@ -168,15 +150,9 @@
 
             if (builder == null)
             {
-                var message = "The type '{0}' did not match any report builders.";
-
                 throw new KeyNotFoundException
                 (
-                    String.Format
-                    (
-                        message,
-                        typeName
-                    )
+                    $"The type '{typeName}' did not match any report builders."
                 );
             }
 
