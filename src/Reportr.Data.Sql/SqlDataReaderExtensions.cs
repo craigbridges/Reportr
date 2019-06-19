@@ -7,7 +7,7 @@
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.Linq;
-    
+
     /// <summary>
     /// Various extension methods for SQL data readers
     /// </summary>
@@ -59,7 +59,7 @@
 
                         var columnSchema = columnSchemas.FirstOrDefault
                         (
-                            c => c.Name.ToLower() == fieldName.ToLower()
+                            c => c.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase)
                         );
 
                         if (columnSchema == null)

@@ -32,7 +32,7 @@
             : base(name, title)
         {
             Validate.IsNotNull(query);
-            
+
             this.Query = query;
             this.DefaultParameterValues = new Collection<ParameterValue>();
             this.StaticColumns = new Collection<TableColumnDefinition>();
@@ -47,7 +47,7 @@
                 this.DefaultParameterValues.Add(value);
             }
         }
-        
+
         /// <summary>
         /// Gets the query that will supply the tables data
         /// </summary>
@@ -93,7 +93,7 @@
                     " ",
                     String.Empty
                 )
-                .ToLower() == name.ToLower()
+                .Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (column == null)
@@ -332,8 +332,8 @@
         {
             var ruleFound = this.RowImportanceRules.Any
             (
-                r => r.ColumnName == columnName 
-                    && r.MatchValue == matchValue 
+                r => r.ColumnName.Equals(columnName, StringComparison.OrdinalIgnoreCase)
+                    && r.MatchValue == matchValue
                     && r.CompareOperator == compareOperator
             );
 

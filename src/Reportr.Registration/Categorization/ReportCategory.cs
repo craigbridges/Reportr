@@ -274,7 +274,7 @@
 
             return this.AssignedReports.Any
             (
-                a => a.ReportName.ToLower() == reportName.ToLower()
+                a => a.ReportName.Equals(reportName, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -291,7 +291,7 @@
 
             var assignment = this.AssignedReports.FirstOrDefault
             (
-                a => a.ReportName.ToLower() == reportName.ToLower()
+                a => a.ReportName.Equals(reportName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (assignment == null)

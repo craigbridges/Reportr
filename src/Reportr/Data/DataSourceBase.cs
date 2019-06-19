@@ -275,7 +275,7 @@
 
             var table = this.Schema.FirstOrDefault
             (
-                dts => dts.Name.ToLower() == name.ToLower()
+                dts => dts.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (table == null)
@@ -315,7 +315,7 @@
                 }
 
                 DisposeUnanagedObjects();
-                
+
                 _disposeCalled = true;
             }
         }

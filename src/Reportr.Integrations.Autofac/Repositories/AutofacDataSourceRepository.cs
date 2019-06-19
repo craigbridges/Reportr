@@ -74,7 +74,7 @@
 
             return _sources.Any
             (
-                m => m.Name.ToLower() == name.ToLower()
+                m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -92,7 +92,7 @@
 
             var source = _sources.FirstOrDefault
             (
-                m => m.Name.ToLower() == name.ToLower()
+                m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (source == null)

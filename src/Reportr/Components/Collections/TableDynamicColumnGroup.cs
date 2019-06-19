@@ -200,7 +200,7 @@
 
             var nameUsed = this.Columns.Any
             (
-                c => c.Name.ToLower() == name.ToLower()
+                c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (nameUsed)
@@ -243,7 +243,7 @@
                     " ",
                     String.Empty
                 )
-                .ToLower() == name.ToLower()
+                .Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (column == null)

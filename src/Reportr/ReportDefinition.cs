@@ -87,7 +87,7 @@
         /// Gets or sets the reports description
         /// </summary>
         public string Description { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the number of columns in the report
         /// </summary>
@@ -101,7 +101,7 @@
         /// Gets or sets the culture to be used by the report
         /// </summary>
         public CultureInfo Culture { get; set; }
-        
+
         /// <summary>
         /// Gets the parameters for the report
         /// </summary>
@@ -128,12 +128,12 @@
         {
             Validate.IsNotNull(parameter);
             Validate.IsNotEmpty(targetName);
-            
+
             var parameterName = parameter.Name;
 
             var nameUsed = this.Parameters.Any
             (
-                p => p.Parameter.Name.ToLower() == parameterName.ToLower()
+                p => p.Parameter.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (nameUsed)
@@ -143,7 +143,7 @@
                     $"The parameter name '{parameterName}' has already been used."
                 );
             }
-            
+
             var reportParameter = new ReportParameterDefinition
             (
                 parameter,
@@ -169,7 +169,7 @@
 
             return this.Parameters.Any
             (
-                p => p.Parameter.Name.ToLower() == name.ToLower()
+                p => p.Parameter.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -187,7 +187,7 @@
 
             var parameter = this.Parameters.FirstOrDefault
             (
-                p => p.Parameter.Name.ToLower() == name.ToLower()
+                p => p.Parameter.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (parameter == null)
@@ -511,7 +511,7 @@
 
             var matchingComponent = allComponents.FirstOrDefault
             (
-                q => q.Name.ToLower() == name.ToLower()
+                q => q.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             return matchingComponent;
@@ -541,7 +541,7 @@
             {
                 var component = section.Components.FirstOrDefault
                 (
-                    q => q.Name.ToLower() == name.ToLower()
+                    q => q.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                 );
 
                 return component;
@@ -620,7 +620,7 @@
 
             var matchingQuery = allQueries.FirstOrDefault
             (
-                q => q.Name.ToLower() == name.ToLower()
+                q => q.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             return matchingQuery;

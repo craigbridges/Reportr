@@ -70,7 +70,7 @@
 
                 var matchCount = cells.Count
                 (
-                    s => s.Column.Name.ToLower() == name.ToLower()
+                    s => s.Column.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (matchCount > 1)
@@ -143,7 +143,7 @@
             {
                 var cell = this.Cells.FirstOrDefault
                 (
-                    c => c.Column.Name.ToLower() == columnName.ToLower()
+                    c => c.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (cell == null)

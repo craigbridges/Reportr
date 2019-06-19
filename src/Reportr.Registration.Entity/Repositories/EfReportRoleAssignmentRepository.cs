@@ -5,7 +5,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    
+    using System.Linq.Expressions;
+
     /// <summary>
     /// Represents an Entity Framework report role assignment repository
     /// </summary>
@@ -63,8 +64,8 @@
 
             return set.Any
             (
-                assignment => assignment.ReportName.ToLower() == reportName.ToLower() 
-                    && assignment.RoleName.ToLower() == roleName.ToLower()
+                assignment => assignment.ReportName.Equals(reportName, StringComparison.OrdinalIgnoreCase)
+                    && assignment.RoleName.Equals(roleName, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -101,8 +102,8 @@
 
             return GetAssignment
             (
-                assignment => assignment.ReportName.ToLower() == reportName.ToLower()
-                    && assignment.RoleName.ToLower() == roleName.ToLower()
+                assignment => assignment.ReportName.Equals(reportName, StringComparison.OrdinalIgnoreCase)
+                    && assignment.RoleName.Equals(roleName, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -113,7 +114,7 @@
         /// <returns>The matching role</returns>
         private ReportRoleAssignment GetAssignment
             (
-                Func<ReportRoleAssignment, bool> predicate
+                Expression<Func<ReportRoleAssignment, bool>> predicate
             )
         {
             var set = _context.Set<ReportRoleAssignment>();
@@ -152,7 +153,7 @@
             (
                 a => roleNames.Any
                 (
-                    role => a.RoleName.ToLower() == role.ToLower()
+                    role => a.RoleName.Equals(role, StringComparison.OrdinalIgnoreCase)
                 )
             );
 
@@ -178,7 +179,7 @@
 
             var assignments = set.Where
             (
-                a => a.RoleName.ToLower() == roleName.ToLower()
+                a => a.RoleName.Equals(roleName, StringComparison.OrdinalIgnoreCase)
             );
 
             return assignments.OrderBy
@@ -203,7 +204,7 @@
 
             var assignments = set.Where
             (
-                a => a.ReportName.ToLower() == reportName.ToLower()
+                a => a.ReportName.Equals(reportName, StringComparison.OrdinalIgnoreCase)
             );
 
             return assignments.OrderBy
@@ -274,8 +275,8 @@
 
             var assignment = set.FirstOrDefault
             (
-                a => a.ReportName.ToLower() == reportName.ToLower()
-                    && a.RoleName.ToLower() == roleName.ToLower()
+                a => a.ReportName.Equals(reportName, StringComparison.OrdinalIgnoreCase)
+                    && a.RoleName.Equals(roleName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (assignment == null)

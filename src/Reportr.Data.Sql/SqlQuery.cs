@@ -90,7 +90,7 @@
 
             var isDefined = _columns.Any
             (
-                info => info.Column.Name.ToLower() == columnName.ToLower()
+                info => info.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (isDefined)
@@ -185,7 +185,7 @@
             Validate.IsNotNull(parameterValues);
 
             var connectionString = GetConnectionString();
-            
+
             using (var connection = new SqlConnection(connectionString))
             {
                 var command = GenerateSqlCommand
