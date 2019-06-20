@@ -144,6 +144,25 @@
         }
 
         /// <summary>
+        /// Gets the root report categories in the repository
+        /// </summary>
+        /// <returns>A collection of categories</returns>
+        public IEnumerable<ReportCategory> GetRootCategories()
+        {
+            var set = _context.Set<ReportCategory>();
+
+            var categories = set.Where
+            (
+                c => c.ParentCategoryId == null
+            );
+
+            return categories.OrderBy
+            (
+                a => a.Name
+            );
+        }
+
+        /// <summary>
         /// Gets sub report categories from a parent category
         /// </summary>
         /// <param name="parentCategoryId">The parent category ID</param>
