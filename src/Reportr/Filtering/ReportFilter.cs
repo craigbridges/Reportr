@@ -294,10 +294,30 @@
                         constraintValue
                     );
 
-                    var valueAllowed = parameterValue.HasLookupItem
-                    (
-                        valueToSet
-                    );
+                    var valueAllowed = false;
+
+                    if (valueToSet != null && valueToSet.GetType().IsArray)
+                    {
+                        foreach (var item in valueToSet as Array)
+                        {
+                            valueAllowed = parameterValue.HasLookupItem
+                            (
+                                item
+                            );
+
+                            if (false == valueAllowed)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        valueAllowed = parameterValue.HasLookupItem
+                        (
+                            valueToSet
+                        );
+                    }
 
                     if (false == valueAllowed)
                     {

@@ -11,8 +11,8 @@
         public string ParameterName { get; set; }
 
         /// <summary>
-        /// Gets or sets the parameter value
+        /// Gets or sets the parameter values
         /// </summary>
-        public string Value { get; set; }
+        public string[] Values { get; set; }
     }
 }

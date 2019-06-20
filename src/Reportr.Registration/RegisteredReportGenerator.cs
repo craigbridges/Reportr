@@ -469,7 +469,7 @@
                 SubmittedParameterValue submittedValue
             )
         {
-            if (submittedValue.Value == null)
+            if (submittedValue.Values == null)
             {
                 return null;
             }
@@ -481,17 +481,57 @@
 
             var expectedType = definition.Parameter.ExpectedType;
 
-            if (expectedType == typeof(string))
+            if (expectedType.IsArray)
             {
-                return submittedValue.Value;
+                expectedType = expectedType.GetElementType();
+
+                var convertedValues = Array.CreateInstance
+                (
+                    expectedType,
+                    submittedValue.Values.Length
+                );
+
+                var index = 0;
+
+                foreach (var rawValue in submittedValue.Values)
+                {
+                    convertedValues.SetValue
+                    (
+                        ConvertValue(rawValue),
+                        index
+                    );
+
+                    index++;
+                }
+
+                return convertedValues;
+            }
+            else if (submittedValue.Values.Length == 0)
+            {
+                return null;
             }
             else
             {
-                return ObjectConverter.Convert
+                return ConvertValue
                 (
-                    submittedValue.Value,
-                    expectedType
+                    submittedValue.Values[0]
                 );
+            }
+
+            object ConvertValue(string value)
+            {
+                if (expectedType == typeof(string))
+                {
+                    return value;
+                }
+                else
+                {
+                    return ObjectConverter.Convert
+                    (
+                        value,
+                        expectedType
+                    );
+                }
             }
         }
     }
