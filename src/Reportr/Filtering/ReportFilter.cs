@@ -170,7 +170,8 @@
                 var lookupParameterValues = CompileLookupParameterValues
                 (
                     valueEntry.Key,
-                    parameterValues
+                    parameterValues,
+                    parameterConstraints
                 );
 
                 var matchingConstraints = GetMatchingConstraints
@@ -328,11 +329,13 @@
         /// </summary>
         /// <param name="parameterName">The parameter name</param>
         /// <param name="allParameterValues">All parameter values supplied</param>
+        /// <param name="parameterConstraints">The parameter constraints</param>
         /// <returns>An array of lookup parameter values</returns>
         private ParameterValue[] CompileLookupParameterValues
             (
                 string parameterName,
-                IDictionary<string, object> allParameterValues
+                IDictionary<string, object> allParameterValues,
+                IDictionary<string, object> parameterConstraints = null
             )
         {
             var definition = GetDefinition
@@ -350,19 +353,49 @@
 
                 foreach (var lookupInfo in parameter.LookupFilterParameters)
                 {
-                    var matchFound = allParameterValues.Any
-                    (
-                        pair => pair.Key.ToLower() == lookupInfo.Name.ToLower()
-                    );
+                    var matchFound = HasMatchingValue(allParameterValues);
+                    var matchIsConstraint = false;
+
+                    if (false == matchFound && parameterConstraints != null)
+                    {
+                        matchFound = HasMatchingValue(parameterConstraints);
+
+                        if (matchFound)
+                        {
+                            matchIsConstraint = true;
+                        }
+                    }
+
+                    bool HasMatchingValue
+                        (
+                            IDictionary<string, object> parameterValues
+                        )
+                    {
+                        return parameterValues.Any
+                        (
+                            pair => pair.Key.ToLower() == lookupInfo.Name.ToLower()
+                                && pair.Value != null
+                        );
+                    }
 
                     var lookupValue = default(ParameterValue);
 
                     if (matchFound)
                     {
-                        var matchingPair = allParameterValues.First
-                        (
-                            pair => pair.Key.ToLower() == lookupInfo.Name.ToLower()
-                        );
+                        var matchingPair = matchIsConstraint 
+                            ? GetMatchingPair(parameterConstraints) 
+                            : GetMatchingPair(allParameterValues);
+
+                        KeyValuePair<string, object> GetMatchingPair
+                            (
+                                IDictionary<string, object> parameterValues
+                            )
+                        {
+                            return parameterValues.First
+                            (
+                                pair => pair.Key.ToLower() == lookupInfo.Name.ToLower()
+                            );
+                        }
 
                         lookupValue = new ParameterValue
                         (
