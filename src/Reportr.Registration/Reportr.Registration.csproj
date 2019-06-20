@@ -7,12 +7,12 @@
 		<Description>A report registration abstraction for the Reportr framework.</Description>
 		<Copyright>Copyright © Craig Bridges 2018</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.0.10</AssemblyVersion>
-		<Version>1.0.10</Version>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
+		<Version>1.1.0</Version>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-    <PackageReleaseNotes>Added get root categories API.</PackageReleaseNotes>
+    <PackageReleaseNotes>Improved the way parameter filter values are captured and converted to allow for arrays.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
 		<metadata>
