@@ -276,6 +276,15 @@
         }
 
         /// <summary>
+        /// Gets the root report categories in the repository
+        /// </summary>
+        /// <returns>A collection of categories</returns>
+        public IEnumerable<ReportCategory> GetRootCategories()
+        {
+            return _categoryRepository.GetRootCategories();
+        }
+
+        /// <summary>
         /// Gets sub report categories from a parent category
         /// </summary>
         /// <param name="parentCategoryName">The parent category name</param>

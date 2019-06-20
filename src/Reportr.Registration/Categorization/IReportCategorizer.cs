@@ -76,6 +76,12 @@
         IEnumerable<ReportCategory> GetAllCategories();
 
         /// <summary>
+        /// Gets the root report categories in the repository
+        /// </summary>
+        /// <returns>A collection of categories</returns>
+        IEnumerable<ReportCategory> GetRootCategories();
+
+        /// <summary>
         /// Gets sub report categories from a parent category
         /// </summary>
         /// <param name="parentCategoryName">The parent category name</param>

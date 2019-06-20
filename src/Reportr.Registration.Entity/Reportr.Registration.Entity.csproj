@@ -7,12 +7,12 @@
 		<Description>An Entity Framework report registration implementation for the Reportr framework.</Description>
 		<Copyright>Copyright © Craig Bridges 2018</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>2.0.3</AssemblyVersion>
-		<Version>2.0.3</Version>
+		<AssemblyVersion>2.0.4</AssemblyVersion>
+		<Version>2.0.4</Version>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-    <PackageReleaseNotes>Fixed IsNameAvailable for categories.</PackageReleaseNotes>
+    <PackageReleaseNotes>Implemented GetRootCategories() method.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
 		<metadata>
