@@ -270,6 +270,11 @@
                     parameterName
                 );
 
+                if (valueToSet == null)
+                {
+                    valueToSet = definition.Parameter.DefaultValue;
+                }
+
                 parameterValue = new ReportFilterParameterValue
                 (
                     definition,
