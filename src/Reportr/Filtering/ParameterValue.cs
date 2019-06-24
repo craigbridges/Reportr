@@ -408,5 +408,14 @@
         {
             this.Value = this.Parameter.DefaultValue;
         }
+
+        /// <summary>
+        /// Provides a descriptor for the objects current state
+        /// </summary>
+        /// <returns>The name and value of the parameter</returns>
+        public override string ToString()
+        {
+            return $"{this.Name}: {this.Value}";
+        }
     }
 }

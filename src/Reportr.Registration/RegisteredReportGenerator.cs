@@ -357,7 +357,7 @@
                 constrainedParameters
             );
 
-            if (filterValues.SortingRules!= null)
+            if (filterValues.SortingRules != null)
             {
                 foreach (var submittedRule in filterValues.SortingRules)
                 {

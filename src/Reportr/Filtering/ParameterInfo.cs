@@ -463,5 +463,14 @@
                 return false == left.Equals(right);
             }
         }
+
+        /// <summary>
+        /// Provides a descriptor for the objects current state
+        /// </summary>
+        /// <returns>The name of the parameter</returns>
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }
