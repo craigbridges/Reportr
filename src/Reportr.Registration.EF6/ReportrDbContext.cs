@@ -31,13 +31,6 @@
         {
             this.Configuration.ProxyCreationEnabled = true;
             this.Configuration.LazyLoadingEnabled = true;
-
-            Database.SetInitializer
-            (
-                new MigrateDatabaseToLatestVersion<ReportrDbContext, Configuration>()
-            );
-
-            this.ReadAllDateTimeValuesAsUtc();
         }
 
         /// <summary>
@@ -80,6 +73,16 @@
             registrar.Add(new ReportCategoryAssignmentEntityConfiguration());
             registrar.Add(new ReportRoleEntityConfiguration());
             registrar.Add(new ReportRoleAssignmentEntityConfiguration());
+        }
+
+        public void Migrate()
+        {
+            Database.SetInitializer
+            (
+                new MigrateDatabaseToLatestVersion<ReportrDbContext, Configuration>()
+            );
+
+            this.ReadAllDateTimeValuesAsUtc();
         }
     }
 }
