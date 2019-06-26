@@ -32,7 +32,12 @@
             this.Parameter = parameterInfo;
             this.Name = parameterInfo.Name;
 
-            SetValue(value, lookupParameterValues);
+            SetValue
+            (
+                value,
+                false,
+                lookupParameterValues
+            );
         }
 
         /// <summary>
@@ -193,9 +198,14 @@
         {
             try
             {
+                var parameterValues = 
+                (
+                    this.LookupParameterValues ?? new ParameterValue[] { }
+                );
+
                 var results = parameterInfo.LookupQuery.Execute
                 (
-                    this.LookupParameterValues
+                    parameterValues
                 );
 
                 var valueBinding = parameterInfo.LookupValueBinding;
@@ -346,13 +356,25 @@
         public object Value { get; private set; }
 
         /// <summary>
+        /// Gets a flag indicating if the parameter value was automatically 
+        /// set by a parameter constraint rule.
+        /// </summary>
+        /// <remarks>
+        /// If the value was automatically set by a constraint, then this 
+        /// should be treated as a null parameter value when executing queries.
+        /// </remarks>
+        public bool ValueAutoSetByConstraint { get; private set; }
+
+        /// <summary>
         /// Sets the parameter value
         /// </summary>
         /// <param name="value">The value</param>
+        /// <param name="autoSetByConstraint">Auto set by a constraint?</param>
         /// <param name="lookupParameterValues">The lookup parameter values</param>
         protected internal void SetValue
             (
                 object value,
+                bool autoSetByConstraint = false,
                 params ParameterValue[] lookupParameterValues
             )
         {
@@ -392,12 +414,41 @@
                     this.Value = value;
                 }
             }
+            
+            var currentLookupParameters = this.LookupParameterValues;
 
+            this.ValueAutoSetByConstraint = autoSetByConstraint;
             this.LookupParameterValues = lookupParameterValues;
 
-            if (_lookupItems == null || lookupParameterValues.Any())
+            if (false == autoSetByConstraint)
             {
-                InitializeLookupItems();
+                var lookupParameterValuesChanged = false;
+
+                if (currentLookupParameters == null || currentLookupParameters.Length == 0)
+                {
+                    if (lookupParameterValues.Length > 0)
+                    {
+                        lookupParameterValuesChanged = true;
+                    }
+                }
+                else
+                {
+                    var isEqual = Enumerable.SequenceEqual
+                    (
+                        currentLookupParameters,
+                        lookupParameterValues
+                    );
+
+                    if (false == isEqual)
+                    {
+                        lookupParameterValuesChanged = true;
+                    }
+                }
+
+                if (false == _lookupItemsInitialised || lookupParameterValuesChanged)
+                {
+                    InitializeLookupItems();
+                }
             }
         }
 
@@ -407,6 +458,99 @@
         protected internal void ResetValue()
         {
             this.Value = this.Parameter.DefaultValue;
+        }
+
+        /// <summary>
+        /// Generates a custom hash code for the unit
+        /// </summary>
+        /// <returns>The hash code</returns>
+        public override int GetHashCode()
+        {
+            var tuple = Tuple.Create
+            (
+                this.Parameter,
+                this.Name,
+                this.Value,
+                this.ValueAutoSetByConstraint,
+                this.LookupItems
+            );
+
+            return tuple.GetHashCode();
+        }
+
+        /// <summary>
+        /// Determines if an object is equal to the current parameter value
+        /// </summary>
+        /// <param name="obj">The object to check</param>
+        /// <returns>True, if both objects are equal; otherwise false</returns>
+        public override bool Equals
+            (
+                object obj
+            )
+        {
+            if (obj is null || false == (obj is ParameterValue))
+            {
+                return false;
+            }
+            else
+            {
+                var otherParam = (ParameterValue)obj;
+
+                var nameMatches = otherParam.Name.Equals
+                (
+                    this.Name,
+                    StringComparison.OrdinalIgnoreCase
+                );
+
+                bool valueMatches;
+
+                if (otherParam.Value == null && this.Value == null)
+                {
+                    valueMatches = true;
+                }
+                else
+                {
+                    valueMatches = (otherParam.Value == this.Value);
+                }
+
+                return (nameMatches && valueMatches);
+            }
+        }
+
+        /// <summary>
+        /// Compares two parameter value instances to determine if they are equal
+        /// </summary>
+        /// <param name="left">The left value</param>
+        /// <param name="right">The right value</param>
+        /// <returns>True, if both objects are equal; otherwise false</returns>
+        public static bool operator ==(ParameterValue left, ParameterValue right)
+        {
+            if (left is null)
+            {
+                return right is null;
+            }
+            else
+            {
+                return left.Equals(right);
+            }
+        }
+
+        /// <summary>
+        /// Compares two parameter value instances to determine if they are not equal
+        /// </summary>
+        /// <param name="left">The left value</param>
+        /// <param name="right">The right value</param>
+        /// <returns>True, if both objects are not equal; otherwise false</returns>
+        public static bool operator !=(ParameterValue left, ParameterValue right)
+        {
+            if (left is null)
+            {
+                return false == (right is null);
+            }
+            else
+            {
+                return false == left.Equals(right);
+            }
         }
 
         /// <summary>

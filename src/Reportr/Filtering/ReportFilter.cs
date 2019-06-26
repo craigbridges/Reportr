@@ -260,6 +260,7 @@
                 parameterValue.SetValue
                 (
                     valueToSet,
+                    false,
                     lookupParameterValues
                 );
             }
@@ -324,9 +325,14 @@
                         );
                     }
 
-                    if (false == valueAllowed)
+                    if (false == valueAllowed || valueToSet.IsNullOrEmpty())
                     {
-                        parameterValue.ResetValue();
+                        parameterValue.SetValue
+                        (
+                            constraintValue,
+                            true,
+                            lookupParameterValues
+                        );
                     }
 
                     // NOTE:
@@ -341,6 +347,7 @@
                     parameterValue.SetValue
                     (
                         constraintValue,
+                        true,
                         lookupParameterValues
                     );
 

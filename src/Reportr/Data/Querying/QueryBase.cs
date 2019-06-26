@@ -262,7 +262,7 @@
             {
                 var valueFound = parameterValues.Any
                 (
-                    pv => pv.Value != null
+                    pv => pv.Value != null && false == pv.ValueAutoSetByConstraint
                 );
 
                 if (false == valueFound)
