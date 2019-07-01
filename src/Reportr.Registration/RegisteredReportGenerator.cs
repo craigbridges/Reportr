@@ -444,11 +444,7 @@
                                 userInfo
                             );
 
-                            constrainedParameters.Add
-                            (
-                                parameterName,
-                                value
-                            );
+                            constrainedParameters[parameterName] = value;
                         }
                     }
                 }
