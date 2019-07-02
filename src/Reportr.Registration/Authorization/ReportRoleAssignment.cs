@@ -93,6 +93,8 @@
         {
             Validate.IsNotNull(configurations);
 
+            this.ParameterConstraints.Clear();
+
             foreach (var configuration in configurations)
             {
                 SetParameterConstraint(configuration);
