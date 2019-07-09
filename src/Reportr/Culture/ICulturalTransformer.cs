@@ -1,7 +1,6 @@
 ﻿namespace Reportr.Culture
 {
     using CodeChange.Toolkit.Culture;
-    using System;
     
     /// <summary>
     /// Defines a contract for a service that transforms an object to a culture

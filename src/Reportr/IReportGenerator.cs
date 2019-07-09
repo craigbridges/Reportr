@@ -8,6 +8,12 @@
     /// </summary>
     public interface IReportGenerator
     {
+
+
+        // TODO: inject configuration (which includes culture and language overrides)
+
+
+
         /// <summary>
         /// Generates a report using a report definition
         /// </summary>
