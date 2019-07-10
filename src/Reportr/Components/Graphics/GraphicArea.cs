@@ -84,7 +84,7 @@
         /// <summary>
         /// Gets the tool-tip text
         /// </summary>
-        public string ToolTipText { get; protected set; }
+        public string ToolTipText { get; protected internal set; }
 
         /// <summary>
         /// Adds an action to the area

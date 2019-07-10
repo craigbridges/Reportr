@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components
 {
+    using Reportr.Culture;
     using Reportr.Drawing;
     using System;
     using System.Collections.Generic;
@@ -56,5 +57,22 @@
         /// Gets the style information
         /// </summary>
         public Style Style { get; protected set; }
+
+        /// <summary>
+        /// Translates the text in the component to the language specified
+        /// </summary>
+        /// <param name="translator">The translation dictionary</param>
+        /// <param name="language">The language to translate into</param>
+        public virtual void Translate
+            (
+                PhraseTranslationDictionary translator,
+                Language language
+            )
+        {
+            Validate.IsNotNull(translator);
+            Validate.IsNotNull(language);
+
+            // NOTE: nothing to do for the base component
+        }
     }
 }

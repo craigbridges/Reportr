@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration.Categorization
 {
+    using Reportr.Culture;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -241,7 +242,7 @@
             {
                 throw new InvalidOperationException
                 (
-                    $"The report '{reportName}' has already been assigned to '{this.Name}'."
+                    $"'{reportName}' has already been assigned to '{this.Name}'."
                 );
             }
 
@@ -298,7 +299,7 @@
             {
                 throw new KeyNotFoundException
                 (
-                    $"The report '{reportName}' has not been assigned to '{this.Name}'."
+                    $"'{reportName}' has not been assigned to '{this.Name}'."
                 );
             }
 
@@ -309,6 +310,42 @@
 
             this.DateModified = DateTime.UtcNow;
             this.Version++;
+        }
+
+        /// <summary>
+        /// Translates the report category to the language specified
+        /// </summary>
+        /// <param name="translator">The translation dictionary</param>
+        /// <param name="language">The language to translate into</param>
+        public void Translate
+            (
+                PhraseTranslationDictionary translator,
+                Language language
+            )
+        {
+            Validate.IsNotNull(translator);
+            Validate.IsNotNull(language);
+
+            this.Title = translator.Translate
+            (
+                this.Title,
+                language
+            );
+
+            this.Description = translator.Translate
+            (
+                this.Description,
+                language
+            );
+
+            foreach (var subCategory in this.SubCategories.ToList())
+            {
+                subCategory.Translate
+                (
+                    translator,
+                    language
+                );
+            }
         }
     }
 }

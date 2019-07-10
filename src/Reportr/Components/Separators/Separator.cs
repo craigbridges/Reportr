@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Separators
 {
+    using Reportr.Culture;
     using System.Runtime.Serialization;
 
     /// <summary>
@@ -36,6 +37,26 @@
         {
             get;
             protected set;
+        }
+
+        /// <summary>
+        /// Translates the text in the component to the language specified
+        /// </summary>
+        /// <param name="translator">The translation dictionary</param>
+        /// <param name="language">The language to translate into</param>
+        public override void Translate
+            (
+                PhraseTranslationDictionary translator,
+                Language language
+            )
+        {
+            base.Translate(translator, language);
+
+            this.Title = translator.Translate
+            (
+                this.Title,
+                language
+            );
         }
     }
 }

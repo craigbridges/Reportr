@@ -2,10 +2,12 @@
 {
     using Nito.AsyncEx.Synchronous;
     using Reportr.Components;
+    using Reportr.Culture;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -15,19 +17,24 @@
     public sealed class ReportGenerator : IReportGenerator
     {
         private readonly IReportFilterGenerator _filterGenerator;
+        private readonly PhraseTranslationDictionary _translator;
 
         /// <summary>
         /// Constructs the report generator with required dependencies
         /// </summary>
         /// <param name="filterGenerator">The filter generator</param>
+        /// <param name="translatorFactory">The phrase translation factory</param>
         public ReportGenerator
             (
-                IReportFilterGenerator filterGenerator
+                IReportFilterGenerator filterGenerator,
+                IPhraseTranslationDictionaryFactory translatorFactory
             )
         {
             Validate.IsNotNull(filterGenerator);
+            Validate.IsNotNull(translatorFactory);
 
             _filterGenerator = filterGenerator;
+            _translator = translatorFactory.GetDictionary();
         }
 
         /// <summary>
@@ -35,14 +42,16 @@
         /// </summary>
         /// <param name="definition">The report definition</param>
         /// <param name="filter">The filter (optional)</param>
+        /// <param name="options">The generation options (optional)</param>
         /// <returns>The generated result</returns>
         public ReportGenerationResult Generate
             (
                 ReportDefinition definition,
-                ReportFilter filter = null
+                ReportFilter filter = null,
+                ReportGenerationOptions options = null
             )
         {
-            var task = GenerateAsync(definition, filter);
+            var task = GenerateAsync(definition, filter, options);
 
             return task.WaitAndUnwrapException();
         }
@@ -52,11 +61,13 @@
         /// </summary>
         /// <param name="definition">The report definition</param>
         /// <param name="filter">The filter (optional)</param>
+        /// <param name="options">The generation options (optional)</param>
         /// <returns>The generation result</returns>
         public async Task<ReportGenerationResult> GenerateAsync
             (
                 ReportDefinition definition,
-                ReportFilter filter = null
+                ReportFilter filter = null,
+                ReportGenerationOptions options = null
             )
         {
             Validate.IsNotNull(definition);
@@ -69,6 +80,19 @@
                 (
                     definition
                 );
+            }
+
+            if (options == null)
+            {
+                options = new ReportGenerationOptions()
+                {
+                    DefaultCulture = CultureInfo.CurrentCulture
+                };
+            }
+
+            if (definition.Culture == null)
+            {
+                definition.Culture = options.DefaultCulture;
             }
 
             var pageHeaderTask = GenerateSectionAsync
@@ -205,6 +229,15 @@
                 sectionResults
             );
 
+            if (options.PreferredLanguage != null)
+            {
+                report.Translate
+                (
+                    _translator,
+                    options.PreferredLanguage
+                );
+            }
+
             watch.Stop();
             
             var result = new ReportGenerationResult
@@ -311,7 +344,7 @@
                 }
 
                 watch.Stop();
-                
+
                 var section = new ReportSection
                 (
                     sectionDefinition.Title,

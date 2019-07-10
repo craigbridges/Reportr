@@ -124,6 +124,7 @@
         {
             Validate.IsNotEmpty(label);
 
+            this.HasLabel = true;
             this.Label = label;
             this.BackgroundColor = backgroundColor;
             this.ForegroundColor = foregroundColor;
@@ -132,9 +133,14 @@
         }
 
         /// <summary>
+        /// Gets a flag indicating if the overlay has a label
+        /// </summary>
+        public bool HasLabel { get; protected set; }
+
+        /// <summary>
         /// Gets the label text to display
         /// </summary>
-        public string Label { get; protected set; }
+        public string Label { get; protected internal set; }
 
         /// <summary>
         /// Gets the background colour

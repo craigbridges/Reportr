@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Metrics
 {
     using Newtonsoft.Json;
+    using Reportr.Culture;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -137,6 +138,35 @@
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Translates the text in the component to the language specified
+        /// </summary>
+        /// <param name="translator">The translation dictionary</param>
+        /// <param name="language">The language to translate into</param>
+        public override void Translate
+            (
+                PhraseTranslationDictionary translator,
+                Language language
+            )
+        {
+            base.Translate(translator, language);
+
+            foreach (var label in this.XAxisLabels)
+            {
+                label.CustomText = translator.Translate
+                (
+                    label.CustomText,
+                    language
+                );
+
+                label.ToolTip = translator.Translate
+                (
+                    label.ToolTip,
+                    language
+                );
+            }
         }
     }
 }

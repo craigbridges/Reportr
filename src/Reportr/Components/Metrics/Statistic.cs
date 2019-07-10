@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Components.Metrics
 {
+    using Reportr.Culture;
     using System;
     using System.Runtime.Serialization;
 

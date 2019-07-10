@@ -1,5 +1,6 @@
 ﻿namespace Reportr
 {
+    using Reportr.Culture;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
@@ -293,6 +294,60 @@
             }
 
             return this;
+        }
+
+        /// <summary>
+        /// Gets an array of all sections in the report
+        /// </summary>
+        public ReportSection[] AllSections
+        {
+            get
+            {
+                return new ReportSection[]
+                {
+                    this.PageHeader,
+                    this.ReportHeader,
+                    this.Body,
+                    this.ReportFooter,
+                    this.PageFooter
+                };
+            }
+        }
+
+        /// <summary>
+        /// Translates the report to the language specified
+        /// </summary>
+        /// <param name="translator">The translation dictionary</param>
+        /// <param name="language">The language to translate into</param>
+        public void Translate
+            (
+                PhraseTranslationDictionary translator,
+                Language language
+            )
+        {
+            Validate.IsNotNull(translator);
+            Validate.IsNotNull(language);
+
+            this.Title = translator.Translate
+            (
+                this.Title,
+                language
+            );
+
+            this.Description = translator.Translate
+            (
+                this.Description,
+                language
+            );
+
+            foreach (var section in this.AllSections)
+            {
+                section.Translate
+                (
+                    translator,
+                    language
+                );
+            }
         }
 
         /// <summary>

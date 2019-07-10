@@ -1,6 +1,7 @@
 ﻿namespace Reportr
 {
     using Reportr.Components;
+    using Reportr.Culture;
     using System;
 
     /// <summary>
@@ -61,5 +62,41 @@
         /// Gets a flag indicating if the report section has any data
         /// </summary>
         public bool HasData { get; private set; }
+
+        /// <summary>
+        /// Translates the report section to the language specified
+        /// </summary>
+        /// <param name="translator">The translation dictionary</param>
+        /// <param name="language">The language to translate into</param>
+        public void Translate
+            (
+                PhraseTranslationDictionary translator,
+                Language language
+            )
+        {
+            Validate.IsNotNull(translator);
+            Validate.IsNotNull(language);
+
+            this.Title = translator.Translate
+            (
+                this.Title,
+                language
+            );
+
+            this.Description = translator.Translate
+            (
+                this.Description,
+                language
+            );
+
+            foreach (var component in this.Components)
+            {
+                component.Translate
+                (
+                    translator,
+                    language
+                );
+            }
+        }
     }
 }

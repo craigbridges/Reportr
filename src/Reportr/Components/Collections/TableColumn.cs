@@ -20,8 +20,8 @@
             (
                 string name,
                 string title,
-                ColumnAlignment alignment = default(ColumnAlignment),
-                DataImportance importance = default(DataImportance),
+                ColumnAlignment alignment = default,
+                DataImportance importance = default,
                 bool noWrap = false
             )
         {
@@ -44,12 +44,12 @@
         /// <summary>
         /// Gets the column name
         /// </summary>
-        public string Name { get; protected set; }
+        public string Name { get; protected internal set; }
 
         /// <summary>
         /// Gets the column title
         /// </summary>
-        public string Title { get; protected set; }
+        public string Title { get; protected internal set; }
 
         /// <summary>
         /// Gets the column alignment
@@ -72,7 +72,7 @@
         /// <returns>The column name</returns>
         public override string ToString()
         {
-            return this.Name;
+            return this.Title;
         }
     }
 }

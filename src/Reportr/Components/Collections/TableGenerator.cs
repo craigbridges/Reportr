@@ -43,7 +43,8 @@
             Validate.IsNotNull(definition);
             Validate.IsNotNull(filter);
 
-            var table = default(Table);
+            Table table;
+
             var tableDefinition = definition.As<TableDefinition>();
             var query = tableDefinition.Query;
             var defaultParameters = tableDefinition.DefaultParameterValues;

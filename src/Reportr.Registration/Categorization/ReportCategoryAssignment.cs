@@ -9,7 +9,7 @@
     public class ReportCategoryAssignment
     {
         /// <summary>
-        /// Constructs the report category with its default configuration
+        /// Constructs the assignment with its default configuration
         /// </summary>
         protected ReportCategoryAssignment() { }
 
@@ -24,6 +24,7 @@
                 string reportName
             )
         {
+            Validate.IsNotNull(category);
             Validate.IsNotEmpty(reportName);
 
             this.Category = category;

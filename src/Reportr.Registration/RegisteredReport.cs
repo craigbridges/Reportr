@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration
 {
+    using Reportr.Culture;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -322,6 +323,33 @@
 
             this.Disabled = false;
             this.DateEnabled = DateTime.UtcNow;
+        }
+
+        /// <summary>
+        /// Translates the registered report to the language specified
+        /// </summary>
+        /// <param name="translator">The translation dictionary</param>
+        /// <param name="language">The language to translate into</param>
+        public void Translate
+            (
+                PhraseTranslationDictionary translator,
+                Language language
+            )
+        {
+            Validate.IsNotNull(translator);
+            Validate.IsNotNull(language);
+
+            this.Title = translator.Translate
+            (
+                this.Title,
+                language
+            );
+
+            this.Description = translator.Translate
+            (
+                this.Description,
+                language
+            );
         }
     }
 }

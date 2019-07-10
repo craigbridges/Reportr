@@ -1,6 +1,7 @@
 ﻿namespace Reportr.Components.Graphics
 {
     using Reportr.Components.Metrics;
+    using Reportr.Culture;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
@@ -171,5 +172,48 @@
         /// </summary>
         [DataMember]
         public double? Height { get; protected set; }
+
+        /// <summary>
+        /// Translates the text in the component to the language specified
+        /// </summary>
+        /// <param name="translator">The translation dictionary</param>
+        /// <param name="language">The language to translate into</param>
+        public override void Translate
+            (
+                PhraseTranslationDictionary translator,
+                Language language
+            )
+        {
+            base.Translate(translator, language);
+
+            foreach (var overlay in this.Overlays)
+            {
+                if (overlay.HasLabel)
+                {
+                    overlay.Label = translator.Translate
+                    (
+                        overlay.Label,
+                        language
+                    );
+                }
+            }
+
+            foreach (var statistic in this.OverlayStatistics)
+            {
+                statistic.Value.ForEach
+                (
+                    s => s.Translate(translator, language)
+                );
+            }
+
+            foreach (var area in this.Areas)
+            {
+                area.ToolTipText = translator.Translate
+                (
+                    area.ToolTipText,
+                    language
+                );
+            }
+        }
     }
 }
