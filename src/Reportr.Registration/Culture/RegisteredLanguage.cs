@@ -2,8 +2,6 @@
 {
     using Reportr.Culture;
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
@@ -27,7 +25,6 @@
         {
             this.Id = Guid.NewGuid();
             this.DateCreated = DateTime.UtcNow;
-            this.PhraseTranlations = new Collection<LanguagePhraseTranslation>();
 
             Configure(configuration);
         }
@@ -69,15 +66,6 @@
         public bool Default { get; protected set; }
 
         /// <summary>
-        /// Gets a collection of phrase translations managed by the language
-        /// </summary>
-        public virtual ICollection<LanguagePhraseTranslation> PhraseTranlations
-        {
-            get;
-            protected set;
-        }
-
-        /// <summary>
         /// Configures the registered language
         /// </summary>
         /// <param name="configuration">The language configuration</param>
@@ -107,24 +95,6 @@
             this.Name = configuration.Name;
             this.Iso = configuration.Iso;
             this.Default = configuration.Default;
-
-            if (configuration.PhraseTranlations != null)
-            {
-                this.PhraseTranlations.Clear();
-
-                foreach (var item in configuration.PhraseTranlations)
-                {
-                    this.PhraseTranlations.Add
-                    (
-                        new LanguagePhraseTranslation
-                        (
-                            this,
-                            item.Key,
-                            item.Value
-                        )
-                    );
-                }
-            }
 
             this.DateModified = DateTime.UtcNow;
             this.Version++;

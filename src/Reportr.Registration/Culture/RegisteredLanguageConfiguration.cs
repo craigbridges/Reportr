@@ -21,10 +21,5 @@
         /// Gets or sets a flag indicating if the language is the default
         /// </summary>
         public bool Default { get; set; }
-
-        /// <summary>
-        /// Gets or sets a dictionary of phrase translations
-        /// </summary>
-        public Dictionary<string, string> PhraseTranlations { get; set; }
     }
 }
