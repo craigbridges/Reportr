@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines a contract for a factory that resolves phrase translation dictionaries
     /// </summary>
-    public interface IPhraseTranslationDictionaryFactory
+    public interface IPhraseTranslatorFactory
     {
         /// <summary>
         /// Gets a phrase translation dictionary instance

@@ -6,26 +6,26 @@
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// Represents a single phrase for the default language
+    /// Represents a registered phrase
     /// </summary>
-    public class Phrase : IAggregate
+    public class RegisteredPhrase : IAggregate
     {
         /// <summary>
         /// Constructs the phrase with its default configuration
         /// </summary>
-        protected Phrase() { }
+        protected RegisteredPhrase() { }
 
         /// <summary>
         /// Constructs the phrase with the text
         /// </summary>
         /// <param name="configuration">The phrase configuration</param>
-        internal Phrase
+        internal RegisteredPhrase
             (
-                PhraseConfiguration configuration
+                RegisteredPhraseConfiguration configuration
             )
         {
             this.Id = Guid.NewGuid();
-            this.Translations = new Collection<PhraseTranslation>();
+            this.Translations = new Collection<RegisteredPhraseTranslation>();
 
             Configure(configuration);
         }
@@ -59,7 +59,7 @@
         /// <summary>
         /// Gets a collection of phrase translations
         /// </summary>
-        public virtual ICollection<PhraseTranslation> Translations
+        public virtual ICollection<RegisteredPhraseTranslation> Translations
         {
             get;
             protected set;
@@ -71,7 +71,7 @@
         /// <param name="configuration">The phrase configuration</param>
         public void Configure
             (
-                PhraseConfiguration configuration
+                RegisteredPhraseConfiguration configuration
             )
         {
             this.PhraseText = configuration.PhraseText;
@@ -84,7 +84,7 @@
                 {
                     this.Translations.Add
                     (
-                        new PhraseTranslation
+                        new RegisteredPhraseTranslation
                         (
                             this,
                             translation.Key,

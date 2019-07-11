@@ -7,6 +7,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -148,10 +149,17 @@
                 userInfo
             );
 
+            var options = new ReportGenerationOptions()
+            {
+                DefaultCulture = userInfo.Culture ?? CultureInfo.CurrentCulture,
+                PreferredLanguage = userInfo.PreferredLanguage
+            };
+
             var task = _reportGenerator.GenerateAsync
             (
                 reportDefinition,
-                reportFilter
+                reportFilter,
+                options
             );
 
             var result = await task.ConfigureAwait

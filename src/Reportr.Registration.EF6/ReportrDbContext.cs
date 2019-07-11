@@ -2,6 +2,7 @@
 {
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
+    using Reportr.Registration.Culture;
     using Reportr.Registration.Entity.Configurations;
     using Reportr.Registration.Entity.Migrations;
     using System.Data.Entity;
@@ -61,6 +62,16 @@
         public DbSet<ReportRoleAssignment> ReportRoleAssignments { get; set; }
 
         /// <summary>
+        /// Gets or sets the registered languages set
+        /// </summary>
+        public DbSet<RegisteredLanguage> RegisteredLanguages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the registered phrases set
+        /// </summary>
+        public DbSet<RegisteredPhrase> RegisteredPhrases { get; set; }
+
+        /// <summary>
         /// Handles the model creation process by injecting entity configurations into the model builder
         /// </summary>
         protected override void OnModelCreating
@@ -80,6 +91,9 @@
             registrar.Add(new ReportCategoryAssignmentEntityConfiguration());
             registrar.Add(new ReportRoleEntityConfiguration());
             registrar.Add(new ReportRoleAssignmentEntityConfiguration());
+
+
+            // TODO: registered language and phrase configurations
         }
     }
 }

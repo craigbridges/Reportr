@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
+    using Reportr.Registration.Culture;
     using Reportr.Registration.Entity.Configurations;
     using System;
 
@@ -63,6 +64,16 @@
         public DbSet<ReportRoleAssignment> ReportRoleAssignments { get; set; }
 
         /// <summary>
+        /// Gets or sets the registered languages set
+        /// </summary>
+        public DbSet<RegisteredLanguage> RegisteredLanguages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the registered phrases set
+        /// </summary>
+        public DbSet<RegisteredPhrase> RegisteredPhrases { get; set; }
+
+        /// <summary>
         /// Handles the model creation process by injecting entity configurations into the model builder
         /// </summary>
         /// <param name="modelBuilder">The model builder</param>
@@ -79,6 +90,8 @@
             modelBuilder.SpecifyDateKind<ReportCategoryAssignment>();
             modelBuilder.SpecifyDateKind<ReportRole>();
             modelBuilder.SpecifyDateKind<ReportRoleAssignment>();
+            modelBuilder.SpecifyDateKind<RegisteredLanguage>();
+            modelBuilder.SpecifyDateKind<RegisteredPhrase>();
 
             modelBuilder.ApplyConfiguration
             (
@@ -114,6 +127,9 @@
             (
                 new ReportRoleAssignmentEntityConfiguration()
             );
+
+
+            // TODO: registered language and phrase configurations
         }
     }
 }

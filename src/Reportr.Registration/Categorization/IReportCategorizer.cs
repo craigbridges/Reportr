@@ -7,6 +7,16 @@
     /// </summary>
     public interface IReportCategorizer
     {
+
+
+
+
+        // TODO: add optional language parameters to translate categories before returning
+
+
+
+
+
         /// <summary>
         /// Creates a single root level report category
         /// </summary>

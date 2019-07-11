@@ -4,14 +4,14 @@
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// Represents a single language phrase translation
+    /// Represents a registered phrase translation
     /// </summary>
-    public class PhraseTranslation
+    public class RegisteredPhraseTranslation
     {
         /// <summary>
         /// Constructs the phrase translation with its default configuration
         /// </summary>
-        protected PhraseTranslation() { }
+        protected RegisteredPhraseTranslation() { }
 
         /// <summary>
         /// Constructs the language phrase translation with details
@@ -19,9 +19,9 @@
         /// <param name="phrase">The phrase</param>
         /// <param name="languageId">The language ID</param>
         /// <param name="translatedText">The translated phrase text</param>
-        internal PhraseTranslation
+        internal RegisteredPhraseTranslation
             (
-                Phrase phrase,
+                RegisteredPhrase phrase,
                 Guid languageId,
                 string translatedText
             )
@@ -37,7 +37,7 @@
         /// <summary>
         /// Gets the associated phrase
         /// </summary>
-        public Phrase Phrase { get; protected set; }
+        public RegisteredPhrase Phrase { get; protected set; }
 
         /// <summary>
         /// Gets the unique ID of the translation

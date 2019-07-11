@@ -28,6 +28,16 @@
         );
 
         /// <summary>
+        /// Finds a registered language in the repository
+        /// </summary>
+        /// <param name="iso">The language ISO</param>
+        /// <returns>The registered language, if found; otherwise null</returns>
+        RegisteredLanguage FindLanguage
+        (
+            string iso
+        );
+
+        /// <summary>
         /// Gets the default registered language from the repository
         /// </summary>
         /// <returns>The registered language</returns>

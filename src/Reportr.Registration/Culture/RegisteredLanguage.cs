@@ -18,7 +18,7 @@
         /// Constructs the registered language with basic details
         /// </summary>
         /// <param name="configuration">The language configuration</param>
-        protected RegisteredLanguage
+        public RegisteredLanguage
             (
                 RegisteredLanguageConfiguration configuration
             )

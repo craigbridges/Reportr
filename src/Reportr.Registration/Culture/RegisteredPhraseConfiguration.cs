@@ -4,9 +4,9 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Represents configuration details for a registered language
+    /// Represents configuration details for a registered phrase
     /// </summary>
-    public class PhraseConfiguration
+    public class RegisteredPhraseConfiguration
     {
         /// <summary>
         /// Gets or sets the phrase text in the default language

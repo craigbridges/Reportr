@@ -1,7 +1,9 @@
 ﻿namespace Reportr.Registration.Authorization
 {
+    using Reportr.Culture;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
 
     /// <summary>
     /// Represents information about a single report user
@@ -71,5 +73,15 @@
         /// Gets a dictionary of user meta data
         /// </summary>
         public Dictionary<string, object> MetaData { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the users culture
+        /// </summary>
+        public CultureInfo Culture { get; set; }
+
+        /// <summary>
+        /// Gets or sets the users preferred language
+        /// </summary>
+        public Language PreferredLanguage { get; set; }
     }
 }

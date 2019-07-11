@@ -9,6 +9,12 @@
     /// </summary>
     public interface IReportRegistrar
     {
+
+
+        // TODO: add optional language parameters to translate reports before returning
+
+
+
         /// <summary>
         /// Registers a single report with a builder source
         /// </summary>

@@ -26,8 +26,26 @@
         /// <param name="translatorFactory">The phrase translation factory</param>
         public ReportGenerator
             (
+                IReportFilterGenerator filterGenerator
+            )
+        {
+            Validate.IsNotNull(filterGenerator);
+
+            var dictionaryFactory = new EmptyPhraseTranslatorFactory();
+
+            _filterGenerator = filterGenerator;
+            _translator = dictionaryFactory.GetDictionary();
+        }
+
+        /// <summary>
+        /// Constructs the report generator with required dependencies
+        /// </summary>
+        /// <param name="filterGenerator">The filter generator</param>
+        /// <param name="translatorFactory">The phrase translation factory</param>
+        public ReportGenerator
+            (
                 IReportFilterGenerator filterGenerator,
-                IPhraseTranslationDictionaryFactory translatorFactory
+                IPhraseTranslatorFactory translatorFactory
             )
         {
             Validate.IsNotNull(filterGenerator);
