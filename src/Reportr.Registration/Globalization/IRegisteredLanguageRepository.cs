@@ -38,6 +38,16 @@
         );
 
         /// <summary>
+        /// Determines if a language has been registered
+        /// </summary>
+        /// <param name="iso">The language ISO</param>
+        /// <returns>True, if a match was found; otherwise false</returns>
+        bool HasBeenRegistered
+        (
+            string iso
+        );
+
+        /// <summary>
         /// Gets the default registered language from the repository
         /// </summary>
         /// <returns>The registered language</returns>

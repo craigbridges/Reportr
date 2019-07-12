@@ -19,6 +19,15 @@
         );
 
         /// <summary>
+        /// Auto registers the languages specified
+        /// </summary>
+        /// <param name="configurations">The language configurations</param>
+        void AutoRegisterLanguages
+        (
+            params RegisteredLanguageConfiguration[] configurations
+        );
+
+        /// <summary>
         /// Gets a registered language
         /// </summary>
         /// <param name="id">The language ID</param>

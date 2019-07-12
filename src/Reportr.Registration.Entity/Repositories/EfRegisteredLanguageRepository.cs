@@ -87,6 +87,26 @@
         }
 
         /// <summary>
+        /// Determines if a language has been registered
+        /// </summary>
+        /// <param name="iso">The language ISO</param>
+        /// <returns>True, if a match was found; otherwise false</returns>
+        public bool HasBeenRegistered
+            (
+                string iso
+            )
+        {
+            Validate.IsNotEmpty(iso);
+
+            var set = _context.Set<RegisteredLanguage>();
+
+            return set.Any
+            (
+                l => l.Iso.Equals(iso, StringComparison.OrdinalIgnoreCase)
+            );
+        }
+
+        /// <summary>
         /// Gets the default registered language from the repository
         /// </summary>
         /// <returns>The registered language</returns>

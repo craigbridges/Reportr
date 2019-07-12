@@ -25,7 +25,7 @@
     /// The report sections are page header, report header, detail, 
     /// report footer and page footer.
     /// </remarks>
-    public class Report
+    public class Report : ILocalizable
     {
         /// <summary>
         /// Constructs the report with the details

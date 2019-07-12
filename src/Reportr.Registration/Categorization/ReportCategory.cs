@@ -10,7 +10,7 @@
     /// <summary>
     /// Represents a single report category
     /// </summary>
-    public class ReportCategory : IAggregate
+    public class ReportCategory : IAggregate, ILocalizable
     {
         /// <summary>
         /// Constructs the report category with its default configuration

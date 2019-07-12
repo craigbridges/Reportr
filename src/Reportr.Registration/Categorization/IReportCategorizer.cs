@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration.Categorization
 {
+    using Reportr.Globalization;
     using System.Collections.Generic;
     
     /// <summary>
@@ -7,16 +8,6 @@
     /// </summary>
     public interface IReportCategorizer
     {
-
-
-
-
-        // TODO: add optional language parameters to translate categories before returning
-
-
-
-
-
         /// <summary>
         /// Creates a single root level report category
         /// </summary>
@@ -73,32 +64,44 @@
         /// Gets a single report category
         /// </summary>
         /// <param name="name">The category name</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>The matching category</returns>
         ReportCategory GetCategory
         (
-            string name
+            string name,
+            GlobalizationOptions options = null
         );
 
         /// <summary>
         /// Gets all root level report categories
         /// </summary>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of report categories</returns>
-        IEnumerable<ReportCategory> GetAllCategories();
+        IEnumerable<ReportCategory> GetAllCategories
+        (
+            GlobalizationOptions options = null
+        );
 
         /// <summary>
         /// Gets the root report categories in the repository
         /// </summary>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of categories</returns>
-        IEnumerable<ReportCategory> GetRootCategories();
+        IEnumerable<ReportCategory> GetRootCategories
+        (
+            GlobalizationOptions options = null
+        );
 
         /// <summary>
         /// Gets sub report categories from a parent category
         /// </summary>
         /// <param name="parentCategoryName">The parent category name</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of report categories</returns>
         IEnumerable<ReportCategory> GetSubCategories
         (
-            string parentCategoryName
+            string parentCategoryName,
+            GlobalizationOptions options = null
         );
 
         /// <summary>

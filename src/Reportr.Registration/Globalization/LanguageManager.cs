@@ -60,6 +60,48 @@
         }
 
         /// <summary>
+        /// Auto registers the languages specified
+        /// </summary>
+        /// <param name="configurations">The language configurations</param>
+        public void AutoRegisterLanguages
+            (
+                params RegisteredLanguageConfiguration[] configurations
+            )
+        {
+            Validate.IsNotNull(configurations);
+
+            var changesMade = false;
+
+            foreach (var configuration in configurations)
+            {
+                var registered = _languageRepository.HasBeenRegistered
+                (
+                    configuration.Iso
+                );
+
+                if (false == registered)
+                {
+                    var language = new RegisteredLanguage
+                    (
+                        configuration
+                    );
+
+                    _languageRepository.AddLanguage
+                    (
+                        language
+                    );
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Gets a registered language
         /// </summary>
         /// <param name="id">The language ID</param>

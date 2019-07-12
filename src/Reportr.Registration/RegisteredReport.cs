@@ -13,7 +13,7 @@
     /// A registered report is used to keep track of a report that
     /// can be generated through Reportr.
     /// </remarks>
-    public class RegisteredReport : IAggregate
+    public class RegisteredReport : IAggregate, ILocalizable
     {
         private readonly bool _constructing;
 

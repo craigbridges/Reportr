@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration.Categorization
 {
+    using Reportr.Globalization;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,22 +12,27 @@
     {
         private readonly IReportCategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly PhraseTranslationDictionary _translator;
 
         /// <summary>
         /// Constructs the report categorizer with required dependencies
         /// </summary>
         /// <param name="categoryRepository">The category repository</param>
+        /// <param name="translatorFactory">The translator factory</param>
         /// <param name="unitOfWork">The unit of work</param>
         public ReportCategorizer
             (
                 IReportCategoryRepository categoryRepository,
+                IPhraseTranslatorFactory translatorFactory,
                 IUnitOfWork unitOfWork
             )
         {
             Validate.IsNotNull(categoryRepository);
+            Validate.IsNotNull(translatorFactory);
             Validate.IsNotNull(unitOfWork);
 
             _categoryRepository = categoryRepository;
+            _translator = translatorFactory.GetDictionary();
             _unitOfWork = unitOfWork;
         }
 
@@ -254,50 +260,94 @@
         /// Gets a single report category
         /// </summary>
         /// <param name="name">The category name</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>The matching category</returns>
         public ReportCategory GetCategory
             (
-                string name
+                string name,
+                GlobalizationOptions options = null
             )
         {
-            return _categoryRepository.GetCategory
+            var category = _categoryRepository.GetCategory
             (
                 name
             );
+
+            category.Localize
+            (
+                _translator,
+                options
+            );
+
+            return category;
         }
 
         /// <summary>
         /// Gets all root level report categories
         /// </summary>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of report categories</returns>
-        public IEnumerable<ReportCategory> GetAllCategories()
+        public IEnumerable<ReportCategory> GetAllCategories
+            (
+                GlobalizationOptions options = null
+            )
         {
-            return _categoryRepository.GetAllCategories();
+            var categories = _categoryRepository.GetAllCategories();
+
+            categories.Localize
+            (
+                _translator,
+                options
+            );
+
+            return categories;
         }
 
         /// <summary>
         /// Gets the root report categories in the repository
         /// </summary>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of categories</returns>
-        public IEnumerable<ReportCategory> GetRootCategories()
+        public IEnumerable<ReportCategory> GetRootCategories
+            (
+                GlobalizationOptions options = null
+            )
         {
-            return _categoryRepository.GetRootCategories();
+            var categories = _categoryRepository.GetRootCategories();
+
+            categories.Localize
+            (
+                _translator,
+                options
+            );
+
+            return categories;
         }
 
         /// <summary>
         /// Gets sub report categories from a parent category
         /// </summary>
         /// <param name="parentCategoryName">The parent category name</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of report categories</returns>
         public IEnumerable<ReportCategory> GetSubCategories
             (
-                string parentCategoryName
+                string parentCategoryName,
+                GlobalizationOptions options = null
             )
         {
-            return _categoryRepository.GetSubCategories
+            var categories = _categoryRepository.GetSubCategories
             (
                 parentCategoryName
             );
+
+            categories.Localize
+            (
+                _translator,
+                options
+            );
+
+            return categories;
         }
 
         /// <summary>

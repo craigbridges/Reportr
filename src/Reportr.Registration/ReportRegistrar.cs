@@ -15,8 +15,8 @@
         private readonly IRegisteredReportRepository _reportRepository;
         private readonly IReportCategoryRepository _categoryRepository;
         private readonly IReportRoleAssignmentRepository _roleAssignmentRepository;
-        private readonly PhraseTranslationDictionary _translator;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly PhraseTranslationDictionary _translator;
 
         /// <summary>
         /// Constructs the report categorizer with required dependencies
@@ -236,7 +236,11 @@
                 name
             );
 
-            LocalizeReport(report, options);
+            report.Localize
+            (
+                _translator,
+                options
+            );
 
             return report;
         }
@@ -253,11 +257,13 @@
         {
             var reports = _reportRepository.GetAllReports();
 
-            return LocalizeReports
+            reports.Localize
             (
-                reports,
+                _translator,
                 options
             );
+
+            return reports;
         }
 
         /// <summary>
@@ -293,11 +299,13 @@
                 )
             );
 
-            return LocalizeReports
+            matchingReports.Localize
             (
-                matchingReports,
+                _translator,
                 options
             );
+
+            return matchingReports;
         }
 
         /// <summary>
@@ -355,10 +363,15 @@
             
             userReports.AddRange(reportsWithoutRoles);
 
-            return LocalizeReports
+            userReports.Localize
             (
-                userReports.OrderBy(r => r.Name),
+                _translator,
                 options
+            );
+
+            return userReports.OrderBy
+            (
+                r => r.Name
             );
         }
 
@@ -403,10 +416,15 @@
                 )
             );
 
-            return LocalizeReports
+            userReports.Localize
             (
-                userReports.OrderBy(r => r.Name),
+                _translator,
                 options
+            );
+
+            return userReports.OrderBy
+            (
+                r => r.Name
             );
         }
 
@@ -648,50 +666,6 @@
             
             _reportRepository.RemoveReport(name);
             _unitOfWork.SaveChanges();
-        }
-
-        /// <summary>
-        /// Localizes a registered report using globalization options
-        /// </summary>
-        /// <param name="report">The registered report</param>
-        /// <param name="options">The globalization options</param>
-        private void LocalizeReport
-            (
-                RegisteredReport report,
-                GlobalizationOptions options
-            )
-        {
-            if (options.PreferredLanguage != null)
-            {
-                report.Translate
-                (
-                    _translator,
-                    options.PreferredLanguage
-                );
-            }
-        }
-
-        /// <summary>
-        /// Localizes registered reports using globalization options
-        /// </summary>
-        /// <param name="reports">The registered reports</param>
-        /// <param name="options">The globalization options</param>
-        /// <returns>An array of localized reports</returns>
-        private RegisteredReport[] LocalizeReports
-            (
-                IEnumerable<RegisteredReport> reports,
-                GlobalizationOptions options
-            )
-        {
-            var reportList = new List<RegisteredReport>();
-
-            foreach (var report in reports)
-            {
-                LocalizeReport(report, options);
-                reportList.Add(report);
-            }
-
-            return reportList.ToArray();
         }
     }
 }

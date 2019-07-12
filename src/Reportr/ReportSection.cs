@@ -7,7 +7,7 @@
     /// <summary>
     /// Represents a single report section
     /// </summary>
-    public class ReportSection
+    public class ReportSection : ILocalizable
     {
         /// <summary>
         /// Constructs the report section with the core details
