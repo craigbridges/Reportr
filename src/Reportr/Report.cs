@@ -1,6 +1,6 @@
 ﻿namespace Reportr
 {
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;

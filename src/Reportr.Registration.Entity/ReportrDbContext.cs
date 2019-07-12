@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
-    using Reportr.Registration.Culture;
+    using Reportr.Registration.Globalization;
     using Reportr.Registration.Entity.Configurations;
     using System;
 
@@ -128,8 +128,20 @@
                 new ReportRoleAssignmentEntityConfiguration()
             );
 
+            modelBuilder.ApplyConfiguration
+            (
+                new RegisteredLanguageEntityConfiguration()
+            );
 
-            // TODO: registered language and phrase configurations
+            modelBuilder.ApplyConfiguration
+            (
+                new RegisteredPhraseEntityConfiguration()
+            );
+
+            modelBuilder.ApplyConfiguration
+            (
+                new RegisteredPhraseTranslationEntityConfiguration()
+            );
         }
     }
 }

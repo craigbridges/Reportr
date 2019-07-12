@@ -1,4 +1,4 @@
-﻿namespace Reportr.Registration.Culture
+﻿namespace Reportr.Registration.Globalization
 {
     using System;
     using System.Collections.Generic;

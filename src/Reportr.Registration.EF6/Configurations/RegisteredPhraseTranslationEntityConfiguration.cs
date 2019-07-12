@@ -1,34 +1,34 @@
 ﻿namespace Reportr.Registration.Entity.Configurations
 {
-    using Reportr.Registration.Categorization;
+    using Reportr.Registration.Globalization;
     using System.Data.Entity.ModelConfiguration;
 
     /// <summary>
-    /// Represents an entity type configuration for a report category assignment
+    /// Represents an entity type configuration for a registered phrase translation
     /// </summary>
-    public class ReportCategoryAssignmentEntityConfiguration
-        : EntityTypeConfiguration<ReportCategoryAssignment>
+    public class RegisteredPhraseTranslationEntityConfiguration
+        : EntityTypeConfiguration<RegisteredPhraseTranslation>
     {
-        public ReportCategoryAssignmentEntityConfiguration()
+        public RegisteredPhraseTranslationEntityConfiguration()
             : base()
         {
             HasKey
             (
                 m => new
                 {
-                    m.AssignmentId,
-                    m.CategoryId
+                    m.PhraseId,
+                    m.TranslationId
                 }
             );
 
             // Set up a foreign key reference for cascade deletes
-            HasRequired(m => m.Category)
-                .WithMany(m => m.AssignedReports)
+            HasRequired(m => m.Phrase)
+                .WithMany(m => m.Translations)
                 .HasForeignKey
                 (
                     m => new
                     {
-                        m.CategoryId
+                        m.PhraseId
                     }
                 )
                 .WillCascadeOnDelete();
@@ -37,7 +37,7 @@
             (
                 m =>
                 {
-                    m.ToTable("ReportCategoryAssignments");
+                    m.ToTable("RegisteredPhraseTranslations");
                 }
             );
         }

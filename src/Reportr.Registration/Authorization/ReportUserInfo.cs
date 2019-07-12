@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Registration.Authorization
 {
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using System;
     using System.Collections.Generic;
     using System.Globalization;

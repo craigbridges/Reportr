@@ -3,7 +3,7 @@
     using Reportr.IoC;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
-    using Reportr.Registration.Culture;
+    using Reportr.Registration.Globalization;
     using Reportr.Registration.Entity.Repositories;
     using System.Collections.Generic;
 

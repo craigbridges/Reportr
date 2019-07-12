@@ -1,7 +1,7 @@
 ﻿namespace Reportr.Data.Sql
 {
     using CodeChange.Toolkit.Culture;
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using Reportr.Data.Querying;
     using System;
     using System.Collections.Generic;

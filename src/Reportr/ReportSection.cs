@@ -1,7 +1,7 @@
 ﻿namespace Reportr
 {
     using Reportr.Components;
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using System;
 
     /// <summary>

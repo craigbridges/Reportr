@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration
 {
+    using Reportr.Globalization;
     using Reportr.Registration.Authorization;
     using System;
     using System.Collections.Generic;
@@ -9,12 +10,6 @@
     /// </summary>
     public interface IReportRegistrar
     {
-
-
-        // TODO: add optional language parameters to translate reports before returning
-
-
-
         /// <summary>
         /// Registers a single report with a builder source
         /// </summary>
@@ -82,36 +77,46 @@
         /// Gets a single registered report
         /// </summary>
         /// <param name="name">The name of the report</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>The matching registered report</returns>
         RegisteredReport GetReport
         (
-            string name
+            string name,
+            GlobalizationOptions options = null
         );
 
         /// <summary>
         /// Gets all registered reports
         /// </summary>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of registered reports</returns>
-        IEnumerable<RegisteredReport> GetAllReports();
+        IEnumerable<RegisteredReport> GetAllReports
+        (
+            GlobalizationOptions options = null
+        );
 
         /// <summary>
         /// Gets all registered reports in a category
         /// </summary>
         /// <param name="categoryName">The category name</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of registered reports</returns>
         IEnumerable<RegisteredReport> GetReportsByCategory
         (
-            string categoryName
+            string categoryName,
+            GlobalizationOptions options = null
         );
 
         /// <summary>
         /// Gets all registered reports for a single user
         /// </summary>
         /// <param name="userInfo">The user information</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of registered reports</returns>
         IEnumerable<RegisteredReport> GetReportsForUser
         (
-            ReportUserInfo userInfo
+            ReportUserInfo userInfo,
+            GlobalizationOptions options = null
         );
 
         /// <summary>
@@ -119,11 +124,13 @@
         /// </summary>
         /// <param name="userInfo">The user information</param>
         /// <param name="categoryName">The category string</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of registered reports</returns>
         IEnumerable<RegisteredReport> GetReportsForUser
         (
             ReportUserInfo userInfo,
-            string categoryName
+            string categoryName,
+            GlobalizationOptions options = null
         );
 
         /// <summary>

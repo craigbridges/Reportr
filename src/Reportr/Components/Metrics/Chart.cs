@@ -1,7 +1,7 @@
 ﻿namespace Reportr.Components.Metrics
 {
     using Newtonsoft.Json;
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using System;
     using System.Collections;
     using System.Collections.Generic;

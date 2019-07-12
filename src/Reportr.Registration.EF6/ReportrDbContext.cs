@@ -2,7 +2,7 @@
 {
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
-    using Reportr.Registration.Culture;
+    using Reportr.Registration.Globalization;
     using Reportr.Registration.Entity.Configurations;
     using Reportr.Registration.Entity.Migrations;
     using System.Data.Entity;
@@ -91,9 +91,9 @@
             registrar.Add(new ReportCategoryAssignmentEntityConfiguration());
             registrar.Add(new ReportRoleEntityConfiguration());
             registrar.Add(new ReportRoleAssignmentEntityConfiguration());
-
-
-            // TODO: registered language and phrase configurations
+            registrar.Add(new RegisteredLanguageEntityConfiguration());
+            registrar.Add(new RegisteredPhraseEntityConfiguration());
+            registrar.Add(new RegisteredPhraseTranslationEntityConfiguration());
         }
     }
 }

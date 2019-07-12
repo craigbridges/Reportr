@@ -1,5 +1,6 @@
 ﻿namespace Reportr.Registration
 {
+    using Reportr.Globalization;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
     using System;
@@ -14,6 +15,7 @@
         private readonly IRegisteredReportRepository _reportRepository;
         private readonly IReportCategoryRepository _categoryRepository;
         private readonly IReportRoleAssignmentRepository _roleAssignmentRepository;
+        private readonly PhraseTranslationDictionary _translator;
         private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
@@ -22,23 +24,27 @@
         /// <param name="reportRepository">The report repository</param>
         /// <param name="categoryRepository">The category repository</param>
         /// <param name="roleAssignmentRepository">The role assignment repository</param>
+        /// <param name="translatorFactory">The translator factory</param>
         /// <param name="unitOfWork">The unit of work</param>
         public ReportRegistrar
             (
                 IRegisteredReportRepository reportRepository,
                 IReportCategoryRepository categoryRepository,
                 IReportRoleAssignmentRepository roleAssignmentRepository,
+                IPhraseTranslatorFactory translatorFactory,
                 IUnitOfWork unitOfWork
             )
         {
             Validate.IsNotNull(reportRepository);
             Validate.IsNotNull(categoryRepository);
             Validate.IsNotNull(roleAssignmentRepository);
+            Validate.IsNotNull(translatorFactory);
             Validate.IsNotNull(unitOfWork);
 
             _reportRepository = reportRepository;
             _categoryRepository = categoryRepository;
             _roleAssignmentRepository = roleAssignmentRepository;
+            _translator = translatorFactory.GetDictionary();
             _unitOfWork = unitOfWork;
         }
 
@@ -217,35 +223,53 @@
         /// Gets a single registered report
         /// </summary>
         /// <param name="name">The name of the report</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>The matching registered report</returns>
         public RegisteredReport GetReport
             (
-                string name
+                string name,
+                GlobalizationOptions options = null
             )
         {
-            return _reportRepository.GetReport
+            var report = _reportRepository.GetReport
             (
                 name
+            );
+
+            LocalizeReport(report, options);
+
+            return report;
+        }
+
+        /// <summary>
+        /// Gets all registered reports
+        /// </summary>
+        /// <param name="options">The globalization options (optional)</param>
+        /// <returns>A collection of registered reports</returns>
+        public IEnumerable<RegisteredReport> GetAllReports
+            (
+                GlobalizationOptions options = null
+            )
+        {
+            var reports = _reportRepository.GetAllReports();
+
+            return LocalizeReports
+            (
+                reports,
+                options
             );
         }
 
         /// <summary>
         /// Gets all registered reports
         /// </summary>
-        /// <returns>A collection of registered reports</returns>
-        public IEnumerable<RegisteredReport> GetAllReports()
-        {
-            return _reportRepository.GetAllReports();
-        }
-
-        /// <summary>
-        /// Gets all registered reports
-        /// </summary>
         /// <param name="categoryName">The category name</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of registered reports</returns>
         public IEnumerable<RegisteredReport> GetReportsByCategory
             (
-                string categoryName
+                string categoryName,
+                GlobalizationOptions options = null
             )
         {
             var category = _categoryRepository.GetCategory
@@ -269,17 +293,23 @@
                 )
             );
 
-            return matchingReports;
+            return LocalizeReports
+            (
+                matchingReports,
+                options
+            );
         }
 
         /// <summary>
         /// Gets all registered reports for a single user
         /// </summary>
         /// <param name="userInfo">The user information</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of registered reports</returns>
         public IEnumerable<RegisteredReport> GetReportsForUser
             (
-                ReportUserInfo userInfo
+                ReportUserInfo userInfo,
+                GlobalizationOptions options = null
             )
         {
             Validate.IsNotNull(userInfo);
@@ -325,9 +355,10 @@
             
             userReports.AddRange(reportsWithoutRoles);
 
-            return userReports.OrderBy
+            return LocalizeReports
             (
-                a => a.Name
+                userReports.OrderBy(r => r.Name),
+                options
             );
         }
 
@@ -336,11 +367,13 @@
         /// </summary>
         /// <param name="userInfo">The user information</param>
         /// <param name="categoryName">The category string</param>
+        /// <param name="options">The globalization options (optional)</param>
         /// <returns>A collection of registered reports</returns>
         public IEnumerable<RegisteredReport> GetReportsForUser
             (
                 ReportUserInfo userInfo,
-                string categoryName
+                string categoryName,
+                GlobalizationOptions options = null
             )
         {
             Validate.IsNotNull(userInfo);
@@ -370,9 +403,10 @@
                 )
             );
 
-            return userReports.OrderBy
+            return LocalizeReports
             (
-                a => a.Name
+                userReports.OrderBy(r => r.Name),
+                options
             );
         }
 
@@ -614,6 +648,50 @@
             
             _reportRepository.RemoveReport(name);
             _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
+        /// Localizes a registered report using globalization options
+        /// </summary>
+        /// <param name="report">The registered report</param>
+        /// <param name="options">The globalization options</param>
+        private void LocalizeReport
+            (
+                RegisteredReport report,
+                GlobalizationOptions options
+            )
+        {
+            if (options.PreferredLanguage != null)
+            {
+                report.Translate
+                (
+                    _translator,
+                    options.PreferredLanguage
+                );
+            }
+        }
+
+        /// <summary>
+        /// Localizes registered reports using globalization options
+        /// </summary>
+        /// <param name="reports">The registered reports</param>
+        /// <param name="options">The globalization options</param>
+        /// <returns>An array of localized reports</returns>
+        private RegisteredReport[] LocalizeReports
+            (
+                IEnumerable<RegisteredReport> reports,
+                GlobalizationOptions options
+            )
+        {
+            var reportList = new List<RegisteredReport>();
+
+            foreach (var report in reports)
+            {
+                LocalizeReport(report, options);
+                reportList.Add(report);
+            }
+
+            return reportList.ToArray();
         }
     }
 }

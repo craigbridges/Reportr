@@ -1,4 +1,4 @@
-﻿namespace Reportr.Culture
+﻿namespace Reportr.Globalization
 {
     /// <summary>
     /// Represents an implementation of the factory that generates an empty dictionary

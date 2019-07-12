@@ -1,11 +1,11 @@
-﻿namespace Reportr.Culture
+﻿namespace Reportr.Globalization
 {
     using CodeChange.Toolkit.Culture;
     
     /// <summary>
-    /// Defines a contract for a service that transforms an object to a culture
+    /// Represents the default cultural transformer
     /// </summary>
-    public interface ICulturalTransformer
+    public class DefaultCulturalTransformer : ICulturalTransformer
     {
         /// <summary>
         /// Transforms an object to the culture specific variant
@@ -13,10 +13,13 @@
         /// <param name="value">The value to transform</param>
         /// <param name="localeConfiguration">The locale configuration</param>
         /// <returns>The transformed value</returns>
-        object Transform
-        (
-            object value,
-            ILocaleConfiguration localeConfiguration
-        );
+        public object Transform
+            (
+                object value,
+                ILocaleConfiguration localeConfiguration
+            )
+        {
+            return value;
+        }
     }
 }

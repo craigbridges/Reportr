@@ -1,7 +1,7 @@
 ﻿namespace Reportr.Registration.Entity.Repositories
 {
     using Microsoft.EntityFrameworkCore;
-    using Reportr.Registration.Culture;
+    using Reportr.Registration.Globalization;
     using System;
     using System.Collections.Generic;
     using System.Linq;

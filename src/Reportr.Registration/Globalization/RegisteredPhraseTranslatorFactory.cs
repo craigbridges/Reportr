@@ -1,6 +1,6 @@
-﻿namespace Reportr.Registration.Culture
+﻿namespace Reportr.Registration.Globalization
 {
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using System;
     using System.Collections.Generic;
     using System.Linq;

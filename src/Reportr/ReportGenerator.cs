@@ -2,12 +2,11 @@
 {
     using Nito.AsyncEx.Synchronous;
     using Reportr.Components;
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -102,15 +101,11 @@
 
             if (options == null)
             {
-                options = new ReportGenerationOptions()
-                {
-                    DefaultCulture = CultureInfo.CurrentCulture
-                };
+                options = new ReportGenerationOptions();
             }
-
-            if (definition.Culture == null)
+            else if (options.Culture != null)
             {
-                definition.Culture = options.DefaultCulture;
+                definition.Culture = options.Culture;
             }
 
             var pageHeaderTask = GenerateSectionAsync

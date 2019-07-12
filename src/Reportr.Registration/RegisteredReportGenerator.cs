@@ -151,7 +151,7 @@
 
             var options = new ReportGenerationOptions()
             {
-                DefaultCulture = userInfo.Culture ?? CultureInfo.CurrentCulture,
+                Culture = userInfo.Culture,
                 PreferredLanguage = userInfo.PreferredLanguage
             };
 

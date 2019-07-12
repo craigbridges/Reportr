@@ -1,4 +1,4 @@
-﻿namespace Reportr.Culture
+﻿namespace Reportr.Globalization
 {
     using CodeChange.Toolkit.Culture;
     using System;

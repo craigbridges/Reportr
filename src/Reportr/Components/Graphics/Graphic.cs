@@ -1,7 +1,7 @@
 ﻿namespace Reportr.Components.Graphics
 {
     using Reportr.Components.Metrics;
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using System;
     using System.Collections.Generic;
     using System.Drawing;

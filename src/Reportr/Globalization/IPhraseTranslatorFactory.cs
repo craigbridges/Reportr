@@ -1,4 +1,4 @@
-﻿namespace Reportr.Culture
+﻿namespace Reportr.Globalization
 {
     /// <summary>
     /// Defines a contract for a factory that resolves phrase translation dictionaries

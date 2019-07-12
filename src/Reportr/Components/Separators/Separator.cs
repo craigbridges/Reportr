@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Components.Separators
 {
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using System.Runtime.Serialization;
 
     /// <summary>

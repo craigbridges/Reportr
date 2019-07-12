@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Registration.Entity.Repositories
 {
-    using Reportr.Registration.Culture;
+    using Reportr.Registration.Globalization;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;

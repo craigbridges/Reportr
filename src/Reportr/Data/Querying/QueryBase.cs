@@ -1,7 +1,7 @@
 ﻿namespace Reportr.Data.Querying
 {
     using Nito.AsyncEx.Synchronous;
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using Reportr.Filtering;
     using System;
     using System.Collections.Generic;

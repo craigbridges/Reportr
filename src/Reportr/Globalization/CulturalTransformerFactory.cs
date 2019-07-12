@@ -1,4 +1,4 @@
-﻿namespace Reportr.Culture
+﻿namespace Reportr.Globalization
 {
     using System;
     

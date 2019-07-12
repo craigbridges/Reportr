@@ -1,10 +1,10 @@
 ﻿namespace Reportr.Registration
 {
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using Reportr.IoC;
     using Reportr.Registration.Authorization;
     using Reportr.Registration.Categorization;
-    using Reportr.Registration.Culture;
+    using Reportr.Registration.Globalization;
     using System.Collections.Generic;
     
     /// <summary>
@@ -49,6 +49,11 @@
                 (
                     typeof(ILanguageManager),
                     typeof(LanguageManager)
+                ),
+                new RegisteredType
+                (
+                    typeof(ILanguageFactory),
+                    typeof(LanguageFactory)
                 ),
                 new RegisteredType
                 (

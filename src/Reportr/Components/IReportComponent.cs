@@ -1,6 +1,6 @@
 ﻿namespace Reportr.Components
 {
-    using Reportr.Culture;
+    using Reportr.Globalization;
     using Reportr.Drawing;
     using System.Collections.Generic;
 

@@ -1,4 +1,4 @@
-﻿namespace Reportr.Registration.Culture
+﻿namespace Reportr.Registration.Globalization
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -38,6 +38,11 @@
         /// Gets the associated phrase
         /// </summary>
         public RegisteredPhrase Phrase { get; protected set; }
+
+        /// <summary>
+        /// Gets the unique ID of the phrase
+        /// </summary>
+        public Guid PhraseId { get; protected set; }
 
         /// <summary>
         /// Gets the unique ID of the translation
