@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    
+
     /// <summary>
     /// Represents an Entity Framework registered report role repository
     /// </summary>
@@ -55,10 +55,10 @@
             )
         {
             Validate.IsNotEmpty(name);
-            
+
             return _context.Set<ReportRole>().Any
             (
-                r => r.Name.ToLower() == name.ToLower()
+                r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -78,7 +78,7 @@
 
             var role = set.FirstOrDefault
             (
-                r => r.Name.ToLower() == name.ToLower()
+                r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (role == null)

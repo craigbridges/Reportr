@@ -74,7 +74,7 @@
 
             return _queries.Any
             (
-                m => m.Name.ToLower() == name.ToLower()
+                m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -92,7 +92,7 @@
 
             var query = _queries.FirstOrDefault
             (
-                m => m.Name.ToLower() == name.ToLower()
+                m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (query == null)

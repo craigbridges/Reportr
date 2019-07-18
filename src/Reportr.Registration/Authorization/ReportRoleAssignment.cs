@@ -119,7 +119,7 @@
 
             var constraint = this.ParameterConstraints.FirstOrDefault
             (
-                m => m.ParameterName.ToLower() == parameterName.ToLower()
+                m => m.ParameterName.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (constraint == null)
@@ -152,7 +152,7 @@
 
             var constraint = this.ParameterConstraints.FirstOrDefault
             (
-                m => m.ParameterName.ToLower() == parameterName.ToLower()
+                m => m.ParameterName.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
             );
 
             if (constraint == null)

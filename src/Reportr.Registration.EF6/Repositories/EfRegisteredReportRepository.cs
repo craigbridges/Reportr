@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    
+
     /// <summary>
     /// Represents an Entity Framework registered report repository
     /// </summary>
@@ -41,7 +41,7 @@
 
             var nameUsed = set.Any
             (
-                r => r.Name.ToLower() == report.Name.ToLower()
+                r => r.Name.Equals(report.Name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (nameUsed)
@@ -71,7 +71,7 @@
 
             return set.Any
             (
-                r => r.Name.ToLower() == name.ToLower()
+                r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -91,7 +91,7 @@
 
             var report = set.FirstOrDefault
             (
-                r => r.Name.ToLower() == name.ToLower()
+                r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
 
             if (report == null)

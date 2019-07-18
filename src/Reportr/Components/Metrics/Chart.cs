@@ -46,7 +46,7 @@
 
                 var matchCount = dataSets.Count
                 (
-                    s => s.Name.Trim().ToLower() == name.Trim().ToLower()
+                    s => s.Name.Trim().Equals(name.Trim(), StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (matchCount > 1)
@@ -80,7 +80,7 @@
         /// </summary>
         [DataMember]
         public ChartDataSet[] DataSets { get; private set; }
-        
+
         /// <summary>
         /// Gets a single data set from the chart result
         /// </summary>
@@ -95,7 +95,8 @@
 
             var set = this.DataSets.FirstOrDefault
             (
-                s => s.Name.Trim().ToLower() == name.Trim().ToLower()
+                s => s.Name.Trim().Equals(name.Trim(), StringComparison.OrdinalIgnoreCase)
+
             );
 
             if (set == null)

@@ -40,10 +40,10 @@
             Validate.IsNotNull(groupingValues);
 
             this.GroupingValues = groupingValues;
-            
+
             SetData(columns, rows);
         }
-        
+
         /// <summary>
         /// Gets the grouping values by column
         /// </summary>
@@ -82,7 +82,7 @@
 
                 var matchCount = columns.Count
                 (
-                    s => s.Column.Name.ToLower() == name.ToLower()
+                    s => s.Column.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                 );
 
                 if (matchCount > 1)
@@ -99,7 +99,7 @@
                 columns.ToArray(),
                 rows
             );
-            
+
             this.Rows = rows;
         }
 
@@ -135,7 +135,7 @@
 
                     var matchFound = row.Cells.Any
                     (
-                        c => c.Column.Name.ToLower() == name.ToLower()
+                        c => c.Column.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                     );
 
                     if (false == matchFound)

@@ -109,7 +109,7 @@
             if (false == hasAccess)
             {
                 watch.Stop();
-                
+
                 return new ReportGenerationResult
                 (
                     null,
@@ -236,7 +236,7 @@
                     (
                         a => userInfo.Roles.Any
                         (
-                            role => role.ToLower() == a.RoleName.ToLower()
+                            role => role.Equals(a.RoleName, StringComparison.OrdinalIgnoreCase)
                         )
                     );
                 }
@@ -283,7 +283,7 @@
                             "The submitted parameter name cannot be null."
                         );
                     }
-                    
+
                     var convertedValue = ConvertParameterValue
                     (
                         filter,
@@ -420,11 +420,11 @@
                 (
                     a => userInfo.Roles.Any
                     (
-                        role => role.ToLower() == a.RoleName.ToLower()
+                        role => role.Equals(a.RoleName, StringComparison.OrdinalIgnoreCase)
                     )
                 )
                 .ToList();
-                
+
                 if (assignments.Any())
                 {
                     var constraints = assignments.SelectMany
@@ -438,7 +438,7 @@
                         (
                             a => a.ParameterConstraints.Any
                             (
-                                c => c.ParameterName.ToLower() == constraint.ParameterName.ToLower()
+                                c => c.ParameterName.Equals(constraint.ParameterName, StringComparison.OrdinalIgnoreCase)
                             )
                         );
 

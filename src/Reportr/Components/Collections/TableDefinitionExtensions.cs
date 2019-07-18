@@ -112,12 +112,12 @@
                             (
                                 columnCluster.Any
                                 (
-                                    d => d.Name.ToLower() == name.ToLower()
+                                    d => d.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                                 )
                                 ||
                                 allColumns.Any
                                 (
-                                    d => d.Name.ToLower() == name.ToLower()
+                                    d => d.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
                                 )
                             );
 

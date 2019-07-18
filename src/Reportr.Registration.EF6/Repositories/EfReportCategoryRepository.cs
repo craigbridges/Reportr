@@ -5,7 +5,8 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    
+    using System.Linq.Expressions;
+
     /// <summary>
     /// Represents an Entity Framework registered report category repository
     /// </summary>
@@ -37,7 +38,7 @@
             )
         {
             Validate.IsNotNull(category);
-            
+
             _context.Set<ReportCategory>().Add
             (
                 category
@@ -60,7 +61,7 @@
 
             var nameUsed = set.Any
             (
-                c => c.Name.ToLower() == categoryName.ToLower()
+                c => c.Name.Equals(categoryName, StringComparison.OrdinalIgnoreCase)
             );
 
             return false == nameUsed;
@@ -96,7 +97,7 @@
 
             return GetCategory
             (
-                category => category.Name.ToLower() == name.ToLower()
+                category => category.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
             );
         }
 
@@ -107,7 +108,7 @@
         /// <returns>The matching category</returns>
         private ReportCategory GetCategory
             (
-                Func<ReportCategory, bool> predicate
+                Expression<Func<ReportCategory, bool>> predicate
             )
         {
             var set = _context.Set<ReportCategory>();
@@ -200,7 +201,7 @@
 
             var categories = set.Where
             (
-                c => c.ParentCategory.Name.ToLower() == parentCategoryName.ToLower()
+                c => c.ParentCategory.Name.Equals(parentCategoryName, StringComparison.OrdinalIgnoreCase)
             );
 
             return categories.OrderBy
@@ -248,7 +249,7 @@
             )
         {
             Validate.IsNotNull(category);
-            
+
             var entry = _context.Entry<ReportCategory>
             (
                 category
