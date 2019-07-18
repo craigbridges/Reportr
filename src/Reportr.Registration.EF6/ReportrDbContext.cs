@@ -31,13 +31,6 @@
         {
             this.Configuration.ProxyCreationEnabled = true;
             this.Configuration.LazyLoadingEnabled = true;
-
-            Database.SetInitializer
-            (
-                new MigrateDatabaseToLatestVersion<ReportrDbContext, Configuration>()
-            );
-
-            this.ReadAllDateTimeValuesAsUtc();
         }
 
         /// <summary>
@@ -80,6 +73,50 @@
             registrar.Add(new ReportCategoryAssignmentEntityConfiguration());
             registrar.Add(new ReportRoleEntityConfiguration());
             registrar.Add(new ReportRoleAssignmentEntityConfiguration());
+
+            ConfigureTypes(modelBuilder);
+        }
+
+        /// <summary>
+        /// Changes the default EF types conversion configuration
+        /// </summary>
+        /// <param name="modelBuilder">The model builder</param>
+        private void ConfigureTypes
+            (
+                DbModelBuilder modelBuilder
+            )
+        {
+            // Changes decimal or decimal? precision
+            modelBuilder.Properties().Where
+            (
+                x => x.PropertyType == typeof(decimal) || x.PropertyType == typeof(decimal?)
+            )
+            .Configure
+            (
+                c => c.HasPrecision(19, 4)
+            );
+
+            // Changes string to nvarchar 4000
+            modelBuilder.Properties().Where
+            (
+                x => x.PropertyType == typeof(string)
+            )
+            .Configure
+            (
+                c => c.HasMaxLength(4000).IsVariableLength()
+            );
+        }
+
+        public void Migrate()
+        {
+            Database.SetInitializer
+            (
+                new MigrateDatabaseToLatestVersion<ReportrDbContext, Configuration>()
+            );
+
+            this.ReadAllDateTimeValuesAsUtc();
+
+            this.Database.Initialize(false);
         }
     }
 }
