@@ -6,7 +6,7 @@
     /// <summary>
     /// Represents the default language manager implementation
     /// </summary>
-    public sealed class LanguageManager
+    public sealed class LanguageManager : ILanguageManager
     {
         private readonly IRegisteredLanguageRepository _languageRepository;
         private readonly IRegisteredPhraseRepository _phraseRepository;
