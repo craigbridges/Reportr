@@ -84,6 +84,7 @@
             registrar.Add(new ReportCategoryAssignmentEntityConfiguration());
             registrar.Add(new ReportRoleEntityConfiguration());
             registrar.Add(new ReportRoleAssignmentEntityConfiguration());
+            registrar.Add(new ReportParameterConstraintEntityConfiguration());
             registrar.Add(new RegisteredLanguageEntityConfiguration());
             registrar.Add(new RegisteredPhraseEntityConfiguration());
             registrar.Add(new RegisteredPhraseTranslationEntityConfiguration());
