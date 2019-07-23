@@ -115,6 +115,19 @@
         }
 
         /// <summary>
+        /// Finds a registered language by ISO
+        /// </summary>
+        /// <param name="iso">The language ISO</param>
+        /// <returns>The registered language, if found; otherwise null</returns>
+        public RegisteredLanguage FindLanguage
+            (
+                string iso
+            )
+        {
+            return _languageRepository.FindLanguage(iso);
+        }
+
+        /// <summary>
         /// Gets the default registered language
         /// </summary>
         /// <returns>The registered language</returns>
@@ -273,6 +286,19 @@
             )
         {
             return _phraseRepository.GetPhrase(id);
+        }
+
+        /// <summary>
+        /// Finds a registered phrase in the repository
+        /// </summary>
+        /// <param name="text">The phrase text</param>
+        /// <returns>The registered phrase, if found; otherwise null</returns>
+        public RegisteredPhrase FindPhrase
+            (
+                string text
+            )
+        {
+            return _phraseRepository.FindPhrase(text);
         }
 
         /// <summary>

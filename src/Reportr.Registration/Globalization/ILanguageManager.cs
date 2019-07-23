@@ -38,6 +38,16 @@
         );
 
         /// <summary>
+        /// Finds a registered language by ISO
+        /// </summary>
+        /// <param name="iso">The language ISO</param>
+        /// <returns>The registered language, if found; otherwise null</returns>
+        RegisteredLanguage FindLanguage
+        (
+            string iso
+        );
+
+        /// <summary>
         /// Gets the default registered language
         /// </summary>
         /// <returns>The registered language</returns>
@@ -96,6 +106,16 @@
         RegisteredPhrase GetPhrase
         (
             Guid id
+        );
+
+        /// <summary>
+        /// Finds a registered phrase in the repository
+        /// </summary>
+        /// <param name="text">The phrase text</param>
+        /// <returns>The registered phrase, if found; otherwise null</returns>
+        RegisteredPhrase FindPhrase
+        (
+            string text
         );
 
         /// <summary>
