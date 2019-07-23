@@ -80,6 +80,15 @@
         );
 
         /// <summary>
+        /// Auto registers the phrases specified
+        /// </summary>
+        /// <param name="configurations">The phrase configurations</param>
+        void AutoRegisterPhrases
+        (
+            params RegisteredPhraseConfiguration[] configurations
+        );
+
+        /// <summary>
         /// Gets a phrase
         /// </summary>
         /// <param name="id">The phrase ID</param>

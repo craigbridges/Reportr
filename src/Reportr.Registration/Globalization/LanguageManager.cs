@@ -221,6 +221,48 @@
         }
 
         /// <summary>
+        /// Auto registers the phrases specified
+        /// </summary>
+        /// <param name="configurations">The phrase configurations</param>
+        public void AutoRegisterPhrases
+            (
+                params RegisteredPhraseConfiguration[] configurations
+            )
+        {
+            Validate.IsNotNull(configurations);
+
+            var changesMade = false;
+
+            foreach (var configuration in configurations)
+            {
+                var registered = _phraseRepository.HasBeenRegistered
+                (
+                    configuration.PhraseText
+                );
+
+                if (false == registered)
+                {
+                    var phrase = new RegisteredPhrase
+                    (
+                        configuration
+                    );
+
+                    _phraseRepository.AddPhrase
+                    (
+                        phrase
+                    );
+
+                    changesMade = true;
+                }
+            }
+
+            if (changesMade)
+            {
+                _unitOfWork.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Gets a phrase
         /// </summary>
         /// <param name="id">The phrase ID</param>

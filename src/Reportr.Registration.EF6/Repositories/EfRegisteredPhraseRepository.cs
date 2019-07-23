@@ -91,6 +91,28 @@
         }
 
         /// <summary>
+        /// Determines if a phrase has been registered
+        /// </summary>
+        /// <param name="phraseText">The phrase text</param>
+        /// <returns>True, if a match was found; otherwise false</returns>
+        public bool HasBeenRegistered
+            (
+                string phraseText
+            )
+        {
+            var set = _context.Set<RegisteredPhrase>();
+
+            return set.Any
+            (
+                l => l.PhraseText.Equals
+                (
+                    phraseText,
+                    StringComparison.OrdinalIgnoreCase
+                )
+            );
+        }
+
+        /// <summary>
         /// Gets all registered phrases in the repository
         /// </summary>
         /// <returns>A collection of registered phrases</returns>

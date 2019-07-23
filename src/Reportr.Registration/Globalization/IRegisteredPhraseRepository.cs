@@ -38,6 +38,16 @@
         );
 
         /// <summary>
+        /// Determines if a phrase has been registered
+        /// </summary>
+        /// <param name="phraseText">The phrase text</param>
+        /// <returns>True, if a match was found; otherwise false</returns>
+        bool HasBeenRegistered
+        (
+            string phraseText
+        );
+
+        /// <summary>
         /// Gets all phrases in the repository
         /// </summary>
         /// <returns>A collection of phrases</returns>
