@@ -63,7 +63,7 @@
         /// <summary>
         /// Gets a flag indicating if the language is the default
         /// </summary>
-        public bool Default { get; protected set; }
+        public bool Default { get; protected internal set; }
 
         /// <summary>
         /// Configures the registered language

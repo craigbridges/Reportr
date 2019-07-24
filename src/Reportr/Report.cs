@@ -342,11 +342,14 @@
 
             foreach (var section in this.AllSections)
             {
-                section.Translate
-                (
-                    translator,
-                    language
-                );
+                if (section != null)
+                {
+                    section.Translate
+                    (
+                        translator,
+                        language
+                    );
+                }
             }
         }
 

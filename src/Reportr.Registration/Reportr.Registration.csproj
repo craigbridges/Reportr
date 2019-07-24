@@ -6,12 +6,12 @@
 		<Description>A report registration abstraction for the Reportr framework.</Description>
 		<Copyright>Copyright © Craig Bridges 2018</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.2.4</AssemblyVersion>
-		<Version>1.2.4</Version>
+		<AssemblyVersion>1.2.5</AssemblyVersion>
+		<Version>1.2.5</Version>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-    <PackageReleaseNotes>Set registered phrase date created and modified fields.</PackageReleaseNotes>
+    <PackageReleaseNotes>API to ensure only one language is set as the default.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
 		<metadata>

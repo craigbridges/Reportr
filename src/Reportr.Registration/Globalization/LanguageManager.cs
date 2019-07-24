@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Represents the default language manager implementation
@@ -161,6 +162,29 @@
             language.Configure(configuration);
 
             _languageRepository.UpdateLanguage(language);
+            _unitOfWork.SaveChanges();
+
+            RegisteredPhraseTranslatorFactory.ClearCache();
+        }
+
+        /// <summary>
+        /// Sets the default language
+        /// </summary>
+        /// <param name="id">The language ID</param>
+        public void SetDefaultLanguage
+            (
+                Guid id
+            )
+        {
+            var allLanguages = _languageRepository.GetAllLanguages();
+
+            foreach (var language in allLanguages.ToList())
+            {
+                language.Default = (language.Id == id);
+
+                _languageRepository.UpdateLanguage(language);
+            }
+
             _unitOfWork.SaveChanges();
 
             RegisteredPhraseTranslatorFactory.ClearCache();

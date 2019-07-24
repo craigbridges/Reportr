@@ -1,7 +1,5 @@
 ﻿namespace Reportr.Registration.Globalization
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Represents configuration details for a registered language
     /// </summary>

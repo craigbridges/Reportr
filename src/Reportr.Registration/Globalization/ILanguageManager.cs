@@ -71,6 +71,15 @@
         );
 
         /// <summary>
+        /// Sets the default language
+        /// </summary>
+        /// <param name="id">The language ID</param>
+        void SetDefaultLanguage
+        (
+            Guid id
+        );
+
+        /// <summary>
         /// Deletes a registered language
         /// </summary>
         /// <param name="id">The language ID</param>
