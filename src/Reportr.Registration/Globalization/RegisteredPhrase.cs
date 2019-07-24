@@ -25,6 +25,7 @@
             )
         {
             this.Id = Guid.NewGuid();
+            this.DateCreated = DateTime.UtcNow;
             this.Translations = new Collection<RegisteredPhraseTranslation>();
 
             Configure(configuration);
@@ -93,6 +94,9 @@
                     );
                 }
             }
+
+            this.DateModified = DateTime.UtcNow;
+            this.Version++;
         }
     }
 }
