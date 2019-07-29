@@ -200,6 +200,27 @@
 
             foreach (var column in this.Columns)
             {
+                TranslateColumn(column);
+            }
+            
+            foreach (var row in this.AllRows)
+            {
+                foreach (var cell in row)
+                {
+                    TranslateColumn(cell.Column);
+                }
+            }
+
+            if (this.HasTotals)
+            {
+                foreach (var cell in this.Totals)
+                {
+                    TranslateColumn(cell.Column);
+                }
+            }
+
+            void TranslateColumn(TableColumn column)
+            {
                 column.Name = translator.Translate
                 (
                     column.Name,
