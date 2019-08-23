@@ -55,7 +55,20 @@
             // Build a list of CSV rows from the tables
             foreach (var table in tables)
             {
-                foreach (var tableRow in table.AllRows)
+                var tableRows = table.AllRows.ToList();
+
+                if (table.HasTotals)
+                {
+                    tableRows.Add
+                    (
+                        new TableRow
+                        (
+                            table.Totals
+                        )
+                    );
+                }
+
+                foreach (var tableRow in tableRows)
                 {
                     var cellValues = allColumns.ToDictionary
                     (
