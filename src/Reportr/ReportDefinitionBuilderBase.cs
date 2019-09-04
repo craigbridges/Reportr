@@ -94,7 +94,11 @@
 
                 var isExcluded = excludedColumns.Any
                 (
-                    exclusion => exclusion.Equals(columnName, StringComparison.OrdinalIgnoreCase)
+                    exclusion => exclusion.Equals
+                    (
+                        columnName,
+                        StringComparison.OrdinalIgnoreCase
+                    )
                 );
 
                 if (false == isExcluded)
@@ -151,7 +155,7 @@
             Validate.IsNotNull(query);
             Validate.IsNotNull(columnNames);
 
-            var columnMappings = new List<KeyValuePair<string, string>>();
+            var columnMappings = new List<(string, string)>();
 
             // Auto generate column mappings from the column names
             foreach (var name in columnNames)
@@ -160,11 +164,7 @@
 
                 columnMappings.Add
                 (
-                    new KeyValuePair<string, string>
-                    (
-                        name,
-                        label
-                    )
+                    (name, label)
                 );
             }
 
@@ -186,16 +186,16 @@
         /// <param name="columnMappings">The names of columns to map</param>
         /// <returns>The table definition created</returns>
         /// <remarks>
-        /// The column mappings are represented as an array of key-value pairs.
+        /// The column mappings are represented as an array of tuples.
         /// 
-        /// Each pair represents a single query column (key) and the table 
-        /// column (value) that it maps to.
+        /// Each tuple represents the name of a query column and the
+        /// name of the table column that it maps to.
         /// </remarks>
         protected virtual TableDefinition GenerateTableWith
             (
                 IQuery query,
                 string tableTitle,
-                params KeyValuePair<string, string>[] columnMappings
+                params (string, string)[] columnMappings
             )
         {
             Validate.IsNotNull(query);
@@ -218,22 +218,25 @@
 
             foreach (var mapping in columnMappings)
             {
+                var queryColumn = mapping.Item1;
+                var tableColumn = mapping.Item2;
+
                 var columnFound = query.HasColumn
                 (
-                    mapping.Key
+                    queryColumn
                 );
 
                 if (false == columnFound)
                 {
                     throw new InvalidOperationException
                     (
-                        $"The query does not have a column named '{mapping.Key}'."
+                        $"The query does not have a column named '{queryColumn}'."
                     );
                 }
 
                 var columnInfo = query.GetColumn
                 (
-                    mapping.Key
+                    queryColumn
                 );
 
                 var totalAggregator = default(IAggregateFunction);
@@ -244,18 +247,18 @@
                     (
                         new DataBinding
                         (
-                            mapping.Key
+                            queryColumn
                         )
                     );
                 }
 
                 var columnDefinition = new TableColumnDefinition
                 (
-                    mapping.Value,
+                    tableColumn,
                     new DataBinding
                     (
                         DataBindingType.QueryPath,
-                        mapping.Key
+                        queryColumn
                     ),
                     totalAggregator
                 );

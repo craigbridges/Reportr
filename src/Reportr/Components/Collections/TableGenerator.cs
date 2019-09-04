@@ -444,7 +444,11 @@
                 {
                     object keySelector(TableRow row) => row.First
                     (
-                        cell => cell.Column.Name.Equals(rule.ColumnName, StringComparison.OrdinalIgnoreCase)
+                        cell => cell.Column.Name.Equals
+                        (
+                            rule.ColumnName,
+                            StringComparison.OrdinalIgnoreCase
+                        )
                     )
                     .Value;
 

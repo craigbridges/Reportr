@@ -87,7 +87,11 @@
 
             return this.Columns.Any
             (
-                info => info.Column.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
+                info => info.Column.Name.Equals
+                (
+                    name,
+                    StringComparison.OrdinalIgnoreCase
+                )
             );
         }
 
@@ -105,7 +109,11 @@
 
             var column = this.Columns.FirstOrDefault
             (
-                info => info.Column.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
+                info => info.Column.Name.Equals
+                (
+                    name,
+                    StringComparison.OrdinalIgnoreCase
+                )
             );
 
             if (column == null)
@@ -166,10 +174,7 @@
         {
             Validate.IsNotEmpty(columnName);
 
-            var columnFound = this.Columns.Any
-            (
-                info => info.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
-            );
+            var columnFound = HasColumn(columnName);
 
             if (false == columnFound)
             {
@@ -210,10 +215,7 @@
         {
             Validate.IsNotEmpty(columnName);
 
-            var columnFound = this.Columns.Any
-            (
-                info => info.Column.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)
-            );
+            var columnFound = HasColumn(columnName);
 
             if (false == columnFound)
             {
@@ -392,7 +394,7 @@
                         info.Column.Name
                     );
 
-                    var propertyValue = property.GetValue
+                    var propertyValue = property?.GetValue
                     (
                         item
                     );
@@ -455,7 +457,11 @@
                 {
                     object keySelector(QueryRow row) => row.First
                     (
-                        cell => cell.Column.Name.Equals(rule.ColumnName, StringComparison.OrdinalIgnoreCase)
+                        cell => cell.Column.Name.Equals
+                        (
+                            rule.ColumnName,
+                            StringComparison.OrdinalIgnoreCase
+                        )
                     )
                     .Value;
 
@@ -603,15 +609,23 @@
 
                 var matchingParameter = parameters.FirstOrDefault
                 (
-                    p => p.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
+                    p => p.Name.Equals
+                    (
+                        parameterName,
+                        StringComparison.OrdinalIgnoreCase
+                    )
                 );
 
                 if (matchingParameter == null)
                 {
+                    var message = 
+                        $"'{parameterName}' did not match any " +
+                        $"parameters in the query '{this.Name}'.";
+
                     errors.Add
                     (
                         parameterName,
-                        $"'{parameterName}' did not match any parameters in the query '{this.Name}'."
+                        message
                     );
                 }
                 else
@@ -631,10 +645,14 @@
 
                             if (false == canConvert)
                             {
+                                var message =
+                                    $"Type {actualType.Name} is not valid " +
+                                    $"for the parameter '{parameterName}'.";
+
                                 errors.Add
                                 (
                                     parameterName,
-                                    $"Type {actualType.Name} is not valid for parameter '{parameterName}'."
+                                    message
                                 );
                             }
                         }
@@ -649,16 +667,24 @@
                 {
                     var valueFound = parameterValues.Any
                     (
-                        value => value.Name.Equals(parameter.Name, StringComparison.OrdinalIgnoreCase)
-                            && value.Value != null
+                        value => value.Name.Equals
+                        (
+                            parameter.Name,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                        && value.Value != null
                     );
 
                     if (false == valueFound)
                     {
+                        var message = 
+                            $"A value is required for the " +
+                            $"parameter '{parameter.Name}'.";
+
                         errors.Add
                         (
                             parameter.Name,
-                            $"A value is required for the parameter '{parameter.Name}'."
+                            message
                         );
                     }
                 }
@@ -684,7 +710,11 @@
 
             var matchingItem = parameterValues.FirstOrDefault
             (
-                pv => pv.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)
+                pv => pv.Name.Equals
+                (
+                    parameterName,
+                    StringComparison.OrdinalIgnoreCase
+                )
             );
 
             if (matchingItem == null || matchingItem.Value == null)

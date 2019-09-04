@@ -93,7 +93,11 @@
                     " ",
                     String.Empty
                 )
-                .Equals(name, StringComparison.OrdinalIgnoreCase)
+                .Equals
+                (
+                    name,
+                    StringComparison.OrdinalIgnoreCase
+                )
             );
 
             if (column == null)
