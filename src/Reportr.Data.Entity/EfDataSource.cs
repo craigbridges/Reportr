@@ -1,11 +1,11 @@
 ﻿namespace Reportr.Data.Entity
 {
+    using CodeChange.Toolkit.Culture;
     using System.Collections.Generic;
     using System.Data.Entity;
     using EntityFramework.Metadata.Extensions;
     using EntityFramework.Metadata;
     using System;
-    using CodeChange.Toolkit.Culture;
 
     /// <summary>
     /// Represents an Entity Framework data source implementation

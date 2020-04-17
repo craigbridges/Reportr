@@ -25,7 +25,6 @@
             (
                 EfDataSource dataSource
             )
-
             : base(dataSource)
         {
             _columns = ResolveColumns<T>();
