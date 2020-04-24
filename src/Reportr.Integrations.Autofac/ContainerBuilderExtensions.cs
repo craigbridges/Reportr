@@ -4,6 +4,7 @@
     using Reportr.Integrations.Autofac;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Reflection;
 
     /// <summary>
@@ -37,12 +38,18 @@
 
                     foreach (var library in dependencies)
                     {
-                        var assembly = Assembly.Load
-                        (
-                            new AssemblyName(library?.Name)
-                        );
+                        var assemblyName = library?.Name;
+                        var assemblyFound = File.Exists(assemblyName);
 
-                        assemblies.Add(assembly);
+                        if (assemblyFound)
+                        {
+                            var assembly = Assembly.Load
+                            (
+                                new AssemblyName(assemblyName)
+                            );
+
+                            assemblies.Add(assembly);
+                        }
                     }
 
                     _allAssemblies = assemblies.ToArray();
