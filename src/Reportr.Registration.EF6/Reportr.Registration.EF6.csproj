@@ -4,26 +4,27 @@
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <Product>Reportr.Registration.EF6</Product>
 	  <Description>Reportr Registration with Entity Framework 6.</Description>
-	  <Copyright>Copyright © Craig Bridges 2019</Copyright>
+	  <Copyright>Copyright © Craig Bridges 2020</Copyright>
 	  <Authors>Craig Bridges</Authors>
-	  <AssemblyVersion>1.1.0</AssemblyVersion>
-	  <Version>1.1.0</Version>
+	  <AssemblyVersion>1.2.0</AssemblyVersion>
+	  <Version>1.2.0</Version>
 	  <PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 	  <PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 	  <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-    <PackageReleaseNotes>Upgraded to EntityFramework 6.4</PackageReleaseNotes>
+    <PackageReleaseNotes>Added IReportrDbContextConnectionString interface for ReportrDbContext construction.</PackageReleaseNotes>
 	  <RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 	  <Tags>Reportr Reporting Framework EF6 .NET DOTNET C#</Tags>
 		<metadata>
 			<license type="MIT" />
 		</metadata>
 		<LangVersion>7.1</LangVersion>
+		<RootNamespace>Reportr.Registration.Entity</RootNamespace>
   </PropertyGroup>
 	<ItemGroup>
 		<None Remove="Icon.ico" />
 	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />

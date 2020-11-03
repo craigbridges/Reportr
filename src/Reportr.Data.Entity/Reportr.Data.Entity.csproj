@@ -23,7 +23,7 @@
 		<None Remove="Icon.ico" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="EntityFramework" Version="6.4.0" />
+		<PackageReference Include="EntityFramework" Version="6.4.4" />
 		<PackageReference Include="EntityFramework.Metadata" Version="1.0.2" />
 		<PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
 	</ItemGroup>

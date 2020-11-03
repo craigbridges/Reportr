@@ -23,16 +23,20 @@
         /// Constructs the context with migrations enabled
         /// </summary>
         /// <param name="connectionStringName">The name of the connection string</param>
-        public ReportrDbContext
-            (
-                string connectionStringName
-            )
-
+        public ReportrDbContext(string connectionStringName)
             : base(connectionStringName)
         {
             this.Configuration.ProxyCreationEnabled = true;
             this.Configuration.LazyLoadingEnabled = true;
         }
+
+        /// <summary>
+        /// Constructs the context with a connection string
+        /// </summary>
+        /// <param name="connectionString">The connection string</param>
+        public ReportrDbContext(IReportrDbContextConnectionString connectionString)
+            : this(connectionString.NameOrConnectionString)
+        { }
 
         /// <summary>
         /// Gets or sets the registered reports set
@@ -67,10 +71,7 @@
         /// <summary>
         /// Handles the model creation process by injecting entity configurations into the model builder
         /// </summary>
-        protected override void OnModelCreating
-            (
-                DbModelBuilder modelBuilder
-            )
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
@@ -96,38 +97,24 @@
         /// Changes the default EF types conversion configuration
         /// </summary>
         /// <param name="modelBuilder">The model builder</param>
-        private void ConfigureTypes
-            (
-                DbModelBuilder modelBuilder
-            )
+        private void ConfigureTypes(DbModelBuilder modelBuilder)
         {
             // Changes decimal or decimal? precision
-            modelBuilder.Properties().Where
-            (
-                x => x.PropertyType == typeof(decimal) || x.PropertyType == typeof(decimal?)
-            )
-            .Configure
-            (
-                c => c.HasPrecision(19, 4)
-            );
+            modelBuilder
+                .Properties()
+                .Where(_ => _.PropertyType == typeof(decimal) || _.PropertyType == typeof(decimal?))
+                .Configure(_ => _.HasPrecision(19, 4));
 
             // Changes string to nvarchar 4000
-            modelBuilder.Properties().Where
-            (
-                x => x.PropertyType == typeof(string)
-            )
-            .Configure
-            (
-                c => c.HasMaxLength(4000).IsVariableLength()
-            );
+            modelBuilder
+                .Properties()
+                .Where(_ => _.PropertyType == typeof(string))
+                .Configure(_ => _.HasMaxLength(4000).IsVariableLength());
         }
 
         public void Migrate()
         {
-            Database.SetInitializer
-            (
-                new MigrateDatabaseToLatestVersion<ReportrDbContext, Configuration>()
-            );
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ReportrDbContext, Configuration>());
 
             this.ReadAllDateTimeValuesAsUtc();
 

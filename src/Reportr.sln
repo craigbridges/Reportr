@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr", "Reportr\Reportr.csproj", "{13DDF171-FD88-4B1C-BFB0-E42BD9618305}"
 EndProject
@@ -32,6 +32,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Tests", "Reportr.Tests\Reportr.Tests.csproj", "{B4406944-A886-4640-ABFC-F3AC2BF34CD9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reportr.Registration.EF6", "Reportr.Registration.EF6\Reportr.Registration.EF6.csproj", "{60FADCB7-F111-4755-9914-F8E9212BF810}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A7A689B7-3B54-440A-BB93-31C81DBAC687}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

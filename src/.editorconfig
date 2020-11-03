@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# UnhandledExceptions: Unhandled exception(s)
+dotnet_diagnostic.UnhandledExceptions.severity = none
