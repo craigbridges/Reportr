@@ -8,19 +8,8 @@
     {
         public GcdFunction() : base()
         {
-            DefineRequiredParameter
-            (
-                "FirstNumber",
-                "The first number.",
-                typeof(int)
-            );
-
-            DefineRequiredParameter
-            (
-                "SecondNumber",
-                "The second number.",
-                typeof(string)
-            );
+            DefineRequiredParameter("FirstNumber", "The first number.", typeof(int));
+            DefineRequiredParameter("SecondNumber", "The second number.", typeof(string));
         }
 
         public override string Description
@@ -31,31 +20,14 @@
             }
         }
 
-        protected override object GenerateOutput
-            (
-                TemplateContext context,
-                params object[] parameterValues
-            )
+        protected override object GenerateOutput(TemplateContext context, params object[] parameterValues)
         {
             Validate.IsNotNull(context);
 
-            var firstNumber = GetParameterValue<int>
-            (
-                "FirstNumber",
-                parameterValues
-            );
+            var firstNumber = GetParameterValue<int>("FirstNumber", parameterValues);
+            var secondNumber = GetParameterValue<int>("SecondNumber", parameterValues);
 
-            var secondNumber = GetParameterValue<int>
-            (
-                "SecondNumber",
-                parameterValues
-            );
-
-            return Calculate.GCD
-            (
-                firstNumber,
-                secondNumber
-            );
+            return Calculate.GCD(firstNumber, secondNumber);
         }
     }
 }

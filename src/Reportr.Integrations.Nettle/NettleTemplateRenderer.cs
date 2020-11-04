@@ -17,11 +17,7 @@
         /// <param name="templateContent">The template content</param>
         /// <param name="model">The model</param>
         /// <returns>The rendered content</returns>
-        public string Render
-            (
-                string templateContent,
-                object model
-            )
+        public string Render(string templateContent, object model)
         {
             if (_nettleCompiler == null)
             {
@@ -36,15 +32,9 @@
                 _nettleCompiler = generator.Generate();
             }
 
-            var template = _nettleCompiler.Compile
-            (
-                templateContent
-            );
+            var template = _nettleCompiler.Compile(templateContent);
 
-            return template
-            (
-                model
-            );
+            return template(model);
         }
     }
 }

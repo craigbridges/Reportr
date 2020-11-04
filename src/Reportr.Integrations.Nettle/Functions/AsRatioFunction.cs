@@ -8,19 +8,8 @@
     {
         public AsRatioFunction() : base()
         {
-            DefineRequiredParameter
-            (
-                "FirstNumber",
-                "The first number.",
-                typeof(int)
-            );
-
-            DefineRequiredParameter
-            (
-                "SecondNumber",
-                "The second number.",
-                typeof(string)
-            );
+            DefineRequiredParameter("FirstNumber", "The first number.", typeof(int));
+            DefineRequiredParameter("SecondNumber", "The second number.", typeof(string));
         }
 
         public override string Description
@@ -31,38 +20,15 @@
             }
         }
 
-        protected override object GenerateOutput
-            (
-                TemplateContext context,
-                params object[] parameterValues
-            )
+        protected override object GenerateOutput(TemplateContext context, params object[] parameterValues)
         {
             Validate.IsNotNull(context);
 
-            var firstNumber = GetParameterValue<int>
-            (
-                "FirstNumber",
-                parameterValues
-            );
+            var firstNumber = GetParameterValue<int>("FirstNumber", parameterValues);
+            var secondNumber = GetParameterValue<int>("SecondNumber", parameterValues);
 
-            var secondNumber = GetParameterValue<int>
-            (
-                "SecondNumber",
-                parameterValues
-            );
-
-            var gcd = Calculate.GCD
-            (
-                firstNumber,
-                secondNumber
-            );
-
-            var ratio = String.Format
-            (
-                "{0}:{1}",
-                firstNumber / gcd,
-                secondNumber / gcd
-            );
+            var gcd = Calculate.GCD(firstNumber, secondNumber);
+            var ratio = $"{firstNumber / gcd}:{secondNumber / gcd}";
 
             return ratio;
         }

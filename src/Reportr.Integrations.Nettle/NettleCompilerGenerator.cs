@@ -19,10 +19,7 @@
         /// Constructs the compiler generator with customer functions
         /// </summary>
         /// <param name="customFunctions">The customer Nettle functions</param>
-        public NettleCompilerGenerator
-            (
-                params IFunction[] customFunctions
-            )
+        public NettleCompilerGenerator(params IFunction[] customFunctions)
         {
             _customFunctions = customFunctions;
         }
@@ -39,24 +36,14 @@
             var appSettings = ConfigurationManager.AppSettings;
             var defaultTimeZoneId = appSettings["DefaultTimeZoneId"];
 
-            NettleEngine.RegisterResolvers
-            (
-                dataResolver,
-                webResolver
-            );
+            NettleEngine.RegisterResolvers(dataResolver, webResolver);
 
             if (false == String.IsNullOrEmpty(defaultTimeZoneId))
             {
-                NettleEngine.SetDefaultTimeZone
-                (
-                    defaultTimeZoneId
-                );
+                NettleEngine.SetDefaultTimeZone(defaultTimeZoneId);
             }
 
-            return NettleEngine.GetCompiler
-            (
-                _customFunctions
-            );
+            return NettleEngine.GetCompiler(_customFunctions);
         }
     }
 }

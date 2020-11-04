@@ -11,19 +11,8 @@
     {
         public ConcatenateQueryCellsFunction() : base()
         {
-            DefineRequiredParameter
-            (
-                "Row",
-                "The query row.",
-                typeof(QueryRow)
-            );
-
-            DefineRequiredParameter
-            (
-                "Join",
-                "The cell value joining string.",
-                typeof(string)
-            );
+            DefineRequiredParameter("Row", "The query row.", typeof(QueryRow));
+            DefineRequiredParameter("Join", "The cell value joining string.", typeof(string));
         }
 
         public override string Description
@@ -34,33 +23,17 @@
             }
         }
 
-        protected override object GenerateOutput
-            (
-                TemplateContext context,
-                params object[] parameterValues
-            )
+        protected override object GenerateOutput(TemplateContext context, params object[] parameterValues)
         {
             Validate.IsNotNull(context);
 
             if (parameterValues.Length < 3)
             {
-                throw new ArgumentException
-                (
-                    "At least one column name must be specified."
-                );
+                throw new ArgumentException("At least one column name must be specified.");
             }
 
-            var row = GetParameterValue<QueryRow>
-            (
-                "Row",
-                parameterValues
-            );
-
-            var join = GetParameterValue<string>
-            (
-                "Join",
-                parameterValues
-            );
+            var row = GetParameterValue<QueryRow>("Row", parameterValues);
+            var join = GetParameterValue<string>("Join", parameterValues);
 
             var columns = parameterValues.Skip(2);
             var builder = new StringBuilder();
@@ -76,10 +49,7 @@
 
                 if (nextValue != null)
                 {
-                    builder.Append
-                    (
-                        nextValue.ToString()
-                    );
+                    builder.Append(nextValue.ToString());
                 }
             }
 

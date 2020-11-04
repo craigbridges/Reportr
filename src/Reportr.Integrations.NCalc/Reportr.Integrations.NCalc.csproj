@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -20,17 +19,13 @@
 		</metadata>
 		<LangVersion>7.1</LangVersion>
 	</PropertyGroup>
-
 	<ItemGroup>
 		<None Remove="Icon.ico" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="NCalc.NetCore" Version="1.0.1" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\Reportr\Reportr.csproj" />
 	</ItemGroup>
-
 </Project>

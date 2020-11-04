@@ -16,11 +16,7 @@
         {
             return new List<RegisteredType>()
             {
-                new RegisteredType
-                (
-                    typeof(IMathExpressionEvaluator),
-                    typeof(NCalcEvaluator)
-                )
+                new RegisteredType(typeof(IMathExpressionEvaluator), typeof(NCalcEvaluator))
             };
         }
     }

@@ -17,11 +17,7 @@
         {
             return new List<RegisteredType>()
             {
-                new RegisteredType
-                (
-                    typeof(ITemplateRenderer),
-                    typeof(NettleTemplateRenderer)
-                )
+                new RegisteredType(typeof(ITemplateRenderer), typeof(NettleTemplateRenderer))
             };
         }
     }

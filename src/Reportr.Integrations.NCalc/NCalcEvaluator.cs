@@ -12,18 +12,9 @@
         /// </summary>
         /// <param name="expression">The math expression</param>
         /// <returns>The result</returns>
-        public object Evaluate
-            (
-                string expression
-            )
+        public object Evaluate(string expression)
         {
-            var ncalcExpression = new Expression
-            (
-                expression,
-                EvaluateOptions.RoundAwayFromZero
-            );
-
-            return ncalcExpression.Evaluate();
+            return new Expression(expression, EvaluateOptions.RoundAwayFromZero).Evaluate();
         }
     }
 }

@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>net48;netstandard2.1</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Product>Reportr.Data.Entity</Product>
 		<Description>An EntityFramework data extension for the Reportr framework.</Description>
 		<Copyright>Copyright © Craig Bridges 2020</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.1.0</AssemblyVersion>
-		<Version>1.1.0</Version>
+		<AssemblyVersion>1.1.1</AssemblyVersion>
+		<Version>1.1.1</Version>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-    <PackageReleaseNotes>Upgraded to EntityFramework 6.4</PackageReleaseNotes>
+    <PackageReleaseNotes>Added compatibility for .NET Framework 4.8.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C# Data Extension EntityFramework EF</Tags>
 		<metadata>
