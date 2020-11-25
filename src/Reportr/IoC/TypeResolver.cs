@@ -15,10 +15,7 @@
         /// </summary>
         /// <param name="assemblies">The assemblies</param>
         /// <returns>A collection of registered types</returns>
-        public IEnumerable<RegisteredType> FindRegisteredTypes
-            (
-                params Assembly[] assemblies
-            )
+        public IEnumerable<RegisteredType> FindRegisteredTypes(params Assembly[] assemblies)
         {
             Validate.IsNotNull(assemblies);
 

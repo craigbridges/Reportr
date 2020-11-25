@@ -12,9 +12,6 @@
         /// </summary>
         /// <param name="iso">The ISO name</param>
         /// <returns>The language</returns>
-        Language GetLanguage
-        (
-            string iso
-        );
+        Language GetLanguage(string iso);
     }
 }

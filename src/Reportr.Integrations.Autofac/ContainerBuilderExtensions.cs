@@ -1,6 +1,5 @@
 ﻿namespace Autofac
 {
-    using Microsoft.Extensions.DependencyModel;
     using Reportr.Integrations.Autofac;
     using System;
     using System.Collections.Generic;
@@ -20,43 +19,40 @@
         /// <param name="builder">The container builder</param>
         /// <returns>An array of assemblies</returns>
         /// <remarks>
-        /// We merge the two results to ensure assemblies found in the plugins
-        /// directory are also included, as they are not referenced.
+        /// We scan the bin folder for all assemblies and load them into memory,
+        /// this ensures all assemblies are discovered and returned.
         /// </remarks>
-        internal static Assembly[] GetAllAssemblies
-            (
-                this ContainerBuilder builder
-            )
+        internal static Assembly[] GetAllAssemblies(this ContainerBuilder builder)
         {
             if (_allAssemblies == null)
             {
-                var dependencies = DependencyContext.Default?.RuntimeLibraries;
+                var currentAssembly = Assembly.GetExecutingAssembly();
+                var currentDirectory = currentAssembly.GetDirectoryPath();
+                
+                var fileNames = new List<string>();
+                var loadedAssemblies = new List<Assembly>();
 
-                if (dependencies != null)
+                fileNames.AddRange(FindAssemblyFileNames(currentDirectory));
+
+                foreach (var assemblyFile in fileNames)
                 {
-                    var assemblies = new List<Assembly>();
+                    loadedAssemblies.Add(Assembly.LoadFrom(assemblyFile));
+                }
 
-                    foreach (var library in dependencies)
-                    {
-                        var assemblyName = library?.Name;
-                        var assemblyFound = File.Exists(assemblyName);
+                _allAssemblies = loadedAssemblies.ToArray();
+            }
 
-                        if (assemblyFound)
-                        {
-                            var assembly = Assembly.Load
-                            (
-                                new AssemblyName(assemblyName)
-                            );
+            IEnumerable<string> FindAssemblyFileNames(string path)
+            {
+                path = path.Replace("\\\\", "\\");
 
-                            assemblies.Add(assembly);
-                        }
-                    }
-
-                    _allAssemblies = assemblies.ToArray();
+                if (Directory.Exists(path))
+                {
+                    return Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly);
                 }
                 else
                 {
-                    _allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+                    return new string[] { };
                 }
             }
 
@@ -67,10 +63,7 @@
         /// Registers all Reportr services in the Autofac container
         /// </summary>
         /// <param name="builder">The container builder</param>
-        public static void RegisterReportrServices
-            (
-                this ContainerBuilder builder
-            )
+        public static void RegisterReportrServices(this ContainerBuilder builder)
         {
             Validate.IsNotNull(builder);
 

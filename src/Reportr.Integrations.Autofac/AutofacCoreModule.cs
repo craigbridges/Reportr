@@ -18,10 +18,7 @@
         /// Overrides the modules base load with custom delegate registrations
         /// </summary>
         /// <param name="builder">The container builder</param>
-        protected override void Load
-            (
-                ContainerBuilder builder
-            )
+        protected override void Load(ContainerBuilder builder)
         {
             // TODO: register rendering and templating services
 

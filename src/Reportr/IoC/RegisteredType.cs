@@ -12,11 +12,7 @@
         /// </summary>
         /// <param name="sourceType">The source type</param>
         /// <param name="implementationType">The implementation type</param>
-        public RegisteredType
-            (
-                Type sourceType,
-                Type implementationType
-            )
+        public RegisteredType(Type sourceType, Type implementationType)
         {
             Validate.IsNotNull(sourceType);
             Validate.IsNotNull(implementationType);

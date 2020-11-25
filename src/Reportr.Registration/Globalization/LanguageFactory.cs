@@ -12,34 +12,15 @@
         private readonly Dictionary<string, Language> _languageCache;
         private readonly IRegisteredLanguageRepository _languageRepository;
 
-        /// <summary>
-        /// Constructs the factory with required dependencies
-        /// </summary>
-        /// <param name="languageRepository">The language repository</param>
-        public LanguageFactory
-            (
-                IRegisteredLanguageRepository languageRepository
-            )
+        public LanguageFactory(IRegisteredLanguageRepository languageRepository)
         {
             Validate.IsNotNull(languageRepository);
 
-            _languageCache = new Dictionary<string, Language>
-            (
-                StringComparer.OrdinalIgnoreCase
-            );
-
+            _languageCache = new Dictionary<string, Language>(StringComparer.OrdinalIgnoreCase);
             _languageRepository = languageRepository;
         }
 
-        /// <summary>
-        /// Gets a language from a language ISO name
-        /// </summary>
-        /// <param name="iso">The ISO name</param>
-        /// <returns>The language</returns>
-        public Language GetLanguage
-            (
-                string iso
-            )
+        public Language GetLanguage(string iso)
         {
             if (_languageCache.ContainsKey(iso))
             {
@@ -47,10 +28,7 @@
             }
             else
             {
-                var registeredLanguage = _languageRepository.FindLanguage
-                (
-                    iso
-                );
+                var registeredLanguage = _languageRepository.FindLanguage(iso);
 
                 Language language;
 

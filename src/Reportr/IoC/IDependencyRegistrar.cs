@@ -1,7 +1,5 @@
 ﻿namespace Reportr.IoC
 {
-    using System;
-    
     /// <summary>
     /// Defines a contract for a dependency registrar
     /// </summary>
@@ -21,10 +19,6 @@
         /// </summary>
         /// <typeparam name="TType">The instance type</typeparam>
         /// <param name="instance">The instance to register</param>
-        void RegisterInstance<TType>
-            (
-                TType instance
-            )
-            where TType : class;
+        void RegisterInstance<TType>(TType instance) where TType : class;
     }
 }
