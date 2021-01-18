@@ -4,14 +4,14 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Product>Reportr.Data.Dapper</Product>
 		<Description>A dapper data extension for the Reportr framework.</Description>
-		<Copyright>Copyright © Craig Bridges 2018</Copyright>
+		<Copyright>Copyright © Craig Bridges 2021</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.0.3</AssemblyVersion>
-		<Version>1.0.3</Version>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
+		<Version>1.1.0</Version>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-    <PackageReleaseNotes>Upgraded NuGet package dependencies.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added parameter in dapperQuery to change timeout.</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C# Data Extension Dapper</Tags>
 		<metadata>

@@ -4,18 +4,14 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Product>Reportr</Product>
 		<Description>Reportr is a .NET template orientated reporting framework, designed from the ground up as a lightweight solution to solving various reporting problems faced in .NET applications.</Description>
-		<Copyright>Copyright © Craig Bridges 2018</Copyright>
+		<Copyright>Copyright © Craig Bridges 2021</Copyright>
 		<Authors>Craig Bridges</Authors>
-		<AssemblyVersion>1.1.10</AssemblyVersion>
-		<Version>1.1.10-alpha</Version>
+		<AssemblyVersion>1.2.0</AssemblyVersion>
+		<Version>1.2.0</Version>
 		<PackageProjectUrl>https://github.com/craigbridges/Reportr</PackageProjectUrl>
 		<PackageIconUrl>https://raw.githubusercontent.com/craigbridges/Reportr/master/docs/Logo/Icon.ico</PackageIconUrl>
 		<RequireLicenseAcceptance>false</RequireLicenseAcceptance>
-    <PackageReleaseNotes>
-      - Cleaned up the ReportDefinitionBuilderBase.GenerateTableWith method to take tuples instead of key-value pairs.
-      - Added table totals to CSV exports
-      - Added support in QueryBase.ConvertToRows for missing properties
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>Added SetFormattingTypeOverrides in TableDynamicColumnGroup</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/craigbridges/Reportr</RepositoryUrl>
 		<Tags>Reportr Reporting Framework .NET DOTNET C#</Tags>
 		<metadata>
