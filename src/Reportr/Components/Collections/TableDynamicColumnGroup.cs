@@ -258,6 +258,27 @@
         }
 
         /// <summary>
+        /// Sets a formatting type override against one or more columns
+        /// </summary>
+        /// <param name="formattingType">The value formatting type</param>
+        /// <param name="columnNames">The column names</param>
+        public void SetFormattingTypeOverrides
+            (
+                DataValueFormattingType formattingType,
+                params string[] columnNames
+            )
+        {
+            System.Validate.IsNotNull(columnNames);
+
+            foreach (var name in columnNames)
+            {
+                var column = GetColumn(name);
+
+                column.FormattingTypeOverride = formattingType;
+            }
+        }
+
+        /// <summary>
         /// Validates the table dynamic column group
         /// </summary>
         internal void Validate()
