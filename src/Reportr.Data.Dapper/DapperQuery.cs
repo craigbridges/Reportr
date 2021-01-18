@@ -16,19 +16,23 @@
     public abstract class DapperQuery<T> : QueryBase
     {
         private QueryColumnInfo[] _columns = null;
+        private readonly int _commandTimeout;
 
         /// <summary>
         /// Constructs the query with a Dapper data source
         /// </summary>
         /// <param name="dataSource">The data source</param>
+        /// <param name="commandTimeout">Command execution timeout (in seconds)</param>
         public DapperQuery
             (
-                DapperDataSource dataSource
+                DapperDataSource dataSource,
+                int commandTimeout = 60
             )
 
             : base(dataSource)
         {
             _columns = ResolveColumns<T>();
+            _commandTimeout = commandTimeout;
         }
         
         /// <summary>
@@ -150,7 +154,9 @@
             var queryResults = await connection.QueryAsync<TOutput>
             (
                 sql,
-                parameters
+                parameters,
+                null,
+                _commandTimeout
             )
             .ConfigureAwait
             (
