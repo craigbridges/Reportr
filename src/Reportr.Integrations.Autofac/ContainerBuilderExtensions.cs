@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
 
     /// <summary>
@@ -28,11 +29,9 @@
             {
                 var currentAssembly = Assembly.GetExecutingAssembly();
                 var currentDirectory = currentAssembly.GetDirectoryPath();
-                
-                var fileNames = new List<string>();
-                var loadedAssemblies = new List<Assembly>();
 
-                fileNames.AddRange(FindAssemblyFileNames(currentDirectory));
+                var fileNames = new List<string>(FindAssemblyFileNames(currentDirectory));
+                var loadedAssemblies = new List<Assembly>();
 
                 foreach (var assemblyFile in fileNames)
                 {
@@ -48,7 +47,9 @@
 
                 if (Directory.Exists(path))
                 {
-                    return Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories);
+                    var fileNames = Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories);
+
+                    return fileNames.Where(x => false == x.Contains(@"\runtimes\"));
                 }
                 else
                 {
