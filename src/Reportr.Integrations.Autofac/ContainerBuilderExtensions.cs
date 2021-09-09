@@ -48,7 +48,7 @@
 
                 if (Directory.Exists(path))
                 {
-                    return Directory.EnumerateFiles(path, "*.dll", SearchOption.TopDirectoryOnly);
+                    return Directory.EnumerateFiles(path, "*.dll", SearchOption.AllDirectories);
                 }
                 else
                 {
