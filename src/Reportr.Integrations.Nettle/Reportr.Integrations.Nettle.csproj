@@ -26,7 +26,7 @@
     <PackageReference Include="Nettle" Version="1.3.0" />
     <PackageReference Include="Nettle.Data" Version="1.2.0" />
     <PackageReference Include="Nettle.Web" Version="1.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
